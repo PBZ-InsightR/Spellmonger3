@@ -49,13 +49,18 @@ public class SpellmongerApp {
         String winner = null;
 
         while (!onePlayerDead) {
-            int currentLifePoints=app.playersLifePoints.get(currentPlayer);
-            int opponentLifePoints=app.playersLifePoints.get(opponent);
+            int currentLifePoints,opponentLifePoints;
+            // si toutes les cartes ont déjà été piochées, on aura juste a cloner les deux liste (discardPool et cardPool)
+            if(currentCardNumber>70)
+            {
+            }
 
             logger.info("\n");
             logger.info("***** ROUND " + roundCounter);
 
             app.drawACard(currentPlayer, opponent, currentCardNumber);
+            currentLifePoints=app.playersLifePoints.get(currentPlayer);
+            opponentLifePoints=app.playersLifePoints.get(opponent);
 
             logger.info(opponent + " has " + opponentLifePoints + " life points and " + currentPlayer + " has " + currentLifePoints + " life points ");
 
@@ -96,11 +101,9 @@ public class SpellmongerApp {
 
         if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
             playersCreature.put(currentPlayer, nbCurrentPlayerCreatures + 1);
-
-            if (nbCurrentPlayerCreatures > 0) {
-                playersLifePoints.put(opponent, (nbLifePointsOpponent - nbCurrentPlayerCreatures));
-                logger.info("The " + nbCurrentPlayerCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCurrentPlayerCreatures + " damages to its opponent");
-            }
+            nbCurrentPlayerCreatures ++; // nbCurrentPlayerCreatures a augmenté de 1
+            playersLifePoints.put(opponent, (nbLifePointsOpponent - nbCurrentPlayerCreatures));
+            logger.info("The " + nbCurrentPlayerCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCurrentPlayerCreatures + " damages to its opponent");
         }
         if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
             if (nbCurrentPlayerCreatures > 0) {
