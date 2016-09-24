@@ -106,10 +106,9 @@ public class SpellmongerApp {
             logger.info("The " + nbCurrentPlayerCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCurrentPlayerCreatures + " damages to its opponent");
         }
         if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
-            if (nbCurrentPlayerCreatures > 0) {
-                playersLifePoints.put(opponent, (nbLifePointsOpponent - nbCurrentPlayerCreatures - 3));
-                logger.info("The " + nbCurrentPlayerCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCurrentPlayerCreatures + " damages to its opponent");
-            }
+
+            playersLifePoints.put(opponent, (nbLifePointsOpponent - nbCurrentPlayerCreatures - 3));
+            logger.info("The " + nbCurrentPlayerCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCurrentPlayerCreatures + " damages to its opponent");
             logger.info(currentPlayer + " cast a ritual that deals 3 damages to " + opponent);
         }
     }
