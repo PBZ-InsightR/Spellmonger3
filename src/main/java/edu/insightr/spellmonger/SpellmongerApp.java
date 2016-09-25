@@ -65,6 +65,5 @@ public class SpellmongerApp {
         Player secondPlayer= new Player("Alice");
         playerList.put(fisrtPlayer,1);
         playerList.put(secondPlayer,2);
-
     }
 }
