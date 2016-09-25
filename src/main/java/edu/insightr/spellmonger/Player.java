@@ -10,14 +10,17 @@ import java.util.List;
  * Created by ValentinDuph on 25/09/2016.
  */
 public class Player {
+
+
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
     private String name;
     private int lifePoint;
-    private List<Creature> playerCreature;
+    private ArrayList<Creature> playerCreature;
 
     public Player(String name)
     {
+        this.playerCreature = new ArrayList<Creature>();
         this.name = name;
         lifePoint = 20;
     }

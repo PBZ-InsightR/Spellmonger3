@@ -1,17 +1,18 @@
 package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
-
+import javafx.application.Application;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-class Main{
+public class Main{
     public static void main(String[] args) {
-        SpellmongerApp app = new SpellmongerApp();
 
+
+ /* SpellmongerApp app = new SpellmongerApp();
         boolean onePlayerDead = false;
         String currentPlayer = "Alice";
         String opponent = "Bob";
@@ -60,7 +61,17 @@ class Main{
         logger.info("THE WINNER IS " + winner + " !!!");
         logger.info("******************************");
 
+*/
 
+        SpellmongerApp game = new SpellmongerApp();
+        Player Player1 = new Player("Valentin");
+        Player Player2 = new Player("Natacha");
+
+        while(Player1.isDead() || Player2.isDead())
+        {
+            Player1.DrawCard(Player1,Player2,game.getCardPool(),game.getDiscardPool());
+            Player2.DrawCard(Player2,Player1,game.getCardPool(),game.getDiscardPool());
+        }
     }
 
 

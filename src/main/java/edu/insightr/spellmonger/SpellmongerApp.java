@@ -1,11 +1,11 @@
 package edu.insightr.spellmonger;
 
 
-import javafx.scene.control.RadioMenuItem;
+//import javafx.scene.control.RadioMenuItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+//import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -15,9 +15,11 @@ import java.util.Random;
  * c'est pour ça qu'il y a des erreurs.
  */
 public class SpellmongerApp {
+
+
     private ArrayList<Card> cardPool;
     private ArrayList<Card> discardPool;
-    private Map<Player, Integer> playerList = new HashMap<>(2); //Erreur du au faite que la classe player existe pas encore
+    private Map<Player, Integer> playerList = new HashMap<>(2);
 
     public SpellmongerApp(){
         for (int i = 0; i < 70; i++) {
@@ -60,10 +62,22 @@ public class SpellmongerApp {
                 }
             }
         }
+        this.cardPool = new ArrayList<Card>();
         this.discardPool = new ArrayList<Card>();
         Player fisrtPlayer = new Player("Bob");
         Player secondPlayer= new Player("Alice");
         playerList.put(fisrtPlayer,1);
         playerList.put(secondPlayer,2);
     }
+
+    public ArrayList<Card> getCardPool()
+    {
+        return cardPool;
+    }
+
+    public ArrayList<Card> getDiscardPool()
+    {
+        return discardPool;
+    }
+
 }

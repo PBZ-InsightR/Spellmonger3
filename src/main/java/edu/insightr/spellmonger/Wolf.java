@@ -4,8 +4,12 @@ package edu.insightr.spellmonger;
  * Created by dufou on 25/09/2016.
  */
 public class Wolf extends Creature {
-    public Wolf(int effect) {
-        super(effect);
+
+
+    private int effect;
+
+    public Wolf() {
+        this.effect = 2;
     }
 
     @Override
