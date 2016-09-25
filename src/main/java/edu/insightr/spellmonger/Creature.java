@@ -8,6 +8,5 @@ public abstract class Creature extends Card
 {
     public Creature()
     {
-        //super(effect);
     }
 }

@@ -3,6 +3,8 @@ package edu.insightr.spellmonger;
 
 //import javafx.scene.control.RadioMenuItem;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 //import java.util.List;
@@ -16,8 +18,8 @@ import java.util.Random;
  */
 public class SpellmongerApp {
 
-
-    private ArrayList<Card> cardPool;
+    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+    public ArrayList<Card> cardPool;
     private ArrayList<Card> discardPool;
     private Map<Player, Integer> playerList = new HashMap<>(2);
 
@@ -25,22 +27,25 @@ public class SpellmongerApp {
 
         this.cardPool = new ArrayList<Card>();
         this.discardPool = new ArrayList<Card>();
-        //Player fisrtPlayer = new Player("Bob");
-        //Player secondPlayer= new Player("Alice");
         playerList.put(player1,1);
         playerList.put(player2,2);
     }
-
     public ArrayList<Card> getCardPool()
     {
         return cardPool;
     }
-
+    public int getSize()
+    {
+        return cardPool.size();
+    }
     public ArrayList<Card> getDiscardPool()
     {
         return discardPool;
     }
-
+    public void ReCreateCardPool()
+    {
+      cardPool = new ArrayList<Card>(discardPool);
+    }
     public void CreateCardPool()
     {
         for (int i = 0; i < 70; i++) {
@@ -83,6 +88,6 @@ public class SpellmongerApp {
                 }
             }
         }
+        logger.info("Cardpool Created");
     }
-
 }

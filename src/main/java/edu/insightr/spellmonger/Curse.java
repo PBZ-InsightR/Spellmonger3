@@ -5,11 +5,10 @@ package edu.insightr.spellmonger;
  */
 public class Curse extends Ritual {
 
-    private int effect;
 
     public Curse()
     {
-        this.effect = 3;
+        effect = 3;
     }
 
     @Override

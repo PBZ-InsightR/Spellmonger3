@@ -5,7 +5,6 @@ package edu.insightr.spellmonger;
  */
 public class Wolf extends Creature {
 
-
     private int effect;
 
     public Wolf() {
@@ -14,6 +13,6 @@ public class Wolf extends Creature {
 
     @Override
     public String toString() {
-        return "Wolf : "+super.toString();
+        return "Wolf : ";
     }
 }

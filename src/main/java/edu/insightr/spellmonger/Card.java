@@ -5,13 +5,16 @@ package edu.insightr.spellmonger;
  */
 public abstract class Card {
 
-   // private int effect;
+   protected int effect;
 
     public Card()
     {
-       // this.effect = effect;
     }
 
+    public int getEffect()
+    {
+        return effect;
+    }
    // @Override
    /* public String toString()
     {

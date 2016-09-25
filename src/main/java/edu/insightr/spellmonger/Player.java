@@ -10,10 +10,7 @@ import java.util.List;
  * Created by ValentinDuph on 25/09/2016.
  */
 public class Player {
-
-
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-
     private String name;
     private int lifePoint;
     private ArrayList<Creature> playerCreature;
@@ -57,6 +54,10 @@ public class Player {
         return lifePoint;
     }
 
+    public void winner()
+    {
+        logger.info(this.name+" is the winner!!!\n");
+    }
     @Override
     public String toString()
     {

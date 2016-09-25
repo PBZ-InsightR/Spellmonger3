@@ -5,10 +5,8 @@ package edu.insightr.spellmonger;
  */
 public class Eagle extends Creature {
 
-    private int effect;
-
     public Eagle() {
-        this.effect =1;
+        effect =1;
     }
 
     @Override
