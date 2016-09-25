@@ -15,6 +15,6 @@ public class Curse extends Ritual {
     @Override
     public String toString()
     {
-        return "Curse : " + toString();
+        return "Curse";
     }
 }
