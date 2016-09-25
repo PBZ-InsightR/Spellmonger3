@@ -11,6 +11,8 @@ import java.util.Random;
 
 /**
  * Created by Natiassa on 25/09/2016.
+ * il manque les consctructeurs vide pour les ours,aigle ....
+ * c'est pour ça qu'il y a des erreurs.
  */
 public class SpellmongerApp {
     private ArrayList<Card> cardPool;
@@ -59,28 +61,10 @@ public class SpellmongerApp {
             }
         }
         this.discardPool = new ArrayList<Card>();
+        Player fisrtPlayer = new Player("Bob");
+        Player secondPlayer= new Player("Alice");
+        playerList.put(fisrtPlayer,1);
+        playerList.put(secondPlayer,2);
 
     }
-
-
-    /*public void drawACard(String currentPlayer, String opponent, int currentCardNumber) {
-
-        int nbCurrentPlayerCreatures = playersCreature.get(currentPlayer);
-        int nbLifePointsOpponent = playersLifePoints.get(opponent);
-
-        logger.info(currentPlayer + " draw a " + cardPool.get(currentCardNumber));
-
-        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
-            playersCreature.put(currentPlayer, nbCurrentPlayerCreatures + 1);
-            nbCurrentPlayerCreatures++; // nbCurrentPlayerCreatures a augmenté de 1
-            playersLifePoints.put(opponent, (nbLifePointsOpponent - nbCurrentPlayerCreatures));
-            logger.info("The " + nbCurrentPlayerCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCurrentPlayerCreatures + " damages to its opponent");
-        }
-        if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
-
-            playersLifePoints.put(opponent, (nbLifePointsOpponent - nbCurrentPlayerCreatures - 3));
-            logger.info("The " + nbCurrentPlayerCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCurrentPlayerCreatures + " damages to its opponent");
-            logger.info(currentPlayer + " cast a ritual that deals 3 damages to " + opponent);
-        }
-    }*/
 }
