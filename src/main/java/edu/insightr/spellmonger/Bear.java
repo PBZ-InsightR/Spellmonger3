@@ -13,6 +13,6 @@ public class Bear extends Creature {
 
     @Override
     public String toString() {
-        return "Bear :"+toString();
+        return "Bear";
     }
 }

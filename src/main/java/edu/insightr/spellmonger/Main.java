@@ -68,7 +68,7 @@ public class Main{
         Player Player2 = new Player("Natacha");
         SpellmongerApp game = new SpellmongerApp(Player1,Player2);
         game.CreateCardPool();
-        while(Player1.isDead() || Player2.isDead())
+        while(!Player1.isDead() || !Player2.isDead())
         {
             Player1.DrawCard(Player1,Player2,game.getCardPool(),game.getDiscardPool());
             Player2.DrawCard(Player2,Player1,game.getCardPool(),game.getDiscardPool());

@@ -8,11 +8,11 @@ public class Blessing extends Ritual
     private int effect;
 
     public Blessing() {
-        this.effect = 3;
+        this.effect = -3;
     }
 
     @Override
     public String toString() {
-        return "Blessing : "+toString();
+        return "Blessing ";
     }
 }
