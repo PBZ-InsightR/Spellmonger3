@@ -63,10 +63,11 @@ public class Main{
 
 */
 
-        SpellmongerApp game = new SpellmongerApp();
+
         Player Player1 = new Player("Valentin");
         Player Player2 = new Player("Natacha");
-
+        SpellmongerApp game = new SpellmongerApp(Player1,Player2);
+        game.CreateCardPool();
         while(Player1.isDead() || Player2.isDead())
         {
             Player1.DrawCard(Player1,Player2,game.getCardPool(),game.getDiscardPool());

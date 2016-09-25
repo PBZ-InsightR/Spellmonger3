@@ -21,7 +21,28 @@ public class SpellmongerApp {
     private ArrayList<Card> discardPool;
     private Map<Player, Integer> playerList = new HashMap<>(2);
 
-    public SpellmongerApp(){
+    public SpellmongerApp(Player player1,Player player2){
+
+        this.cardPool = new ArrayList<Card>();
+        this.discardPool = new ArrayList<Card>();
+        //Player fisrtPlayer = new Player("Bob");
+        //Player secondPlayer= new Player("Alice");
+        playerList.put(player1,1);
+        playerList.put(player2,2);
+    }
+
+    public ArrayList<Card> getCardPool()
+    {
+        return cardPool;
+    }
+
+    public ArrayList<Card> getDiscardPool()
+    {
+        return discardPool;
+    }
+
+    public void CreateCardPool()
+    {
         for (int i = 0; i < 70; i++) {
             Random rand = new Random();
             int choix = rand.nextInt(2);
@@ -53,31 +74,15 @@ public class SpellmongerApp {
                 if(spell==0)//curse
                 {
                     Curse malediction = new Curse();
-                    this.discardPool.add(malediction);
+                    this.cardPool.add(malediction);
                 }
                 if(spell==1)//blessing
                 {
                     Blessing soin = new Blessing();
-                    this.discardPool.add(soin);
+                    this.cardPool.add(soin);
                 }
             }
         }
-        this.cardPool = new ArrayList<Card>();
-        this.discardPool = new ArrayList<Card>();
-        Player fisrtPlayer = new Player("Bob");
-        Player secondPlayer= new Player("Alice");
-        playerList.put(fisrtPlayer,1);
-        playerList.put(secondPlayer,2);
-    }
-
-    public ArrayList<Card> getCardPool()
-    {
-        return cardPool;
-    }
-
-    public ArrayList<Card> getDiscardPool()
-    {
-        return discardPool;
     }
 
 }
