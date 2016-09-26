@@ -6,7 +6,12 @@ package edu.insightr.spellmonger;
 public abstract class Creature extends Card
 
 {
+    protected String capacity;
     public Creature()
     {
+    }
+    public String getCapacity()
+    {
+        return capacity;
     }
 }

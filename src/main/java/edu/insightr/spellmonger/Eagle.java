@@ -7,6 +7,7 @@ public class Eagle extends Creature {
 
     public Eagle() {
         effect =1;
+        capacity = "Flying";
     }
 
     @Override
