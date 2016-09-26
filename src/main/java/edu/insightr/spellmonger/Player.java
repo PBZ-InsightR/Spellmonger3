@@ -13,6 +13,7 @@ public class Player {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private String name;
     private int lifePoint;
+    private int energy;
     private ArrayList<Creature> playerCreature;
 
     public Player(String name)
@@ -20,10 +21,13 @@ public class Player {
         this.playerCreature = new ArrayList<Creature>();
         this.name = name;
         lifePoint = 20; // Comment acceder à cette variable
+        energy = 0;
+
     }
 
     public void DrawCard(Player currentPlayer, Player opponent, List<Card> cardPool, List<Card> displayCard)
     {
+        currentPlayer.energy++;
         Card currentCard = cardPool.get(0); //Recupere la premiere carte de la pile
         cardPool.remove(0);
         displayCard.add(currentCard);
@@ -33,12 +37,12 @@ public class Player {
         if (currentCard instanceof Creature) {
             currentPlayer.playerCreature.add((Creature) currentCard);
             opponent.lifePoint = opponent.GetLifePoint() - currentPlayer.playerCreature.size();
-            logger.info("The " + currentPlayer.playerCreature.size() + " creatures of " + currentPlayer.toString() + " attack and deal " + currentPlayer.playerCreature.size() + " damages to its opponent");
+            logger.info("The player "+ currentPlayer.toString() +" has " + currentPlayer.energy +" energys and its " + currentPlayer.playerCreature.size() + " creatures attacks and deals " + currentPlayer.playerCreature.size() + " damages to its opponent");
         }
         if (currentCard instanceof Ritual) {
 
             opponent.lifePoint = opponent.GetLifePoint() - currentPlayer.playerCreature.size() - 3;
-            logger.info("The " + currentPlayer.playerCreature.size() + " creatures of " + currentPlayer.toString() + " attack and deal " + currentPlayer.playerCreature.size() + " damages to its opponent");
+            logger.info("The player "+ currentPlayer.toString() +" has " + currentPlayer.energy +"energys and its " + currentPlayer.playerCreature.size() + " creatures attacks and deals " + currentPlayer.playerCreature.size() + " damages to its opponent");
             logger.info(currentPlayer.toString() + " cast a ritual that deals 3 damages to " + opponent.toString());
         }
     }
