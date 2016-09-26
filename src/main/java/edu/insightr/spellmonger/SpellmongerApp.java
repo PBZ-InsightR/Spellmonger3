@@ -49,12 +49,12 @@ public class SpellmongerApp {
     public void CreateCardPool()
     {
         for (int i = 0; i < 70; i++) {
-            Random rand = new Random(); // je la mettrais avant la boucle for car le rand.nextInt n'est pas un vrai rand
+            Random rand = new Random();
             int choix = rand.nextInt(2);
             if(choix == 0)//creature
             {
                 Random rand2 = new Random();
-                int type = rand2.nextInt(3);//pourquoi ne pas utiliser qu'une variable rand
+                int type = rand2.nextInt(3);
                 if(type==0)//eagle
                 {
                     Eagle aigle= new Eagle();
@@ -74,7 +74,7 @@ public class SpellmongerApp {
             }
             if(choix==1)//ritual
             {
-                Random rand3 = new Random();//pourquoi ne pas utiliser qu'une variable rand
+                Random rand3 = new Random();
                 int spell = rand3.nextInt(2);
                 if(spell==0)//curse
                 {

@@ -19,8 +19,9 @@ public class Player {
     {
         this.playerCreature = new ArrayList<Creature>();
         this.name = name;
-        lifePoint = 20; // Comment acceder à cette variable
+        lifePoint = 20;
     }
+
 
     public void DrawCard(Player currentPlayer, Player opponent, List<Card> cardPool, List<Card> displayCard)
     {

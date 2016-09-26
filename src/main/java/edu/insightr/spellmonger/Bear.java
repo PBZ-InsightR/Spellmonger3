@@ -14,3 +14,4 @@ public class Bear extends Creature {
         return "Bear";
     }
 }
+
