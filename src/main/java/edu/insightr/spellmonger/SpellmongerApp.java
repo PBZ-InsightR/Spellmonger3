@@ -75,7 +75,7 @@ public class SpellmongerApp {
             if(choix==1)//ritual
             {
                 Random rand3 = new Random();
-                int spell = rand3.nextInt(2);
+                int spell = rand3.nextInt(3);
                 if(spell==0)//curse
                 {
                     Curse malediction = new Curse();
@@ -85,6 +85,11 @@ public class SpellmongerApp {
                 {
                     Blessing soin = new Blessing();
                     this.cardPool.add(soin);
+                }
+                if(spell==3)//EnergyDrain
+                {
+                    EnergyDrain drain = new EnergyDrain();
+                    this.cardPool.add(drain);
                 }
             }
         }
