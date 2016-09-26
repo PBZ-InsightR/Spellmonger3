@@ -5,7 +5,6 @@ package edu.insightr.spellmonger;
  */
 public class Curse extends Ritual {
 
-
     public Curse()
     {
         effect = 3;

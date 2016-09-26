@@ -5,12 +5,9 @@ package edu.insightr.spellmonger;
  */
 public class Wolf extends Creature {
 
-    private int effect;
-
     public Wolf() {
-        this.effect = 2;
+        effect = 2;
     }
-
     @Override
     public String toString() {
         return "Wolf : ";
