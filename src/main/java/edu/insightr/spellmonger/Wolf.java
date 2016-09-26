@@ -6,7 +6,7 @@ package edu.insightr.spellmonger;
 public class Wolf extends Creature {
 
     public Wolf() {
-        effect = 2;
+        super.effect = 2;
     }
     @Override
     public String toString() {
