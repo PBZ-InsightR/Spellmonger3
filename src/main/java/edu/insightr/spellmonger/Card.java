@@ -15,9 +15,11 @@ public abstract class Card {
     {
         return effect;
     }
-   // @Override
-   /* public String toString()
+
+
+    @Override
+    public String toString()
     {
         return "Effect = "+this.effect;
-    }*/
+    }
 }

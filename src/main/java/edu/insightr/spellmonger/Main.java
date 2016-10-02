@@ -1,29 +1,35 @@
 package edu.insightr.spellmonger;
 
-import org.apache.log4j.Logger;
-import javafx.application.Application;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import org.apache.log4j.Logger;
 
 public class Main{
     public static void main(String[] args) {
+         final Logger logger = Logger.getLogger(SpellmongerApp.class);
         Player Player1 = new Player("Valentin");
         Player Player2 = new Player("Natacha");
         SpellmongerApp game = new SpellmongerApp(Player1,Player2);
-        game.CreateCardPool();
 
-        while(!Player1.isDead() || !Player2.isDead())
+        Player current=Player1;
+        Player oppenent=game.nextPLayer();
+
+        while(!oppenent.isDead())
         {
-            if(game.getSize()<2)
+            if(current.size()==0) current.reCreateCardPool();
+
+            logger.info("Current  player is :"+current);
+            logger.info("Oppenent player is :"+oppenent);
+
+            current.drawCard(current,oppenent,current.getCards(),current.getDiscards());
+            logger.info(game.toString());
+
+            // si après cette attaque l'adversaire meurt, on finit le jeu
+            // sinon il continue et le current devient oppenent eet vice versa
+            if(!oppenent.isDead())
             {
-                game.ReCreateCardPool();
+                current=oppenent;
+                oppenent=game.nextPLayer();
             }
-            Player1.DrawCard(Player1,Player2,game.getCardPool(),game.getDiscardPool());
-            if(Player1.isDead() || Player2.isDead()) break;
-            Player2.DrawCard(Player2,Player1,game.getCardPool(),game.getDiscardPool());
         }
 
         if(Player1.isDead())

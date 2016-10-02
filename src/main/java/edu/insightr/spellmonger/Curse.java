@@ -13,6 +13,6 @@ public class Curse extends Ritual {
     @Override
     public String toString()
     {
-        return "Curse";
+        return "Curse "+ super.toString() ;
     }
 }

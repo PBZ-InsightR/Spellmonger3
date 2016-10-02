@@ -10,6 +10,6 @@ public class Wolf extends Creature {
     }
     @Override
     public String toString() {
-        return "Wolf : ";
+        return "Wolf : "+ super.toString();
     }
 }

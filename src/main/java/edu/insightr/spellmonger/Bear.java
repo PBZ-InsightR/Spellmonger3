@@ -11,7 +11,7 @@ public class Bear extends Creature {
 
     @Override
     public String toString() {
-        return "Bear";
+        return "Bear "+ super.toString();
     }
 }
 

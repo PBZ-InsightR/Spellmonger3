@@ -18,81 +18,29 @@ import java.util.Random;
  */
 public class SpellmongerApp {
 
-    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    public ArrayList<Card> cardPool;
-    private ArrayList<Card> discardPool;
-    private Map<Player, Integer> playerList = new HashMap<>(2);
+    private ArrayList<Player> playerList = new ArrayList<Player>(2);
+    private int counter;
 
     public SpellmongerApp(Player player1,Player player2){
+        playerList.add(player1);
+        playerList.add(player2);
+        counter=0;
+    }
 
-        this.cardPool = new ArrayList<Card>();
-        this.discardPool = new ArrayList<Card>();
-        playerList.put(player1,1);
-        playerList.put(player2,2);
-    }
-    public ArrayList<Card> getCardPool()
+    public Player nextPLayer()
     {
-        return cardPool;
-    }
-    public int getSize()
-    {
-        return cardPool.size();
-    }
-    public ArrayList<Card> getDiscardPool()
-    {
-        return discardPool;
-    }
-    public void ReCreateCardPool()
-    {
-      cardPool = new ArrayList<Card>(discardPool);
-    }
-    public void CreateCardPool()
-    {
-        for (int i = 0; i < 70; i++) {
-            Random rand = new Random();
-            int choix = rand.nextInt(2);
-            if(choix == 0)//creature
-            {
-                Random rand2 = new Random();
-                int type = rand2.nextInt(3);
-                if(type==0)//eagle
-                {
-                    Eagle aigle= new Eagle();
-                    this.cardPool.add(aigle);
-                }
-                if(type==1)//wolf
-                {
-                    Wolf loup= new Wolf();
-                    this.cardPool.add(loup);
-                }
-                if(type==2)//bear
-                {
-                    Bear ours= new Bear();
-                    this.cardPool.add(ours);
-                }
-
-            }
-            if(choix==1)//ritual
-            {
-                Random rand3 = new Random();
-                int spell = rand3.nextInt(3);
-                if(spell==0)//curse
-                {
-                    Curse malediction = new Curse();
-                    this.cardPool.add(malediction);
-                }
-                if(spell==1)//blessing
-                {
-                    Blessing soin = new Blessing();
-                    this.cardPool.add(soin);
-                }
-                if(spell==3)//EnergyDrain
-                {
-                    EnergyDrain drain = new EnergyDrain();
-                    this.cardPool.add(drain);
-                }
-            }
+        if(counter==playerList.size()-1) {
+            counter = 0;
         }
-        logger.info("Cardpool Created");
+        else {
+            counter++;
+        }
+            return playerList.get(counter);
+    }  // renvoie l'autre joueuer de la partie (pour l'instant il n'y en a que deux, mais si ça augmente, la méthode ne chagera pas!)
+
+    @Override
+    public String toString()
+    {
+        return playerList.get(0).toString() + " VS " + playerList.get(1).toString();
     }
 }
