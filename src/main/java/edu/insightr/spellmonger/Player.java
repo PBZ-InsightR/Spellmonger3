@@ -52,32 +52,28 @@ public class Player {
         return cardPool.size();
     }
 
-    public void drawCard(Player currentPlayer, Player opponent, Cards cardPool, Cards displayCard)
+    public void addPlayerCreature(Card creature)
     {
+        playerCreature.add((Creature) creature);
+    }
 
-        currentPlayer.energy++;
-        Card currentCard = cardPool.get(0);
-        cardPool.remove(0);
-        displayCard.add(currentCard);
-
-        logger.info(currentPlayer.toString() + " draw a "+ currentCard);
-
-        if (currentCard instanceof Creature) {
-            currentPlayer.playerCreature.add((Creature) currentCard);
-            opponent.lifePoint = opponent.getLifePoint() - currentPlayer.playerCreature.size();
-            logger.info("The player "+ currentPlayer.toString() +" has " + currentPlayer.energy +" energys and its " + currentPlayer.playerCreature.size() + " creatures attacks and deals " + currentPlayer.playerCreature.size() + " damages to its opponent");
-        }
-        if (currentCard instanceof Ritual) {
-            opponent.lifePoint = opponent.getLifePoint() - currentPlayer.playerCreature.size() - 3;
-            logger.info("The " + currentPlayer.playerCreature.size() + " creatures of " + currentPlayer.toString() + " attack and deal " + currentPlayer.playerCreature.size() + " damages to its opponent");
-            logger.info(currentPlayer.toString() + " cast a ritual that deals 3 damages to " + opponent.toString());
+    public void removePlayerCreature(Card creature)
+    {
+        if(playerCreature.contains(creature))
+        {
+            playerCreature.remove(creature);
         }
     }
 
     public void sortCreatures()
     {
         Collections.sort(playerCreature);
-    } // a utiliser dans le systeme d'attaque
+    } //utilisé dans le systeme d'attaque
+
+    public ArrayList<Creature> getPlayerCreature()
+    {
+        return playerCreature;
+    }
 
     public boolean isDead()
     {
@@ -89,6 +85,21 @@ public class Player {
         return lifePoint;
     }
 
+    public void setLifePoint(int life)
+    {
+        lifePoint = life;
+    }
+
+    public int getEnergy()
+    {
+        return energy;
+    }
+
+    public void increaseEnergy()
+    {
+        energy++;
+    }
+
     public void winner()
     {
         logger.info(this.toString()+" is the winner!!!\n");
@@ -97,8 +108,6 @@ public class Player {
     @Override
     public String toString()
     {
-        return " " + name + "(" + getLifePoint() + "pv) ";
+        return " " + name + "(" + getLifePoint() + "pv|" + getEnergy() + "energy)";
     }
-
-
 }

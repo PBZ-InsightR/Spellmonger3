@@ -20,7 +20,7 @@ public class Main{
             logger.info("Current  player is :"+current);
             logger.info("Oppenent player is :"+oppenent);
 
-            current.drawCard(current,oppenent,current.getCards(),current.getDiscards());
+            SpellmongerApp.drawCard(current,oppenent,current.getCards(),current.getDiscards());
             logger.info(game.toString());
 
             // si après cette attaque l'adversaire meurt, on finit le jeu
