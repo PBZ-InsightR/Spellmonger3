@@ -8,8 +8,7 @@ public class EnergyDrain extends Ritual {
     private int effect2;
 
     public EnergyDrain() {
-        this.effect = -2;
-        this.effect2 = 2;
+        this.effect = 2;
     }
 
     @Override

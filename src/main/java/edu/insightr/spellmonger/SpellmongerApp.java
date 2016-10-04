@@ -96,7 +96,7 @@ public class SpellmongerApp {
             }
             else if(currentCard instanceof EnergyDrain) {
                 int currentEnergyLanceur = (currentPlayer.getEnergy() + currentCard.getEffect());
-                int currentEnergyReceveur = (opponent.getEnergy() + currentCard.getEffect());
+                int currentEnergyReceveur = (opponent.getEnergy() - currentCard.getEffect());
                 currentPlayer.setEnergyPoint(currentEnergyLanceur);
                 opponent.setEnergyPoint(currentEnergyReceveur);
                 logger.info(currentPlayer.toString() + " cast a drain ritual that takes 2 energies from " + opponent.toString() + " and adds them to him");
