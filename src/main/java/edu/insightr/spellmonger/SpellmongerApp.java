@@ -43,7 +43,7 @@ public class SpellmongerApp {
     }  // renvoie l'autre joueuer de la partie (pour l'instant il n'y en a que deux, mais si ça augmente, la méthode ne chagera pas!)
 
 
-    public void drawCard(Player currentPlayer, Player opponent,ArrayList<Card> cardPool, ArrayList<Card> displayCard)
+    public void drawCard(Player currentPlayer, Player opponent,Cards cardPool, Cards displayCard)
     {
         currentPlayer.increaseEnergy();//On augmente l'energy du joueur
         Card currentCard = cardPool.get(0);
@@ -80,6 +80,7 @@ public class SpellmongerApp {
 
     public void  PlayerAttack(Player currentPlayer, Player opponent)
     {
+        logger.info("\n\n\n"+currentPlayer.getPlayerCreature().size());
         for(int i = 0; i < currentPlayer.getPlayerCreature().size(); i++)
         {
             int j = 0;

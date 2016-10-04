@@ -17,33 +17,34 @@ public class Player {
     private int lifePoint;
     private int energy;
     private ArrayList<Creature> playerCreature;
-    private ArrayList<Card> cardPool;
-    private ArrayList<Card> discardPool;
+    private Cards cardPool;
+    private Cards discardPool;
 
     public Player(String name)
     {
         this.playerCreature = new ArrayList<>();
-        this.cardPool= new ArrayList<>(); // créer une cardPool avec des valeurs (voir constructeur de la classe Cards)
-        this.discardPool=new ArrayList<>(); // créer une cardPoll vide (voir constructeur de la classe Cards)
+        this.cardPool= new Cards(name); // créer une cardPool avec des valeurs (voir constructeur de la classe Cards)
+        this.discardPool=new Cards(); // créer une cardPoll vide (voir constructeur de la classe Cards)
         this.name = name;
         this.lifePoint = 20;
         this.energy = 0;
 
     }
 
-    public ArrayList<Card> getCards()
+    public Cards getCards()
     {
         return  cardPool;
     }
 
-    public ArrayList<Card> getDiscards()
+    public Cards getDiscards()
     {
         return  discardPool;
     }
 
     public void reCreateCardPool() // quand la cardPool d'un joueur est finie, on la renouvelle
     {
-        cardPool = new ArrayList<>(getDiscards());
+        cardPool = new Cards(discardPool.getCardPool());
+        discardPool.clearCards();
     }
 
     public int size()
