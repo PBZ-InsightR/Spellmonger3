@@ -24,11 +24,7 @@ public class SpellmongerApp {
     public SpellmongerApp(Player player1,Player player2){
         playerList.add(player1);
         playerList.add(player2);
-        Cards cardsPlayer1 = new Cards("cardsPlayer1");
-        cardsPlayer1.createCardPool();
-        Cards cardsPlayer2 = new Cards("cardsPlayer2");
-        cardsPlayer2.createCardPool();
-
+        counter=0;
     }
 
     public Player nextPLayer()
@@ -48,7 +44,7 @@ public class SpellmongerApp {
         currentPlayer.increaseEnergy();//On augmente l'energy du joueur
         Card currentCard = cardPool.get(0);
 
-        logger.info(currentPlayer.toString() + " draw a"+ currentCard.toString());
+        logger.info(currentPlayer.toString() + " draw a "+ currentCard.toString());
 
         if(currentCard instanceof Creature)
         {
@@ -76,48 +72,8 @@ public class SpellmongerApp {
         }
         cardPool.remove(0);
         displayCard.add(currentCard);
-    }
 
-    public void  PlayerAttack(Player currentPlayer, Player opponent)
-    {
-        logger.info("\n\n\n"+currentPlayer.getPlayerCreature().size());
-        for(int i = 0; i < currentPlayer.getPlayerCreature().size(); i++)
-        {
-            int j = 0;
-            int k = 0;
-            if(currentPlayer.getPlayerCreature().get(j) != null && opponent.getPlayerCreature().get(k) != null)// si il y'a une creature des deux coté du board
-            {
-                int degat = currentPlayer.getPlayerCreature().get(j).effect - opponent.getPlayerCreature().get(k).effect; // recup des dégats la diff entre la force des deux creatures
-
-                if(degat == 0) // si les deux créature ont la même force les deux meurt
-                {
-                    currentPlayer.getPlayerCreature().remove(j);
-                    opponent.getPlayerCreature().remove(k);
-                    logger.info(currentPlayer.toString()+" "+ currentPlayer.getPlayerCreature().get(i).toString()+ " and "+opponent.toString()+" "+opponent.getPlayerCreature().get(i).toString()+" have the same strength and die both ");
-                }
-                else if(degat > 0)// si la creature du joueur courant est plus forte elle tue celle de l'adversaire
-                {
-                    opponent.getPlayerCreature().remove(k);
-                    logger.info(currentPlayer.toString() + " "+ currentPlayer.getPlayerCreature().get(i).toString()+" still alive and "+opponent.toString()+" "+opponent.getPlayerCreature().get(i).toString() + "die");
-                    k++;
-                }
-                else // si la creature de l'opposant est plus forte elle tue celle du joueur courant
-                {
-                    currentPlayer.getPlayerCreature().remove(j);
-                    logger.info(opponent.toString() + " "+ opponent.getPlayerCreature().get(i).toString()+" still alive and "+currentPlayer.toString()+" "+currentPlayer.getPlayerCreature().get(i).toString() + "die");
-                    j++;
-                }
-            }
-            else if(currentPlayer.getPlayerCreature().get(j) != null && opponent.getPlayerCreature().get(k) == null)// si le board de l'opposant ne contient plus de creature les creatures du joueur courant attaque l'opposant
-            {
-                opponent.setLifePoint(opponent.getLifePoint() - currentPlayer.getPlayerCreature().get(j).effect);
-                j++;
-            }
-            else// si le joueur courant n'a plus de creature et qu'il en reste à l'opposant l'attaque du joueur s'arrête
-            {
-                break;
-            }
-        }
+        logger.info("pioche fini!!!!!");
     }
 
 

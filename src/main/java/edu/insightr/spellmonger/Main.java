@@ -20,7 +20,7 @@ public class Main{
             logger.info("Current  player is :"+current);
             logger.info("Oppenent player is :"+oppenent);
             game.drawCard(current,oppenent,current.getCards(),current.getDiscards());
-            game.PlayerAttack(current,oppenent);
+            current.PlayerAttack(oppenent);
             logger.info(game.toString());
 
             // si après cette attaque l'adversaire meurt, on finit le jeu
