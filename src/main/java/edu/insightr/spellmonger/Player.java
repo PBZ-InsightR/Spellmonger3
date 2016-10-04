@@ -95,6 +95,8 @@ public class Player {
         return energy;
     }
 
+    public void setEnergyPoint(int ene) { energy = ene; }
+
     public void increaseEnergy()
     {
         energy++;

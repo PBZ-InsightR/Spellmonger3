@@ -93,7 +93,7 @@ public class Cards {
                     Blessing soin = new Blessing();
                     this.cardPool.add(soin);
                 }
-                if(spell==3)//EnergyDrain
+                if(spell==2)//EnergyDrain
                 {
                     EnergyDrain drain = new EnergyDrain();
                     this.cardPool.add(drain);

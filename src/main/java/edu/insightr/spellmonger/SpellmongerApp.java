@@ -88,11 +88,18 @@ public class SpellmongerApp {
                 currentPlayer.setLifePoint(currentLife);
                 logger.info("The ritual add 3pv to " + currentPlayer.toString());
             }
-            else
+            else if(currentCard instanceof Curse)
             {
                 int currentLife = (opponent.getLifePoint() + currentCard.getEffect());
                 opponent.setLifePoint(currentLife);
                 logger.info(currentPlayer.toString() + " cast a ritual that deals 3 damages to " + opponent.toString());
+            }
+            else if(currentCard instanceof EnergyDrain) {
+                int currentEnergyLanceur = (currentPlayer.getEnergy() + currentCard.getEffect());
+                int currentEnergyReceveur = (opponent.getEnergy() + currentCard.getEffect());
+                currentPlayer.setEnergyPoint(currentEnergyLanceur);
+                opponent.setEnergyPoint(currentEnergyReceveur);
+                logger.info(currentPlayer.toString() + " cast a drain ritual that takes 2 energies from " + opponent.toString() + " and adds them to him");
             }
         }
     }
