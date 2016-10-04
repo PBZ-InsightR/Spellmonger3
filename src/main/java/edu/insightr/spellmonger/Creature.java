@@ -12,6 +12,7 @@ public abstract class Creature extends Card implements Comparable<Creature>
     public Creature()
     {
     }
+
     public String getCapacity()
     {
         return capacity;

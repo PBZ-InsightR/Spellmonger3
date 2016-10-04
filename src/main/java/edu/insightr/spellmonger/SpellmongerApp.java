@@ -24,7 +24,11 @@ public class SpellmongerApp {
     public SpellmongerApp(Player player1,Player player2){
         playerList.add(player1);
         playerList.add(player2);
-        counter=0;
+        Cards cardsPlayer1 = new Cards("cardsPlayer1");
+        cardsPlayer1.createCardPool();
+        Cards cardsPlayer2 = new Cards("cardsPlayer2");
+        cardsPlayer2.createCardPool();
+
     }
 
     public Player nextPLayer()
@@ -39,67 +43,78 @@ public class SpellmongerApp {
     }  // renvoie l'autre joueuer de la partie (pour l'instant il n'y en a que deux, mais si ça augmente, la méthode ne chagera pas!)
 
 
-    public static void drawCard(Player currentPlayer, Player opponent, Cards cardPool, Cards displayCard)
+    public void drawCard(Player currentPlayer, Player opponent,ArrayList<Card> cardPool, ArrayList<Card> displayCard)
     {
+        currentPlayer.increaseEnergy();//On augmente l'energy du joueur
+        Card currentCard = cardPool.get(0);
 
-        currentPlayer.increaseEnergy(); //on augemente l'energy du joueur actuel a chaque tour
-        Card currentCard = cardPool.get(0); //recuperation de la première carte de la pile dans le deck joueur
-        cardPool.remove(0); //suppression de cette carte dans le deck joueur
-        displayCard.add(currentCard); //ajout de cette carte dans le deck display
+        logger.info(currentPlayer.toString() + " draw a"+ currentCard.toString());
 
-        logger.info(currentPlayer.toString() + " draw a "+ currentCard);
-
-        if (currentCard instanceof Creature) { //Si une carte creature est tirée
-            currentPlayer.addPlayerCreature(currentCard); //ajout de la creature au deck creature du joueur
-            currentPlayer.sortCreatures(); //tri des decks creatures des deux joueurs par ordre de dégats des creatures
-            opponent.sortCreatures();
-
-            for (int i = 0; i < currentPlayer.getPlayerCreature().size(); i++) //chaque creature du joueur attaque
-            {
-                if(opponent.getPlayerCreature().get(i) != null) //une creature adverse s'il y'en a une
-                {
-                    int degat = currentPlayer.getPlayerCreature().get(i).getEffect() - opponent.getPlayerCreature().get(i).getEffect();
-                    if(degat>0) //la creature est plus forte que celle de l'adversaire
-                    {
-                        opponent.removePlayerCreature(opponent.getPlayerCreature().get(i)); //la creature adverse meurt
-                    }
-                    else if(degat<0) //la creature est moins forte
-                    {
-                        currentPlayer.removePlayerCreature(currentPlayer.getPlayerCreature().get(i)); //la creature du joueur meurt
-                    }
-                    else //elles sont égales
-                    {
-                        opponent.removePlayerCreature(opponent.getPlayerCreature().get(i)); //elles meurent toutes les deux
-                        currentPlayer.removePlayerCreature(currentPlayer.getPlayerCreature().get(i));
-                    }
-                }
-                else //le joueur adverse sinon
-                {
-                    int opponentLife = (opponent.getLifePoint() - currentPlayer.getPlayerCreature().get(i).getEffect());
-                    opponent.setLifePoint(opponentLife);
-                    logger.info("The player "+ currentPlayer.toString() +"'s creature attack and deal " + currentPlayer.getPlayerCreature().get(i).getEffect() + " damages to its opponent");
-                }
-            }
+        if(currentCard instanceof Creature)
+        {
+            currentPlayer.addPlayerCreature(currentCard);
+            currentPlayer.sortCreatures();
         }
-        if (currentCard instanceof Ritual) {  //Si une carte rituel est tirée
+        else if(currentCard instanceof Ritual)
+        {
             if(currentCard instanceof Blessing)
             {
-                int currentLife = (currentPlayer.getLifePoint() + currentCard.getEffect());
-                currentPlayer.setLifePoint(currentLife);
-                logger.info("The ritual add 3pv to " + currentPlayer.toString());
+                currentPlayer.setLifePoint(currentPlayer.getLifePoint()+currentCard.getEffect());
+                logger.info("The Blessing Ritual add 3 Life Point to "+currentPlayer.toString());
             }
             else if(currentCard instanceof Curse)
             {
-                int currentLife = (opponent.getLifePoint() + currentCard.getEffect());
-                opponent.setLifePoint(currentLife);
-                logger.info(currentPlayer.toString() + " cast a ritual that deals 3 damages to " + opponent.toString());
+                opponent.setLifePoint(opponent.getLifePoint()+currentCard.getEffect());
+                logger.info(currentPlayer.toString()+" cast a ritual that deals 3 damages to "+opponent.toString());
             }
-            else if(currentCard instanceof EnergyDrain) {
-                int currentEnergyLanceur = (currentPlayer.getEnergy() + currentCard.getEffect());
-                int currentEnergyReceveur = (opponent.getEnergy() - currentCard.getEffect());
-                currentPlayer.setEnergyPoint(currentEnergyLanceur);
-                opponent.setEnergyPoint(currentEnergyReceveur);
-                logger.info(currentPlayer.toString() + " cast a drain ritual that takes 2 energies from " + opponent.toString() + " and adds them to him");
+            else
+            {
+                currentPlayer.setEnergyPoint(currentPlayer.getEnergy()+currentCard.getEffect());
+                opponent.setEnergyPoint(opponent.getEnergy() - currentCard.getEffect());
+                logger.info(currentPlayer.toString()+" cast a drain energy ritual that takes 2 energies from "+opponent.toString());
+            }
+        }
+        cardPool.remove(0);
+        displayCard.add(currentCard);
+    }
+
+    public void  PlayerAttack(Player currentPlayer, Player opponent)
+    {
+        for(int i = 0; i < currentPlayer.getPlayerCreature().size(); i++)
+        {
+            int j = 0;
+            int k = 0;
+            if(currentPlayer.getPlayerCreature().get(j) != null && opponent.getPlayerCreature().get(k) != null)// si il y'a une creature des deux coté du board
+            {
+                int degat = currentPlayer.getPlayerCreature().get(j).effect - opponent.getPlayerCreature().get(k).effect; // recup des dégats la diff entre la force des deux creatures
+
+                if(degat == 0) // si les deux créature ont la même force les deux meurt
+                {
+                    currentPlayer.getPlayerCreature().remove(j);
+                    opponent.getPlayerCreature().remove(k);
+                    logger.info(currentPlayer.toString()+" "+ currentPlayer.getPlayerCreature().get(i).toString()+ " and "+opponent.toString()+" "+opponent.getPlayerCreature().get(i).toString()+" have the same strength and die both ");
+                }
+                else if(degat > 0)// si la creature du joueur courant est plus forte elle tue celle de l'adversaire
+                {
+                    opponent.getPlayerCreature().remove(k);
+                    logger.info(currentPlayer.toString() + " "+ currentPlayer.getPlayerCreature().get(i).toString()+" still alive and "+opponent.toString()+" "+opponent.getPlayerCreature().get(i).toString() + "die");
+                    k++;
+                }
+                else // si la creature de l'opposant est plus forte elle tue celle du joueur courant
+                {
+                    currentPlayer.getPlayerCreature().remove(j);
+                    logger.info(opponent.toString() + " "+ opponent.getPlayerCreature().get(i).toString()+" still alive and "+currentPlayer.toString()+" "+currentPlayer.getPlayerCreature().get(i).toString() + "die");
+                    j++;
+                }
+            }
+            else if(currentPlayer.getPlayerCreature().get(j) != null && opponent.getPlayerCreature().get(k) == null)// si le board de l'opposant ne contient plus de creature les creatures du joueur courant attaque l'opposant
+            {
+                opponent.setLifePoint(opponent.getLifePoint() - currentPlayer.getPlayerCreature().get(j).effect);
+                j++;
+            }
+            else// si le joueur courant n'a plus de creature et qu'il en reste à l'opposant l'attaque du joueur s'arrête
+            {
+                break;
             }
         }
     }

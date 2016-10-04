@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 
 public class Main{
     public static void main(String[] args) {
-         final Logger logger = Logger.getLogger(SpellmongerApp.class);
+        final Logger logger = Logger.getLogger(SpellmongerApp.class);
         Player Player1 = new Player("Valentin");
         Player Player2 = new Player("Natacha");
         SpellmongerApp game = new SpellmongerApp(Player1,Player2);
@@ -19,8 +19,8 @@ public class Main{
 
             logger.info("Current  player is :"+current);
             logger.info("Oppenent player is :"+oppenent);
-
-            SpellmongerApp.drawCard(current,oppenent,current.getCards(),current.getDiscards());
+            game.drawCard(current,oppenent,current.getCards(),current.getDiscards());
+            game.PlayerAttack(current,oppenent);
             logger.info(game.toString());
 
             // si après cette attaque l'adversaire meurt, on finit le jeu

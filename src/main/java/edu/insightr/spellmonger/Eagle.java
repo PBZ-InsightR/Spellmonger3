@@ -5,13 +5,15 @@ package edu.insightr.spellmonger;
  */
 public class Eagle extends Creature {
 
+    private int lifePoint;
     public Eagle() {
-        effect =1;
+        super.effect =1;
+        lifePoint = effect;
         capacity = "Flying"; 
     }
 
     @Override
     public String toString() {
-        return "Eagle "+ super.toString();
+        return "Eagle : life Point : "+lifePoint+" strength : "+effect;
     }
 }
