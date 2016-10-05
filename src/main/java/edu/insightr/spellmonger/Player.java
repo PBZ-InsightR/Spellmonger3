@@ -16,7 +16,7 @@ public class Player {
     private ArrayList<Creature> playerCreature;
     private Deck cardPool;
     private Deck discardPool;
-
+ 
     public Player(String name)
     {
         this.playerCreature = new ArrayList<>();
