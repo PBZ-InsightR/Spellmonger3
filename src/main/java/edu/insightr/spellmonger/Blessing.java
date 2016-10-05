@@ -14,6 +14,6 @@ public class Blessing extends Ritual
     public String toString()
 
     {
-        return "Blessing " + super.toString();
+        return "Blessing " + super.toString();  
     }
 }
