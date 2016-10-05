@@ -60,7 +60,7 @@ public class SpellmongerApp {
             }
             else if(currentCard instanceof Curse)
             {
-                opponent.setLifePoint(opponent.getLifePoint()+currentCard.getEffect());
+                opponent.setLifePoint(opponent.getLifePoint()-currentCard.getEffect());
                 logger.info(currentPlayer.toString()+" cast a ritual that deals 3 damages to "+opponent.toString());
             }
             else
