@@ -1,10 +1,18 @@
 package edu.insightr.spellmonger;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
+import org.junit.Test;
 
-/**
- * Created by Abdel on 05/10/2016.
- */
 public class CreatureTest {
+    @Test
+    public void testCreatureCompareTo() throws Exception
+    {
+        Bear bear1 = new Bear();
+        Bear bear2 = new Bear();
+        Eagle eagle = new Eagle();
 
+        Assert.assertEquals(1,bear1.compareTo(eagle));
+        Assert.assertEquals(0,bear1.compareTo(bear2));
+        Assert.assertEquals(0,eagle.compareTo(bear1));
+    }
 }
