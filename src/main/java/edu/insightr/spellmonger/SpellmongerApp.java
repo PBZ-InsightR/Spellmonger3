@@ -6,10 +6,8 @@ package edu.insightr.spellmonger;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 //import java.util.List;
-import java.util.Map;
-import java.util.Random;
+
 
 /**
  * Created by Natiassa on 25/09/2016.
@@ -39,7 +37,7 @@ public class SpellmongerApp {
     }  // renvoie l'autre joueuer de la partie (pour l'instant il n'y en a que deux, mais si ça augmente, la méthode ne chagera pas!)
 
 
-    public void drawCard(Player currentPlayer, Player opponent,Cards cardPool, Cards displayCard)
+    public void drawCard(Player currentPlayer, Player opponent, Deck cardPool, Deck displayCard)
     {
         currentPlayer.increaseEnergy();//On augmente l'energy du joueur
         Card currentCard = cardPool.get(0);

@@ -10,7 +10,7 @@ public class Blessing extends Ritual
        super.effect = 3;
     }
 
-    @Override 
+    @Override
     public String toString()
 
     {

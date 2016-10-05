@@ -9,21 +9,21 @@ import java.util.Random;
 /**
  * Created by Abdel on 02/10/2016.
  */
-public class Cards {
+public class Deck {
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private ArrayList<Card> cardPool= new ArrayList<>();;
 
-    public Cards()
+    public Deck()
     {
     }
-    public Cards(String name)
+    public Deck(String name)
     {
         createCardPool();
         logger.info(name+"'s cardpool created");
     }
 
-    public Cards( ArrayList<Card> other)
+    public Deck(ArrayList<Card> other)
     {
         cardPool= new ArrayList<>(other);
     }
