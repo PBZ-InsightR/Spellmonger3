@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private ArrayList<Player> playerList = new ArrayList<Player>(2);
+    private ArrayList<Player> playerList = new ArrayList<>(2);
     private int counter;
 
     public SpellmongerApp(Player player1,Player player2){
@@ -70,10 +70,7 @@ public class SpellmongerApp {
         }
         cardPool.remove(0);
         displayCard.add(currentCard);
-
-        logger.info("pioche fini!!!!!");
     }
-
 
     @Override
     public String toString()

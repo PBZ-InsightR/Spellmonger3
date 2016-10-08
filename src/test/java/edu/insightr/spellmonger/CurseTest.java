@@ -13,7 +13,8 @@ public class CurseTest {
     public void testCurseEffect()  throws Exception
     {
         Curse curse = new Curse();
-        Assert.assertEquals(3, curse.getEffect());
+        Assert.assertEquals(3.0, curse.getEffect(),0.0);
+        Assert.assertEquals(3.0,((Card)curse).getEffect(),0.0);
     }
 
 }

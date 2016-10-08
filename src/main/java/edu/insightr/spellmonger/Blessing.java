@@ -7,7 +7,7 @@ public class Blessing extends Ritual
 {
 
     public Blessing() {
-       super.effect = 3;
+       effect = 3;
     }
 
     @Override
