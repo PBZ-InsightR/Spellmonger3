@@ -12,7 +12,7 @@ import java.util.Random;
 public class Deck {
 
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-    private ArrayList<Card> cardPool= new ArrayList<>();;
+    private ArrayList<Card> cardPool= new ArrayList<>();
 
     public Deck()
     {
@@ -42,6 +42,8 @@ public class Deck {
     {
         return cardPool.get(index);
     }
+
+
 
     public void add(Card c)
     {
