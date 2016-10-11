@@ -15,4 +15,5 @@ public class Eagle extends Creature {
     public String toString() {
         return "Eagle "+ toString();
     }
+    public String getname(){return "Eagle";}
 }
