@@ -47,7 +47,7 @@ public class PlayerTest {
             opponent.addPlayerCreature(ours2);
             Assert.assertEquals("J'ai une carte ours chez l'opponent",1,opponentCreatures.size());
 
-            //Test d'une attaque avec 1 carte chacun et dont la carte est de même force
+            //Test d'une attaque avec 1 carte chacun et dont la carte est de même force(test qui ne marche pas)
             //player.attack(opponent);
             //Assert.assertEquals("Attaque force égale avec une carte chacun",0,cardsPlayer.size());
             //Assert.assertEquals("Attaque force égale avec une carte chacun",0,opponentCreatures.size());*/
@@ -67,7 +67,7 @@ public class PlayerTest {
             Assert.assertEquals("Attaque force égale avec 2 cartes chacun",1,opponentCreatures.size());
 
             //Test d'une attaque par des créatures différentes
-            //Vider les 2 Deck
+            //Vider les 2 listes
             player.getCards().clearCards();
             opponent.getCards().clearCards();
             Assert.assertEquals("J'ai une carte loup chez le player",0,cardsPlayer.size());
