@@ -7,7 +7,7 @@ public class Curse extends Ritual {
 
     public Curse()
     {
-        super.effect = 3;
+        effect = 3;
     }
 
     @Override

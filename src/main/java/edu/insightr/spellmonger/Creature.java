@@ -9,14 +9,18 @@ public abstract class Creature extends Card implements Comparable<Creature>
 
 {
     protected String capacity;
-    public Creature()
-    {
+    protected int lifePoints;
+    public Creature() {
     }
 
-    public String getCapacity()
-    {
+    public String getCapacity() {
         return capacity;
     }
+
+    public int getLifePoints(){
+        return lifePoints;
+    }
+
 
     @Override
     public int compareTo(Creature other){

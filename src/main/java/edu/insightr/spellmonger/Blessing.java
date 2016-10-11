@@ -7,13 +7,13 @@ public class Blessing extends Ritual
 {
 
     public Blessing() {
-       super.effect = 3;
+       effect = 3;
     }
 
     @Override
     public String toString()
 
     {
-        return "Blessing " + super.toString();
+        return "Blessing " + super.toString();  
     }
 }
