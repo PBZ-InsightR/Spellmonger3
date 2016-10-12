@@ -123,18 +123,20 @@ public class Player {
 
                 if (degat == 0) // si les deux créature ont la même force les deux meurt
                 {
-                    myPlayerCreature.remove(i);
-                    playerCreatureOpponent.remove(i);
                     logger.info(this.toString() + " " + this.getPlayerCreature().get(i).toString() + " and " + opponent.toString() + " " +
                             opponent.getPlayerCreature().get(i).toString() + " have the same strength and die both ");
+                    myPlayerCreature.remove(i);
+                    playerCreatureOpponent.remove(i);
                 } else if (degat > 0)// si la creature du joueur courant est plus forte elle tue celle de l'adversaire
                 {
-                    playerCreatureOpponent.remove(i);
+
                     logger.info(this.toString() + " " + this.getPlayerCreature().get(i).toString() + " still alive and " + opponent.toString() + " " + opponent.getPlayerCreature().get(i).toString() + "die");
+                    playerCreatureOpponent.remove(i);
                 } else // si la creature de l'opposant est plus forte elle tue celle du joueur courant
                 {
-                    myPlayerCreature.remove(i);
+
                     logger.info(opponent.toString() + " " + opponent.getPlayerCreature().get(i).toString() + " still alive and " + this.toString() + " " + this.getPlayerCreature().get(i).toString() + "die");
+                    myPlayerCreature.remove(i);
                 }
             } else if (!this.getPlayerCreature().isEmpty() && opponent.getPlayerCreature().isEmpty())// si le board de l'opposant ne contient plus de creature les creatures du joueur courant attaque l'opposant
             {

@@ -13,7 +13,7 @@ public class Eagle extends Creature {
 
     @Override
     public String toString() {
-        return "Eagle "+ toString();
+        return "Eagle "+ super.toString();
     }
     @Override
     public String getName(){return "Eagle";}
