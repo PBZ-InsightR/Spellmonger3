@@ -65,10 +65,11 @@ public class Deck {
        int nbMaxShield = 5;
        int nbMaxBlessing = 3;
 
-       while(nbMaxBear>0 && nbMaxWolf>0 && nbMaxEagle>0 && nbMaxBlessing>0 && nbMaxCurse>0 && nbMaxShield>0)
+
+       while(nbMaxBear>0 || nbMaxWolf>0 || nbMaxEagle>0 || nbMaxBlessing>0 || nbMaxCurse>0 || nbMaxShield>0)
        {
            Random rand = new Random ();
-           int nbRand = rand.nextInt (5);
+           int nbRand = rand.nextInt (6);
 
            if(nbRand == 0 && nbMaxEagle >0) {
                Eagle eagle = new Eagle ();
@@ -95,7 +96,7 @@ public class Deck {
                cardPool.add (shield);
                nbMaxShield--;
            }
-           else{
+           else if(nbRand == 5 && nbMaxBlessing>0){
                Blessing blessing = new Blessing ();
                cardPool.add(blessing);
                nbMaxBlessing--;
