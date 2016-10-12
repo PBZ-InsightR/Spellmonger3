@@ -15,7 +15,7 @@ public class DeckTest {
     @Test
     public void testSize() throws Exception {
         Deck d = new Deck("Test");
-        Assert.assertEquals(70.0, d.size(), 0.1);
+        Assert.assertEquals(40.0, d.size(), 0.1);
 
         Deck d2 = new Deck();
         Assert.assertEquals(0.0, d2.size(), 0.1);
