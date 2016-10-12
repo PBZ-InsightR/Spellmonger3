@@ -21,7 +21,7 @@ public class DeckTest {
         Assert.assertEquals(0.0, d2.size(), 0.1);
 
         ArrayList<Card> temp = new ArrayList<>();
-        Bear b = new Bear();
+        Bear b = new Bear(); 
         temp.add(b);
         temp.add(new Bear());
         temp.add(new Bear());
