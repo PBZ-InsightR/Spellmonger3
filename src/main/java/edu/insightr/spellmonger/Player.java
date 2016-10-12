@@ -38,64 +38,75 @@ public class Player {
         discardPool.clearCards();
     }
 
-    public int size() {
+    public int size()
+    {
         return cardPool.size();
     }
 
-    public void addPlayerCreature(Card creature) {
+    public void addPlayerCreature(Card creature)
+    {
         playerCreature.add((Creature) creature);
     }
 
-    public void removePlayerCreature(Card creature) {
-        if (playerCreature.contains(creature)) {
+    public void removePlayerCreature(Card creature)
+    {
+        if(playerCreature.contains(creature))
+        {
             playerCreature.remove(creature);
         }
     }
 
-    public void sortCreatures() {
+    public void sortCreatures()
+    {
         Collections.sort(playerCreature);
     } //utilisé dans le systeme d'attaque
 
-    public ArrayList<Creature> getPlayerCreature() {
+    public ArrayList<Creature> getPlayerCreature()
+    {
         return playerCreature;
     }
-
-    public void setPlayerCreature(ArrayList<Creature> newOne) {
+    public void setPlayerCreature(ArrayList<Creature> newOne)
+    {
         playerCreature = newOne;
     }
 
-    public boolean isDead() {
-        return lifePoint <= 0;
+    public boolean isDead()
+    {
+        return lifePoint<=0;
     }
 
-    public int getLifePoint() {
+    public int getLifePoint()
+    {
         return lifePoint;
     }
 
-    public void setLifePoint(int life) {
+    public void setLifePoint(int life)
+    {
         lifePoint = life;
     }
 
-    public int getEnergy() {
+    public int getEnergy()
+    {
         return energy;
     }
 
-    public void setEnergyPoint(int ene) {
-        energy = ene;
-    }
+    public void setEnergyPoint(int ene) { energy = ene; }
 
-    public void increaseEnergy() {
+    public void increaseEnergy()
+    {
         energy++;
     }
 
-    public void winner() {
-        logger.info(this.toString() + " is the winner!!!\n");
+    public void winner()
+    {
+        logger.info(this.toString()+" is the winner!!!\n");
     }
 
 
-    public void attack(Player opponent) {
+    public void attack(Player opponent)
+    {
         ArrayList<Creature> myPlayerCreature = this.playerCreature;
-        ArrayList<Creature> playerCreatureOpponent = opponent.getPlayerCreature();
+        ArrayList<Creature> playerCreatureOpponent= opponent.getPlayerCreature();
 
 
         for (int i = 0; i < this.getPlayerCreature().size(); i++) {
@@ -136,12 +147,10 @@ public class Player {
     }
 
 
-    public String getName() {
-        return name;
-    }
-
+    public String getName(){return name;}
     @Override
-    public String toString() {
+    public String toString()
+    {
         return " " + name + "(" + getLifePoint() + "pv|" + getEnergy() + "energy)";
     }
 }

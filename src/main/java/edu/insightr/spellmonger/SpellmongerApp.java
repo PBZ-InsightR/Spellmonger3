@@ -34,17 +34,37 @@ public class SpellmongerApp {
         if (currentCard instanceof Creature) {
             currentPlayer.addPlayerCreature(currentCard);
             currentPlayer.sortCreatures();
-        } else if (currentCard instanceof Ritual) {
-            if (currentCard instanceof Blessing) {
-                currentPlayer.setLifePoint(currentPlayer.getLifePoint() + currentCard.getEffect());
-                logger.info("The Blessing Ritual add 3 Life Point to " + currentPlayer.toString());
-            } else if (currentCard instanceof Curse) {
-                opponent.setLifePoint(opponent.getLifePoint() - currentCard.getEffect());
-                logger.info(currentPlayer.toString() + " cast a ritual that deals 3 damages to " + opponent.toString());
-            } else {
-                currentPlayer.setEnergyPoint(currentPlayer.getEnergy() + currentCard.getEffect());
-                opponent.setEnergyPoint(opponent.getEnergy() - currentCard.getEffect());
-                logger.info(currentPlayer.toString() + " cast a drain energy ritual that takes 2 energies from " + opponent.toString());
+        }
+        else if(currentCard instanceof Ritual)
+        {
+            if(currentCard instanceof Blessing)
+            {
+                currentPlayer.setLifePoint(currentPlayer.getLifePoint()+currentCard.getEffect());
+                logger.info("The Blessing Ritual add 3 Life Point to "+currentPlayer.toString());
+            }
+            else if(currentCard instanceof Curse)
+            {
+                opponent.setLifePoint(opponent.getLifePoint()-currentCard.getEffect());
+                logger.info(currentPlayer.toString()+" cast a ritual that deals 3 damages to "+opponent.toString());
+            }
+            else
+            {
+                if(opponent.getEnergy() >2 )
+                {
+                    currentPlayer.setEnergyPoint(currentPlayer.getEnergy() + currentCard.getEffect());
+                    opponent.setEnergyPoint(opponent.getEnergy() - currentCard.getEffect());
+                    logger.info(currentPlayer.toString() + " cast a drain energy ritual that takes 2 energies from " + opponent.toString());
+                }
+                else if(opponent.getEnergy() == 1)
+                {
+                    currentPlayer.setEnergyPoint(currentPlayer.getEnergy() + 1);
+                    opponent.setEnergyPoint(opponent.getEnergy() -1);
+                    logger.info(currentPlayer.toString() + " cast a drain energy ritual that takes 1 energie from " + opponent.toString());
+                }
+                else if(opponent.getEnergy() == 0)
+                {
+                    logger.info(currentPlayer.toString() + " cast a drain energy ritual but " + opponent.toString() + " have no energy to steal");
+                }
             }
         }
         cardPool.remove(0);
