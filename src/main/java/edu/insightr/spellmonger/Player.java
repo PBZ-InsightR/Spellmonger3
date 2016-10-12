@@ -5,9 +5,6 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created by ValentinDuph on 25/09/2016.
- */
 public class Player {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private String name;
@@ -16,26 +13,23 @@ public class Player {
     private ArrayList<Creature> playerCreature;
     private Deck cardPool;
     private Deck discardPool;
- 
-    public Player(String name)
-    {
+
+    public Player(String name) {
         this.playerCreature = new ArrayList<>();
-        this.cardPool= new Deck(name); // créer une cardPool avec des valeurs (voir constructeur de la classe Deck)
-        this.discardPool=new Deck(); // créer une cardPoll vide (voir constructeur de la classe Deck)
+        this.cardPool = new Deck(name); // créer une cardPool avec des valeurs (voir constructeur de la classe Deck)
+        this.discardPool = new Deck(); // créer une cardPoll vide (voir constructeur de la classe Deck)
         this.name = name;
         this.lifePoint = 20;
         this.energy = 0;
 
     }
 
-    public Deck getCards()
-    {
-        return  cardPool;
+    public Deck getCards() {
+        return cardPool;
     }
 
-    public Deck getDiscards()
-    {
-        return  discardPool;
+    public Deck getDiscards() {
+        return discardPool;
     }
 
     public void reCreateCardPool() // quand la cardPool d'un joueur est finie, on la renouvelle
@@ -44,75 +38,64 @@ public class Player {
         discardPool.clearCards();
     }
 
-    public int size()
-    {
+    public int size() {
         return cardPool.size();
     }
 
-    public void addPlayerCreature(Card creature)
-    {
+    public void addPlayerCreature(Card creature) {
         playerCreature.add((Creature) creature);
     }
 
-    public void removePlayerCreature(Card creature)
-    {
-        if(playerCreature.contains(creature))
-        {
+    public void removePlayerCreature(Card creature) {
+        if (playerCreature.contains(creature)) {
             playerCreature.remove(creature);
         }
     }
 
-    public void sortCreatures()
-    {
+    public void sortCreatures() {
         Collections.sort(playerCreature);
     } //utilisé dans le systeme d'attaque
 
-    public ArrayList<Creature> getPlayerCreature()
-    {
+    public ArrayList<Creature> getPlayerCreature() {
         return playerCreature;
     }
-    public void setPlayerCreature(ArrayList<Creature> newOne)
-    {
+
+    public void setPlayerCreature(ArrayList<Creature> newOne) {
         playerCreature = newOne;
     }
 
-    public boolean isDead()
-    {
-        return lifePoint<=0;
+    public boolean isDead() {
+        return lifePoint <= 0;
     }
 
-    public int getLifePoint()
-    {
+    public int getLifePoint() {
         return lifePoint;
     }
 
-    public void setLifePoint(int life)
-    {
+    public void setLifePoint(int life) {
         lifePoint = life;
     }
 
-    public int getEnergy()
-    {
+    public int getEnergy() {
         return energy;
     }
 
-    public void setEnergyPoint(int ene) { energy = ene; }
+    public void setEnergyPoint(int ene) {
+        energy = ene;
+    }
 
-    public void increaseEnergy()
-    {
+    public void increaseEnergy() {
         energy++;
     }
 
-    public void winner()
-    {
-        logger.info(this.toString()+" is the winner!!!\n");
+    public void winner() {
+        logger.info(this.toString() + " is the winner!!!\n");
     }
 
 
-    public void attack(Player opponent)
-    {
+    public void attack(Player opponent) {
         ArrayList<Creature> myPlayerCreature = this.playerCreature;
-        ArrayList<Creature> playerCreatureOpponent= opponent.getPlayerCreature();
+        ArrayList<Creature> playerCreatureOpponent = opponent.getPlayerCreature();
 
 
         for (int i = 0; i < this.getPlayerCreature().size(); i++) {
@@ -153,10 +136,12 @@ public class Player {
     }
 
 
-    public String getName(){return name;}
+    public String getName() {
+        return name;
+    }
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return " " + name + "(" + getLifePoint() + "pv|" + getEnergy() + "energy)";
     }
 }
