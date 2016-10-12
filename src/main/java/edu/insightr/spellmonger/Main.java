@@ -3,8 +3,10 @@ package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
 
-public class Main{
+public class Main  {
     public static void main(String[] args) {
+
+
         final Logger logger = Logger.getLogger(SpellmongerApp.class);
         Player Player1 = new Player("Valentin");
         Player Player2 = new Player("Natacha");
