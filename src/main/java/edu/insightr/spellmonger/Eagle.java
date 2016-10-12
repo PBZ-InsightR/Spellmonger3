@@ -13,6 +13,6 @@ public class Eagle extends Creature {
 
     @Override
     public String toString() {
-        return "Eagle "+ toString();
+        return "Eagle : life Point : "+lifePoints+" strength : " +effect;
     }
 }
