@@ -55,55 +55,7 @@ public class Deck {
         return cardPool.remove(index);
     }
 
-   /* public void createCardPool()
-    {
-        for (int i = 0; i < 40; i++) {
-            Random rand = new Random();
-            int choix = rand.nextInt(2);
 
-            if(choix == 0)//creature
-            {
-                Random rand2 = new Random();
-                int type = rand2.nextInt(3);
-                if(type==0)//eagle
-                {
-                    Eagle aigle= new Eagle();
-                    this.cardPool.add(aigle);
-                }
-                if(type==1)//wolf
-                {
-                    Wolf loup= new Wolf();
-                    this.cardPool.add(loup);
-                }
-                if(type==2)//bear
-                {
-                    Bear ours= new Bear();
-                    this.cardPool.add(ours);
-                }
-
-            }
-            if(choix==1)//ritual
-            {
-                Random rand3 = new Random();
-                int spell = rand3.nextInt(3);
-                if(spell==0)//curse
-                {
-                    Curse malediction = new Curse();
-                    this.cardPool.add(malediction);
-                }
-                if(spell==1)//blessing
-                {
-                    Blessing soin = new Blessing();
-                    this.cardPool.add(soin);
-                }
-                if(spell==2)//EnergyDrain
-                {
-                    EnergyDrain drain = new EnergyDrain();
-                    this.cardPool.add(drain);
-                }
-            }
-        }
-    }*/
 
    public void createCardPool() {
        int nbMaxEagle = 10;
