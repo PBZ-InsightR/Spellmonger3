@@ -57,9 +57,10 @@ public class Deck {
 
    /* public void createCardPool()
     {
-        for (int i = 0; i < 70; i++) {
+        for (int i = 0; i < 40; i++) {
             Random rand = new Random();
             int choix = rand.nextInt(2);
+
             if(choix == 0)//creature
             {
                 Random rand2 = new Random();
