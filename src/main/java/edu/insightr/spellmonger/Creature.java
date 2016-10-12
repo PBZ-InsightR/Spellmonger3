@@ -20,7 +20,8 @@ public abstract class Creature extends Card implements Comparable<Creature>
     public int getLifePoints(){
         return lifePoints;
     }
-
+    @Override
+    public String getName(){return "Creature";}
 
     @Override
     public int compareTo(Creature other){
