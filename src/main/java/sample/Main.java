@@ -15,7 +15,7 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
         Scene s = new Scene(root, 800, 700);
         s.getStylesheets().add("style");
-        primaryStage.setScene(s);
+        primaryStage.setScene(s); 
         primaryStage.show();
     }
 
