@@ -29,38 +29,14 @@ public class Controller {
             player1 = new Player("Valentin");
             player2 = new Player("Natacha");
             game = new SpellmongerApp(player1,player2);
-        for(int i=0;i<10;i++){
-            player1.addPlayerCreature(new Eagle());
-            player1.addPlayerCreature(new Wolf());
-            player1.addPlayerCreature(new Bear());
-
-            player2.addPlayerCreature(new Eagle());
-            player2.addPlayerCreature(new Wolf());
-            player2.addPlayerCreature(new Bear());
-
-/*
-            if(i<2){
-                    player1.addPlayerCreature(new Curse());
-                player2.addPlayerCreature(new Curse());
-            }
-            if(i<3){
-                player1.addPlayerCreature(new Blessing());
-                player2.addPlayerCreature(new Blessing());
-            }
-            if(i<5){
-                player1.addPlayerCreature(new EnergyDrain());
-                player2.addPlayerCreature(new EnergyDrain());
-            }*/
-        }
-
     }
 
 
     public void attack1(){
         if(player1.size()==0) player1.reCreateCardPool();
         game.drawCard(player1,player2,player1.getCards(),player2.getDiscards());
-        //if(!player1.isDead())
-          //  player1.attack(player2);
+        if(!player1.isDead())
+            player1.attack(player2);
         update();
     }
 
@@ -78,7 +54,7 @@ public class Controller {
         if(player2.isDead()) b2.setDisable(true);
         J1.setText("\t"+player1.getName()+"\n Life point : " + player1.getLifePoint() + "\n Energy : " + player1.getEnergy());
         J2.setText("\t"+player2.getName()+"\n Life point : " + player2.getLifePoint() + "\n Energy : " + player2.getEnergy());
-       // hand1.setStyle("-fx-background-image: im.jpg ;");
+
         HBox content = new HBox();
         cards1.setContent(content);
         content.setSpacing(10);
