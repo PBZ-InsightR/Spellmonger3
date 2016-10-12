@@ -13,4 +13,6 @@ public class EnergyDrain extends Ritual {
     public String toString() {
         return "EnergyDrain "+super.toString();
     }
+    @Override
+    public String getName(){return "EnergyDrain";}
 }

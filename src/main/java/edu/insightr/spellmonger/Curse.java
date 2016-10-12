@@ -15,4 +15,5 @@ public class Curse extends Ritual {
     {
         return "Curse "+ super.toString() ;
     }
+    public String getname(){return "Curse";}
 }

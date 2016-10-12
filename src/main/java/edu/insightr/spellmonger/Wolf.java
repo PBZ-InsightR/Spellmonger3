@@ -13,4 +13,6 @@ public class Wolf extends Creature {
     public String toString() {
         return "Wolf : life Point : "+lifePoints+" strength : " +effect;
     }
+    @Override
+    public String getName(){return "Wolf";}
 }

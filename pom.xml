@@ -16,6 +16,18 @@
     <properties>
     </properties>
 
+    <build>
+        <finalName>Spring Examples</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java/sample</directory>
+            </resource>
+        </resources>
+    </build>
+
     <dependencyManagement>
         <dependencies>
         </dependencies>
@@ -85,4 +97,5 @@
     </scm>
     <repositories>
     </repositories>
+
 </project>

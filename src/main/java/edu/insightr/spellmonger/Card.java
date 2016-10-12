@@ -19,4 +19,6 @@ public abstract class Card {
     public String toString() {
         return "Effect = " + this.effect;
     }
+
+    public String getName(){return "Card";}
 }

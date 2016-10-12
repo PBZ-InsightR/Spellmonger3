@@ -16,4 +16,6 @@ public class Blessing extends Ritual
     {
         return "Blessing " + super.toString();  
     }
+    @Override
+    public String getName(){return "Blessing";}
 }

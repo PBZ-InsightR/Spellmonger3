@@ -13,7 +13,6 @@ public class Player {
     private String name;
     private int lifePoint;
     private int energy;
-    private int shieldPoint;
     private ArrayList<Creature> playerCreature;
     private Deck cardPool;
     private Deck discardPool;
@@ -26,7 +25,6 @@ public class Player {
         this.name = name;
         this.lifePoint = 20;
         this.energy = 0;
-        this.shieldPoint = 0;
 
     }
 
@@ -125,18 +123,18 @@ public class Player {
 
                 if (degat == 0) // si les deux créature ont la même force les deux meurt
                 {
+                    myPlayerCreature.remove(i);
+                    playerCreatureOpponent.remove(i);
                     logger.info(this.toString() + " " + this.getPlayerCreature().get(i).toString() + " and " + opponent.toString() + " " +
                             opponent.getPlayerCreature().get(i).toString() + " have the same strength and die both ");
-                    myPlayerCreature.remove(i);
-                    playerCreatureOpponent.remove(i);
                 } else if (degat > 0)// si la creature du joueur courant est plus forte elle tue celle de l'adversaire
                 {
-                    logger.info(this.toString() + " " + this.getPlayerCreature().get(i).toString() + " still alive and " + opponent.toString() + " " + opponent.getPlayerCreature().get(i).toString() + "die");
                     playerCreatureOpponent.remove(i);
+                    logger.info(this.toString() + " " + this.getPlayerCreature().get(i).toString() + " still alive and " + opponent.toString() + " " + opponent.getPlayerCreature().get(i).toString() + "die");
                 } else // si la creature de l'opposant est plus forte elle tue celle du joueur courant
                 {
-                    logger.info(opponent.toString() + " " + opponent.getPlayerCreature().get(i).toString() + " still alive and " + this.toString() + " " + this.getPlayerCreature().get(i).toString() + "die");
                     myPlayerCreature.remove(i);
+                    logger.info(opponent.toString() + " " + opponent.getPlayerCreature().get(i).toString() + " still alive and " + this.toString() + " " + this.getPlayerCreature().get(i).toString() + "die");
                 }
             } else if (!this.getPlayerCreature().isEmpty() && opponent.getPlayerCreature().isEmpty())// si le board de l'opposant ne contient plus de creature les creatures du joueur courant attaque l'opposant
             {
@@ -152,14 +150,8 @@ public class Player {
         opponent.setPlayerCreature(playerCreatureOpponent);
     }
 
-   /* public int getShieldPoint() {
-            return shieldPoint;
-    }
 
-    public void setShieldPoint(int shPoint){
-        shieldPoint = shPoint;
-    }*/
-
+    public String getName(){return name;}
     @Override
     public String toString()
     {
