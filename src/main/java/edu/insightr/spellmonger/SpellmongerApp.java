@@ -63,9 +63,22 @@ public class SpellmongerApp {
             }
             else
             {
-                currentPlayer.setEnergyPoint(currentPlayer.getEnergy()+currentCard.getEffect());
-                opponent.setEnergyPoint(opponent.getEnergy() - currentCard.getEffect());
-                logger.info(currentPlayer.toString()+" cast a drain energy ritual that takes 2 energies from "+opponent.toString());
+                if(opponent.getEnergy() >2 )
+                {
+                    currentPlayer.setEnergyPoint(currentPlayer.getEnergy() + currentCard.getEffect());
+                    opponent.setEnergyPoint(opponent.getEnergy() - currentCard.getEffect());
+                    logger.info(currentPlayer.toString() + " cast a drain energy ritual that takes 2 energies from " + opponent.toString());
+                }
+                else if(opponent.getEnergy() == 1)
+                {
+                    currentPlayer.setEnergyPoint(currentPlayer.getEnergy() + 1);
+                    opponent.setEnergyPoint(opponent.getEnergy() -1);
+                    logger.info(currentPlayer.toString() + " cast a drain energy ritual that takes 1 energie from " + opponent.toString());
+                }
+                else if(opponent.getEnergy() == 0)
+                {
+                    logger.info(currentPlayer.toString() + " cast a drain energy ritual but " + opponent.toString() + " have no energy to steal");
+                }
             }
         }
         cardPool.remove(0);
