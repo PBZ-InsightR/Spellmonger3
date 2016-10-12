@@ -28,7 +28,7 @@ public class Controller {
     public Controller(){
             player1 = new Player("Valentin");
             player2 = new Player("Natacha");
-            game = new SpellmongerApp(player1,player2);
+            game = new SpellmongerApp(player1,player2); 
     }
 
 
