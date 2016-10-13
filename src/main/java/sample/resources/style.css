@@ -1,0 +1,95 @@
+#mainPane{
+    -fx-pref-height:700;
+    -fx-pref-width:800;
+    -fx-background-image:url("images/fond.jpg");
+    -fx-background-position: center center;
+    -fx-background-repeat: stretch;
+}
+
+#split{
+	-fx-pref-height:700;
+	-fx-pref-width:800;
+	-fx-orientation:vertical;
+	-fx-background-color: transparent;
+}
+
+#Player1{
+	-fx-pref-height:150.0;
+	-fx-pref-width:150.0;
+	-fx-background-color: #ffd700;
+}
+
+#Player2{
+	-fx-pref-height:150.0;
+	-fx-pref-width:150.0;
+	-fx-background-color: #afeeee;
+}
+
+#hand1{
+    -fx-pref-height:115.0;
+	-fx-pref-width:90.0;
+	-fx-background-image:url("images/dosCarte.jpg");
+	-fx-background-size: 89.5%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
+#hand2{
+    -fx-pref-height:115.0;
+	-fx-pref-width:90.0;
+	-fx-background-image:url("images/dosCarte.jpg");
+	-fx-background-size: 89.5%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
+#discard1{
+    -fx-pref-height:115.0;
+    -fx-pref-width:90.0;
+    -fx-background-color: WHITE;
+}
+
+#discard2{
+    -fx-pref-height:115.0;
+	-fx-pref-width:90.0;
+	-fx-background-color: WHITE;
+}
+
+#button_play1{
+    -fx-pref-height:40.0;
+	-fx-pref-width:40.0;
+}
+
+#button_play2{
+    -fx-pref-height:40.0;
+	-fx-pref-width:40.0;
+}
+
+#list_creatures1{
+    -fx-pref-height:140.0;
+	-fx-pref-width:740.0;
+	-fx-background-color: transparent;
+}
+
+#list_creatures2{
+    -fx-pref-height:140.0;
+	-fx-pref-width:740.0;
+	-fx-background-color: transparent;
+	/*-fx-opacity: 0;*/
+}
+
+#name1{
+	-fx-text-alignment: center;
+}
+
+#life_points1{
+	-fx-text-alignment:center;
+}
+
+#name2{
+	-fx-text-alignment:center;
+}
+
+#life_points2{
+	-fx-text-alignment:center;
+}
