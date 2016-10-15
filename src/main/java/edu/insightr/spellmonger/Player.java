@@ -21,7 +21,6 @@ public class Player {
         this.name = name;
         this.lifePoint = 20;
         this.energy = 0;
-
     }
 
     public Deck getCards() {
@@ -38,104 +37,90 @@ public class Player {
         discardPool.clearCards();
     }
 
-    public int size()
-    {
+    public int size() {
         return cardPool.size();
     }
 
-    public void addPlayerCreature(Card creature)
-    {
+    public void addPlayerCreature(Card creature) {
         playerCreature.add((Creature) creature);
     }
 
-    public void removePlayerCreature(Card creature)
-    {
-        if(playerCreature.contains(creature))
-        {
+    public void removePlayerCreature(Card creature) {
+        if (playerCreature.contains(creature)) {
             playerCreature.remove(creature);
         }
     }
 
-    public void sortCreatures()
-    {
+    public void sortCreatures() {
         Collections.sort(playerCreature);
     } //utilisé dans le systeme d'attaque
 
-    public ArrayList<Creature> getPlayerCreature()
-    {
+    public ArrayList<Creature> getPlayerCreature() {
         return playerCreature;
     }
-    public void setPlayerCreature(ArrayList<Creature> newOne)
-    {
+
+    public void setPlayerCreature(ArrayList<Creature> newOne) {
         playerCreature = newOne;
     }
 
-    public boolean isDead()
-    {
-        return lifePoint<=0;
+    public boolean isDead() {
+        return lifePoint <= 0;
     }
 
-    public int getLifePoint()
-    {
+    public int getLifePoint() {
         return lifePoint;
     }
 
-    public void setLifePoint(int life)
-    {
+    public void setLifePoint(int life) {
         lifePoint = life;
     }
 
-    public int getEnergy()
-    {
+    public int getEnergy() {
         return energy;
     }
 
-    public void setEnergyPoint(int ene) { energy = ene; }
+    public void setEnergyPoint(int ene) {
+        energy = ene;
+    }
 
-    public void increaseEnergy()
-    {
+    public void increaseEnergy() {
         energy++;
     }
 
-    public void winner()
-    {
-        logger.info(this.toString()+" is the winner!!!\n");
+    public void winner() {
+        logger.info(this.toString() + " is the winner!!!\n");
     }
 
 
-    public void attack(Player opponent)
-    {
+    public void attack(Player opponent) {
         ArrayList<Creature> myPlayerCreature = this.playerCreature;
-        ArrayList<Creature> playerCreatureOpponent= opponent.getPlayerCreature();
+        ArrayList<Creature> playerCreatureOpponent = opponent.getPlayerCreature();
 
+        //for (int i = 0; i < this.getPlayerCreature().size(); i++) {
+        for (int i = 0; i < myPlayerCreature.size(); i++) {
 
-        for (int i = 0; i < this.getPlayerCreature().size(); i++) {
-
-            if (!this.getPlayerCreature().isEmpty() && !opponent.getPlayerCreature().isEmpty())// si il y'a une creature des deux coté du board
+            if (!myPlayerCreature.isEmpty() && !playerCreatureOpponent.isEmpty())// si il y'a une creature des deux coté du board
             {
-                int degat = this.getPlayerCreature().get(i).getEffect() - opponent.getPlayerCreature().get(i).getEffect(); // recup des dégats la diff entre la force des deux creatures
+                int degat = myPlayerCreature.get(i).getEffect() - playerCreatureOpponent.get(i).getEffect(); // recup des dégats la diff entre la force des deux creatures
 
                 if (degat == 0) // si les deux créature ont la même force les deux meurt
                 {
-                    logger.info(this.toString() + " " + this.getPlayerCreature().get(i).toString() + " and " + opponent.toString() + " " +
-                            opponent.getPlayerCreature().get(i).toString() + " have the same strength and die both ");
+                    logger.info(this.toString() + " " + myPlayerCreature.get(i).toString() + " and " + opponent.toString() + " " +
+                           playerCreatureOpponent.get(i).toString() + " have the same strength and die both ");
                     myPlayerCreature.remove(i);
                     playerCreatureOpponent.remove(i);
                 } else if (degat > 0)// si la creature du joueur courant est plus forte elle tue celle de l'adversaire
                 {
-
-                    logger.info(this.toString() + " " + this.getPlayerCreature().get(i).toString() + " still alive and " + opponent.toString() + " " + opponent.getPlayerCreature().get(i).toString() + "die");
+                    logger.info(this.toString() + " " + myPlayerCreature.get(i).toString() + " still alive and " + opponent.toString() + " " + playerCreatureOpponent.get(i).toString() + "die");
                     playerCreatureOpponent.remove(i);
                 } else // si la creature de l'opposant est plus forte elle tue celle du joueur courant
                 {
-
-                    logger.info(opponent.toString() + " " + opponent.getPlayerCreature().get(i).toString() + " still alive and " + this.toString() + " " + this.getPlayerCreature().get(i).toString() + "die");
+                    logger.info(opponent.toString() + " " + playerCreatureOpponent.get(i).toString() + " still alive and " + this.toString() + " " + myPlayerCreature.get(i).toString() + "die");
                     myPlayerCreature.remove(i);
                 }
-            } else if (!this.getPlayerCreature().isEmpty() && opponent.getPlayerCreature().isEmpty())// si le board de l'opposant ne contient plus de creature les creatures du joueur courant attaque l'opposant
+            } else if (!myPlayerCreature.isEmpty() && playerCreatureOpponent.isEmpty())// si le board de l'opposant ne contient plus de creature les creatures du joueur courant attaque l'opposant
             {
-                opponent.setLifePoint(opponent.getLifePoint() - this.getPlayerCreature().get(i).getEffect());
-
+                opponent.setLifePoint(opponent.getLifePoint() - myPlayerCreature.get(i).getEffect());
             } else// si le joueur courant n'a plus de creature et qu'il en reste à l'opposant l'attaque du joueur s'arrête
             {
                 break;
@@ -147,10 +132,12 @@ public class Player {
     }
 
 
-    public String getName(){return name;}
+    public String getName() {
+        return name;
+    }
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return " " + name + "(" + getLifePoint() + "pv|" + getEnergy() + "energy)";
     }
 }

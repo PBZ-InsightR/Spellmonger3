@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
-
 <?xml-stylesheet href="@style.css" type="text/css" ?>
 
-<Pane id="mainPane" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-    <SplitPane id="split">
+<Pane id="mainPane" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <SplitPane id="split" dividerPositions="0.5">
         <items>
             <AnchorPane>
                 <children>
                     <Pane fx:id="Player1" layoutX="14.0" layoutY="14.0">
                         <children>
-                            <Text fx:id="name1" layoutY="73.0" wrappingWidth="150"/>
-                            <Text fx:id="life_points1" layoutY="90.0" wrappingWidth="150"/>
+                            <Text fx:id="name1" layoutY="73.0" wrappingWidth="150" />
+                            <Text fx:id="life_points1" layoutY="90.0" wrappingWidth="150" />
                         </children>
                     </Pane>
-                    <Pane fx:id="hand1" layoutX="258.0" layoutY="40.0"/>
-                    <Pane fx:id="discard1" layoutX="588.0" layoutY="40.0"/>
-                    <Button fx:id="button_play1" layoutX="443.0" layoutY="65.0" onAction="#attack1" text="&gt;"/>
-                    <ScrollPane fx:id="list_creatures1" layoutX="30.0" layoutY="196.0"/>
-                    <Button fx:id="init" layoutX="735.0" layoutY="14.0" onAction="#update" text="PLAY"/>
+                    <Pane fx:id="hand1" layoutX="258.0" layoutY="40.0" />
+                    <Pane fx:id="discard1" layoutX="588.0" layoutY="40.0" />
+                    <Button fx:id="button_play1" layoutX="443.0" layoutY="65.0" onAction="#attack1" text="&gt;" />
+                    <ScrollPane fx:id="list_creatures1" layoutX="30.0" layoutY="196.0" />
                 </children>
             </AnchorPane>
             <AnchorPane>
                 <children>
                     <Pane fx:id="Player2" layoutX="14.0" layoutY="166.0">
                         <children>
-                            <Text fx:id="name2" layoutY="73.0" wrappingWidth="150"/>
-                            <Text fx:id="life_points2" layoutY="90.0" wrappingWidth="150"/>
+                            <Text fx:id="name2" layoutY="73.0" wrappingWidth="150" />
+                            <Text fx:id="life_points2" layoutY="90.0" wrappingWidth="150" />
                         </children>
                     </Pane>
-                    <Pane fx:id="hand2" layoutX="258.0" layoutY="192.0"/>
-                    <Pane fx:id="discard2" layoutX="588.0" layoutY="192.0"/>
-                    <Button fx:id="button_play2" layoutX="443.0" layoutY="218.0" onAction="#attack2" text="&gt;"/>
-                    <ScrollPane fx:id="list_creatures2" layoutX="30.0" layoutY="14.0"/>
+                    <Pane fx:id="hand2" layoutX="258.0" layoutY="192.0" />
+                    <Pane fx:id="discard2" layoutX="588.0" layoutY="192.0" />
+                    <Button fx:id="button_play2" layoutX="443.0" layoutY="218.0" onAction="#attack2" text="&gt;" />
+                    <ScrollPane fx:id="list_creatures2" layoutX="30.0" layoutY="14.0" />
                 </children>
             </AnchorPane>
         </items>

@@ -1,5 +1,6 @@
 package edu.insightr.spellmonger;
 
+
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -30,7 +31,6 @@ public class SpellmongerApp {
         Card currentCard = cardPool.get(0);
 
         logger.info(currentPlayer.toString() + " draw a " + currentCard.toString());
-
         if (currentCard instanceof Creature) {
             currentPlayer.addPlayerCreature(currentCard);
             currentPlayer.sortCreatures();
@@ -49,7 +49,7 @@ public class SpellmongerApp {
             }
             else
             {
-                if(opponent.getEnergy() >2 )
+                if(opponent.getEnergy()>2)
                 {
                     currentPlayer.setEnergyPoint(currentPlayer.getEnergy() + currentCard.getEffect());
                     opponent.setEnergyPoint(opponent.getEnergy() - currentCard.getEffect());
