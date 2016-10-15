@@ -1,7 +1,7 @@
 #mainPane{
     -fx-pref-height:700;
     -fx-pref-width:800;
-    -fx-background-image:url("images/fond.jpg");
+    -fx-background-image:url("images/fond.png");
     -fx-background-position: center center;
     -fx-background-repeat: stretch;
 }
@@ -28,7 +28,7 @@
 #hand1{
     -fx-pref-height:115.0;
 	-fx-pref-width:90.0;
-	-fx-background-image:url("images/dosCarte.jpg");
+	-fx-background-image:url("images/dosCartes_ocre.png");
 	-fx-background-size: 89.5%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
@@ -37,7 +37,7 @@
 #hand2{
     -fx-pref-height:115.0;
 	-fx-pref-width:90.0;
-	-fx-background-image:url("images/dosCarte.jpg");
+	-fx-background-image:url("images/dosCartes_ocre.png");
 	-fx-background-size: 89.5%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
