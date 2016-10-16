@@ -3,6 +3,7 @@ package edu.insightr.spellmonger;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -91,6 +92,15 @@ public class PlayerTest {
         Assert.assertEquals("Attaque force différente, 1 carte chez l'adversaire plus forte", 1, opponentCreatures.size());
 
 
+    }
+
+    @Test
+    public final void intialCardsTest(){
+        Player numa=new Player("Numa");
+        Assert.assertEquals("getHand() test",2,numa.getHand().size());
+
+        numa.addToHand(new Wolf());
+        Assert.assertEquals("addTohand() test",3,numa.getHand().size());
     }
 
 

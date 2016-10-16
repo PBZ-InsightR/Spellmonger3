@@ -17,7 +17,10 @@ public class Main {
 
             logger.info("Current  player is :" + current);
             logger.info("Oppenent player is :" + oppenent);
-            game.drawCard(current, oppenent, current.getCards(), current.getDiscards());
+            current.addToHand(current.getCards().get(0)); //fonctiona a defniir
+            current.getCards().remove(0); // fonction a definir
+            int indexChoisi=0; // fonction a definir
+            game.drawCard(current, oppenent, current.getHand(),indexChoisi, current.getDiscards());
             current.attack(oppenent);
             logger.info(game.toString());
 

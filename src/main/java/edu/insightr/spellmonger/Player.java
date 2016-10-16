@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class Player {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -13,6 +14,7 @@ public class Player {
     private ArrayList<Creature> playerCreature;
     private Deck cardPool;
     private Deck discardPool;
+    private ArrayList<Card> hand;
 
     public Player(String name) {
         this.playerCreature = new ArrayList<>();
@@ -21,6 +23,48 @@ public class Player {
         this.name = name;
         this.lifePoint = 20;
         this.energy = 0;
+        hand = new ArrayList<>(3); // les cartes que le joueur en main
+        addInitialCards(hand);
+    }
+
+
+    private void addInitialCards(ArrayList<Card> c) {
+        while(c.size()<2) {
+            Random random = new Random();
+            int rndNb = random.nextInt(5);
+            switch (rndNb) {
+                case 0:
+                    c.add(new Eagle());
+                    break;
+                case 1:
+                    c.add(new Shield());
+                    break;
+                case 2:
+                    c.add(new Bear());
+                    break;
+                case 3:
+                    c.add(new Curse());
+                    break;
+                case 4:
+                    c.add(new Blessing());
+                    break;
+                case 5:
+                    c.add(new Wolf());
+                    break;
+            }
+        }
+    }
+
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
+
+    public void addToHand(Card c) {
+        hand.add(c);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Deck getCards() {
@@ -31,40 +75,12 @@ public class Player {
         return discardPool;
     }
 
-    public void reCreateCardPool() // quand la cardPool d'un joueur est finie, on la renouvelle
-    {
-        cardPool = new Deck(discardPool.getCardPool());
-        discardPool.clearCards();
-    }
-
-    public int size() {
-        return cardPool.size();
-    }
-
-    public void addPlayerCreature(Card creature) {
-        playerCreature.add((Creature) creature);
-    }
-
-    public void removePlayerCreature(Card creature) {
-        if (playerCreature.contains(creature)) {
-            playerCreature.remove(creature);
-        }
-    }
-
-    public void sortCreatures() {
-        Collections.sort(playerCreature);
-    } //utilisé dans le systeme d'attaque
-
     public ArrayList<Creature> getPlayerCreature() {
         return playerCreature;
     }
 
     public void setPlayerCreature(ArrayList<Creature> newOne) {
         playerCreature = newOne;
-    }
-
-    public boolean isDead() {
-        return lifePoint <= 0;
     }
 
     public int getLifePoint() {
@@ -83,6 +99,28 @@ public class Player {
         energy = ene;
     }
 
+    public void reCreateCardPool() // quand la cardPool d'un joueur est finie, on la renouvelle
+    {
+        cardPool = new Deck(discardPool.getCardPool());
+        discardPool.clearCards();
+    }
+
+    public boolean isDead() {
+        return lifePoint <= 0;
+    }
+
+    public int size() {
+        return cardPool.size();
+    }
+
+    public void addPlayerCreature(Card creature) {
+        playerCreature.add((Creature) creature);
+    }
+
+    public void sortCreatures() {
+        Collections.sort(playerCreature);
+    } //utilisé dans le systeme d'attaque
+
     public void increaseEnergy() {
         energy++;
     }
@@ -91,12 +129,11 @@ public class Player {
         logger.info(this.toString() + " is the winner!!!\n");
     }
 
-
     public void attack(Player opponent) {
         ArrayList<Creature> myPlayerCreature = this.playerCreature;
         ArrayList<Creature> playerCreatureOpponent = opponent.getPlayerCreature();
 
-        //for (int i = 0; i < this.getPlayerCreature().size(); i++) {
+        //tout les  this.getPlayerCreature().get(i).getEffect() en  myPlayerCreature.get(i).getEffect()
         for (int i = 0; i < myPlayerCreature.size(); i++) {
 
             if (!myPlayerCreature.isEmpty() && !playerCreatureOpponent.isEmpty())// si il y'a une creature des deux coté du board
@@ -106,7 +143,7 @@ public class Player {
                 if (degat == 0) // si les deux créature ont la même force les deux meurt
                 {
                     logger.info(this.toString() + " " + myPlayerCreature.get(i).toString() + " and " + opponent.toString() + " " +
-                           playerCreatureOpponent.get(i).toString() + " have the same strength and die both ");
+                            playerCreatureOpponent.get(i).toString() + " have the same strength and die both ");
                     myPlayerCreature.remove(i);
                     playerCreatureOpponent.remove(i);
                 } else if (degat > 0)// si la creature du joueur courant est plus forte elle tue celle de l'adversaire
@@ -129,11 +166,6 @@ public class Player {
 
         this.setPlayerCreature(myPlayerCreature);
         opponent.setPlayerCreature(playerCreatureOpponent);
-    }
-
-
-    public String getName() {
-        return name;
     }
 
     @Override

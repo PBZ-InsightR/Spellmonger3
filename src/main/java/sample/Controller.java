@@ -9,6 +9,9 @@ import javafx.geometry.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Controller {
     private Player player1;
     private Player player2;
@@ -39,7 +42,10 @@ public class Controller {
 
     public void attack1() {
         if (player1.size() == 0) player1.reCreateCardPool();
-        game.drawCard(player1, player2, player1.getCards(), player2.getDiscards());
+        player1.addToHand(player1.getCards().get(0)); // fonction a definir
+        player1.getCards().remove(0); // fonction a definir
+        int indexChoisi=0; // fonction a definir
+        game.drawCard(player1, player2, player1.getHand(),indexChoisi, player1.getDiscards());
         if (!player1.isDead()) {
             player1.attack(player2);
         }
@@ -50,7 +56,10 @@ public class Controller {
 
     public void attack2() {
         if (player1.size() == 0) player1.reCreateCardPool();
-        game.drawCard(player2, player1, player2.getCards(), player1.getDiscards());
+        player2.addToHand(player2.getCards().get(0)); // fonction a definir
+        player2.getCards().remove(0); // fonction a definir
+        int indexChoisi=0; // fonction a definir
+        game.drawCard(player2, player1, player2.getHand(),indexChoisi, player2.getDiscards());
         if (!player2.isDead()) {
             player2.attack(player1);
         }

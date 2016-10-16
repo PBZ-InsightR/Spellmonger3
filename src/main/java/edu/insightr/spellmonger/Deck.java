@@ -52,7 +52,6 @@ public class Deck {
         int nbMaxShield = 5;
         int nbMaxBlessing = 3;
 
-
         while (nbMaxBear > 0 || nbMaxWolf > 0 || nbMaxEagle > 0 || nbMaxBlessing > 0 || nbMaxCurse > 0 || nbMaxShield > 0) {
             Random rand = new Random();
             int nbRand = rand.nextInt(6);

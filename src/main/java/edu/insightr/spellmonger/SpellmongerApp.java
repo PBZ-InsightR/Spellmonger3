@@ -26,9 +26,9 @@ public class SpellmongerApp {
     }  // renvoie l'autre joueuer de la partie (pour l'instant il n'y en a que deux, mais si ça augmente, la méthode ne chagera pas!)
 
 
-    public void drawCard(Player currentPlayer, Player opponent, Deck cardPool, Deck displayCard) {
+    public void drawCard(Player currentPlayer, Player opponent, ArrayList<Card> hand,int choixDuJoueur, Deck displayCard) {
         currentPlayer.increaseEnergy();//On augmente l'energy du joueur
-        Card currentCard = cardPool.get(0);
+        Card currentCard = hand.get(choixDuJoueur);
 
         logger.info(currentPlayer.toString() + " draw a " + currentCard.toString());
         if (currentCard instanceof Creature) {
@@ -67,7 +67,7 @@ public class SpellmongerApp {
                 }
             }
         }
-        cardPool.remove(0);
+        hand.remove(choixDuJoueur);
         displayCard.add(currentCard);
     }
 
