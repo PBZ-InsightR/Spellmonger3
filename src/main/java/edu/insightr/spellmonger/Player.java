@@ -29,7 +29,7 @@ public class Player {
 
 
     private void addInitialCards(ArrayList<Card> c) {
-        while(c.size()<2) {
+        while (c.size() < 2) {
             Random random = new Random();
             int rndNb = random.nextInt(5);
             switch (rndNb) {

@@ -1,28 +1,34 @@
 package sample;
 
+
 import edu.insightr.spellmonger.*;
-import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
-import javafx.util.Duration;
+import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Random;
 
 public class Controller {
+    private static final Logger logger = Logger.getLogger(Controller.class);
+
+    private SpellmongerApp game;
+    private int indexChoisi_1 = 0;
+    private int indexChoisi_2 = 0;
     private Player player1;
     private Player player2;
-    private SpellmongerApp game;
-
-
     @FXML
     private Text name1, life_points1, name2, life_points2;
-    public Pane hand1, discard1, hand2, discard2;
-    public ScrollPane list_creatures1, list_creatures2;
+    public Pane  discard1, discard2;
+    public ScrollPane list_creatures1, list_creatures2,deck1,deck2;
     public Button button_play1, button_play2;
+
+
 
     @FXML
     public void initialize() {
@@ -30,6 +36,73 @@ public class Controller {
         life_points1.setText("Life point : " + player1.getLifePoint() + "\n Energy : " + player1.getEnergy());
         name2.setText("\t" + player2.getName());
         life_points2.setText("Life point : " + player2.getLifePoint() + "\n Energy : " + player2.getEnergy());
+
+        HBox content = new HBox();
+        deck1.setContent(content);
+        content.setSpacing(20);
+        content.setPadding(new Insets(10, 10, 10, 10));
+        int index = 0;  // pour obtenir l'index quand il va choisir la carte a joué ( utilisé dans le hand pas la)
+        for (Card c : player1.getHand()) {
+            Rectangle rectangle = new Rectangle(100, 120);
+            if (c instanceof Bear) {
+                Image img = new Image("resources/images/Spellmonger_Bear.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (c instanceof Eagle) {
+                Image img = new Image("resources/images/Spellmonger_Eagle.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (c instanceof Wolf) {
+                Image img = new Image("resources/images/Spellmonger_Wolf.png");
+                rectangle.setFill(new ImagePattern(img));
+            } // fox a ajouter, quand le modèle ajoutera la classe!
+            else if(c instanceof Ritual) {
+                rectangle.setFill(Color.BLACK);
+            }
+
+            rectangle.setLayoutY(10);
+            content.getChildren().add(rectangle);
+            // obtenir l'index du rectangle qu'il choisit
+            int index1 = index;
+            rectangle.setOnMouseClicked(t -> {
+                indexChoisi_1 = index1;
+                logger.info("index choisi du joueur1 est egale à ====" + indexChoisi_1);
+            });
+            index++;
+        }
+
+
+
+
+        HBox content2 = new HBox();
+        deck2.setContent(content2);
+        content2.setSpacing(20);
+        content2.setPadding(new Insets(10, 10, 10, 10));
+        index=0;
+        for (Card c : player2.getHand()) {
+            Rectangle rectangle = new Rectangle(100, 120);
+            if (c instanceof Bear) {
+                Image img = new Image("resources/images/Spellmonger_Bear.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (c instanceof Eagle) {
+                Image img = new Image("resources/images/Spellmonger_Eagle.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (c instanceof Wolf) {
+                Image img = new Image("resources/images/Spellmonger_Wolf.png");
+                rectangle.setFill(new ImagePattern(img));
+            } // fox a ajouter, quand le modèle ajoutera la classe!
+            else{
+                rectangle.setFill(Color.BLACK);
+            }
+
+            rectangle.setLayoutY(10);
+            content2.getChildren().add(rectangle);
+            // obtenir l'index du rectangle qu'il choisit
+            int index2 = index;
+            rectangle.setOnMouseClicked(t -> {
+                indexChoisi_2 = index2;
+                logger.info("index choisi du joueur2 est egale à ====" + indexChoisi_2);
+            });
+            index++;
+        }
         button_play1.setDisable(false);
         button_play2.setDisable(true);
     }
@@ -42,10 +115,10 @@ public class Controller {
 
     public void attack1() {
         if (player1.size() == 0) player1.reCreateCardPool();
-        player1.addToHand(player1.getCards().get(0)); // fonction a definir
-        player1.getCards().remove(0); // fonction a definir
-        int indexChoisi=0; // fonction a definir
-        game.drawCard(player1, player2, player1.getHand(),indexChoisi, player1.getDiscards());
+
+        player1.addToHand(player1.getCards().get(0));
+        player1.getCards().remove(0);
+        game.drawCard(player1, player2, player1.getHand(), indexChoisi_1, player1.getDiscards());
         if (!player1.isDead()) {
             player1.attack(player2);
         }
@@ -56,10 +129,9 @@ public class Controller {
 
     public void attack2() {
         if (player1.size() == 0) player1.reCreateCardPool();
-        player2.addToHand(player2.getCards().get(0)); // fonction a definir
-        player2.getCards().remove(0); // fonction a definir
-        int indexChoisi=0; // fonction a definir
-        game.drawCard(player2, player1, player2.getHand(),indexChoisi, player2.getDiscards());
+        player2.addToHand(player2.getCards().get(0));
+        player2.getCards().remove(0);
+        game.drawCard(player2, player1, player2.getHand(), indexChoisi_2, player2.getDiscards());
         if (!player2.isDead()) {
             player2.attack(player1);
         }
@@ -77,27 +149,49 @@ public class Controller {
         life_points1.setText("Life point : " + player1.getLifePoint() + "\n Energy : " + player1.getEnergy());
         name2.setText("\t" + player2.getName());
         life_points2.setText("Life point : " + player2.getLifePoint() + "\n Energy : " + player2.getEnergy());
+
         HBox content = new HBox();
         list_creatures1.setContent(content);
-        content.setSpacing(10);
+        content.setSpacing(20);
         content.setPadding(new Insets(10, 10, 10, 10));
         for (Card c : player1.getPlayerCreature()) {
-            Label l = new Label(c.getName());
-            l.setPrefSize(100, 100);
-            l.setLayoutY(10);
-            l.setStyle("-fx-background-color: green");
-            content.getChildren().add(l);
+            Rectangle rectangle = new Rectangle(100, 120);
+            if (c instanceof Bear) {
+                Image img = new Image("resources/images/Spellmonger_Bear.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (c instanceof Eagle) {
+                Image img = new Image("resources/images/Spellmonger_Eagle.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (c instanceof Wolf) {
+                Image img = new Image("resources/images/Spellmonger_Wolf.png");
+                rectangle.setFill(new ImagePattern(img));
+            } // fox a ajouter, quand le modèle ajoutera la classe!
+
+
+            rectangle.setLayoutY(10);
+            content.getChildren().add(rectangle);
         }
 
-        HBox content2 = new HBox();
-        list_creatures2.setContent(content2);
-        content2.setSpacing(10);
+
+        HBox content2 = new HBox(); // contenu de la liste de créature 1
+        list_creatures2.setContent(content2); // on le met dans la Pane concu pour
+        content2.setSpacing(20);
         content2.setPadding(new Insets(10, 10, 10, 10));
         for (Card c : player2.getPlayerCreature()) {
-            Label l = new Label(c.getName());
-            l.setPrefSize(100, 100);
-            l.setStyle("-fx-background-color: green");
-            content2.getChildren().add(l);
+            Rectangle rectangle = new Rectangle(100, 120);
+            if (c instanceof Bear) {
+                Image img = new Image("resources/images/Spellmonger_Bear.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (c instanceof Eagle) {
+                Image img = new Image("resources/images/Spellmonger_Eagle.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (c instanceof Wolf) {
+                Image img = new Image("resources/images/Spellmonger_Wolf.png");
+                rectangle.setFill(new ImagePattern(img));
+            } // fox a ajouter, quand le modèle ajoutera la classe!
+            rectangle.setLayoutY(10);
+            content2.getChildren().add(rectangle);
         }
     }
+
 }
