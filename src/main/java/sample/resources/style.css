@@ -14,13 +14,13 @@
 }
 
 /* PLAYER 1*/
-#player1{
+#Player1{
 	-fx-pref-height:150.0;
 	-fx-pref-width:150.0;
 	-fx-background-color: #ffd700;
 }
 
-#player1:hover{
+#Player1:hover{
 
 }
 
@@ -85,13 +85,13 @@
 }
 
 /*PLAYER 2*/
-#player2{
+#Player2{
 	-fx-pref-height:150.0;
 	-fx-pref-width:150.0;
 	-fx-background-color: #afeeee;
 }
 
-#player2:hover{
+#Player2:hover{
     -fx-opacity:0.75;
 }
 
