@@ -1,51 +1,37 @@
 package edu.insightr.spellmonger;
 
 
-//import javafx.scene.control.RadioMenuItem;
-
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-//import java.util.List;
 
-
-/**
- * Created by Natiassa on 25/09/2016.
- * il manque les consctructeurs vide pour les ours,aigle ....
- * c'est pour ça qu'il y a des erreurs.
- */
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private ArrayList<Player> playerList = new ArrayList<>(2);
     private int counter;
 
-    public SpellmongerApp(Player player1,Player player2){
+    public SpellmongerApp(Player player1, Player player2) {
         playerList.add(player1);
         playerList.add(player2);
-        counter=0;
+        counter = 0;
     }
 
-    public Player nextPLayer()
-    {
-        if(counter==playerList.size()-1) {
+    public Player nextPLayer() {
+        if (counter == playerList.size() - 1) {
             counter = 0;
-        }
-        else {
+        } else {
             counter++;
         }
-            return playerList.get(counter);
+        return playerList.get(counter);
     }  // renvoie l'autre joueuer de la partie (pour l'instant il n'y en a que deux, mais si ça augmente, la méthode ne chagera pas!)
 
 
-    public void drawCard(Player currentPlayer, Player opponent, Deck cardPool, Deck displayCard)
-    {
+    public void drawCard(Player currentPlayer, Player opponent, ArrayList<Card> hand,int choixDuJoueur, Deck discard) {
         currentPlayer.increaseEnergy();//On augmente l'energy du joueur
-        Card currentCard = cardPool.get(0);
+        Card currentCard = hand.get(choixDuJoueur);
 
-        logger.info(currentPlayer.toString() + " draw a "+ currentCard.toString());
-
-        if(currentCard instanceof Creature)
-        {
+        logger.info(currentPlayer.toString() + " draw a " + currentCard.toString());
+        if (currentCard instanceof Creature) {
             currentPlayer.addPlayerCreature(currentCard);
             currentPlayer.sortCreatures();
         }
@@ -63,7 +49,7 @@ public class SpellmongerApp {
             }
             else
             {
-                if(opponent.getEnergy() >2 )
+                if(opponent.getEnergy()>2)
                 {
                     currentPlayer.setEnergyPoint(currentPlayer.getEnergy() + currentCard.getEffect());
                     opponent.setEnergyPoint(opponent.getEnergy() - currentCard.getEffect());
@@ -81,13 +67,12 @@ public class SpellmongerApp {
                 }
             }
         }
-        cardPool.remove(0);
-        displayCard.add(currentCard);
+        hand.remove(choixDuJoueur);
+        discard.add(currentCard);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return playerList.get(0).toString() + " VS " + playerList.get(1).toString();
     }
 }

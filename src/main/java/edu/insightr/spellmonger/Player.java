@@ -4,10 +4,8 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
-/**
- * Created by ValentinDuph on 25/09/2016.
- */
 public class Player {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private String name;
@@ -16,26 +14,89 @@ public class Player {
     private ArrayList<Creature> playerCreature;
     private Deck cardPool;
     private Deck discardPool;
+    private ArrayList<Card> hand;
 
-    public Player(String name)
-    {
+    public Player(String name) {
         this.playerCreature = new ArrayList<>();
-        this.cardPool= new Deck(name); // créer une cardPool avec des valeurs (voir constructeur de la classe Deck)
-        this.discardPool=new Deck(); // créer une cardPoll vide (voir constructeur de la classe Deck)
+        this.cardPool = new Deck(name); // créer une cardPool avec des valeurs (voir constructeur de la classe Deck)
+        this.discardPool = new Deck(); // créer une cardPoll vide (voir constructeur de la classe Deck)
         this.name = name;
         this.lifePoint = 20;
         this.energy = 0;
-
+        hand = new ArrayList<>(3); // les cartes que le joueur en main
+        addInitialCards(hand);
     }
 
-    public Deck getCards()
-    {
-        return  cardPool;
+
+    private void addInitialCards(ArrayList<Card> c) {
+        while (c.size() < 2) {
+            Random random = new Random();
+            int rndNb = random.nextInt(5);
+            switch (rndNb) {
+                case 0:
+                    c.add(new Eagle());
+                    break;
+                case 1:
+                    c.add(new Shield());
+                    break;
+                case 2:
+                    c.add(new Bear());
+                    break;
+                case 3:
+                    c.add(new Curse());
+                    break;
+                case 4:
+                    c.add(new Blessing());
+                    break;
+                case 5:
+                    c.add(new Wolf());
+                    break;
+            }
+        }
     }
 
-    public Deck getDiscards()
-    {
-        return  discardPool;
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
+
+    public void addToHand(Card c) {
+        hand.add(c);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Deck getCards() {
+        return cardPool;
+    }
+
+    public Deck getDiscards() {
+        return discardPool;
+    }
+
+    public ArrayList<Creature> getPlayerCreature() {
+        return playerCreature;
+    }
+
+    public void setPlayerCreature(ArrayList<Creature> newOne) {
+        playerCreature = newOne;
+    }
+
+    public int getLifePoint() {
+        return lifePoint;
+    }
+
+    public void setLifePoint(int life) {
+        lifePoint = life;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergyPoint(int ene) {
+        energy = ene;
     }
 
     public void reCreateCardPool() // quand la cardPool d'un joueur est finie, on la renouvelle
@@ -44,104 +105,59 @@ public class Player {
         discardPool.clearCards();
     }
 
-    public int size()
-    {
+    public boolean isDead() {
+        return lifePoint <= 0;
+    }
+
+    public int size() {
         return cardPool.size();
     }
 
-    public void addPlayerCreature(Card creature)
-    {
+    public void addPlayerCreature(Card creature) {
         playerCreature.add((Creature) creature);
     }
 
-    public void removePlayerCreature(Card creature)
-    {
-        if(playerCreature.contains(creature))
-        {
-            playerCreature.remove(creature);
-        }
-    }
-
-    public void sortCreatures()
-    {
+    public void sortCreatures() {
         Collections.sort(playerCreature);
     } //utilisé dans le systeme d'attaque
 
-    public ArrayList<Creature> getPlayerCreature()
-    {
-        return playerCreature;
-    }
-    public void setPlayerCreature(ArrayList<Creature> newOne)
-    {
-        playerCreature = newOne;
-    }
-
-    public boolean isDead()
-    {
-        return lifePoint<=0;
-    }
-
-    public int getLifePoint()
-    {
-        return lifePoint;
-    }
-
-    public void setLifePoint(int life)
-    {
-        lifePoint = life;
-    }
-
-    public int getEnergy()
-    {
-        return energy;
-    }
-
-    public void setEnergyPoint(int ene) { energy = ene; }
-
-    public void increaseEnergy()
-    {
+    public void increaseEnergy() {
         energy++;
     }
 
-    public void winner()
-    {
-        logger.info(this.toString()+" is the winner!!!\n");
+    public void winner() {
+        logger.info(this.toString() + " is the winner!!!\n");
     }
 
-
-    public void attack(Player opponent)
-    {
+    public void attack(Player opponent) {
         ArrayList<Creature> myPlayerCreature = this.playerCreature;
-        ArrayList<Creature> playerCreatureOpponent= opponent.getPlayerCreature();
+        ArrayList<Creature> playerCreatureOpponent = opponent.getPlayerCreature();
 
+        //tout les  this.getPlayerCreature().get(i).getEffect() en  myPlayerCreature.get(i).getEffect()
+        for (int i = 0; i < myPlayerCreature.size(); i++) {
 
-        for (int i = 0; i < this.getPlayerCreature().size(); i++) {
-
-            if (!this.getPlayerCreature().isEmpty() && !opponent.getPlayerCreature().isEmpty())// si il y'a une creature des deux coté du board
+            if (!myPlayerCreature.isEmpty() && !playerCreatureOpponent.isEmpty())// si il y'a une creature des deux coté du board
             {
-                int degat = this.getPlayerCreature().get(i).getEffect() - opponent.getPlayerCreature().get(i).getEffect(); // recup des dégats la diff entre la force des deux creatures
+                int degat = myPlayerCreature.get(i).getEffect() - playerCreatureOpponent.get(i).getEffect(); // recup des dégats la diff entre la force des deux creatures
 
                 if (degat == 0) // si les deux créature ont la même force les deux meurt
                 {
-                    logger.info(this.toString() + " " + this.getPlayerCreature().get(i).toString() + " and " + opponent.toString() + " " +
-                            opponent.getPlayerCreature().get(i).toString() + " have the same strength and die both ");
+                    logger.info(this.toString() + " " + myPlayerCreature.get(i).toString() + " and " + opponent.toString() + " " +
+                            playerCreatureOpponent.get(i).toString() + " have the same strength and die both ");
                     myPlayerCreature.remove(i);
                     playerCreatureOpponent.remove(i);
                 } else if (degat > 0)// si la creature du joueur courant est plus forte elle tue celle de l'adversaire
                 {
-
-                    logger.info(this.toString() + " " + this.getPlayerCreature().get(i).toString() + " still alive and " + opponent.toString() + " " + opponent.getPlayerCreature().get(i).toString() + "die");
+                    logger.info(this.toString() + " " + myPlayerCreature.get(i).toString() + " still alive and " + opponent.toString() + " " + playerCreatureOpponent.get(i).toString() + "die");
                     playerCreatureOpponent.remove(i);
                 } else // si la creature de l'opposant est plus forte elle tue celle du joueur courant
                 {
-
-                    logger.info(opponent.toString() + " " + opponent.getPlayerCreature().get(i).toString() + " still alive and " + this.toString() + " " + this.getPlayerCreature().get(i).toString() + "die");
+                    logger.info(opponent.toString() + " " + playerCreatureOpponent.get(i).toString() + " still alive and " + this.toString() + " " + myPlayerCreature.get(i).toString() + "die");
                     myPlayerCreature.remove(i);
                 }
-            } else if (!this.getPlayerCreature().isEmpty() && opponent.getPlayerCreature().isEmpty())// si le board de l'opposant ne contient plus de creature les creatures du joueur courant attaque l'opposant
+            } else if (!myPlayerCreature.isEmpty() && playerCreatureOpponent.isEmpty())// si le board de l'opposant ne contient plus de creature les creatures du joueur courant attaque l'opposant
             {
-                opponent.setLifePoint(opponent.getLifePoint() - this.getPlayerCreature().get(i).getEffect());
-
+                opponent.setLifePoint(opponent.getLifePoint() - myPlayerCreature.get(i).getEffect());
             } else// si le joueur courant n'a plus de creature et qu'il en reste à l'opposant l'attaque du joueur s'arrête
             {
                 break;
@@ -152,11 +168,8 @@ public class Player {
         opponent.setPlayerCreature(playerCreatureOpponent);
     }
 
-
-    public String getName(){return name;}
     @Override
-    public String toString()
-    {
+    public String toString() {
         return " " + name + "(" + getLifePoint() + "pv|" + getEnergy() + "energy)";
     }
 }

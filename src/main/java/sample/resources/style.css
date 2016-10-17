@@ -1,0 +1,118 @@
+#mainPane{
+    -fx-pref-height:700;
+    -fx-pref-width:800;
+    -fx-background-image:url("images/fond.png");
+    -fx-background-position: center center;
+    -fx-background-repeat: stretch;
+}
+
+#split{
+	-fx-pref-height:700;
+	-fx-pref-width:800;
+	-fx-orientation:vertical;
+	-fx-background-color: transparent;
+}
+
+/* PLAYER 1*/
+#Player1{
+	-fx-pref-height:150.0;
+	-fx-pref-width:150.0;
+	-fx-background-color: #ffd700;
+}
+
+#Player1:hover{
+
+}
+
+#name1{
+	-fx-text-alignment: center;
+}
+
+#life_points1{
+	-fx-text-alignment:center;
+}
+
+#deck1{
+    -fx-pref-height:115.0;
+	-fx-pref-width:85.0;
+	-fx-background-image:url("images/dosCartes_ocre.png");
+	-fx-background-size: 98%;
+    -fx-background-position: center center;
+}
+
+#hand1{
+    -fx-pref-height:140.0;
+	-fx-pref-width:280.0;
+}
+
+#hand2{
+    -fx-pref-height:140.0;
+	-fx-pref-width:280.0;
+}
+
+#discard1{
+    -fx-pref-height:115.0;
+    -fx-pref-width:85.0;
+    -fx-background-image:url("images/Spellmonger_Bear.png");
+    -fx-background-size: 98%;
+    -fx-background-position: center center;
+}
+
+#button_play1{
+    -fx-pref-height:40.0;
+	-fx-pref-width:40.0;
+}
+
+#list_creatures1{
+    -fx-pref-height:140.0;
+	-fx-pref-width:740.0;
+	-fx-background-color: transparent;
+	/*-fx-opacity:0;*/
+}
+
+/*PLAYER 2*/
+#Player2{
+	-fx-pref-height:150.0;
+	-fx-pref-width:150.0;
+	-fx-background-color: #afeeee;
+}
+
+#Player2:hover{
+    -fx-opacity:0.75;
+}
+
+#deck2{
+    -fx-pref-height:115.0;
+	-fx-pref-width:85.0;
+	-fx-background-image:url("images/dosCartes_ocre.png");
+	-fx-background-size: 98%;
+    -fx-background-position: center center;
+}
+
+#discard2{
+    -fx-pref-height:115.0;
+	-fx-pref-width:85.0;
+    -fx-background-image:url("images/Spellmonger_Wolf.png");
+    -fx-background-size: 98%;
+    -fx-background-position: center center;
+}
+
+#button_play2{
+    -fx-pref-height:40.0;
+	-fx-pref-width:40.0;
+}
+
+#list_creatures2{
+    -fx-pref-height:140.0;
+	-fx-pref-width:740.0;
+	-fx-background-color: transparent;
+	/*-fx-opacity: 0;*/
+}
+
+#name2{
+	-fx-text-alignment:center;
+}
+
+#life_points2{
+	-fx-text-alignment:center;
+}

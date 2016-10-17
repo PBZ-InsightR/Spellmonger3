@@ -1,20 +1,20 @@
 package edu.insightr.spellmonger;
 
-/**
- * Created by dufou on 25/09/2016.
- */
 public class Eagle extends Creature {
 
     public Eagle() {
-        effect =1;
+        effect = 1;
         capacity = "Flying";
         lifePoints = effect;
     }
 
     @Override
     public String toString() {
-        return "Eagle "+ super.toString();
+        return "Eagle " + super.toString();
     }
+
     @Override
-    public String getName(){return "Eagle";}
+    public String getName() {
+        return "Eagle";
+    }
 }

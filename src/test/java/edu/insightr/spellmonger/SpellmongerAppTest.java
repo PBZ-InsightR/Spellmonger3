@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Abdel on 05/10/2016.
- */
 public class SpellmongerAppTest {
 
     @Test
@@ -35,7 +32,10 @@ public class SpellmongerAppTest {
         int oppenentEnergy = oppenent.getEnergy();
         Card c = current.getCards().get(0);
 
-        game.drawCard(current, oppenent, current.getCards(), current.getDiscards());
+        current.addToHand(current.getCards().get(0)); // fonction a definir
+        current.getCards().remove(0); // fonction a definir
+        int indexChoisi=0; // fonction a definir
+        game.drawCard(current, oppenent, current.getHand(),indexChoisi, current.getDiscards()); // juste la premiere par défaut
 
         Assert.assertEquals(sizeCard - 1, current.getCards().size()); // card pool decreased
         Assert.assertEquals(sizeDiscard - 1, current.getDiscards().size()); // discard pool increased
