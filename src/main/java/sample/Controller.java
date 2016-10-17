@@ -4,7 +4,6 @@ package sample;
 import edu.insightr.spellmonger.*;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
@@ -41,50 +40,49 @@ public class Controller {
         game = new SpellmongerApp(player1, player2);
     }
 
-    public void draw1() {
+    public void draw1(){
         if (player1.size() == 0) player1.reCreateCardPool();
         player1.addToHand(player1.getCards().get(0));
         player1.getCards().remove(0);
         update();
-        button_play1.setDisable(true);
-        button_play2.setDisable(false);
     }
-
-    public void draw2() {
+    public void draw2(){
         if (player2.size() == 0) player2.reCreateCardPool();
         player2.addToHand(player2.getCards().get(0));
         player2.getCards().remove(0);
         update();
+    }
+    public void attack1(int index) {
+        game.PlayCard(player1, player2, player1.getHand(), index, player1.getDiscards());
+        if (!player1.isDead()) {
+            player1.attack(player2);
+        }
+        button_play1.setDisable(true);
+        button_play2.setDisable(false);
+        update();
+    }
+    public void attack2(int index) {
+        game.PlayCard(player2, player1, player2.getHand(), index, player2.getDiscards());
+        Card lastElementDiscard= player2.getDiscards().get(player2.getDiscards().size()-1);
+        if( lastElementDiscard instanceof Bear)
+        {
+
+        }else if( lastElementDiscard instanceof Wolf){
+
+        }else if(lastElementDiscard instanceof Eagle){
+
+        }else if(lastElementDiscard instanceof Ritual){
+
+        }
+        if (!player2.isDead()) {
+            player2.attack(player1);
+        }
         button_play1.setDisable(false);
         button_play2.setDisable(true);
+        update();
     }
 
-    // attaque entre creatures des deux joueurs
-    private void attack(int index, Player current, Player oppenent, Pane discard) {
-        if (!current.isDead()) {
-            game.drawCard(current, oppenent, current.getHand(), index, current.getDiscards());
-            current.attack(oppenent);
-            Card lastElementDiscard = current.getDiscards().get(current.getDiscards().size() - 1);
-            Rectangle rectangle = new Rectangle(100, 120);
-            discard.getChildren().add(rectangle);
-            if (lastElementDiscard instanceof Bear) {
-                Image img = new Image("resources/images/Spellmonger_Bear.png");
-                rectangle.setFill(new ImagePattern(img));
-            } else if (lastElementDiscard instanceof Wolf) {
-                Image img = new Image("resources/images/Spellmonger_Wolf.png");
-                rectangle.setFill(new ImagePattern(img));
-            } else if (lastElementDiscard instanceof Eagle) {
-                Image img = new Image("resources/images/Spellmonger_Eagle.png");
-                rectangle.setFill(new ImagePattern(img));
-            } else if (lastElementDiscard instanceof Ritual) {
-                rectangle.setFill(Color.BLACK);
-            }
-            update();
-        }
-    }
-
-    //met le jeu  jour apres chaque attack, pioche, etc..
-    private void update() {
+    public void update() {
         if (player1.isDead() || player2.isDead()) {
             button_play1.setDisable(true);
             button_play2.setDisable(true);
@@ -93,21 +91,12 @@ public class Controller {
         life_points1.setText("Life point : " + player1.getLifePoint() + "\n Energy : " + player1.getEnergy());
         name2.setText("\t" + player2.getName());
         life_points2.setText("Life point : " + player2.getLifePoint() + "\n Energy : " + player2.getEnergy());
-        // creatures sur la piste
-        listCreatureContents(player1,list_creatures1);
-        listCreatureContents(player2,list_creatures2);
-        // hands
-        hands(player1,player2,discard1,hand1);
-        hands(player2,player1,discard2,hand2);
-    }
 
-    // les creatures en piste des joueurs
-    private void listCreatureContents(Player p,ScrollPane scroll){
         HBox content = new HBox();
-        scroll.setContent(content);
+        list_creatures1.setContent(content);
         content.setSpacing(20);
         content.setPadding(new Insets(10, 10, 10, 10));
-        for (Card c : p.getPlayerCreature()) {
+        for (Card c : player1.getPlayerCreature()) {
             Rectangle rectangle = new Rectangle(100, 120);
             if (c instanceof Bear) {
                 Image img = new Image("resources/images/Spellmonger_Bear.png");
@@ -123,16 +112,12 @@ public class Controller {
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
         }
-    }
 
-    // la main courante des joueurs
-    private void hands(Player current,Player oppenent, Pane discard,ScrollPane hand){
-        HBox content = new HBox();
-        hand.setContent(content);
+        content = new HBox(); // contenu de la liste de créature 1
+        list_creatures2.setContent(content); // on le met dans la Pane concu pour
         content.setSpacing(20);
         content.setPadding(new Insets(10, 10, 10, 10));
-        int index = 0;  // pour obtenir l'index quand il va choisir la carte a joué ( utilisé dans le hand pas la)
-        for (Card c : current.getHand()) {
+        for (Card c : player2.getPlayerCreature()) {
             Rectangle rectangle = new Rectangle(100, 120);
             if (c instanceof Bear) {
                 Image img = new Image("resources/images/Spellmonger_Bear.png");
@@ -144,15 +129,71 @@ public class Controller {
                 Image img = new Image("resources/images/Spellmonger_Wolf.png");
                 rectangle.setFill(new ImagePattern(img));
             } // fox a ajouter, quand le modèle ajoutera la classe!
-            else if (c instanceof Ritual) {
-                rectangle.setFill(Color.BLACK);
-            }
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
+        }
+
+        // hands
+
+
+        content = new HBox();
+        hand1.setContent(content);
+        content.setSpacing(20);
+        content.setPadding(new Insets(10, 10, 10, 10));
+        int index = 0;  // pour obtenir l'index quand il va choisir la carte a joué ( utilisé dans le hand pas la)
+        for (Card c : player1.getHand()) {
+            Rectangle rectangleBis = new Rectangle(100, 120);
+            if (c instanceof Bear) {
+                Image img = new Image("resources/images/Spellmonger_Bear.png");
+                rectangleBis.setFill(new ImagePattern(img));
+            } else if (c instanceof Eagle) {
+                Image img = new Image("resources/images/Spellmonger_Eagle.png");
+                rectangleBis.setFill(new ImagePattern(img));
+            } else if (c instanceof Wolf) {
+                Image img = new Image("resources/images/Spellmonger_Wolf.png");
+                rectangleBis.setFill(new ImagePattern(img));
+            } // fox a ajouter, quand le modèle ajoutera la classe!
+            else if (c instanceof Ritual) {
+                rectangleBis.setFill(Color.BLACK);
+            }
+            rectangleBis.setLayoutY(10);
+            content.getChildren().add(rectangleBis);
             // obtenir l'index du rectangle qu'il choisit
             int index1 = index;
-            rectangle.setOnMouseClicked(t -> {
-                    attack(index1, current, oppenent, discard);
+            rectangleBis.setOnMouseClicked(t -> {
+                attack1(index1);
+            });
+            index++;
+        }
+
+
+        content = new HBox();
+        hand2.setContent(content);
+        content.setSpacing(20);
+        content.setPadding(new Insets(10, 10, 10, 10));
+        index = 0;
+        for (Card c : player2.getHand()) {
+            Rectangle rectangleBis = new Rectangle(100, 120);
+            if (c instanceof Bear) {
+                Image img = new Image("resources/images/Spellmonger_Bear.png");
+                rectangleBis.setFill(new ImagePattern(img));
+            } else if (c instanceof Eagle) {
+                Image img = new Image("resources/images/Spellmonger_Eagle.png");
+                rectangleBis.setFill(new ImagePattern(img));
+            } else if (c instanceof Wolf) {
+                Image img = new Image("resources/images/Spellmonger_Wolf.png");
+                rectangleBis.setFill(new ImagePattern(img));
+            } // fox a ajouter, quand le modèle ajoutera la classe!
+            else {
+                rectangleBis.setFill(Color.BLACK);
+            }
+
+            rectangleBis.setLayoutY(10);
+            content.getChildren().add(rectangleBis);
+            // obtenir l'index du rectangle qu'il choisit
+            int index2 = index;
+            rectangleBis.setOnMouseClicked(t -> {
+                attack2(index2);
             });
             index++;
         }

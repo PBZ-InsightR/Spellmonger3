@@ -3,8 +3,6 @@ package edu.insightr.spellmonger;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class SpellmongerAppTest {
 
     @Test
@@ -35,7 +33,7 @@ public class SpellmongerAppTest {
         current.addToHand(current.getCards().get(0)); // fonction a definir
         current.getCards().remove(0); // fonction a definir
         int indexChoisi=0; // fonction a definir
-        game.drawCard(current, oppenent, current.getHand(),indexChoisi, current.getDiscards()); // juste la premiere par défaut
+        game.PlayCard (current, oppenent, current.getHand(),indexChoisi, current.getDiscards()); // juste la premiere par défaut
 
         Assert.assertEquals(sizeCard - 1, current.getCards().size()); // card pool decreased
         Assert.assertEquals(sizeDiscard - 1, current.getDiscards().size()); // discard pool increased

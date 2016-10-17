@@ -26,7 +26,7 @@ public class SpellmongerApp {
     }  // renvoie l'autre joueuer de la partie (pour l'instant il n'y en a que deux, mais si ça augmente, la méthode ne chagera pas!)
 
 
-    public void drawCard(Player currentPlayer, Player opponent, ArrayList<Card> hand,int choixDuJoueur, Deck discard) {
+    public void PlayCard(Player currentPlayer, Player opponent, ArrayList<Card> hand, int choixDuJoueur, Deck discard) {
         currentPlayer.increaseEnergy();//On augmente l'energy du joueur
         Card currentCard = hand.get(choixDuJoueur);
 
@@ -47,7 +47,7 @@ public class SpellmongerApp {
                 opponent.setLifePoint(opponent.getLifePoint()-currentCard.getEffect());
                 logger.info(currentPlayer.toString()+" cast a ritual that deals 3 damages to "+opponent.toString());
             }
-            else
+            else if(currentCard instanceof EnergyDrain)
             {
                 if(opponent.getEnergy()>2)
                 {
@@ -66,6 +66,7 @@ public class SpellmongerApp {
                     logger.info(currentPlayer.toString() + " cast a drain energy ritual but " + opponent.toString() + " have no energy to steal");
                 }
             }
+
         }
         hand.remove(choixDuJoueur);
         discard.add(currentCard);

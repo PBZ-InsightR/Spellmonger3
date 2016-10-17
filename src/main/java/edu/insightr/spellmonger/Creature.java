@@ -5,6 +5,8 @@ public abstract class Creature extends Card implements Comparable<Creature> {
     protected int lifePoints;
 
     public Creature() {
+        capacity = "";
+        lifePoints = 0;
     }
 
     public String getCapacity() {

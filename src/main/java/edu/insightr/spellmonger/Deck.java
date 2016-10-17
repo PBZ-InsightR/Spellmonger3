@@ -2,7 +2,9 @@ package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Deck {
@@ -45,44 +47,37 @@ public class Deck {
 
 
     public void createCardPool() {
-        int nbMaxEagle = 10;
-        int nbMaxWolf = 10;
-        int nbMaxBear = 10;
-        int nbMaxCurse = 2;
-        int nbMaxShield = 5;
-        int nbMaxBlessing = 3;
 
-        while (nbMaxBear > 0 || nbMaxWolf > 0 || nbMaxEagle > 0 || nbMaxBlessing > 0 || nbMaxCurse > 0 || nbMaxShield > 0) {
-            Random rand = new Random();
-            int nbRand = rand.nextInt(6);
-
-            if (nbRand == 0 && nbMaxEagle > 0) {
-                Eagle eagle = new Eagle();
-                cardPool.add(eagle);
-                nbMaxEagle--;
-            } else if (nbRand == 1 && nbMaxWolf > 0) {
-                Wolf wolf = new Wolf();
-                cardPool.add(wolf);
-                nbMaxWolf--;
-            } else if (nbRand == 2 && nbMaxBear > 0) {
-                Bear bear = new Bear();
-                cardPool.add(bear);
-                nbMaxBear--;
-            } else if (nbRand == 3 && nbMaxCurse > 0) {
-                Curse curse = new Curse();
-                cardPool.add(curse);
-                nbMaxCurse--;
-            } else if (nbRand == 4 && nbMaxShield > 0) {
-                Shield shield = new Shield();
-                cardPool.add(shield);
-                nbMaxShield--;
-            } else if (nbRand == 5 && nbMaxBlessing > 0) {
-                Blessing blessing = new Blessing();
-                cardPool.add(blessing);
-                nbMaxBlessing--;
-            }
+        for (int i = 0; i < 7; i++) {
+            Eagle eagle = new Eagle ();
+            Fox fox = new Fox ();
+            cardPool.add (eagle);
+            cardPool.add(fox);
         }
 
+        for(int i = 0; i < 6 ; i++) {
+            Wolf wolf = new Wolf ();
+            cardPool.add (wolf);
+        }
+
+        for(int i = 0; i < 4; i++){
+            Bear bear = new Bear();
+            cardPool.add (bear);
+        }
+
+        for(int i = 0; i < 5; i++){
+            Curse curse = new Curse ();
+            Blessing blessing = new Blessing ();
+            EnergyDrain energyDrain = new EnergyDrain ();
+            cardPool.add (curse);
+            cardPool.add (blessing);
+            cardPool.add (energyDrain);
+        }
+
+        VaultOverclocking vaultOverclocking = new VaultOverclocking ();
+        cardPool.add (vaultOverclocking);
+
+        Collections.shuffle (cardPool);
 
     }
 

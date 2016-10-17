@@ -27,7 +27,12 @@ public class Player {
         addInitialCards(hand);
     }
 
-
+    /*private void addInitialCards(Player player){ A FINIR !!
+        while(player.hand.size ()<2)
+        {
+            hand.add (player.getC);
+        }
+    }*/
     private void addInitialCards(ArrayList<Card> c) {
         while (c.size() < 2) {
             Random random = new Random();
@@ -35,9 +40,6 @@ public class Player {
             switch (rndNb) {
                 case 0:
                     c.add(new Eagle());
-                    break;
-                case 1:
-                    c.add(new Shield());
                     break;
                 case 2:
                     c.add(new Bear());
@@ -99,8 +101,7 @@ public class Player {
         energy = ene;
     }
 
-    public void reCreateCardPool() // quand la cardPool d'un joueur est finie, on la renouvelle
-    {
+    public void reCreateCardPool(){
         cardPool = new Deck(discardPool.getCardPool());
         discardPool.clearCards();
     }
