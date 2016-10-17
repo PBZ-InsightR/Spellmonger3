@@ -40,28 +40,14 @@
     -fx-background-position: center center;
 }
 
-#hand1_1{
-    -fx-pref-height:115.0;
-	-fx-pref-width:85.0;
-	-fx-background-image:url("images/Spellmonger_Eagle.png");
-	-fx-background-size: 98%;
-    -fx-background-position: center center;
+#hand1{
+    -fx-pref-height:140.0;
+	-fx-pref-width:280.0;
 }
 
-#hand1_2{
-    -fx-pref-height:115.0;
-	-fx-pref-width:85.0;
-	-fx-background-image:url("images/Spellmonger_Fox.png");
-	-fx-background-size: 98%;
-    -fx-background-position: center center;
-}
-
-#hand1_3{
-    -fx-pref-height:115.0;
-	-fx-pref-width:85.0;
-	-fx-background-image:url("images/Spellmonger_Fox.png");
-	-fx-background-size: 98%;
-    -fx-background-position: center center;
+#hand2{
+    -fx-pref-height:140.0;
+	-fx-pref-width:280.0;
 }
 
 #discard1{
@@ -101,31 +87,6 @@
 	-fx-background-image:url("images/dosCartes_ocre.png");
 	-fx-background-size: 98%;
     -fx-background-position: center center;
-}
-
-#hand2_1{
-    -fx-pref-height:115.0;
-	-fx-pref-width:85.0;
-	-fx-background-image:url("images/dosCartes_ocre.png");
-	-fx-background-size: 99%;
-    -fx-background-position: center center;
-}
-
-#hand2_2{
-    -fx-pref-height:115.0;
-	-fx-pref-width:85.0;
-	-fx-background-image:url("images/dosCartes_ocre.png");
-	-fx-background-size: 98%;
-    -fx-background-position: center center;
-}
-
-#hand2_3{
-    -fx-pref-height:115.0;
-	-fx-pref-width:85.0;
-	-fx-background-image:url("images/dosCartes_ocre.png");
-	-fx-background-size: 98%;
-    -fx-background-position: center center;
-    -fx-opacity:0;
 }
 
 #discard2{
