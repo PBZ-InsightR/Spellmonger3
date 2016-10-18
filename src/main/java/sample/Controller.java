@@ -25,14 +25,14 @@ public class Controller {
     private Text name1, life_points1, name2, life_points2;
     public Pane discard1, discard2;
     public ScrollPane list_creatures1, list_creatures2, hand1, hand2;
-    public Button button_play1, button_play2, deck1, deck2;
+    public Button  deck1, deck2;
 
 
     @FXML
     public void initialize() {
         update();
-        button_play1.setDisable(false);
-        button_play2.setDisable(true);
+        deck1.setDisable(false);
+        deck2.setDisable(true);
     }
 
     public Controller() {
@@ -46,8 +46,8 @@ public class Controller {
         player1.addToHand(player1.getCards().get(0));
         player1.getCards().remove(0);
         update();
-        button_play1.setDisable(true);
-        button_play2.setDisable(false);
+        deck1.setDisable(true);
+        deck2.setDisable(false);
     }
 
     public void draw2() {
@@ -55,8 +55,8 @@ public class Controller {
         player2.addToHand(player2.getCards().get(0));
         player2.getCards().remove(0);
         update();
-        button_play1.setDisable(false);
-        button_play2.setDisable(true);
+        deck1.setDisable(false);
+        deck2.setDisable(true);
     }
 
     // attaque entre creatures des deux joueurs
@@ -71,26 +71,26 @@ public class Controller {
     //met le jeu  jour apres chaque attack, pioche, etc..
     private void update() {
         if (player1.isDead() || player2.isDead()) {
-            button_play1.setDisable(true);
-            button_play2.setDisable(true);
+            deck1.setDisable(true);
+            deck2.setDisable(true);
         }
         name1.setText("\t" + player1.getName());
         life_points1.setText("Life point : " + player1.getLifePoint() + "\n Energy : " + player1.getEnergy());
         name2.setText("\t" + player2.getName());
         life_points2.setText("Life point : " + player2.getLifePoint() + "\n Energy : " + player2.getEnergy());
         // creatures sur la piste
-        listCreatureContents(player1,list_creatures1);
-        listCreatureContents(player2,list_creatures2);
+        listCreatureContents(player1, list_creatures1);
+        listCreatureContents(player2, list_creatures2);
         // hands
-        hands(player1,player2,discard1,hand1);
-        hands(player2,player1,discard2,hand2);
+        hands(player1, player2, discard1, hand1);
+        hands(player2, player1, discard2, hand2);
         // discard
-        discards(player1,discard1);
-        discards(player2,discard2);
+        discards(player1, discard1);
+        discards(player2, discard2);
     }
 
     // les creatures en piste des joueurs
-    private void listCreatureContents(Player p,ScrollPane scroll){
+    private void listCreatureContents(Player p, ScrollPane scroll) {
         HBox content = new HBox();
         scroll.setContent(content);
         content.setSpacing(20);
@@ -106,7 +106,10 @@ public class Controller {
             } else if (c instanceof Wolf) {
                 Image img = new Image("resources/images/Spellmonger_Wolf.png");
                 rectangle.setFill(new ImagePattern(img));
-            } // fox a ajouter, quand le modèle ajoutera la classe!
+            } else if (c instanceof Fox) {
+                Image img = new Image("resources/images/Spellmonger_Fox.png");
+                rectangle.setFill(new ImagePattern(img));
+            }
 
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
@@ -114,7 +117,7 @@ public class Controller {
     }
 
     // la main courante des joueurs
-    private void hands(Player current,Player oppenent, Pane discard,ScrollPane hand){
+    private void hands(Player current, Player oppenent, Pane discard, ScrollPane hand) {
         HBox content = new HBox();
         hand.setContent(content);
         content.setSpacing(20);
@@ -131,8 +134,10 @@ public class Controller {
             } else if (c instanceof Wolf) {
                 Image img = new Image("resources/images/Spellmonger_Wolf.png");
                 rectangle.setFill(new ImagePattern(img));
-            } // fox a ajouter, quand le modèle ajoutera la classe!
-            else if (c instanceof Ritual) {
+            } else if (c instanceof Fox) {
+                Image img = new Image("resources/images/Spellmonger_Fox.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (c instanceof Ritual) {
                 rectangle.setFill(Color.BLACK);
             }
             rectangle.setLayoutY(10);
@@ -147,22 +152,31 @@ public class Controller {
     }
 
     // le discard des joueurs
-    private void discards(Player current,Pane discard)
-    {
-        Card currentLastElementDiscard = current.getDiscards().get(current.getDiscards().size() - 1);
-        Rectangle rectangle = new Rectangle();
-        discard.getChildren().add(rectangle);
-        if (currentLastElementDiscard instanceof Bear) {
-            Image img = new Image("resources/images/Spellmonger_Bear.png");
+    private void discards(Player current, Pane discard) {
+        if (current.getDiscards().size() != 0) {
+            Card lastCard = current.getDiscards().get(current.getDiscards().size() - 1);
+            Rectangle rectangle = new Rectangle(100, 120);
+            discard.getChildren().add(rectangle);
+            if (lastCard instanceof Bear) {
+                Image img = new Image("resources/images/Spellmonger_Bear.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (lastCard instanceof Wolf) {
+                Image img = new Image("resources/images/Spellmonger_Wolf.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (lastCard instanceof Eagle) {
+                Image img = new Image("resources/images/Spellmonger_Eagle.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (lastCard instanceof Fox) {
+                Image img = new Image("resources/images/Spellmonger_Fox.png");
+                rectangle.setFill(new ImagePattern(img));
+            } else if (lastCard instanceof Ritual) {
+                rectangle.setFill(Color.BLACK);
+            }
+        } else { // premier tour (quand il n'y a pas de discard)
+            Rectangle rectangle = new Rectangle(100, 120);
+            discard.getChildren().add(rectangle);
+            Image img = new Image("resources/images/dosCartes_ocre.png");
             rectangle.setFill(new ImagePattern(img));
-        } else if (currentLastElementDiscard instanceof Wolf) {
-            Image img = new Image("resources/images/Spellmonger_Wolf.png");
-            rectangle.setFill(new ImagePattern(img));
-        } else if (currentLastElementDiscard instanceof Eagle) {
-            Image img = new Image("resources/images/Spellmonger_Eagle.png");
-            rectangle.setFill(new ImagePattern(img));
-        } else if (currentLastElementDiscard instanceof Ritual) {
-            rectangle.setFill(Color.BLACK);
         }
     }
 }
