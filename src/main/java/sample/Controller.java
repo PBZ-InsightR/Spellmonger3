@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
 
 
 public class Controller {
-    private static final Logger logger = Logger.getLogger(Controller.class);
 
     private SpellmongerApp game;
     private Player player1;
@@ -24,7 +23,7 @@ public class Controller {
     public Text name1, life_points1, name2, life_points2;
     public Pane discard1, discard2;
     public ScrollPane list_creatures1, list_creatures2, hand1, hand2;
-    public Button  deck1, deck2;
+    public Button deck1, deck2;
 
 
     @FXML
@@ -81,8 +80,8 @@ public class Controller {
         listCreatureContents(player1, list_creatures1);
         listCreatureContents(player2, list_creatures2);
         // hands
-        hands(player1, player2, discard1, hand1,deck2);
-        hands(player2, player1, discard2, hand2,deck1);
+        hands(player1, player2, discard1, hand1, deck2);
+        hands(player2, player1, discard2, hand2, deck1);
         // discard
         discards(player1, discard1);
         discards(player2, discard2);
@@ -116,7 +115,7 @@ public class Controller {
     }
 
     // la main courante des joueurs
-    private void hands(Player current, Player oppenent, Pane discard, ScrollPane hand,Button deckOpp) {
+    private void hands(Player current, Player oppenent, Pane discard, ScrollPane hand, Button deckOpp) {
         HBox content = new HBox();
         hand.setContent(content);
         content.setSpacing(20);
@@ -139,18 +138,22 @@ public class Controller {
             } else if (c instanceof EnergyDrain) {
                 Image img = new Image("resources/images/Spellmonger_EnergyDrain.png");
                 rectangle.setFill(new ImagePattern(img));
-            }else if (c instanceof Curse) {
+            } else if (c instanceof Curse) {
                 Image img = new Image("resources/images/Spellmonger_Curse.png");
                 rectangle.setFill(new ImagePattern(img));
-            }else if (c instanceof Blessing) {
+            } else if (c instanceof Blessing) {
                 Image img = new Image("resources/images/Spellmonger_Blessing.png");
                 rectangle.setFill(new ImagePattern(img));
+            } else if (c instanceof VaultOverclocking) {
+                Image img = new Image("resources/images/Spellmonger_VaultOver.png");
+                rectangle.setFill(new ImagePattern(img));
             }
+
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
             // obtenir l'index du rectangle qu'il choisit
             int index1 = index;
-            if(current.getHand().size()==3) rectangle.setOnMouseClicked(t -> {
+            if (current.getHand().size() == 3) rectangle.setOnMouseClicked(t -> {
                 attack(index1, current, oppenent);
                 deckOpp.setDisable(false);
             });
@@ -180,11 +183,14 @@ public class Controller {
             } else if (lastCard instanceof EnergyDrain) {
                 Image img = new Image("resources/images/Spellmonger_EnergyDrain.png");
                 rectangle.setFill(new ImagePattern(img));
-            }else if (lastCard instanceof Curse) {
+            } else if (lastCard instanceof Curse) {
                 Image img = new Image("resources/images/Spellmonger_Curse.png");
                 rectangle.setFill(new ImagePattern(img));
-            }else if (lastCard instanceof Blessing) {
+            } else if (lastCard instanceof Blessing) {
                 Image img = new Image("resources/images/Spellmonger_Blessing.png");
+                rectangle.setFill(new ImagePattern(img));
+            }else if (lastCard instanceof VaultOverclocking) {
+                Image img = new Image("resources/images/Spellmonger_VaultOver.png");
                 rectangle.setFill(new ImagePattern(img));
             }
         } else { // premier tour (quand il n'y a pas de discard)
