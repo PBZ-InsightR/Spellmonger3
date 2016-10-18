@@ -21,7 +21,7 @@
 }
 
 #Player1:hover{
-
+ -fx-opacity:0.75;
 }
 
 #name1{
@@ -39,7 +39,9 @@
 	-fx-background-size: 98%;
     -fx-background-position: center center;
 }
-
+#deck1:hover{
+ -fx-opacity:0.75;
+}
 #hand1{
     -fx-pref-height:140.0;
 	-fx-pref-width:280.0;
@@ -53,7 +55,7 @@
 #discard1{
     -fx-pref-height:115.0;
     -fx-pref-width:85.0;
-    -fx-background-image:url("images/Spellmonger_Bear.png");
+    -fx-background-color:green;
     -fx-background-size: 98%;
     -fx-background-position: center center;
 }
@@ -88,11 +90,13 @@
 	-fx-background-size: 98%;
     -fx-background-position: center center;
 }
-
+#deck2:hover{
+ -fx-opacity:0.75;
+}
 #discard2{
     -fx-pref-height:115.0;
 	-fx-pref-width:85.0;
-    -fx-background-image:url("images/Spellmonger_Wolf.png");
+    -fx-background-color:green;
     -fx-background-size: 98%;
     -fx-background-position: center center;
 }
