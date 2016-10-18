@@ -66,7 +66,13 @@ public class SpellmongerApp {
                     logger.info(currentPlayer.toString() + " cast a drain energy ritual but " + opponent.toString() + " have no energy to steal");
                 }
             }
-
+        }
+        else if(currentCard instanceof Enchantment) {
+                if(currentCard instanceof VaultOverclocking){
+                    if(currentPlayer.getVaultOverclockingOnOff ()==false){
+                        currentPlayer.setVaultOverclockingOnOff (true);
+                    }
+                }
         }
         hand.remove(choixDuJoueur);
         discard.add(currentCard);

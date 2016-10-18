@@ -15,6 +15,7 @@ public class Player {
     private Deck cardPool;
     private Deck discardPool;
     private ArrayList<Card> hand;
+    private boolean vaultOverclockingOnOff;
 
     public Player(String name) {
         this.playerCreature = new ArrayList<>();
@@ -25,15 +26,18 @@ public class Player {
         this.energy = 0;
         hand = new ArrayList<>(3); // les cartes que le joueur en main
         addInitialCards(hand);
+        vaultOverclockingOnOff = false;
     }
 
-    /*private void addInitialCards(Player player){ A FINIR !!
-        while(player.hand.size ()<2)
-        {
-            hand.add (player.getC);
-        }
-    }*/
-    private void addInitialCards(ArrayList<Card> c) {
+    private void addInitialCards(ArrayList<Card> hand){// A FINIR !!
+
+            hand.add(cardPool.get (0));
+            hand.add(cardPool.get (1));
+            cardPool.remove (0);
+            cardPool.remove (1);
+    }
+
+   /* private void addInitialCards(ArrayList<Card> c) {
         while (c.size() < 2) {
             Random random = new Random();
             int rndNb = random.nextInt(5);
@@ -55,7 +59,11 @@ public class Player {
                     break;
             }
         }
-    }
+    }*/
+
+    public boolean getVaultOverclockingOnOff(){return vaultOverclockingOnOff;}
+
+    public void setVaultOverclockingOnOff(boolean OnOff){vaultOverclockingOnOff = OnOff;}
 
     public ArrayList<Card> getHand() {
         return hand;
