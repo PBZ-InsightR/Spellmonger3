@@ -18,8 +18,6 @@ public class Controller {
     private static final Logger logger = Logger.getLogger(Controller.class);
 
     private SpellmongerApp game;
-    private int indexChoisi_1 = 0;
-    private int indexChoisi_2 = 0;
     private Player player1;
     private Player player2;
     @FXML
@@ -42,13 +40,20 @@ public class Controller {
         game = new SpellmongerApp(player1, player2);
     }
 
-    public void attack1() {
-        update(); // pour recup index1
+    public void draw1(){
         if (player1.size() == 0) player1.reCreateCardPool();
-
         player1.addToHand(player1.getCards().get(0));
         player1.getCards().remove(0);
-        game.drawCard(player1, player2, player1.getHand(), indexChoisi_1, player1.getDiscards());
+        update();
+    }
+    public void draw2(){
+        if (player2.size() == 0) player2.reCreateCardPool();
+        player2.addToHand(player2.getCards().get(0));
+        player2.getCards().remove(0);
+        update();
+    }
+    public void attack1(int index) {
+        game.PlayCard(player1, player2, player1.getHand(), index, player1.getDiscards());
         if (!player1.isDead()) {
             player1.attack(player2);
         }
@@ -56,13 +61,19 @@ public class Controller {
         button_play2.setDisable(false);
         update();
     }
+    public void attack2(int index) {
+        game.PlayCard(player2, player1, player2.getHand(), index, player2.getDiscards());
+        Card lastElementDiscard= player2.getDiscards().get(player2.getDiscards().size()-1);
+        if( lastElementDiscard instanceof Bear)
+        {
 
-    public void attack2() {
-        update(); // pour recup l'index 2
-        if (player1.size() == 0) player1.reCreateCardPool();
-        player2.addToHand(player2.getCards().get(0));
-        player2.getCards().remove(0);
-        game.drawCard(player2, player1, player2.getHand(), indexChoisi_2, player2.getDiscards());
+        }else if( lastElementDiscard instanceof Wolf){
+
+        }else if(lastElementDiscard instanceof Eagle){
+
+        }else if(lastElementDiscard instanceof Ritual){
+
+        }
         if (!player2.isDead()) {
             player2.attack(player1);
         }
@@ -150,8 +161,7 @@ public class Controller {
             // obtenir l'index du rectangle qu'il choisit
             int index1 = index;
             rectangleBis.setOnMouseClicked(t -> {
-                indexChoisi_1 = index1;
-                logger.info("index choisi du joueur1 est egale à ====" + indexChoisi_1);
+                attack1(index1);
             });
             index++;
         }
@@ -183,8 +193,7 @@ public class Controller {
             // obtenir l'index du rectangle qu'il choisit
             int index2 = index;
             rectangleBis.setOnMouseClicked(t -> {
-                indexChoisi_2 = index2;
-                logger.info("index choisi du joueur2 est egale à ====" + indexChoisi_2);
+                attack2(index2);
             });
             index++;
         }

@@ -4,6 +4,7 @@ public class EnergyDrain extends Ritual {
 
     public EnergyDrain() {
         effect = 2;
+        energyCost = 3;
     }
 
     @Override

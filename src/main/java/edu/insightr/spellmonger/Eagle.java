@@ -6,6 +6,7 @@ public class Eagle extends Creature {
         effect = 1;
         capacity = "Flying";
         lifePoints = effect;
+        energyCost = 1;
     }
 
     @Override

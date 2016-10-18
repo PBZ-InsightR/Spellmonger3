@@ -5,6 +5,7 @@ public class Blessing extends Ritual
 
     public Blessing() {
        effect = 3;
+        energyCost = 3;
     }
 
     @Override

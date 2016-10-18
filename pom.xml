@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.insightr</groupId>
     <artifactId>Spellmonger3</artifactId>
-    <version>0.1</version>
+    <version>0.1</version> 
 
     <!--
     | Project Information
@@ -15,18 +15,6 @@
 
     <properties>
     </properties>
-
-    <build>
-        <finalName>Spring Examples</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/java/sample</directory>
-            </resource>
-        </resources>
-    </build>
 
     <dependencyManagement>
         <dependencies>
@@ -87,6 +75,16 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <finalName>Spring Examples</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java/sample</directory>
+            </resource>
+        </resources>
     </build>
     <modules>
     </modules>

@@ -4,6 +4,7 @@ public class Curse extends Ritual {
 
     public Curse() {
         effect = 3;
+        energyCost = 3;
     }
 
     @Override
