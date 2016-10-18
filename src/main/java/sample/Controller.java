@@ -136,8 +136,15 @@ public class Controller {
             } else if (c instanceof Fox) {
                 Image img = new Image("resources/images/Spellmonger_Fox.png");
                 rectangle.setFill(new ImagePattern(img));
-            } else if (c instanceof Ritual) {
-                rectangle.setFill(Color.BLACK);
+            } else if (c instanceof EnergyDrain) {
+                Image img = new Image("resources/images/Spellmonger_EnergyDrain.png");
+                rectangle.setFill(new ImagePattern(img));
+            }else if (c instanceof Curse) {
+                Image img = new Image("resources/images/Spellmonger_Curse.png");
+                rectangle.setFill(new ImagePattern(img));
+            }else if (c instanceof Blessing) {
+                Image img = new Image("resources/images/Spellmonger_Blessing.png");
+                rectangle.setFill(new ImagePattern(img));
             }
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
@@ -170,8 +177,15 @@ public class Controller {
             } else if (lastCard instanceof Fox) {
                 Image img = new Image("resources/images/Spellmonger_Fox.png");
                 rectangle.setFill(new ImagePattern(img));
-            } else if (lastCard instanceof Ritual) {
-                rectangle.setFill(Color.BLACK);
+            } else if (lastCard instanceof EnergyDrain) {
+                Image img = new Image("resources/images/Spellmonger_EnergyDrain.png");
+                rectangle.setFill(new ImagePattern(img));
+            }else if (lastCard instanceof Curse) {
+                Image img = new Image("resources/images/Spellmonger_Curse.png");
+                rectangle.setFill(new ImagePattern(img));
+            }else if (lastCard instanceof Blessing) {
+                Image img = new Image("resources/images/Spellmonger_Blessing.png");
+                rectangle.setFill(new ImagePattern(img));
             }
         } else { // premier tour (quand il n'y a pas de discard)
             discard.setVisible(false);
