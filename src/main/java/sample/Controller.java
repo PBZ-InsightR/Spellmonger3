@@ -47,7 +47,7 @@ public class Controller {
         player1.getCards().remove(0);
         update();
         deck1.setDisable(true);
-        deck2.setDisable(false);
+        deck2.setDisable(true);
     }
 
     public void draw2() {
@@ -55,7 +55,7 @@ public class Controller {
         player2.addToHand(player2.getCards().get(0));
         player2.getCards().remove(0);
         update();
-        deck1.setDisable(false);
+        deck1.setDisable(true);
         deck2.setDisable(true);
     }
 
@@ -82,8 +82,8 @@ public class Controller {
         listCreatureContents(player1, list_creatures1);
         listCreatureContents(player2, list_creatures2);
         // hands
-        hands(player1, player2, discard1, hand1);
-        hands(player2, player1, discard2, hand2);
+        hands(player1, player2, discard1, hand1,deck2);
+        hands(player2, player1, discard2, hand2,deck1);
         // discard
         discards(player1, discard1);
         discards(player2, discard2);
@@ -117,7 +117,7 @@ public class Controller {
     }
 
     // la main courante des joueurs
-    private void hands(Player current, Player oppenent, Pane discard, ScrollPane hand) {
+    private void hands(Player current, Player oppenent, Pane discard, ScrollPane hand,Button deckOpp) {
         HBox content = new HBox();
         hand.setContent(content);
         content.setSpacing(20);
@@ -144,8 +144,9 @@ public class Controller {
             content.getChildren().add(rectangle);
             // obtenir l'index du rectangle qu'il choisit
             int index1 = index;
-            rectangle.setOnMouseClicked(t -> {
+            if(current.getHand().size()==3) rectangle.setOnMouseClicked(t -> {
                 attack(index1, current, oppenent);
+                deckOpp.setDisable(false);
             });
             index++;
         }
