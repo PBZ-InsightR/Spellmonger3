@@ -1,10 +1,9 @@
 package edu.insightr.spellmonger;
 
-public class Blessing extends Ritual
-{
+class Blessing extends Ritual {
 
-    public Blessing() {
-       effect = 3;
+    Blessing() {
+        effect = 3;
         energyCost = 3;
     }
 
@@ -12,8 +11,11 @@ public class Blessing extends Ritual
     public String toString()
 
     {
-        return "Blessing " + super.toString();  
+        return "Blessing " + super.toString();
     }
+
     @Override
-    public String getName(){return "Blessing";}
+    public String getName() {
+        return "Blessing";
+    }
 }

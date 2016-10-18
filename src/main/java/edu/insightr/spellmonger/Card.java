@@ -17,5 +17,7 @@ public abstract class Card {
         return "Effect = " + this.effect;
     }
 
-    public String getName(){return "Card";}
+    public String getName() {
+        return "Card";
+    }
 }

@@ -4,7 +4,6 @@ package sample;
 import edu.insightr.spellmonger.*;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
@@ -22,7 +21,7 @@ public class Controller {
     private Player player1;
     private Player player2;
     @FXML
-    private Text name1, life_points1, name2, life_points2;
+    public Text name1, life_points1, name2, life_points2;
     public Pane discard1, discard2;
     public ScrollPane list_creatures1, list_creatures2, hand1, hand2;
     public Button  deck1, deck2;
@@ -155,6 +154,7 @@ public class Controller {
     // le discard des joueurs
     private void discards(Player current, Pane discard) {
         if (current.getDiscards().size() != 0) {
+            discard.setVisible(true); // la discard apparait une fois qu'il a des cartes dedans
             Card lastCard = current.getDiscards().get(current.getDiscards().size() - 1);
             Rectangle rectangle = new Rectangle(100, 120);
             discard.getChildren().add(rectangle);
@@ -174,10 +174,7 @@ public class Controller {
                 rectangle.setFill(Color.BLACK);
             }
         } else { // premier tour (quand il n'y a pas de discard)
-            Rectangle rectangle = new Rectangle(100, 120);
-            discard.getChildren().add(rectangle);
-            Image img = new Image("resources/images/dosCartes_ocre.png");
-            rectangle.setFill(new ImagePattern(img));
+            discard.setVisible(false);
         }
     }
 }
