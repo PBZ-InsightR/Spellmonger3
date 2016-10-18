@@ -25,8 +25,7 @@ public class SpellmongerApp {
         return playerList.get(counter);
     }  // renvoie l'autre joueuer de la partie (pour l'instant il n'y en a que deux, mais si ça augmente, la méthode ne chagera pas!)
 
-
-    public void PlayCard(Player currentPlayer, Player opponent, ArrayList<Card> hand, int choixDuJoueur, Deck discard) {
+    public void playCard(Player currentPlayer, Player opponent, ArrayList<Card> hand, int choixDuJoueur, Deck discard) {
         currentPlayer.increaseEnergy();//On augmente l'energy du joueur
         Card currentCard = hand.get(choixDuJoueur);
 
@@ -75,7 +74,9 @@ public class SpellmongerApp {
                 }
         }
         hand.remove(choixDuJoueur);
-        discard.add(currentCard);
+        if(currentCard instanceof  Ritual) {
+            discard.add(currentCard);
+        }
     }
 
     @Override
