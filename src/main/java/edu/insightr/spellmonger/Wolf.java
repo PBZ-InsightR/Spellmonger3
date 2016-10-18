@@ -5,6 +5,7 @@ public class Wolf extends Creature {
     public Wolf() {
         effect = 2;
         lifePoints = effect;
+        energyCost = 2;
     }
 
     @Override

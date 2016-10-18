@@ -5,6 +5,7 @@ public class Bear extends Creature {
     public Bear() {
         effect = 3;
         lifePoints = effect;
+        energyCost = 3;
     }
 
     @Override

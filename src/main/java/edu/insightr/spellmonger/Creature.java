@@ -3,10 +3,12 @@ package edu.insightr.spellmonger;
 public abstract class Creature extends Card implements Comparable<Creature> {
     protected String capacity;
     protected int lifePoints;
+    protected int energyCost;
 
     public Creature() {
         capacity = "";
         lifePoints = 0;
+        energyCost = 0;
     }
 
     public String getCapacity() {
