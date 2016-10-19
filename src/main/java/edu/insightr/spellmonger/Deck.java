@@ -77,7 +77,7 @@ public class Deck {
         VaultOverclocking vaultOverclocking = new VaultOverclocking ();
         cardPool.add (vaultOverclocking);
 
-        Collections.shuffle (cardPool);
+        Collections.shuffle(cardPool);
 
     }
 

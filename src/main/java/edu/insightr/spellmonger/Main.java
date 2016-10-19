@@ -20,7 +20,7 @@ public class Main {
             current.addToHand(current.getCards().get(0)); //fonctiona a defniir
             current.getCards().remove(0); // fonction a definir
             int indexChoisi=0; // fonction a definir
-            game.PlayCard (current, oppenent, current.getHand(),indexChoisi, current.getDiscards());
+            game.playCard (current, oppenent, current.getHand(),indexChoisi, current.getDiscards());
             current.attack(oppenent);
             logger.info(game.toString());
 

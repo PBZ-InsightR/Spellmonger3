@@ -32,7 +32,7 @@ public class VaultOverclocking extends Enchantment{
         if(player.getVaultOverclockingOnOff ()==true) {
             if (nbRand > 34) {
                 player.setEnergyPoint (1);
-                logger.info ("Vault OverClocking burn all " + player.getName () + "'s");
+                logger.info ("Vault OverClocking burn all energy to" + player.getName () + "'s");
 
             } else {
                 player.setEnergyPoint (player.getEnergy () + 1);

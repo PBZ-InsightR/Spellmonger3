@@ -3,10 +3,12 @@ package edu.insightr.spellmonger;
 public abstract class Card {
 
     protected int effect;
+    public int energyCost;
 
     public Card() {
     }
 
+    public int getEnergyCost(){return energyCost;}
     public int getEffect() {
         return effect;
     }
@@ -17,5 +19,7 @@ public abstract class Card {
         return "Effect = " + this.effect;
     }
 
-    public String getName(){return "Card";}
+    public String getName() {
+        return "Card";
+    }
 }

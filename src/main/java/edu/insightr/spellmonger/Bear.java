@@ -2,7 +2,7 @@ package edu.insightr.spellmonger;
 
 public class Bear extends Creature {
 
-    public Bear() {
+    Bear() {
         effect = 3;
         lifePoints = effect;
         energyCost = 3;
@@ -10,9 +10,12 @@ public class Bear extends Creature {
 
     @Override
     public String toString() {
-        return "Bear : life Point :"+lifePoints+" strength : "+effect;
+        return "Bear : life Point :" + lifePoints + " strength : " + effect;
     }
+
     @Override
-    public String getName(){return "Bear";}
+    public String getName() {
+        return "Bear";
+    }
 }
 
