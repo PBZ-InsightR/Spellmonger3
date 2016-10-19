@@ -153,7 +153,7 @@ public class Controller {
             content.getChildren().add(rectangle);
             // obtenir l'index du rectangle qu'il choisit
             int index1 = index;
-            if (current.getHand().size() == 3) rectangle.setOnMouseClicked(t -> {
+            if (current.getHand().size() == 3 && !player1.isDead() && !player2.isDead()) rectangle.setOnMouseClicked(t -> {
                 attack(index1, current, oppenent);
                 deckOpp.setDisable(false);
             });
