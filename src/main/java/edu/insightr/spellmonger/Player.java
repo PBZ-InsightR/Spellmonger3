@@ -28,20 +28,17 @@ public class Player {
         addInitialCards();
         vaultOverclockingOnOff = false;
     }
-    private void addInitialCards() {// A FINIR !!
-        hand.add(cardPool.get(0));
-        hand.add(cardPool.get(1));
-        cardPool.remove(0);
-        cardPool.remove(1);
+
+    private void addInitialCards(){
+            addToHand (cardPool.get (0));
+            addToHand (cardPool.get (1));
+            cardPool.remove (0);
+            cardPool.remove (1);
     }
 
-    public boolean getVaultOverclockingOnOff() {
-        return vaultOverclockingOnOff;
-    }
+    public boolean getVaultOverclockingOnOff(){return vaultOverclockingOnOff;}
 
-    public void setVaultOverclockingOnOff(boolean OnOff) {
-        vaultOverclockingOnOff = OnOff;
-    }
+    public void setVaultOverclockingOnOff(boolean OnOff){vaultOverclockingOnOff = OnOff;}
 
     public ArrayList<Card> getHand() {
         return hand;
@@ -87,7 +84,7 @@ public class Player {
         energy = ene;
     }
 
-    public void reCreateCardPool() {
+    public void reCreateCardPool(){
         cardPool = new Deck(discardPool.getCardPool());
         discardPool.clearCards();
     }
@@ -131,19 +128,15 @@ public class Player {
                 {
                     logger.info(this.toString() + " " + myPlayerCreature.get(i).toString() + " and " + opponent.toString() + " " +
                             playerCreatureOpponent.get(i).toString() + " have the same strength and die both ");
-                    this.discardPool.add(myPlayerCreature.get(i));
                     myPlayerCreature.remove(i);
-                    opponent.getDiscards().add(playerCreatureOpponent.get(i));
                     playerCreatureOpponent.remove(i);
                 } else if (degat > 0)// si la creature du joueur courant est plus forte elle tue celle de l'adversaire
                 {
                     logger.info(this.toString() + " " + myPlayerCreature.get(i).toString() + " still alive and " + opponent.toString() + " " + playerCreatureOpponent.get(i).toString() + "die");
-                    opponent.getDiscards().add(playerCreatureOpponent.get(i));
                     playerCreatureOpponent.remove(i);
                 } else // si la creature de l'opposant est plus forte elle tue celle du joueur courant
                 {
                     logger.info(opponent.toString() + " " + playerCreatureOpponent.get(i).toString() + " still alive and " + this.toString() + " " + myPlayerCreature.get(i).toString() + "die");
-                    this.discardPool.add(myPlayerCreature.get(i));
                     myPlayerCreature.remove(i);
                 }
             } else if (!myPlayerCreature.isEmpty() && playerCreatureOpponent.isEmpty())// si le board de l'opposant ne contient plus de creature les creatures du joueur courant attaque l'opposant
