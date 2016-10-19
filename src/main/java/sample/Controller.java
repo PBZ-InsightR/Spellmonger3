@@ -197,4 +197,9 @@ public class Controller {
             discard.setVisible(false);
         }
     }
+    public void InfoCard()
+    {
+        Tooltip tooltip = new Tooltip("Salut le monde !");
+        deck1.setTooltip(tooltip);
+    }
 }

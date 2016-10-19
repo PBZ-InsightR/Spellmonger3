@@ -15,7 +15,7 @@
                 <children>
                     <Pane fx:id="Player1" layoutX="14.0" layoutY="40.0">
                         <children>
-                            <Text fx:id="name1" layoutY="73.0" text="Valentin" wrappingWidth="150" />
+                            <Text fx:id="name1" layoutY="73.0" onMouseClicked="#InfoCard" text="Valentin" wrappingWidth="150" />
                             <Text fx:id="life_points1" layoutY="90.0" text="10" wrappingWidth="150" />
                         </children>
                     </Pane>
