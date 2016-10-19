@@ -96,16 +96,16 @@ public class Controller {
         for (Card c : p.getPlayerCreature()) {
             Rectangle rectangle = new Rectangle(100, 120);
             if (c instanceof Bear) {
-                Image img = new Image("resources/images/Spellmonger_Bear.png");
+                Image img = new Image("images/Spellmonger_Bear.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (c instanceof Eagle) {
-                Image img = new Image("resources/images/Spellmonger_Eagle.png");
+                Image img = new Image("images/Spellmonger_Eagle.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (c instanceof Wolf) {
-                Image img = new Image("resources/images/Spellmonger_Wolf.png");
+                Image img = new Image("images/Spellmonger_Wolf.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (c instanceof Fox) {
-                Image img = new Image("resources/images/Spellmonger_Fox.png");
+                Image img = new Image("images/Spellmonger_Fox.png");
                 rectangle.setFill(new ImagePattern(img));
             }
 
@@ -124,28 +124,28 @@ public class Controller {
         for (Card c : current.getHand()) {
             Rectangle rectangle = new Rectangle(100, 120);
             if (c instanceof Bear) {
-                Image img = new Image("resources/images/Spellmonger_Bear.png");
+                Image img = new Image("images/Spellmonger_Bear.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (c instanceof Eagle) {
-                Image img = new Image("resources/images/Spellmonger_Eagle.png");
+                Image img = new Image("images/Spellmonger_Eagle.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (c instanceof Wolf) {
-                Image img = new Image("resources/images/Spellmonger_Wolf.png");
+                Image img = new Image("images/Spellmonger_Wolf.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (c instanceof Fox) {
-                Image img = new Image("resources/images/Spellmonger_Fox.png");
+                Image img = new Image("images/Spellmonger_Fox.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (c instanceof EnergyDrain) {
-                Image img = new Image("resources/images/Spellmonger_EnergyDrain.png");
+                Image img = new Image("images/Spellmonger_EnergyDrain.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (c instanceof Curse) {
-                Image img = new Image("resources/images/Spellmonger_Curse.png");
+                Image img = new Image("images/Spellmonger_Curse.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (c instanceof Blessing) {
-                Image img = new Image("resources/images/Spellmonger_Blessing.png");
+                Image img = new Image("images/Spellmonger_Blessing.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (c instanceof VaultOverclocking) {
-                Image img = new Image("resources/images/Spellmonger_VaultOver.png");
+                Image img = new Image("images/Spellmonger_VaultOver.png");
                 rectangle.setFill(new ImagePattern(img));
             }
 
@@ -168,29 +168,30 @@ public class Controller {
             Card lastCard = current.getDiscards().get(current.getDiscards().size() - 1);
             Rectangle rectangle = new Rectangle(100, 120);
             discard.getChildren().add(rectangle);
+
             if (lastCard instanceof Bear) {
-                Image img = new Image("resources/images/Spellmonger_Bear.png");
+                Image img = new Image("images/Spellmonger_Bear.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (lastCard instanceof Wolf) {
-                Image img = new Image("resources/images/Spellmonger_Wolf.png");
+                Image img = new Image("images/Spellmonger_Wolf.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (lastCard instanceof Eagle) {
-                Image img = new Image("resources/images/Spellmonger_Eagle.png");
+                Image img = new Image("images/Spellmonger_Eagle.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (lastCard instanceof Fox) {
-                Image img = new Image("resources/images/Spellmonger_Fox.png");
+                Image img = new Image("images/Spellmonger_Fox.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (lastCard instanceof EnergyDrain) {
-                Image img = new Image("resources/images/Spellmonger_EnergyDrain.png");
+                Image img = new Image("images/Spellmonger_EnergyDrain.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (lastCard instanceof Curse) {
-                Image img = new Image("resources/images/Spellmonger_Curse.png");
+                Image img = new Image("images/Spellmonger_Curse.png");
                 rectangle.setFill(new ImagePattern(img));
             } else if (lastCard instanceof Blessing) {
-                Image img = new Image("resources/images/Spellmonger_Blessing.png");
+                Image img = new Image("images/Spellmonger_Blessing.png");
                 rectangle.setFill(new ImagePattern(img));
             }else if (lastCard instanceof VaultOverclocking) {
-                Image img = new Image("resources/images/Spellmonger_VaultOver.png");
+                Image img = new Image("images/Spellmonger_VaultOver.png");
                 rectangle.setFill(new ImagePattern(img));
             }
         } else { // premier tour (quand il n'y a pas de discard)

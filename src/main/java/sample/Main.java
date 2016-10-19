@@ -13,7 +13,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/sample.fxml"));
         primaryStage.setTitle("SpellMongerApp");
         Scene scene = new Scene(root, 800, 700);
-        scene.getStylesheets().add("/resources/style.css");
+        scene.getStylesheets().add("/style.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
