@@ -16,9 +16,9 @@ import org.apache.log4j.Logger;
 
 public class Controller {
 
-    private SpellmongerApp game;
-    private Player player1;
-    private Player player2;
+    public SpellmongerApp game;
+    public Player player1;
+    public Player player2;
     @FXML
     public Text name1, life_points1, name2, life_points2;
     public Pane discard1, discard2;
@@ -58,7 +58,7 @@ public class Controller {
     }
 
     // attaque entre creatures des deux joueurs
-    private void attack(int index, Player current, Player oppenent) {
+    public void attack(int index, Player current, Player oppenent) {
         if (!current.isDead()) {
             game.playCard(current, oppenent, current.getHand(), index, current.getDiscards());
             current.attack(oppenent);
@@ -67,7 +67,7 @@ public class Controller {
     }
 
     //met le jeu  jour apres chaque attack, pioche, etc..
-    private void update() {
+    public void update() {
         if (player1.isDead() || player2.isDead()) {
             deck1.setDisable(true);
             deck2.setDisable(true);
@@ -88,7 +88,7 @@ public class Controller {
     }
 
     // les creatures en piste des joueurs
-    private void listCreatureContents(Player p, ScrollPane scroll) {
+    public void listCreatureContents(Player p, ScrollPane scroll) {
         HBox content = new HBox();
         scroll.setContent(content);
         content.setSpacing(20);
@@ -115,7 +115,7 @@ public class Controller {
     }
 
     // la main courante des joueurs
-    private void hands(Player current, Player oppenent, Pane discard, ScrollPane hand, Button deckOpp) {
+    public void hands(Player current, Player oppenent, Pane discard, ScrollPane hand, Button deckOpp) {
         HBox content = new HBox();
         hand.setContent(content);
         content.setSpacing(20);
@@ -162,7 +162,7 @@ public class Controller {
     }
 
     // le discard des joueurs
-    private void discards(Player current, Pane discard) {
+    public void discards(Player current, Pane discard) {
         if (current.getDiscards().size() != 0) {
             discard.setVisible(true); // la discard apparait une fois qu'il a des cartes dedans
             Card lastCard = current.getDiscards().get(current.getDiscards().size() - 1);
