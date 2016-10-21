@@ -1,4 +1,4 @@
-package sample;
+package edu.insightr.sample;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -61,7 +61,7 @@ public class ControllerTest  {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 Controller c = new Controller();
-                c.attack(1,c.player1,c.player2);
+                c.attack(1,c.game.getPlayer(0),c.game.getPlayer(1));
 
             }
         };
@@ -88,7 +88,7 @@ public class ControllerTest  {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 Controller c = new Controller();
-                c.listCreatureContents(c.player1,new ScrollPane());
+                c.listCreatureContents(c.game.getPlayer(0),new ScrollPane());
             }
         };
         t.setDaemon(true);
@@ -101,7 +101,7 @@ public class ControllerTest  {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 Controller c = new Controller();
-                c.hands(c.player1,c.player2,new Pane(),new ScrollPane(),new Button());
+                c.hands(c.game.getPlayer(0),c.game.getPlayer(1),new Pane(),new ScrollPane(),new Button());
 
             }
         };
@@ -115,7 +115,7 @@ public class ControllerTest  {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 Controller c = new Controller();
-                c.discards(c.player1,new Pane());
+                c.discards(c.game.getPlayer(0),new Pane());
             }
         };
         t.setDaemon(true);

@@ -138,6 +138,10 @@ public class SpellmongerApp {
 
     }
 
+    public Player getPlayer(int i){
+        return playerList.get(i);
+    }
+
     @Override
     public String toString() {
         return playerList.get(0).toString() + " VS " + playerList.get(1).toString();

@@ -46,6 +46,6 @@ public class VaultOverclocking extends Enchantment{
 
     @Override
     public String getName() {
-        return "Vault Overclocking";
+        return "VaultOver";
     }
 }
