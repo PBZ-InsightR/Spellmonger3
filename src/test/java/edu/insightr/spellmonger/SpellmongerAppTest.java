@@ -11,8 +11,8 @@ public class SpellmongerAppTest {
         Player p2 = new Player("Naat");
         SpellmongerApp game = new SpellmongerApp(p1, p2);
         Player current = p1;
-        Assert.assertEquals(game.nextPLayer(), p2); // next player of p1 is p2
-        Assert.assertEquals(game.nextPLayer(), p1); // next player of p2 is p1
+        Assert.assertEquals(game.nextPLayer(p1), p2); // next player of p1 is p2
+        Assert.assertEquals(game.nextPLayer(p2), p1); // next player of p2 is p1
     }
 
     public void testDrawCard() {

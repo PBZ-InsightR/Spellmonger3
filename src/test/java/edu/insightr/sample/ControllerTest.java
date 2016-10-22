@@ -22,7 +22,7 @@ public class ControllerTest  {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 Controller c = new Controller();
-                c.draw1();
+                c.draw_player_1();
             }
         };
         t.setDaemon(true);
@@ -35,7 +35,7 @@ public class ControllerTest  {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 Controller c = new Controller();
-                c.draw2();
+                c.draw_player_2();
             }
         };
         t.setDaemon(true);
@@ -101,7 +101,7 @@ public class ControllerTest  {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 Controller c = new Controller();
-                c.hands(c.game.getPlayer(0),c.game.getPlayer(1),new Pane(),new ScrollPane(),new Button());
+                c.hands(c.game.getPlayer(0),c.game.getPlayer(1),new ScrollPane());
 
             }
         };

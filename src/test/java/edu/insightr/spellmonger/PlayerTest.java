@@ -3,7 +3,6 @@ package edu.insightr.spellmonger;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,6 +17,20 @@ public class PlayerTest {
         discard.add(new Wolf());
         player.reCreateCardPool();
         Assert.assertEquals("reCreateCardPoolTest", 1, player.getCards().size());
+    }
+
+    @Test
+    public final void canPlayTest() {
+        Player p = new Player("Numa");
+        Wolf wolf = new Wolf();
+        p.addToHand(wolf);
+        p.addToHand(new Bear());
+        Assert.assertEquals(false, p.canPlay());
+        for (int i = 0; i < wolf.getEnergyCost(); i++){
+            p.increaseEnergy();
+        }
+        Assert.assertEquals(true, p.canPlay());
+
     }
 
     @Test
@@ -95,12 +108,12 @@ public class PlayerTest {
     }
 
     @Test
-    public final void intialCardsTest(){
-        Player numa=new Player("Numa");
-        Assert.assertEquals("getHand() test",2,numa.getHand().size());
+    public final void intialCardsTest() {
+        Player numa = new Player("Numa");
+        Assert.assertEquals("getHand() test", 2, numa.getHand().size());
 
         numa.addToHand(new Wolf());
-        Assert.assertEquals("addTohand() test",3,numa.getHand().size());
+        Assert.assertEquals("addTohand() test", 3, numa.getHand().size());
     }
 
 

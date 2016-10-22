@@ -7,8 +7,4 @@ public class Enchantment extends Card{
         energyCost = 0;
     }
 
-    @Override
-    public String getName() {
-        return "Abstract";
-    }
 }

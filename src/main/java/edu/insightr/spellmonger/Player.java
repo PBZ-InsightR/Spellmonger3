@@ -117,6 +117,20 @@ public class Player {
         logger.info(this.toString() + " is the winner!!!\n");
     }
 
+    public boolean canPlay(){
+        boolean result=false;
+        for(Card c : this.getHand())
+        {
+            if(c.getEnergyCost()<=this.energy)
+            {
+                result=true;
+                break;
+            }
+        }
+        if (!result) AlertBox.displayError("Energy issue",this.getName()+",you cannot play any of your cards!");
+        return result;
+    }
+
     public void attack(Player opponent) {
         ArrayList<Creature> myPlayerCreature = this.playerCreature;
         ArrayList<Creature> playerCreatureOpponent = opponent.getPlayerCreature();
