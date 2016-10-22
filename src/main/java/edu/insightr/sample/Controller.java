@@ -3,11 +3,12 @@ package edu.insightr.sample;
 
 import edu.insightr.spellmonger.*;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
-import javafx.geometry.*;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
@@ -15,7 +16,7 @@ import org.apache.log4j.Logger;
 
 
 public class Controller {
-
+    private static final Logger logger = Logger.getLogger(Controller.class);
     public SpellmongerApp game;
     private Player turnPlayer;
     private Player player1;
@@ -25,6 +26,8 @@ public class Controller {
     public Pane discard1, discard2;
     public ScrollPane list_creatures1, list_creatures2, hand1, hand2;
     public Button deck1, deck2, pass1, pass2;
+    public AnchorPane player1_dad, player2_dad;
+    public SplitPane split;
 
 
     @FXML
@@ -42,16 +45,17 @@ public class Controller {
     }
 
     public void draw_player_1() {
-        if(!drawCard(player1) || !player1.canPlay())
-        {
+        if (!drawCard(player1))
+            deck1.setDisable(true);
+        if (!player1.canPlay())
             pass_player_1();
-        }
     }
 
     public void draw_player_2() {
-        if(!drawCard(player2) || !player2.canPlay()){
+        if (!drawCard(player2))
+            deck2.setDisable(true);
+        if (!player2.canPlay())
             pass_player_2();
-        }
     }
 
     public void pass_player_1() {
@@ -67,19 +71,18 @@ public class Controller {
     }
 
     private boolean drawCard(Player player) {
-        boolean result=true;
-        if(player.getHand().size()<5) { // Numa
+        boolean result = true;
+        if (player.getHand().size() < 5) { // Numa
             if (player.size() == 0) player.reCreateCardPool(); // Numa
             player.addToHand(player.getCards().get(0)); // Numa
             player.getCards().remove(0); // Numa
             deck1.setDisable(true);
             deck2.setDisable(true);
             update();
-        }
-        else  //Numa
+        } else  //Numa
         {
-           AlertBox.displayError("Error","You cannot have ore than 5 cards in your hand");
-            result= false;
+            AlertBox.displayError("Error", "You cannot have ore than 5 cards in your hand");
+            result = false;
         }
         return result;
     }
@@ -109,17 +112,17 @@ public class Controller {
         name2.setText("\t" + player2.getName());
         life_points2.setText("Life point : " + player2.getLifePoint() + "\n Energy : " + player2.getEnergy());
         // creatures sur la piste
-        listCreatureContents(player1, list_creatures1);
-        listCreatureContents(player2, list_creatures2);
+        listCreatureContents(player1, list_creatures1, player1_dad);
+        listCreatureContents(player2, list_creatures2, player2_dad);
         // hands
-        hands(player1, player2, hand1);
-        hands(player2, player1, hand2);
+        hands(player1, player2, hand1, player1_dad);
+        hands(player2, player1, hand2, player2_dad);
         // discard
         discards(player1, discard1);
         discards(player2, discard2);
     }
 
-    public void listCreatureContents(Player p, ScrollPane scroll) {
+    public void listCreatureContents(Player p, ScrollPane scroll, AnchorPane daddy) {
         HBox content = new HBox();
         scroll.setContent(content);
         content.setSpacing(20);
@@ -130,10 +133,26 @@ public class Controller {
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
+            Rectangle newRectangle = new Rectangle(150, 180);
+            rectangle.setOnMouseEntered(t -> {
+                newRectangle.setLayoutX(scroll.getLayoutX() + rectangle.getLayoutX());
+                if (daddy.equals(split.getItems().get(0))) {
+                    newRectangle.setLayoutY(scroll.getLayoutY() - newRectangle.getHeight() + 10);
+                } else {
+                    newRectangle.setLayoutY(scroll.getLayoutY() + scroll.getHeight() - 10);
+                }
+                newRectangle.setFill(new ImagePattern(img));
+                daddy.getChildren().add(newRectangle);
+            });
+
+            rectangle.setOnMouseExited(t -> {
+                daddy.getChildren().remove(newRectangle);
+            });
+
         }
     }
 
-    public void hands(Player current, Player oppenent, ScrollPane hand) {
+    public void hands(Player current, Player oppenent, ScrollPane hand, AnchorPane daddy) {
         HBox content = new HBox();
         hand.setContent(content);
         content.setSpacing(20);
@@ -145,12 +164,29 @@ public class Controller {
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
-            // obtenir l'index du rectangle qu'il choisit
             int index1 = index;
             if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
+                Rectangle newRectangle = new Rectangle(150, 180);
+                rectangle.setOnMouseEntered(t -> {
+                    newRectangle.setLayoutX(hand.getLayoutX() + rectangle.getLayoutX());
+                    if (daddy.equals(split.getItems().get(0))) {
+                        newRectangle.setLayoutY(hand.getLayoutY() + hand.getHeight() - 10);
+                    } else {
+                        newRectangle.setLayoutY(hand.getLayoutY() - newRectangle.getHeight() + 10);
+                    }
+                    newRectangle.setFill(new ImagePattern(img));
+                    daddy.getChildren().add(newRectangle);
+                });
+
+                rectangle.setOnMouseExited(t -> {
+                    daddy.getChildren().remove(newRectangle);
+                });
+
                 rectangle.setOnMouseClicked(t -> {
                     attack(index1, current, oppenent);
                 });
+
+
             }
             index++;
         }
@@ -165,6 +201,7 @@ public class Controller {
             discard.getChildren().add(rectangle);
             Image img = new Image("images/Spellmonger_" + lastCard.getName() + ".png");
             rectangle.setFill(new ImagePattern(img));
+
         } else {
             discard.setVisible(false);
         }
@@ -175,3 +212,5 @@ public class Controller {
         deck1.setTooltip(tooltip);
     }
 }
+
+

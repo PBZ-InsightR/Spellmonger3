@@ -88,7 +88,7 @@ public class ControllerTest  {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 Controller c = new Controller();
-                c.listCreatureContents(c.game.getPlayer(0),new ScrollPane());
+               // c.listCreatureContents(c.game.getPlayer(0),new ScrollPane());
             }
         };
         t.setDaemon(true);
@@ -101,7 +101,7 @@ public class ControllerTest  {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 Controller c = new Controller();
-                c.hands(c.game.getPlayer(0),c.game.getPlayer(1),new ScrollPane());
+             //   c.hands(c.game.getPlayer(0),c.game.getPlayer(1),new ScrollPane());
 
             }
         };

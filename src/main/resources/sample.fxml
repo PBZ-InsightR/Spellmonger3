@@ -9,9 +9,9 @@
 <?xml-stylesheet href="@style.css" type="text/css" ?>
 
 <Pane id="mainPane" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.sample.Controller">
-    <SplitPane id="split" dividerPositions="0.5">
+    <SplitPane fx:id="split" dividerPositions="0.5">
         <items>
-            <AnchorPane>
+            <AnchorPane fx:id="player1_dad">
                 <children>
                     <Pane fx:id="Player1" layoutX="14.0" layoutY="40.0">
                         <children>
@@ -26,7 +26,7 @@
                     <ScrollPane fx:id="list_creatures1" layoutX="30.0" layoutY="196.0" />
                 </children>
             </AnchorPane>
-            <AnchorPane>
+            <AnchorPane fx:id="player2_dad">
                 <children>
                     <Pane fx:id="Player2" layoutX="14.0" layoutY="170.0">
                         <children>
