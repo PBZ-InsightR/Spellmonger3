@@ -93,9 +93,10 @@ public class Controller {
         content.setPadding(new Insets(10, 10, 10, 10));
         for (Card c : p.getPlayerCreature()) {
             Rectangle rectangle = new Rectangle(100, 120);
-            Image img = new Image("images/Spellmonger_"+c.getName()+".png");
-            rectangle.setFill(new ImagePattern(img));
-
+            if(c.getName() != "Abstract") {
+                Image img = new Image("images/Spellmonger_" + c.getName() + ".png");
+                rectangle.setFill(new ImagePattern(img));
+            }
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
         }
@@ -110,8 +111,10 @@ public class Controller {
         int index = 0;  // pour obtenir l'index quand il va choisir la carte a joué ( utilisé dans le hand pas la)
         for (Card c : current.getHand()) {
             Rectangle rectangle = new Rectangle(100, 120);
-            Image img = new Image("images/Spellmonger_"+c.getName()+".png");
-            rectangle.setFill(new ImagePattern(img));
+            if(c.getName() != "Abstract") {
+                Image img = new Image("images/Spellmonger_" + c.getName() + ".png");
+                rectangle.setFill(new ImagePattern(img));
+            }
 
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
@@ -132,9 +135,10 @@ public class Controller {
             Card lastCard = current.getDiscards().get(current.getDiscards().size() - 1);
             Rectangle rectangle = new Rectangle(100, 120);
             discard.getChildren().add(rectangle);
-            Image img = new Image("images/Spellmonger_"+lastCard.getName()+".png");
-            rectangle.setFill(new ImagePattern(img));
-
+            if(lastCard.getName() != "Abstract") {
+                Image img = new Image("images/Spellmonger_" + lastCard.getName() + ".png");
+                rectangle.setFill(new ImagePattern(img));
+            }
         } else { // premier tour (quand il n'y a pas de discard)
             discard.setVisible(false);
         }

@@ -22,7 +22,7 @@ public abstract class Creature extends Card implements Comparable<Creature> {
 
     @Override
     public String getName() {
-        return "Creature";
+        return "Abstract";
     }
 
     @Override
