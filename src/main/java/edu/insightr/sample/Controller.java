@@ -165,29 +165,27 @@ public class Controller {
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
             int index1 = index;
-            if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
-                Rectangle newRectangle = new Rectangle(150, 180);
-                rectangle.setOnMouseEntered(t -> {
-                    newRectangle.setLayoutX(hand.getLayoutX() + rectangle.getLayoutX());
-                    if (daddy.equals(split.getItems().get(0))) {
-                        newRectangle.setLayoutY(hand.getLayoutY() + hand.getHeight() - 10);
-                    } else {
-                        newRectangle.setLayoutY(hand.getLayoutY() - newRectangle.getHeight() + 10);
-                    }
-                    newRectangle.setFill(new ImagePattern(img));
-                    daddy.getChildren().add(newRectangle);
-                });
+                if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
+                    Rectangle newRectangle = new Rectangle(150, 180);
+                    rectangle.setOnMouseEntered(t -> {
+                        newRectangle.setLayoutX(hand.getLayoutX() + rectangle.getLayoutX());
+                        newRectangle.setLayoutY(hand.getLayoutY() + rectangle.getLayoutY());
+                        newRectangle.setFill(new ImagePattern(img));
+                        daddy.getChildren().add(newRectangle);
+                    });
 
-                rectangle.setOnMouseExited(t -> {
-                    daddy.getChildren().remove(newRectangle);
-                });
+                    newRectangle.setOnMouseExited(t -> {
+                        daddy.getChildren().remove(newRectangle);
+                    });
 
-                rectangle.setOnMouseClicked(t -> {
-                    attack(index1, current, oppenent);
-                });
+                    newRectangle.setOnMouseClicked(t -> {
+                        attack(index1, current, oppenent);
+                    });
 
 
-            }
+
+
+                }
             index++;
         }
 
