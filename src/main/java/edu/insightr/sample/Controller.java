@@ -2,7 +2,10 @@ package edu.insightr.sample;
 
 
 import edu.insightr.spellmonger.*;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -59,14 +62,18 @@ public class Controller {
     }
 
     public void pass_player_1() {
-        turnFinished(player1, deck2);
+        turnFinished(player1);
+        deck1.setDisable(true);
         pass1.setDisable(true);
+        deck2.setDisable(false);
         pass2.setDisable(false);
     }
 
     public void pass_player_2() {
-        turnFinished(player2, deck1);
+        turnFinished(player2);
+        deck2.setDisable(true);
         pass2.setDisable(true);
+        deck1.setDisable(false);
         pass1.setDisable(false);
     }
 
@@ -81,16 +88,15 @@ public class Controller {
             update();
         } else  //Numa
         {
-            AlertBox.displayError("Error", "You cannot have ore than 5 cards in your hand");
+            AlertBox.displayError("Error", "You cannot have more than 5 cards in your hand");
             result = false;
         }
         return result;
     }
 
-    private void turnFinished(Player current, Button deckOpp) {
+    private void turnFinished(Player current) {
         turnPlayer = game.nextPLayer(current);
-        deckOpp.setDisable(false);
-        game.nextPLayer(current).increaseEnergy();
+        turnPlayer.increaseEnergy();
         update();
     }
 
@@ -103,19 +109,24 @@ public class Controller {
     }
 
     public void update() {
-        if (player1.isDead() || player2.isDead()) {
-            deck1.setDisable(true);
-            deck2.setDisable(true);
-        }
         name1.setText("\t" + player1.getName());
         life_points1.setText("Life point : " + player1.getLifePoint() + "\n Energy : " + player1.getEnergy());
         name2.setText("\t" + player2.getName());
         life_points2.setText("Life point : " + player2.getLifePoint() + "\n Energy : " + player2.getEnergy());
+        if (player1.isDead() || player2.isDead()) {
+            deck1.setDisable(true);
+            deck2.setDisable(true);
+            pass1.setDisable(true);
+            pass2.setDisable(true);
+            AlertBox.displayGame("Game over", "le jeu est fini");
+        }
+
         // creatures sur la piste
         listCreatureContents(player1, list_creatures1, player1_dad);
         listCreatureContents(player2, list_creatures2, player2_dad);
         // hands
         hands(player1, player2, hand1, player1_dad);
+
         hands(player2, player1, hand2, player2_dad);
         // discard
         discards(player1, discard1);
@@ -135,17 +146,18 @@ public class Controller {
             content.getChildren().add(rectangle);
             Rectangle newRectangle = new Rectangle(150, 180);
             rectangle.setOnMouseEntered(t -> {
-                newRectangle.setLayoutX(scroll.getLayoutX() + rectangle.getLayoutX());
-                if (daddy.equals(split.getItems().get(0))) {
-                    newRectangle.setLayoutY(scroll.getLayoutY() - newRectangle.getHeight() + 10);
-                } else {
-                    newRectangle.setLayoutY(scroll.getLayoutY() + scroll.getHeight() - 10);
-                }
+                Bounds boundsInScene = rectangle.localToScene(rectangle.getBoundsInLocal());
+                newRectangle.setLayoutX(boundsInScene.getMinX());
+                newRectangle.setLayoutY(boundsInScene.getMaxY()-newRectangle.getHeight());
                 newRectangle.setFill(new ImagePattern(img));
-                daddy.getChildren().add(newRectangle);
+                logger.info(boundsInScene);
+                logger.info(newRectangle.getLayoutY());
+                if (!daddy.getChildren().contains(newRectangle)) {
+                    daddy.getChildren().add(newRectangle);
+                }
             });
 
-            rectangle.setOnMouseExited(t -> {
+            newRectangle.setOnMouseExited(t -> {
                 daddy.getChildren().remove(newRectangle);
             });
 
@@ -165,27 +177,41 @@ public class Controller {
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
             int index1 = index;
-                if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
-                    Rectangle newRectangle = new Rectangle(150, 180);
-                    rectangle.setOnMouseEntered(t -> {
-                        newRectangle.setLayoutX(hand.getLayoutX() + rectangle.getLayoutX());
-                        newRectangle.setLayoutY(hand.getLayoutY() + rectangle.getLayoutY());
-                        newRectangle.setFill(new ImagePattern(img));
+            if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
+                Rectangle newRectangle = new Rectangle(150, 180);
+                rectangle.setOnMouseEntered(t -> {
+                    Bounds boundsInScene = rectangle.localToScene(rectangle.getBoundsInLocal());
+
+                    newRectangle.setX(boundsInScene.getMinX());
+                    newRectangle.setY(boundsInScene.getMinY());
+
+                    if(daddy.equals(split.getItems().get(1))) {
+                        AnchorPane other=(AnchorPane)split.getItems().get(1);
+                        Bounds boundsInSceneSplit=daddy.localToScene(other.getBoundsInLocal());
+                        newRectangle.setY(boundsInScene.getHeight()-boundsInScene.getMinY());
+                        logger.info("\n\n\n" + boundsInSceneSplit + "\n\n\n");
+                    }
+                    newRectangle.setFill(new ImagePattern(img));
+                    logger.info(boundsInScene.getMinX());
+                    logger.info(boundsInScene.getHeight()-boundsInScene.getMinY());
+
+                    if (!daddy.getChildren().contains(newRectangle)) {
                         daddy.getChildren().add(newRectangle);
-                    });
+                        logger.info("AJOUTEEE");
+                        logger.info(daddy);
+                    }
+                });
 
-                    newRectangle.setOnMouseExited(t -> {
-                        daddy.getChildren().remove(newRectangle);
-                    });
+                newRectangle.setOnMouseExited(t -> {
+                    daddy.getChildren().remove(newRectangle);
+                });
 
-                    newRectangle.setOnMouseClicked(t -> {
-                        attack(index1, current, oppenent);
-                    });
+                newRectangle.setOnMouseClicked(t -> {
+                    logger.info("CLICKED");
+                    attack(index1, current, oppenent);
+                });
 
-
-
-
-                }
+            }
             index++;
         }
 
