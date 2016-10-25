@@ -146,15 +146,23 @@ public class Controller {
             content.getChildren().add(rectangle);
             Rectangle newRectangle = new Rectangle(150, 180);
             rectangle.setOnMouseEntered(t -> {
-                newRectangle.setLayoutX(scroll.getLayoutX() + rectangle.getLayoutX());
-                if (daddy.equals(split.getItems().get(0))) {
-                    newRectangle.setLayoutY(scroll.getLayoutY() - newRectangle.getHeight() + 10);
-                } else {
-                    newRectangle.setLayoutY(scroll.getLayoutY() + scroll.getHeight() - 10);
+                Bounds boundsInScene = rectangle.localToScene(rectangle.getBoundsInLocal());
+                double x = boundsInScene.getMinX();
+                double y = boundsInScene.getMaxY()-newRectangle.getHeight();
+                double translation = split.getItems().get(0).getLayoutBounds().getHeight();
+
+                if (daddy.equals(split.getItems().get(1))) { // si c'est le player 2
+                    y = boundsInScene.getMinY();
+                    y = y - translation-5;
                 }
+                newRectangle.setLayoutX(x);
+                newRectangle.setLayoutY(y);
                 newRectangle.setFill(new ImagePattern(img));
-                daddy.getChildren().add(newRectangle);
+                if (!daddy.getChildren().contains(newRectangle)) {
+                    daddy.getChildren().add(newRectangle);
+                }
             });
+
             newRectangle.setOnMouseExited(t -> {
                 daddy.getChildren().remove(newRectangle);
             });
@@ -178,19 +186,33 @@ public class Controller {
             if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
                 Rectangle newRectangle = new Rectangle(150, 180);
                 rectangle.setOnMouseEntered(t -> {
-                    newRectangle.setLayoutX(hand.getLayoutX() + rectangle.getLayoutX());
-                    newRectangle.setLayoutY(hand.getLayoutY() + rectangle.getLayoutY());
+                    Bounds boundsInScene = rectangle.localToScene(rectangle.getBoundsInLocal());
+                    double x = boundsInScene.getMinX();
+                    double y = boundsInScene.getMinY();
+                    double translation = split.getItems().get(0).getLayoutBounds().getHeight();
+
+                    if (daddy.equals(split.getItems().get(1))) {
+                        y = boundsInScene.getMaxY();
+                        y = y - translation;
+                        y = y - newRectangle.getHeight();
+                    }
+                    newRectangle.setLayoutX(x);
+                    newRectangle.setLayoutY(y);
                     newRectangle.setFill(new ImagePattern(img));
-                    daddy.getChildren().add(newRectangle);
+                    if (!daddy.getChildren().contains(newRectangle)) {
+                        daddy.getChildren().add(newRectangle);
+                    }
                 });
 
                 newRectangle.setOnMouseExited(t -> {
-                    daddy.getChildren().remove(newRectangle);
+                        daddy.getChildren().remove(newRectangle);
+
                 });
 
                 newRectangle.setOnMouseClicked(t -> {
                     logger.info("CLICKED");
                     attack(index1, current, oppenent);
+                    newRectangle.setDisable(true);
                 });
 
             }
