@@ -48,15 +48,13 @@ public class Controller {
     }
 
     public void draw_player_1() {
-        if (!drawCard(player1))
-            deck1.setDisable(true);
+        drawCard(player1);
         if (!player1.canPlay())
             pass_player_1();
     }
 
     public void draw_player_2() {
-        if (!drawCard(player2))
-            deck2.setDisable(true);
+        drawCard(player2);
         if (!player2.canPlay())
             pass_player_2();
     }
@@ -77,8 +75,7 @@ public class Controller {
         pass1.setDisable(false);
     }
 
-    private boolean drawCard(Player player) {
-        boolean result = true;
+    private void drawCard(Player player) {
         if (player.getHand().size() < 5) { // Numa
             if (player.size() == 0) player.reCreateCardPool(); // Numa
             player.addToHand(player.getCards().get(0)); // Numa
@@ -89,9 +86,7 @@ public class Controller {
         } else  //Numa
         {
             AlertBox.displayError("Error", "You cannot have more than 5 cards in your hand");
-            result = false;
         }
-        return result;
     }
 
     private void turnFinished(Player current) {
