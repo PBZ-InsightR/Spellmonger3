@@ -19,6 +19,6 @@ public abstract class Card {
     }
 
     public String getName() {
-        return "Card";
+        return "Abstract";
     }
 }

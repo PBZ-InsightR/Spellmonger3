@@ -5,4 +5,5 @@ public abstract class Ritual extends Card {
 
     public Ritual() {
     }
+
 }

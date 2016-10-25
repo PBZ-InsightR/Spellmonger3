@@ -21,11 +21,6 @@ public abstract class Creature extends Card implements Comparable<Creature> {
 
 
     @Override
-    public String getName() {
-        return "Creature";
-    }
-
-    @Override
     public int compareTo(Creature other) {
         Integer obj1 = this.effect;
         Integer obj2 = new Integer(other.effect);
