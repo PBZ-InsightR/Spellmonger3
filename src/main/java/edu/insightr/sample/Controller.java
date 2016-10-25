@@ -158,9 +158,7 @@ public class Controller {
                 }
             });
 
-            newRectangle.setOnMouseExited(t -> {
-                daddy.getChildren().remove(newRectangle);
-            });
+            newRectangle.setOnMouseExited(t -> daddy.getChildren().remove(newRectangle));
 
         }
     }
@@ -199,10 +197,7 @@ public class Controller {
                     }
                 });
 
-                newRectangle.setOnMouseExited(t -> {
-                        daddy.getChildren().remove(newRectangle);
-
-                });
+                newRectangle.setOnMouseExited(t -> daddy.getChildren().remove(newRectangle));
 
                 newRectangle.setOnMouseClicked(t -> {
                     logger.info("CLICKED");
