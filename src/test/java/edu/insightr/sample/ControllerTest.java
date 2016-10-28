@@ -62,7 +62,7 @@ public class ControllerTest  {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 Controller c = new Controller();
-                c.attack(1,c.game.getPlayer(0),c.game.getPlayer(1));
+                c.play(1,c.game.getPlayer(0),c.game.getPlayer(1));
 
             }
         };

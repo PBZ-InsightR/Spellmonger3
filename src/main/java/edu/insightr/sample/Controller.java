@@ -59,20 +59,22 @@ public class Controller {
             pass_player_2();
     }
 
+    public void pass(Player current, Player opponent){
+        current.attack(opponent);
+        turnFinished(current);
+        boolean choix = true;
+        if(current==player2) choix = false;
+        deck1.setDisable(choix);
+        pass1.setDisable(choix);
+        deck2.setDisable(!choix);
+        pass2.setDisable(!choix);
+    }
     public void pass_player_1() {
-        turnFinished(player1);
-        deck1.setDisable(true);
-        pass1.setDisable(true);
-        deck2.setDisable(false);
-        pass2.setDisable(false);
+        pass(player1,player2);
     }
 
     public void pass_player_2() {
-        turnFinished(player2);
-        deck2.setDisable(true);
-        pass2.setDisable(true);
-        deck1.setDisable(false);
-        pass1.setDisable(false);
+        pass(player2,player1);
     }
 
     private void drawCard(Player player) {
@@ -95,11 +97,13 @@ public class Controller {
         update();
     }
 
-    public void attack(int index, Player current, Player oppenent) {
+    public void play(int index, Player current, Player oppenent) {
+        Button deck=deck2;
         if (!current.isDead()) {
             game.playCard(current, oppenent, current.getHand(), index, current.getDiscards());
-            current.attack(oppenent);
             update();
+            if(current==player1) deck = deck1;
+            if (!current.canPlay()&& deck.isDisabled()) pass(current,oppenent);
         }
     }
 
@@ -201,7 +205,7 @@ public class Controller {
 
                 newRectangle.setOnMouseClicked(t -> {
                     logger.info("CLICKED");
-                    attack(index1, current, oppenent);
+                    play(index1, current, oppenent);
                     newRectangle.setDisable(true);
                 });
 
