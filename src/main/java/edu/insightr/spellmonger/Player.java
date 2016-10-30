@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class Player {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -131,47 +130,31 @@ public class Player {
         return result;
     }
 
-    public void attack(Player opponent) {
-        ArrayList<Creature> myPlayerCreature = this.playerCreature;
-        ArrayList<Creature> playerCreatureOpponent = opponent.getPlayerCreature();
+    public void attack(Player opponent){
+        ArrayList<Creature> currentBoard = this.playerCreature;
+        ArrayList<Creature> opponentBoard = opponent.getPlayerCreature();
+        int diffBoard = currentBoard.size()-opponentBoard.size();
 
-        //tout les  this.getPlayerCreature().get(i).getEffect() en  myPlayerCreature.get(i).getEffect()
-        for (int i = 0; i < myPlayerCreature.size(); i++) {
+        if(diffBoard>0){
+            for(int i = 0; i < (currentBoard.size()-diffBoard); i++){
+                currentBoard.get(i).attackCreature(opponentBoard.get(i),this,opponent);
+            }
 
-            if (!myPlayerCreature.isEmpty() && !playerCreatureOpponent.isEmpty())// si il y'a une creature des deux coté du board
-            {
-                int degat = myPlayerCreature.get(i).getEffect() - playerCreatureOpponent.get(i).getEffect(); // recup des dégats la diff entre la force des deux creatures
-
-                if (degat == 0) // si les deux créature ont la même force les deux meurt
-                {
-                    logger.info(this.toString() + " " + myPlayerCreature.get(i).toString() + " and " + opponent.toString() + " " +
-                            playerCreatureOpponent.get(i).toString() + " have the same strength and die both ");
-                    this.discardPool.getCardPool().add(myPlayerCreature.get(i));
-                    myPlayerCreature.remove(i);
-                    opponent.getDiscards().getCardPool().add(playerCreatureOpponent.get(i));
-                    playerCreatureOpponent.remove(i);
-                } else if (degat > 0)// si la creature du joueur courant est plus forte elle tue celle de l'adversaire
-                {
-                    logger.info(this.toString() + " " + myPlayerCreature.get(i).toString() + " still alive and " + opponent.toString() + " " + playerCreatureOpponent.get(i).toString() + "die");
-                    opponent.getDiscards().getCardPool().add(playerCreatureOpponent.get(i));
-                    playerCreatureOpponent.remove(i);
-                } else // si la creature de l'opposant est plus forte elle tue celle du joueur courant
-                {
-                    logger.info(opponent.toString() + " " + playerCreatureOpponent.get(i).toString() + " still alive and " + this.toString() + " " + myPlayerCreature.get(i).toString() + "die");
-                    this.discardPool.getCardPool().add(myPlayerCreature.get(i));
-                    myPlayerCreature.remove(i);
-                }
-            } else if (!myPlayerCreature.isEmpty() && playerCreatureOpponent.isEmpty())// si le board de l'opposant ne contient plus de creature les creatures du joueur courant attaque l'opposant
-            {
-                opponent.setLifePoint(opponent.getLifePoint() - myPlayerCreature.get(i).getEffect());
-            } else// si le joueur courant n'a plus de creature et qu'il en reste à l'opposant l'attaque du joueur s'arrête
-            {
-                break;
+            for(int i = (currentBoard.size()-diffBoard); i < currentBoard.size(); i++){
+                currentBoard.get(i).attackPlayer(opponent);
+            }
+        }
+        else if(diffBoard==0){
+            for(int i = 0; i < currentBoard.size(); i++){
+                currentBoard.get(i).attackCreature(opponentBoard.get(i),this,opponent);
+            }
+        }
+        else{
+            for(int i = 0; i < currentBoard.size(); i++){
+                currentBoard.get(i).attackCreature(opponentBoard.get(i),this,opponent);
             }
         }
 
-        this.setPlayerCreature(myPlayerCreature);
-        opponent.setPlayerCreature(playerCreatureOpponent);
     }
 
     @Override

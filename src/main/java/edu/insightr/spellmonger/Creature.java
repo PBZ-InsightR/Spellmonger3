@@ -1,5 +1,9 @@
 package edu.insightr.spellmonger;
 
+import sun.management.snmp.jvmmib.EnumJvmMemoryGCVerboseLevel;
+
+import java.security.spec.ECGenParameterSpec;
+
 public abstract class Creature extends Card implements Comparable<Creature> {
     protected String capacity;
     protected int lifePoints;
@@ -18,7 +22,39 @@ public abstract class Creature extends Card implements Comparable<Creature> {
         return lifePoints;
     }
 
+    public void attackCreature(Creature opponentCreature, Player currentPlayer, Player opponent){
+        if(this instanceof Eagle && opponentCreature instanceof Eagle==false){
+            opponent.setLifePoint(opponent.getLifePoint()-this.getEffect());
+        }
+        else if(this instanceof Eagle==false && opponentCreature instanceof Eagle==false){
+            int damage = this.getEffect()-opponentCreature.getEffect();
+            if(damage>0){
+                opponent.getDiscards().add(opponentCreature);
+                opponent.getPlayerCreature().remove(opponentCreature);
+            }
+            else if(damage==0){
+                currentPlayer.getDiscards().add(this);
+                opponent.getDiscards().add(opponentCreature);
+                currentPlayer.getPlayerCreature().remove(this);
+                opponent.getPlayerCreature().remove(opponentCreature);
+            }
+            else{
+                currentPlayer.getDiscards().add(this);
+                currentPlayer.getPlayerCreature().remove(this);
+            }
+        }
+        else {
+            currentPlayer.getDiscards().add(this);
+            opponent.getDiscards().add(opponentCreature);
+            currentPlayer.getPlayerCreature().remove(this);
+            opponent.getPlayerCreature().remove(opponentCreature);
+        }
+    }
 
+    public void attackPlayer(Player opponent){
+        int damage = this.getEffect();
+        opponent.setLifePoint(opponent.getLifePoint()-damage);
+    }
 
     @Override
     public int compareTo(Creature other) {
