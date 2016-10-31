@@ -12,6 +12,18 @@
     <name>Spellmonger3</name>
     <description>spellcaster game</description>
     <packaging>pom</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <properties>
     </properties>
@@ -35,44 +47,20 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-        <!--
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.0</version>
             <scope>test</scope>
-        </dependency> -->
+        </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
 
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/java/sample</directory>
-            </resource>
-        </resources>
-    </build>
-    <modules>
-    </modules>
     <scm>
         <connection>scm:git:https://github.com/PBZ-InsightR/Spellmonger3.git</connection>
         <developerConnection>scm:git:https://github.com/PBZ-InsightR/Spellmonger3.git</developerConnection>

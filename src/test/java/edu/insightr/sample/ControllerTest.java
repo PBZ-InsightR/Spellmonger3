@@ -1,5 +1,6 @@
 package edu.insightr.sample;
 
+import cucumber.api.junit.Cucumber;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
@@ -8,14 +9,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 import javafx.application.Application;
+import org.junit.runner.RunWith;
 
-
-/**
- * Created by hope on 21/10/2016.
- */
+@RunWith(Cucumber.class)
 public class ControllerTest  {
+    //Natacha zone test avec cucumber
 
 
+    //
     @Test
     public void draw1() throws Exception {
         Thread t = new Thread("JavaFX Init Thread") {
@@ -61,7 +62,7 @@ public class ControllerTest  {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 Controller c = new Controller();
-                c.attack(1,c.game.getPlayer(0),c.game.getPlayer(1));
+                c.play(1,c.game.getPlayer(0),c.game.getPlayer(1));
 
             }
         };
