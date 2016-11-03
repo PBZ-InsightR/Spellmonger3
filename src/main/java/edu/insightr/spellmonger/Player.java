@@ -6,15 +6,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Player {
-    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+    //private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private String name;
     private int lifePoint;
     private int energy;
-    private ArrayList<Creature> playerCreature;
     private Deck cardPool;
     private Deck discardPool;
-    private ArrayList<Card> hand;
     private boolean vaultOverclockingOnOff;
+    private ArrayList<Creature> playerCreature;
+    private ArrayList<Card> hand;
+    private int stackEnergy;
 
     public Player(String name) {
         this.playerCreature = new ArrayList<>();
@@ -23,10 +24,15 @@ public class Player {
         this.name = name;
         this.lifePoint = 20;
         this.energy = 0;
+        this.stackEnergy = energy;
         hand = new ArrayList<>(3); // les cartes que le joueur en main
         addInitialCards();
         vaultOverclockingOnOff = false;
     }
+
+    public int getStackEnergy(){return stackEnergy;}
+
+    public void setStackEnergy(int stackEnergy){this.stackEnergy=stackEnergy;}
 
     private void addInitialCards() {
         addToHand(cardPool.get(0));
@@ -39,8 +45,8 @@ public class Player {
         return vaultOverclockingOnOff;
     }
 
-    public void setVaultOverclockingOnOff(boolean OnOff) {
-        vaultOverclockingOnOff = OnOff;
+    public void setVaultOverclockingOnOff() {
+        vaultOverclockingOnOff = true;
     }
 
     public ArrayList<Card> getHand() {
@@ -67,9 +73,9 @@ public class Player {
         return playerCreature;
     }
 
-    public void setPlayerCreature(ArrayList<Creature> newOne) {
+    /*public void setPlayerCreature(ArrayList<Creature> newOne) {
         playerCreature = newOne;
-    }
+    }*/
 
     public int getLifePoint() {
         return lifePoint;
@@ -112,9 +118,9 @@ public class Player {
         energy++;
     }
 
-    public void winner() {
+    /*public void winner() {
         logger.info(this.toString() + " is the winner!!!\n");
-    }
+    }*/
 
     public boolean canPlay(){
         boolean result=false;
