@@ -45,7 +45,8 @@ public class User {
             writer.write(obj.toString());
             writer.close();
         }
-        catch (Exception e){}
+        catch (Exception e){ System.out.println("Impossible de créer le fichier");}
+
 
 
 
