@@ -28,6 +28,21 @@ public class Player {
         vaultOverclockingOnOff = false;
     }
 
+    public Player clone(){
+
+        Player p = new Player(this.name);
+        p.setLifePoint(this.getLifePoint());
+        p.setEnergyPoint(this.getEnergy());
+        p.setPlayerCreature((ArrayList<Creature>)playerCreature.clone());
+        p.discardPool = this.discardPool.clone();
+        p.cardPool = this.cardPool.clone();
+        p.hand = (ArrayList<Card> ) this.hand.clone();
+        p.setVaultOverclockingOnOff(this.vaultOverclockingOnOff);
+        return p;
+    }
+
+
+
     private void addInitialCards() {
         addToHand(cardPool.get(0));
         addToHand(cardPool.get(1));

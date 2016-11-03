@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 <?xml-stylesheet href="@style.css" type="text/css" ?>
 
-<Pane id="mainPane" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.sample.Controller">
+<Pane id="mainPane" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.sample.ControllerPlay">
     <SplitPane fx:id="split" dividerPositions="0.5">
         <items>
             <AnchorPane fx:id="player1_dad">

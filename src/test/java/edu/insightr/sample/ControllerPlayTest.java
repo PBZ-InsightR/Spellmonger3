@@ -1,18 +1,14 @@
 package edu.insightr.sample;
 
 import cucumber.api.junit.Cucumber;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import javafx.application.Application;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-public class ControllerTest  {
+public class ControllerPlayTest {
     //Natacha zone test avec cucumber
 
 
@@ -22,7 +18,7 @@ public class ControllerTest  {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
                 Application.launch(Main.class, new String[0]);
-                Controller c = new Controller();
+                ControllerPlay c = new ControllerPlay();
                 c.draw_player_1();
             }
         };
@@ -35,7 +31,7 @@ public class ControllerTest  {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
                 Application.launch(Main.class, new String[0]);
-                Controller c = new Controller();
+                ControllerPlay c = new ControllerPlay();
                 c.draw_player_2();
             }
         };
@@ -48,7 +44,7 @@ public class ControllerTest  {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
                 Application.launch(Main.class, new String[0]);
-                Controller c = new Controller();
+                ControllerPlay c = new ControllerPlay();
                 c.InfoCard();
             }
         };
@@ -61,7 +57,7 @@ public class ControllerTest  {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
                 Application.launch(Main.class, new String[0]);
-                Controller c = new Controller();
+                ControllerPlay c = new ControllerPlay();
                 c.play(1,c.game.getPlayer(0),c.game.getPlayer(1));
 
             }
@@ -75,7 +71,7 @@ public class ControllerTest  {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
                 Application.launch(Main.class, new String[0]);
-                Controller c = new Controller();
+                ControllerPlay c = new ControllerPlay();
                 c.update();
             }
         };
@@ -88,7 +84,7 @@ public class ControllerTest  {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
                 Application.launch(Main.class, new String[0]);
-                Controller c = new Controller();
+                ControllerPlay c = new ControllerPlay();
                // c.listCreatureContents(c.game.getPlayer(0),new ScrollPane());
             }
         };
@@ -101,7 +97,7 @@ public class ControllerTest  {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
                 Application.launch(Main.class, new String[0]);
-                Controller c = new Controller();
+                ControllerPlay c = new ControllerPlay();
              //   c.hands(c.game.getPlayer(0),c.game.getPlayer(1),new ScrollPane());
 
             }
@@ -115,7 +111,7 @@ public class ControllerTest  {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
                 Application.launch(Main.class, new String[0]);
-                Controller c = new Controller();
+                ControllerPlay c = new ControllerPlay();
                 c.discards(c.game.getPlayer(0),new Pane());
             }
         };
@@ -128,7 +124,7 @@ public class ControllerTest  {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
                 Application.launch(Main.class, new String[0]);
-                Controller c = new Controller();
+                ControllerPlay c = new ControllerPlay();
                 c.initialize();
             }
         };
