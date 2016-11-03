@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Player {
-    //private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private String name;
     private int lifePoint;
     private int energy;
@@ -48,6 +48,9 @@ public class Player {
     public void setVaultOverclockingOnOff() {
         vaultOverclockingOnOff = true;
     }
+    public void setVaultOverclockingOnOff(boolean OnOff) {
+        vaultOverclockingOnOff = OnOff;
+    }
 
     public ArrayList<Card> getHand() {
         return hand;
@@ -73,9 +76,9 @@ public class Player {
         return playerCreature;
     }
 
-    /*public void setPlayerCreature(ArrayList<Creature> newOne) {
+    public void setPlayerCreature(ArrayList<Creature> newOne) {
         playerCreature = newOne;
-    }*/
+    }
 
     public int getLifePoint() {
         return lifePoint;
@@ -118,9 +121,9 @@ public class Player {
         energy++;
     }
 
-    /*public void winner() {
+    public void winner() {
         logger.info(this.toString() + " is the winner!!!\n");
-    }*/
+    }
 
     public boolean canPlay(){
         boolean result=false;
@@ -162,6 +165,19 @@ public class Player {
         }
 
     }
+
+    public Player clone(){
+
+        Player p = new Player(this.name);
+        p.setLifePoint(this.getLifePoint());
+        p.setEnergyPoint(this.getEnergy());
+        p.setPlayerCreature((ArrayList<Creature>)playerCreature.clone());
+        p.discardPool = this.discardPool.clone();
+        p.cardPool = this.cardPool.clone();
+        p.hand = (ArrayList<Card> ) this.hand.clone();
+        p.setVaultOverclockingOnOff(this.vaultOverclockingOnOff);
+        return p;
+        }
 
     @Override
     public String toString() {
