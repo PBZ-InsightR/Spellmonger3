@@ -43,6 +43,7 @@ public class User {
             obj.put("win Rate",this.winRate());
 
             writer.write(obj.toString());
+            writer.close();
         }
         catch (Exception e){}
 
