@@ -7,6 +7,10 @@ public class Blessing extends Ritual {
         energyCost = 3;
     }
 
+    public void effect(Player currentPlayer){
+        currentPlayer.setLifePoint(currentPlayer.getLifePoint()+this.getEffect());
+    }
+
     @Override
     public String toString()
 
