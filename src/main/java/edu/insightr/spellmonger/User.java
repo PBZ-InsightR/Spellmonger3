@@ -1,10 +1,8 @@
 package edu.insightr.spellmonger;
 import org.json.JSONObject;
-import org.json.JSONWriter;
-
 import java.io.File;
 import java.io.FileWriter;
-import java.io.Writer;
+
 
 public class User {
 
@@ -32,15 +30,15 @@ public class User {
 
     public void saveScore(){
 
+        JSONObject obj = new JSONObject();
+        obj.put("name",this.name);
+        obj.put("mdp",this.mdp);
+        obj.put("win Rate",this.winRate());
+
         try {
             File file = new File("C:\\Users\\Numa\\IdeaProjects\\Spellmonger3\\Score.json");
             file.createNewFile();
             FileWriter writer = new FileWriter(file);
-
-            JSONObject obj = new JSONObject();
-            obj.put("name",this.name);
-            obj.put("mdp",this.mdp);
-            obj.put("win Rate",this.winRate());
 
             writer.write(obj.toString());
             writer.close();
