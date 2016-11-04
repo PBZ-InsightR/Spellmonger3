@@ -11,9 +11,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-/**
- * Created by hope on 02/11/2016.
- */
 public class Outils {
 
     public static void updateJsonFile(String Login,boolean isWinner){

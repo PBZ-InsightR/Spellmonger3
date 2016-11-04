@@ -24,7 +24,7 @@
                 <Button fx:id="Score" layoutX="80.0" layoutY="249.0" mnemonicParsing="false" onAction="#goToScore" prefHeight="25.0" prefWidth="66.0" text="Scores" />
                 <Button fx:id="Play" layoutX="245.0" layoutY="249.0" mnemonicParsing="false" onAction="#goToPlay" prefHeight="25.0" prefWidth="66.0" text="Play" />
             <Label layoutX="50.0" layoutY="50.0" prefHeight="20.0" prefWidth="50.0" text="Login 1" textAlignment="CENTER" />
-            <TextField fx:id="Login1" layoutX="200.0" layoutY="50.0" prefHeight="5.0" prefWidth="100.0" />
+            <TextField fx:id="login1" layoutX="200.0" layoutY="50.0" prefHeight="5.0" prefWidth="100.0" />
             <TextField fx:id="Login2" layoutX="200.0" layoutY="100.0" prefHeight="5.0" prefWidth="100.0" />
             <Label layoutX="50.0" layoutY="100.0" prefHeight="20.0" prefWidth="50.0" text="Login 2" textAlignment="CENTER" />
             <CheckBox fx:id="isPlayer2" layoutX="110.0" layoutY="104.0" mnemonicParsing="false" onAction="#isPlayer2" />
