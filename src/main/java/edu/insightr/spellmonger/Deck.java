@@ -85,5 +85,9 @@ public class Deck {
         cardPool.clear();
     }
 
-
+    public Deck clone(){
+        Deck d  = new Deck();
+        d.cardPool = (ArrayList<Card>)this.cardPool.clone();
+        return d;
+    }
 }
