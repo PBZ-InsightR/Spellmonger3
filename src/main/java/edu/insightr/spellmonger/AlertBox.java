@@ -86,7 +86,6 @@ public class AlertBox {
 
     public static void displayError(String title, String message) {
         Stage messageBox = new Stage();
-
         messageBox.initModality(Modality.APPLICATION_MODAL);
         messageBox.setTitle(title);
         messageBox.setMinWidth(300);

@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 public class Controller {
     private static final Logger logger = Logger.getLogger(Controller.class);
     public SpellmongerApp game;
-    private Player turnPlayer;
+    public Player turnPlayer;
     private Player player1;
     private Player player2;
     @FXML
@@ -63,12 +63,13 @@ public class Controller {
         current.attack(opponent);
         turnFinished(current);
         boolean choix = true;
-        if(current==player2) choix = false;
+        if(current.equals(player2)) choix = false;
         deck1.setDisable(choix);
         pass1.setDisable(choix);
         deck2.setDisable(!choix);
         pass2.setDisable(!choix);
     }
+
     public void pass_player_1() {
         pass(player1,player2);
     }

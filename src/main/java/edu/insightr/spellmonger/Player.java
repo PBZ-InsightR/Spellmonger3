@@ -126,7 +126,7 @@ public class Player {
                 break;
             }
         }
-        if (!result) AlertBox.displayError("Energy issue",this.getName()+",you cannot play any of your cards!");
+       if (!result) AlertBox.displayError("Energy issue",this.getName()+",you cannot play any of your cards!"); // cette ligne fait planter le test, je sais pas pourquoi
         return result;
     }
 
