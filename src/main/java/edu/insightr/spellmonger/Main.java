@@ -4,9 +4,7 @@ import edu.insightr.sample.Personne;
 
 import java.util.Map;
 
-/**
- * Created by hope on 02/11/2016.
- */
+
 public class Main {
 
     public static void main(String[] args){

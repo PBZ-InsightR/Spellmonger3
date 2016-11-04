@@ -14,15 +14,14 @@ import javafx.util.Duration;
 
 import java.util.HashMap;
 
-/**
- * Created by hope on 02/11/2016.
- */
-public class ScreensController extends StackPane {
+public class ScreensController {
+   StackPane stack;
+
     private HashMap<String, Node> screens = new HashMap<>();
     private HashMap<String, String> data = new HashMap<>();
 
     public ScreensController() {
-        super();
+    stack = new StackPane();
     }
 
     //Data
@@ -57,10 +56,10 @@ public class ScreensController extends StackPane {
     public boolean setScreen(final String name) {
 
         if (screens.get(name) != null) { //screen loaded
-            final DoubleProperty opacity = opacityProperty();
+            final DoubleProperty opacity = stack.opacityProperty();
 
             //Is there is more than one screen
-            if (!getChildren().isEmpty()) {
+            if (! stack.getChildren().isEmpty()) {
                 Timeline fade = new Timeline(
                         new KeyFrame(Duration.ZERO,
                                 new KeyValue(opacity, 1.0)),
@@ -71,9 +70,9 @@ public class ScreensController extends StackPane {
                                     @Override
                                     public void handle(ActionEvent t) {
                                         //remove displayed screen
-                                        getChildren().remove(0);
+                                        stack.getChildren().remove(0);
                                         //add new screen
-                                        getChildren().add(0, screens.get(name));
+                                        stack.getChildren().add(0, screens.get(name));
                                         Timeline fadeIn = new Timeline(
                                                 new KeyFrame(Duration.ZERO,
                                                         new KeyValue(opacity, 0.0)),
@@ -85,8 +84,8 @@ public class ScreensController extends StackPane {
                 fade.play();
             } else {
                 //no one else been displayed, then just show
-                setOpacity(0.0);
-                getChildren().add(screens.get(name));
+                stack.setOpacity(0.0);
+                stack.getChildren().add(screens.get(name));
                 Timeline fadeIn = new Timeline(
                         new KeyFrame(Duration.ZERO,
                                 new KeyValue(opacity, 0.0)),

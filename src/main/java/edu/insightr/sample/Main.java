@@ -31,7 +31,7 @@ public class Main extends Application {
         mainContainer.setScreen(Menu_ID);
 
         Group root = new Group();
-        root.getChildren().addAll(mainContainer);
+        root.getChildren().addAll(mainContainer.stack);
         primaryStage.setTitle("SpellMongerApp");
         Scene scene = new Scene(root, 800, 700);
         scene.getStylesheets().add("/style.css");
