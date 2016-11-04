@@ -13,12 +13,7 @@ public class VaultOverclocking extends Enchantment{
     }
 
     public boolean getActiveEffect(){
-        if (activeEffect == true){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return activeEffect;
     }
 
     public void setActiveEffect(boolean active){
@@ -46,6 +41,6 @@ public class VaultOverclocking extends Enchantment{
 
     @Override
     public String getName() {
-        return "Vault Overclocking";
+        return "VaultOver";
     }
 }

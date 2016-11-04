@@ -4,18 +4,18 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class Player {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private String name;
     private int lifePoint;
     private int energy;
-    private ArrayList<Creature> playerCreature;
     private Deck cardPool;
     private Deck discardPool;
-    private ArrayList<Card> hand;
     private boolean vaultOverclockingOnOff;
+    private ArrayList<Creature> playerCreature;
+    private ArrayList<Card> hand;
+    private int stackEnergy;
 
     public Player(String name) {
         this.playerCreature = new ArrayList<>();
@@ -24,10 +24,15 @@ public class Player {
         this.name = name;
         this.lifePoint = 20;
         this.energy = 0;
+        this.stackEnergy = energy;
         hand = new ArrayList<>(3); // les cartes que le joueur en main
         addInitialCards();
         vaultOverclockingOnOff = false;
     }
+
+    public int getStackEnergy(){return stackEnergy;}
+
+    public void setStackEnergy(int stackEnergy){this.stackEnergy=stackEnergy;}
 
     private void addInitialCards() {
         addToHand(cardPool.get(0));
@@ -40,6 +45,9 @@ public class Player {
         return vaultOverclockingOnOff;
     }
 
+    public void setVaultOverclockingOnOff() {
+        vaultOverclockingOnOff = true;
+    }
     public void setVaultOverclockingOnOff(boolean OnOff) {
         vaultOverclockingOnOff = OnOff;
     }
@@ -117,48 +125,59 @@ public class Player {
         logger.info(this.toString() + " is the winner!!!\n");
     }
 
-    public void attack(Player opponent) {
-        ArrayList<Creature> myPlayerCreature = this.playerCreature;
-        ArrayList<Creature> playerCreatureOpponent = opponent.getPlayerCreature();
-
-        //tout les  this.getPlayerCreature().get(i).getEffect() en  myPlayerCreature.get(i).getEffect()
-        for (int i = 0; i < myPlayerCreature.size(); i++) {
-
-            if (!myPlayerCreature.isEmpty() && !playerCreatureOpponent.isEmpty())// si il y'a une creature des deux coté du board
+    public boolean canPlay(){
+        boolean result=false;
+        for(Card c : this.getHand())
+        {
+            if(c.getEnergyCost()<=this.energy)
             {
-                int degat = myPlayerCreature.get(i).getEffect() - playerCreatureOpponent.get(i).getEffect(); // recup des dégats la diff entre la force des deux creatures
-
-                if (degat == 0) // si les deux créature ont la même force les deux meurt
-                {
-                    logger.info(this.toString() + " " + myPlayerCreature.get(i).toString() + " and " + opponent.toString() + " " +
-                            playerCreatureOpponent.get(i).toString() + " have the same strength and die both ");
-                    this.discardPool.getCardPool().add(myPlayerCreature.get(i));
-                    myPlayerCreature.remove(i);
-                    opponent.getDiscards().getCardPool().add(playerCreatureOpponent.get(i));
-                    playerCreatureOpponent.remove(i);
-                } else if (degat > 0)// si la creature du joueur courant est plus forte elle tue celle de l'adversaire
-                {
-                    logger.info(this.toString() + " " + myPlayerCreature.get(i).toString() + " still alive and " + opponent.toString() + " " + playerCreatureOpponent.get(i).toString() + "die");
-                    opponent.getDiscards().getCardPool().add(playerCreatureOpponent.get(i));
-                    playerCreatureOpponent.remove(i);
-                } else // si la creature de l'opposant est plus forte elle tue celle du joueur courant
-                {
-                    logger.info(opponent.toString() + " " + playerCreatureOpponent.get(i).toString() + " still alive and " + this.toString() + " " + myPlayerCreature.get(i).toString() + "die");
-                    this.discardPool.getCardPool().add(myPlayerCreature.get(i));
-                    myPlayerCreature.remove(i);
-                }
-            } else if (!myPlayerCreature.isEmpty() && playerCreatureOpponent.isEmpty())// si le board de l'opposant ne contient plus de creature les creatures du joueur courant attaque l'opposant
-            {
-                opponent.setLifePoint(opponent.getLifePoint() - myPlayerCreature.get(i).getEffect());
-            } else// si le joueur courant n'a plus de creature et qu'il en reste à l'opposant l'attaque du joueur s'arrête
-            {
+                result=true;
                 break;
             }
         }
-
-        this.setPlayerCreature(myPlayerCreature);
-        opponent.setPlayerCreature(playerCreatureOpponent);
+        if (!result) AlertBox.displayError("Energy issue",this.getName()+",you cannot play any of your cards!");
+        return result;
     }
+
+    public void attack(Player opponent){
+        ArrayList<Creature> currentBoard = this.playerCreature;
+        ArrayList<Creature> opponentBoard = opponent.getPlayerCreature();
+        int diffBoard = currentBoard.size()-opponentBoard.size();
+
+        if(diffBoard>0){
+            for(int i = 0; i < (currentBoard.size()-diffBoard); i++){
+                currentBoard.get(i).attackCreature(opponentBoard.get(i),this,opponent);
+            }
+
+            for(int i = (currentBoard.size()-diffBoard); i < currentBoard.size(); i++){
+                currentBoard.get(i).attackPlayer(opponent);
+            }
+        }
+        else if(diffBoard==0){
+            for(int i = 0; i < currentBoard.size(); i++){
+                currentBoard.get(i).attackCreature(opponentBoard.get(i),this,opponent);
+            }
+        }
+        else{
+            for(int i = 0; i < currentBoard.size(); i++){
+                currentBoard.get(i).attackCreature(opponentBoard.get(i),this,opponent);
+            }
+        }
+
+    }
+
+    public Player clone(){
+
+        Player p = new Player(this.name);
+        p.setLifePoint(this.getLifePoint());
+        p.setEnergyPoint(this.getEnergy());
+        p.setPlayerCreature((ArrayList<Creature>)playerCreature.clone());
+        p.discardPool = this.discardPool.clone();
+        p.cardPool = this.cardPool.clone();
+        p.hand = (ArrayList<Card> ) this.hand.clone();
+        p.setVaultOverclockingOnOff(this.vaultOverclockingOnOff);
+        return p;
+        }
 
     @Override
     public String toString() {
