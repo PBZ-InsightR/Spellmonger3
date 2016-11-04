@@ -1,6 +1,7 @@
 package edu.insightr.spellmonger;
 
 
+import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -78,6 +79,28 @@ public class SpellmongerApp {
             AlertBox.displayError("Energy not enough",currentPlayer.getName ()+" hasn't enough energy in his stack");
         }
     }
+
+
+    public void playCardIA(Player currentPlayer, Player opponent, ArrayList<Card> hand,Deck discard){
+
+        int lifePoint = currentPlayer.getLifePoint();
+        int choix = 0;
+        System.out.println("size = "+hand.size()+"\n");
+
+        for(int i=0;i<hand.size();i++){
+            Player c = currentPlayer.clone();
+            Player o = opponent.clone();
+            playCard(c,o, (ArrayList<Card> )hand.clone(),i,discard.clone());
+            //System.out.println(c.getLifePoint());
+            if(c.getLifePoint() > lifePoint)
+                choix = i;
+        }
+        System.out.println(choix);
+        playCard(currentPlayer, opponent, hand, choix,discard);
+    }
+
+
+
 
     public Player getPlayer(int i){
         return playerList.get(i);

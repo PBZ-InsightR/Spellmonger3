@@ -1,9 +1,5 @@
 package edu.insightr.spellmonger;
 
-import sun.management.snmp.jvmmib.EnumJvmMemoryGCVerboseLevel;
-
-import java.security.spec.ECGenParameterSpec;
-
 public abstract class Creature extends Card implements Comparable<Creature> {
     protected String capacity;
     protected int lifePoints;
@@ -13,6 +9,7 @@ public abstract class Creature extends Card implements Comparable<Creature> {
         lifePoints = 0;
         energyCost = 0;
     }
+    public int getEnergyCost(){return energyCost;}
 
     public String getCapacity() {
         return capacity;
@@ -54,6 +51,12 @@ public abstract class Creature extends Card implements Comparable<Creature> {
     public void attackPlayer(Player opponent){
         int damage = this.getEffect();
         opponent.setLifePoint(opponent.getLifePoint()-damage);
+    }
+
+    public void playCreature(Player current){
+        current.getPlayerCreature().add(this);
+        current.sortCreatures();
+        current.setStackEnergy(current.getStackEnergy()-this.getEnergyCost());
     }
 
     @Override

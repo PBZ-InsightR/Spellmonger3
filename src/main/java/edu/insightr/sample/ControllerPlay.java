@@ -2,8 +2,6 @@ package edu.insightr.sample;
 
 
 import edu.insightr.spellmonger.*;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
@@ -17,9 +15,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import org.apache.log4j.Logger;
 
+import java.util.HashMap;
 
-public class Controller {
-    private static final Logger logger = Logger.getLogger(Controller.class);
+
+public class ControllerPlay implements ControlledScreen{
+
+    ScreensController myController;
+
+
+    private static final Logger logger = Logger.getLogger(ControllerPlay.class);
     public SpellmongerApp game;
     public Player turnPlayer;
     private Player player1;
@@ -33,9 +37,24 @@ public class Controller {
     public SplitPane split;
 
 
+
+    public void setScreenParent(ScreensController screenParent){
+        myController = screenParent;
+        initialize();
+    }
+
     @FXML
     public void initialize() {
-        game = new SpellmongerApp(new Player("Valentin"), new Player("Natacha"));
+        String nameP1 = "Player1";
+        String nameP2 = "Player2";
+        if(myController != null) {
+            if(!myController.getData("NamePlayer1").equals(""))
+                nameP1 = myController.getData("NamePlayer1");
+            if(!myController.getData("NamePlayer2").equals(""))
+                nameP2 = myController.getData("NamePlayer2");
+        }
+
+        game = new SpellmongerApp(new Player(nameP1), new Player(nameP2));
         player1 = game.getPlayer(0);
         player2 = game.getPlayer(1);
         turnPlayer = player1;
@@ -68,6 +87,8 @@ public class Controller {
         pass1.setDisable(choix);
         deck2.setDisable(!choix);
         pass2.setDisable(!choix);
+        if(myController.getData("isPlayer2").equals("false") && current == player2)
+            play(-1, current, opponent);
     }
 
     public void pass_player_1() {
@@ -101,7 +122,10 @@ public class Controller {
     public void play(int index, Player current, Player oppenent) {
         Button deck=deck2;
         if (!current.isDead()) {
-            game.playCard(current, oppenent, current.getHand(), index, current.getDiscards());
+            if(myController.getData("isPlayer2").equals("false") && current == player2)
+                game.playCardIA(current, oppenent, current.getHand(), current.getDiscards());
+            else
+                game.playCard(current, oppenent, current.getHand(), index, current.getDiscards());
             update();
             if(current==player1) deck = deck1;
             if (!current.canPlay()&& deck.isDisabled()) pass(current,oppenent);
@@ -180,6 +204,8 @@ public class Controller {
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
+            if(myController != null){
+            if(myController.getData("isPlayer2").equals("false") && current == player2 )return ;}
             int index1 = index;
             if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
                 Rectangle newRectangle = new Rectangle(150, 180);

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.sample.ControllerMenu">
+    <columnConstraints>
+        <ColumnConstraints />
+      <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <Pane maxHeight="300.0" maxWidth="400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" GridPane.columnIndex="1">
+            <children>
+                
+                <Button fx:id="Score" layoutX="80.0" layoutY="249.0" mnemonicParsing="false" onAction="#goToScore" prefHeight="25.0" prefWidth="66.0" text="Scores" />
+                <Button fx:id="Play" layoutX="245.0" layoutY="249.0" mnemonicParsing="false" onAction="#goToPlay" prefHeight="25.0" prefWidth="66.0" text="Play" />
+            <Label layoutX="50.0" layoutY="50.0" prefHeight="20.0" prefWidth="50.0" text="Login 1" textAlignment="CENTER" />
+            <TextField fx:id="Login1" layoutX="200.0" layoutY="50.0" prefHeight="5.0" prefWidth="100.0" />
+            <TextField fx:id="Login2" layoutX="200.0" layoutY="100.0" prefHeight="5.0" prefWidth="100.0" />
+            <Label layoutX="50.0" layoutY="100.0" prefHeight="20.0" prefWidth="50.0" text="Login 2" textAlignment="CENTER" />
+            <CheckBox fx:id="isPlayer2" layoutX="110.0" layoutY="104.0" mnemonicParsing="false" onAction="#isPlayer2" />
+            </children>
+        </Pane>
+    </children>
+</GridPane>
