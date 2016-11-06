@@ -1,6 +1,6 @@
 package edu.insightr.spellmonger;
 
-public class Bear extends Creature {
+class Bear extends Creature {
 
     Bear() {
         effect = 3;
