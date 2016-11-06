@@ -33,9 +33,11 @@ public class Main extends Application {
         Group root = new Group();
         root.getChildren().addAll(mainContainer.stack);
         primaryStage.setTitle("SpellMongerApp");
-        Scene scene = new Scene(root, 800, 700);
+        Scene scene = new Scene(root);
         scene.getStylesheets().add("/style.css");
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
+        primaryStage.setResizable(true);
         primaryStage.show();
 
 

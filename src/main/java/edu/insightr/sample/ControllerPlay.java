@@ -160,7 +160,6 @@ public class ControllerPlay implements ControlledScreen{
         HBox content = new HBox();
         scroll.setContent(content);
         content.setSpacing(20);
-        content.setPadding(new Insets(10, 10, 10, 10));
         for (Card c : p.getPlayerCreature()) {
             Rectangle rectangle = new Rectangle(100, 120);
             Image img = new Image("images/Spellmonger_" + c.getName() + ".png");
@@ -195,7 +194,6 @@ public class ControllerPlay implements ControlledScreen{
         HBox content = new HBox();
         hand.setContent(content);
         content.setSpacing(20);
-        content.setPadding(new Insets(10, 10, 10, 10));
         int index = 0;  // pour obtenir l'index quand il va choisir la carte a joué ( utilisé dans le hand pas la)
         for (Card c : current.getHand()) {
             Rectangle rectangle = new Rectangle(100, 120);

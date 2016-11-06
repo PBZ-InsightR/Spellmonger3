@@ -135,7 +135,7 @@ public class Player {
                 break;
             }
         }
-        if (!result) AlertBox.displayError("Energy issue",this.getName()+",you cannot play any of your cards!");
+        if (!result) AlertBox.displayDebugging("Energy issue",this.getName()+",you cannot play any of your cards!");
         return result;
     }
 
