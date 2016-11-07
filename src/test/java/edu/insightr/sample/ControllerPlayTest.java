@@ -3,7 +3,6 @@ package edu.insightr.sample;
 import cucumber.api.junit.Cucumber;
 import javafx.scene.layout.Pane;
 import org.junit.Test;
-
 import javafx.application.Application;
 import org.junit.runner.RunWith;
 

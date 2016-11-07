@@ -2,9 +2,8 @@ package edu.insightr.sample;
 
 import javafx.beans.property.SimpleStringProperty;
 
-/**
- * Created by hope on 02/11/2016.
- */
+// Class faite spécialement pour les scores.
+// Personne est un Player
 public class Personne implements Comparable{
 
     private final SimpleStringProperty Login;

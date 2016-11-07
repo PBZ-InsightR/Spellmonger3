@@ -16,7 +16,7 @@ import javafx.stage.StageStyle;
 
 public class AlertBox {
 
-    public static void displayDebugging(String title, String message) {
+    static void displayDebugging(String title, String message) {
         Stage messageBox = new Stage();
         messageBox.initStyle(StageStyle.TRANSPARENT);
 
@@ -109,7 +109,7 @@ public class AlertBox {
         container.setAlignment(Pos.CENTER);
 
         VBox sub_container = new VBox(15);
-        sub_container.getChildren().addAll(container,close);
+        sub_container.getChildren().addAll(container, close);
         sub_container.setAlignment(Pos.CENTER);
         sub_container.setMinWidth(150);
 
