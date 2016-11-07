@@ -30,18 +30,18 @@ public class ControllerMenu implements Initializable, ControlledScreen {
 
     public void goToPlay() {
         if (isPlayer2.isSelected()) {
-            myController.addData("isPlayer2", "false");
+            myController.addData("isPlayer2","false");
         } else {
-            myController.addData("isPlayer2", "true");
+            myController.addData("isPlayer2","true");
         }
-        myController.addData("NamePlayer1", login1.getText());
-        myController.addData("NamePlayer2", Login2.getText());
-        myController.loadScreen(Main.Play_ID, Main.Play_FILE);
+        myController.addData("NamePlayer1",login1.getText());
+        myController.addData("NamePlayer2",Login2.getText());
+        myController.loadScreen(Main.Play_ID,Main.Play_FILE);
         myController.setScreen(Main.Play_ID);
     }
 
     public void goToScore() {
-        myController.loadScreen(Main.Score_ID, Main.Score_FILE);
+        myController.loadScreen(Main.Score_ID,Main.Score_FILE);
         myController.setScreen(Main.Score_ID);
     }
 
