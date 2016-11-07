@@ -4,7 +4,6 @@ package edu.insightr.sample;
 import edu.insightr.spellmonger.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -15,16 +14,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
 
+public class ControllerPlay implements ControlledScreen {
 
-public class ControllerPlay implements ControlledScreen{
-
-    ScreensController myController;
+    private ScreensController myController;
 
 
     private static final Logger logger = Logger.getLogger(ControllerPlay.class);
-    public SpellmongerApp game;
+    SpellmongerApp game;
     private Player turnPlayer;
     private Player player1;
     private Player player2;
@@ -37,20 +34,19 @@ public class ControllerPlay implements ControlledScreen{
     public SplitPane split;
 
 
-
-    public void setScreenParent(ScreensController screenParent){
+    public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
         initialize();
     }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         String nameP1 = "Player1";
         String nameP2 = "Player2";
-        if(myController != null) {
-            if(!myController.getData("NamePlayer1").equals(""))
+        if (myController != null) {
+            if (!myController.getData("NamePlayer1").equals(""))
                 nameP1 = myController.getData("NamePlayer1");
-            if(!myController.getData("NamePlayer2").equals(""))
+            if (!myController.getData("NamePlayer2").equals(""))
                 nameP2 = myController.getData("NamePlayer2");
         }
 
@@ -78,24 +74,26 @@ public class ControllerPlay implements ControlledScreen{
             pass_player_2();
     }
 
-    public void pass(Player current, Player opponent){
+    private void pass(Player current, Player opponent) {
         current.attack(opponent);
         turnFinished(current);
         boolean choix = true;
-        if(current==player2) choix = false;
+        if (current == player2) choix = false;
         deck1.setDisable(choix);
         pass1.setDisable(choix);
         deck2.setDisable(!choix);
         pass2.setDisable(!choix);
-        if(myController.getData("isPlayer2").equals("false") && current == player2)
+        // Si isPlayer2 est false donc on a un seul Player qui joue avec l'ordinateur <l'IA>
+        if (myController.getData("isPlayer2").equals("false") && current == player2)
             play(-1, current, opponent);
     }
-    public void pass_player_1() {
-        pass(player1,player2);
+
+    private void pass_player_1() {
+        pass(player1, player2);
     }
 
-    public void pass_player_2() {
-        pass(player2,player1);
+    private void pass_player_2() {
+        pass(player2, player1);
     }
 
     private void drawCard(Player player) {
@@ -118,20 +116,22 @@ public class ControllerPlay implements ControlledScreen{
         update();
     }
 
-    public void play(int index, Player current, Player oppenent) {
-        Button deck=deck2;
+    void play(int index, Player current, Player oppenent) {
+        Button deck = deck2;
         if (!current.isDead()) {
-            if(myController.getData("isPlayer2").equals("false") && current == player2)
+            // Si isPlayer2 est false donc on a un seul Player qui joue avec l'ordinateur <l'IA>
+            // on appelle la methode PlayCardIA qui calcule l'index de la carte a jouer avec une IA
+            if (myController.getData("isPlayer2").equals("false") && current == player2)
                 game.playCardIA(current, oppenent, current.getHand(), current.getDiscards());
             else
                 game.playCard(current, oppenent, current.getHand(), index, current.getDiscards());
             update();
-            if(current==player1) deck = deck1;
-            if (!current.canPlay()&& deck.isDisabled()) pass(current,oppenent);
+            if (current == player1) deck = deck1;
+            if (!current.canPlay() && deck.isDisabled()) pass(current, oppenent);
         }
     }
 
-    public void update() {
+    void update() {
         name1.setText("\t" + player1.getName());
         life_points1.setText("Life point : " + player1.getLifePoint() + "\n Energy : " + player1.getEnergy());
         name2.setText("\t" + player2.getName());
@@ -156,11 +156,10 @@ public class ControllerPlay implements ControlledScreen{
         discards(player2, discard2);
     }
 
-    public void listCreatureContents(Player p, ScrollPane scroll, AnchorPane daddy) {
+    private void listCreatureContents(Player p, ScrollPane scroll, AnchorPane daddy) {
         HBox content = new HBox();
         scroll.setContent(content);
         content.setSpacing(20);
-        content.setPadding(new Insets(10, 10, 10, 10));
         for (Card c : p.getPlayerCreature()) {
             Rectangle rectangle = new Rectangle(100, 120);
             Image img = new Image("images/Spellmonger_" + c.getName() + ".png");
@@ -171,12 +170,12 @@ public class ControllerPlay implements ControlledScreen{
             rectangle.setOnMouseEntered(t -> {
                 Bounds boundsInScene = rectangle.localToScene(rectangle.getBoundsInLocal());
                 double x = boundsInScene.getMinX();
-                double y = boundsInScene.getMaxY()-newRectangle.getHeight();
+                double y = boundsInScene.getMaxY() - newRectangle.getHeight();
                 double translation = split.getItems().get(0).getLayoutBounds().getHeight();
 
                 if (daddy.equals(split.getItems().get(1))) { // si c'est le player 2
                     y = boundsInScene.getMinY();
-                    y = y - translation-5;
+                    y = y - translation - 5;
                 }
                 newRectangle.setLayoutX(x);
                 newRectangle.setLayoutY(y);
@@ -191,11 +190,10 @@ public class ControllerPlay implements ControlledScreen{
         }
     }
 
-    public void hands(Player current, Player oppenent, ScrollPane hand, AnchorPane daddy) {
+    private void hands(Player current, Player oppenent, ScrollPane hand, AnchorPane daddy) {
         HBox content = new HBox();
         hand.setContent(content);
         content.setSpacing(20);
-        content.setPadding(new Insets(10, 10, 10, 10));
         int index = 0;  // pour obtenir l'index quand il va choisir la carte a joué ( utilisé dans le hand pas la)
         for (Card c : current.getHand()) {
             Rectangle rectangle = new Rectangle(100, 120);
@@ -203,8 +201,11 @@ public class ControllerPlay implements ControlledScreen{
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
-            if(myController != null){
-            if(myController.getData("isPlayer2").equals("false") && current == player2 )return ;}
+            if (myController != null) {
+                // Si isPlayer2 est false donc on a un seul Player qui joue avec l'ordinateur <l'IA>
+                // donc pas besoin d'activer les boutons vue que c'est l'IA qui choisi la carte
+                if (myController.getData("isPlayer2").equals("false") && current == player2) return;
+            }
             int index1 = index;
             if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
                 Rectangle newRectangle = new Rectangle(150, 180);
@@ -241,7 +242,7 @@ public class ControllerPlay implements ControlledScreen{
 
     }
 
-    public void discards(Player current, Pane discard) {
+    void discards(Player current, Pane discard) {
         if (current.getDiscards().size() != 0) {
             discard.setVisible(true);
             Card lastCard = current.getDiscards().get(current.getDiscards().size() - 1);
@@ -255,7 +256,7 @@ public class ControllerPlay implements ControlledScreen{
         }
     }
 
-    public void InfoCard() {
+    void InfoCard() {
         Tooltip tooltip = new Tooltip("Salut le monde !");
         deck1.setTooltip(tooltip);
     }

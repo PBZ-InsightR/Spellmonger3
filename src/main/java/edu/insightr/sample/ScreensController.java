@@ -4,8 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -14,31 +12,33 @@ import javafx.util.Duration;
 
 import java.util.HashMap;
 
-/**
- * Created by hope on 02/11/2016.
- */
-public class ScreensController extends StackPane {
-    private HashMap<String, Node> screens = new HashMap<>();
-    private HashMap<String, String> data = new HashMap<>();
+class ScreensController {
+    StackPane stack;
 
-    public ScreensController() {
-        super();
+    private HashMap<String, Node> screens = new HashMap<>(); // stock des Screen afin de basculer entre eux
+    private HashMap<String, String> data = new HashMap<>(); // data est une HashMap pour stocker les données comme nom player ..etc
+
+    ScreensController() {
+        stack = new StackPane();
     }
 
     //Data
-    public void addData(String key,String value){
-        data.put(key,value);
+    void addData(String key, String value) {
+        data.put(key, value);
     }
-    public String getData(String key){
+
+    String getData(String key) {
         return data.get(key);
     }
 
 
-    public void addScreen(String name, Node screen) {
+    private void addScreen(String name, Node screen) {
         screens.put(name, screen);
     }
 
-    public boolean loadScreen(String name, String resource) {
+
+    // charger un fichier fxml et lajouter dans les screens
+    boolean loadScreen(String name, String resource) {
         try {
             FXMLLoader myLoader = new
                     FXMLLoader(getClass().getResource(resource));
@@ -54,39 +54,36 @@ public class ScreensController extends StackPane {
         }
     }
 
-    public boolean setScreen(final String name) {
+    //activer un screen avec son ID pour passer d'une vue a une autre
+    boolean setScreen(final String name) {
 
         if (screens.get(name) != null) { //screen loaded
-            final DoubleProperty opacity = opacityProperty();
+            final DoubleProperty opacity = stack.opacityProperty();
 
             //Is there is more than one screen
-            if (!getChildren().isEmpty()) {
+            if (!stack.getChildren().isEmpty()) {
                 Timeline fade = new Timeline(
                         new KeyFrame(Duration.ZERO,
                                 new KeyValue(opacity, 1.0)),
                         new KeyFrame(new Duration(1000),
 
-                                new EventHandler<ActionEvent>() {
-
-                                    @Override
-                                    public void handle(ActionEvent t) {
-                                        //remove displayed screen
-                                        getChildren().remove(0);
-                                        //add new screen
-                                        getChildren().add(0, screens.get(name));
-                                        Timeline fadeIn = new Timeline(
-                                                new KeyFrame(Duration.ZERO,
-                                                        new KeyValue(opacity, 0.0)),
-                                                new KeyFrame(new Duration(800),
-                                                        new KeyValue(opacity, 1.0)));
-                                        fadeIn.play();
-                                    }
+                                t -> {
+                                    //remove displayed screen
+                                    stack.getChildren().remove(0);
+                                    //add new screen
+                                    stack.getChildren().add(0, screens.get(name));
+                                    Timeline fadeIn = new Timeline(
+                                            new KeyFrame(Duration.ZERO,
+                                                    new KeyValue(opacity, 0.0)),
+                                            new KeyFrame(new Duration(800),
+                                                    new KeyValue(opacity, 1.0)));
+                                    fadeIn.play();
                                 }, new KeyValue(opacity, 0.0)));
                 fade.play();
             } else {
                 //no one else been displayed, then just show
-                setOpacity(0.0);
-                getChildren().add(screens.get(name));
+                stack.setOpacity(0.0);
+                stack.getChildren().add(screens.get(name));
                 Timeline fadeIn = new Timeline(
                         new KeyFrame(Duration.ZERO,
                                 new KeyValue(opacity, 0.0)),
@@ -102,8 +99,8 @@ public class ScreensController extends StackPane {
 
     }
 
-    public boolean unloadScreen(String name) {
-        if(screens.remove(name) == null) {
+     boolean unloadScreen(String name) {
+        if (screens.remove(name) == null) {
             System.out.println("Screen didn't exist");
             return false;
         } else {

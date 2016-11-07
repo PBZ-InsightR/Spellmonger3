@@ -1,14 +1,14 @@
 package edu.insightr.spellmonger;
 
-public class Blessing extends Ritual {
+class Blessing extends Ritual {
 
     public Blessing() {
         effect = 3;
         energyCost = 3;
     }
 
-    public void effect(Player currentPlayer){
-        currentPlayer.setLifePoint(currentPlayer.getLifePoint()+this.getEffect());
+    public void effect(Player currentPlayer) {
+        currentPlayer.setLifePoint(currentPlayer.getLifePoint() + this.getEffect());
     }
 
     @Override

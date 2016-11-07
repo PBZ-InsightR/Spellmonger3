@@ -13,16 +13,13 @@ import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-/**
- * Created by hope on 02/11/2016.
- */
 public class ControllerScore implements Initializable,ControlledScreen{
-    ScreensController myController;
+    private ScreensController myController;
 
     @FXML
     public TableView table;
     public TableColumn LoginColumn,NbPlayColumn,ScoreColumn;
-    private final ObservableList<Personne> data = FXCollections.observableArrayList();
+    private final ObservableList<Personne> data = FXCollections.observableArrayList(); // liste de Personne charger du fichier Json pour les afficher dans TableColumn
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -41,11 +38,12 @@ public class ControllerScore implements Initializable,ControlledScreen{
         myController = screenParent;
     }
 
+    //passer a la vue de Play
     public void goToPlay(){
-        myController.loadScreen(Main.Play_ID,Main.Play_FILE);
-        myController.setScreen(Main.Play_ID);
+        myController.loadScreen(Main.Play_ID,Main.Play_FILE); // charger le fichier sample.fxml
+        myController.setScreen(Main.Play_ID); // activer la vue Play
     }
     public void goToMenu(){
-        myController.setScreen(Main.Menu_ID);
+        myController.setScreen(Main.Menu_ID);// activer la vue Menu sans load vu qu'il es déja dans la Map screens
     }
 }

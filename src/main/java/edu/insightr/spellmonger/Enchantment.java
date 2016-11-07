@@ -1,9 +1,9 @@
 package edu.insightr.spellmonger;
 
 
-public class Enchantment extends Card{
+class Enchantment extends Card {
 
-    public Enchantment(){
+    Enchantment() {
         energyCost = 0;
     }
 
