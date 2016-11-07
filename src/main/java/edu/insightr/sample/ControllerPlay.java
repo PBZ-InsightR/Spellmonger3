@@ -40,7 +40,7 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         String nameP1 = "Player1";
         String nameP2 = "Player2";
         if (myController != null) {
@@ -88,11 +88,11 @@ public class ControllerPlay implements ControlledScreen {
             play(-1, current, opponent);
     }
 
-    private void pass_player_1() {
+    public void pass_player_1() {
         pass(player1, player2);
     }
 
-    private void pass_player_2() {
+    public void pass_player_2() {
         pass(player2, player1);
     }
 
