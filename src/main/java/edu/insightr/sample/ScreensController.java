@@ -36,7 +36,6 @@ class ScreensController {
         screens.put(name, screen);
     }
 
-
     // charger un fichier fxml et lajouter dans les screens
     boolean loadScreen(String name, String resource) {
         try {

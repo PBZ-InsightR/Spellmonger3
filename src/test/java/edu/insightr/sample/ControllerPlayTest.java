@@ -57,7 +57,7 @@ public class ControllerPlayTest {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 ControllerPlay c = new ControllerPlay();
-                c.play(1,c.game.getPlayer(0),c.game.getPlayer(1));
+               // c.play(1,c.game.getPlayer(0),c.game.getPlayer(1));
 
             }
         };
@@ -124,7 +124,7 @@ public class ControllerPlayTest {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 ControllerPlay c = new ControllerPlay();
-                c.initialize();
+                //c.initialize();
             }
         };
         t.setDaemon(true);
