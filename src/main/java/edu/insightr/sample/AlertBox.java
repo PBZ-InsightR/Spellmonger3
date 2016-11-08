@@ -1,6 +1,7 @@
 package edu.insightr.sample;
 
 
+import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -44,15 +45,22 @@ public class AlertBox {
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size);
         container.setBackground(new Background(myBI));
 
-
+        // fadeIn
+        FadeTransition fade = new FadeTransition(Duration.seconds(1), container);
+        fade.setFromValue(0.0);
+        fade.setToValue(1.0);
+        fade.play();
         Scene scene = new Scene(container);
         messageBox.setScene(scene);
         // transparence
         scene.setFill(null);
         messageBox.initStyle(StageStyle.TRANSPARENT);
-        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+
+        // close auto
+        PauseTransition delay = new PauseTransition(Duration.seconds(4));
         delay.setOnFinished( event -> messageBox.close() );
         delay.play();
+        // show popup
         messageBox.showAndWait();
     }
 
