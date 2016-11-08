@@ -130,6 +130,14 @@ public class Player {
     public void winner() {
         logger.info(this.toString() + " is the winner!!!\n");
     }*/
+    public void drawCard(){
+        if (this.size() == 0) this.reCreateCardPool();
+        this.addToHand(this.getCards().get(0));
+        this.getCards().remove(0);
+    }
+    public boolean canDraw(){
+        return this.getHand().size() < 5;
+    }
 
     public boolean canPlay() {
         boolean result = false;
@@ -139,7 +147,6 @@ public class Player {
                 break;
             }
         }
-        if (!result) AlertBox.displayDebugging("Energy issue", this.getName() + ",you cannot play any of your cards!");
         return result;
     }
 

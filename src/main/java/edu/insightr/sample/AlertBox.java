@@ -1,6 +1,7 @@
-package edu.insightr.spellmonger;
+package edu.insightr.sample;
 
 
+import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,11 +13,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 
 public class AlertBox {
 
-    static void displayDebugging(String title, String message) {
+    static void displayDebugging(String title, String message,double X,double Y) {
         Stage messageBox = new Stage();
         messageBox.initStyle(StageStyle.TRANSPARENT);
 
@@ -24,16 +26,14 @@ public class AlertBox {
         messageBox.setTitle(title);
         messageBox.setMinWidth(250);
         messageBox.setMinHeight(150);
+        messageBox.setX(X);
+        messageBox.setY(Y);
 
         Label l = new Label(message);
         l.setTextFill(Color.WHITE);
 
-        Button close = new Button("Close");
-        close.setOnAction(actionEvent -> messageBox.close());
-
         VBox container = new VBox(10);
         container.getChildren().add(l);
-        container.getChildren().add(close);
         container.setAlignment(Pos.CENTER);
         container.setMinWidth(350);
         container.setMinHeight(200);
@@ -47,6 +47,12 @@ public class AlertBox {
 
         Scene scene = new Scene(container);
         messageBox.setScene(scene);
+        // transparence
+        scene.setFill(null);
+        messageBox.initStyle(StageStyle.TRANSPARENT);
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        delay.setOnFinished( event -> messageBox.close() );
+        delay.play();
         messageBox.showAndWait();
     }
 

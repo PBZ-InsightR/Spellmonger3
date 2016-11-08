@@ -3,8 +3,6 @@ package edu.insightr.sample;
 
 import edu.insightr.spellmonger.*;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -14,8 +12,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import org.apache.log4j.Logger;
-
-import java.util.HashMap;
 
 
 public class ControllerPlay implements ControlledScreen {
@@ -34,7 +30,7 @@ public class ControllerPlay implements ControlledScreen {
     public ScrollPane list_creatures1, list_creatures2, hand1, hand2;
     public Button deck1, deck2, pass1, pass2;
     public SplitPane split;
-    public Pane mainPane;
+    public Pane mainPane,Player1,Player2;
 
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
@@ -66,14 +62,20 @@ public class ControllerPlay implements ControlledScreen {
 
     public void draw_player_1() {
         drawCard(player1);
-        if (!player1.canPlay())
+        hand1.setVvalue(hand1.getVmax());
+        hand1.setHvalue(hand1.getHmax());
+        if (!player1.canPlay()) {
+            AlertBox.displayDebugging("Energy issue", player1.getName() + ",you cannot play any of your cards!",Player1.getLayoutX(),Player1.getLayoutY());
             pass_player_1();
+        }
     }
 
     public void draw_player_2() {
         drawCard(player2);
-        if (!player2.canPlay())
+        if (!player2.canPlay()) {
+            AlertBox.displayDebugging("Energy issue", player2.getName() + ",you cannot play any of your cards!",Player2.getLayoutX(),Player2.getLayoutY());
             pass_player_2();
+        }
     }
 
     private void pass(Player current, Player opponent) {
@@ -98,16 +100,19 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     private void drawCard(Player player) {
-        if (player.getHand().size() < 5) { // Numa
-            if (player.size() == 0) player.reCreateCardPool(); // Numa
-            player.addToHand(player.getCards().get(0)); // Numa
-            player.getCards().remove(0); // Numa
+        if (player.canDraw()) { // Numa
+            player.drawCard();
             deck1.setDisable(true);
             deck2.setDisable(true);
             update();
-        } else  //Numa
+        } else
         {
-            AlertBox.displayError("Error", "You cannot have more than 5 cards in your hand");
+            if(player.equals(player1)){
+                AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand",Player1.getLayoutX(),Player1.getLayoutY());
+            }
+            else {
+                AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand",Player2.getLayoutX(),Player2.getLayoutY());
+            }
         }
     }
 
@@ -126,7 +131,15 @@ public class ControllerPlay implements ControlledScreen {
                 game.playCard(current, oppenent, current.getHand(), index, current.getDiscards());
             update();
             if (current == player1) deck = deck1;
-            if (!current.canPlay() && deck.isDisabled()) pass(current, oppenent);
+            if (!current.canPlay() && deck.isDisabled()){
+                if(current==player1){
+                    AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!",Player1.getLayoutX(),Player1.getLayoutY());
+                }
+                else {
+                    AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player2.getLayoutX(), Player2.getLayoutY());
+                }
+                pass(current, oppenent);
+            }
         }
     }
 
