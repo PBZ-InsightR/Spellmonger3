@@ -1,9 +1,9 @@
 package edu.insightr.spellmonger;
 
 
-public class Fox extends Creature {
+class Fox extends Creature {
 
-    public Fox(){
+    Fox() {
         effect = 1;
         lifePoints = effect;
         energyCost = 1;
@@ -11,8 +11,11 @@ public class Fox extends Creature {
 
     @Override
     public String toString() {
-        return "Fox : life Point :"+lifePoints+" strength : "+effect;
+        return "Fox : life Point :" + lifePoints + " strength : " + effect;
     }
+
     @Override
-    public String getName(){return "Fox";}
+    public String getName() {
+        return "Fox";
+    }
 }

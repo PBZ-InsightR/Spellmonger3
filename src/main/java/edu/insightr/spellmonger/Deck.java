@@ -1,11 +1,9 @@
 package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
+
 
 public class Deck {
 
@@ -49,33 +47,33 @@ public class Deck {
     public void createCardPool() {
 
         for (int i = 0; i < 7; i++) {
-            Eagle eagle = new Eagle ();
-            Fox fox = new Fox ();
-            cardPool.add (eagle);
+            Eagle eagle = new Eagle();
+            Fox fox = new Fox();
+            cardPool.add(eagle);
             cardPool.add(fox);
         }
 
-        for(int i = 0; i < 6 ; i++) {
-            Wolf wolf = new Wolf ();
-            cardPool.add (wolf);
+        for (int i = 0; i < 6; i++) {
+            Wolf wolf = new Wolf();
+            cardPool.add(wolf);
         }
 
-        for(int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             Bear bear = new Bear();
-            cardPool.add (bear);
+            cardPool.add(bear);
         }
 
-        for(int i = 0; i < 5; i++){
-            Curse curse = new Curse ();
-            Blessing blessing = new Blessing ();
-            EnergyDrain energyDrain = new EnergyDrain ();
-            cardPool.add (curse);
-            cardPool.add (blessing);
-            cardPool.add (energyDrain);
+        for (int i = 0; i < 5; i++) {
+            Curse curse = new Curse();
+            Blessing blessing = new Blessing();
+            EnergyDrain energyDrain = new EnergyDrain();
+            cardPool.add(curse);
+            cardPool.add(blessing);
+            cardPool.add(energyDrain);
         }
 
-        VaultOverclocking vaultOverclocking = new VaultOverclocking ();
-        cardPool.add (vaultOverclocking);
+        VaultOverclocking vaultOverclocking = new VaultOverclocking();
+        cardPool.add(vaultOverclocking);
 
         Collections.shuffle(cardPool);
 
@@ -85,9 +83,9 @@ public class Deck {
         cardPool.clear();
     }
 
-    public Deck clone(){
-        Deck d  = new Deck();
-        d.cardPool = (ArrayList<Card>)this.cardPool.clone();
+    public Deck clone() {
+        Deck d = new Deck();
+        d.cardPool = (ArrayList<Card>) this.cardPool.clone();
         return d;
     }
 }

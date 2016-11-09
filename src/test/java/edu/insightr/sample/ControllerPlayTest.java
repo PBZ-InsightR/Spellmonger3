@@ -3,7 +3,6 @@ package edu.insightr.sample;
 import cucumber.api.junit.Cucumber;
 import javafx.scene.layout.Pane;
 import org.junit.Test;
-
 import javafx.application.Application;
 import org.junit.runner.RunWith;
 
@@ -58,7 +57,7 @@ public class ControllerPlayTest {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 ControllerPlay c = new ControllerPlay();
-                c.play(1,c.game.getPlayer(0),c.game.getPlayer(1));
+               // c.play(1,c.game.getPlayer(0),c.game.getPlayer(1));
 
             }
         };
@@ -125,7 +124,7 @@ public class ControllerPlayTest {
             public void run() {
                 Application.launch(Main.class, new String[0]);
                 ControllerPlay c = new ControllerPlay();
-                c.initialize();
+                //c.initialize();
             }
         };
         t.setDaemon(true);

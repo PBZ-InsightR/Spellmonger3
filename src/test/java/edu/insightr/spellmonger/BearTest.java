@@ -3,8 +3,6 @@ package edu.insightr.spellmonger;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class BearTest {
     @Test
     public void testBearEffect() throws Exception {

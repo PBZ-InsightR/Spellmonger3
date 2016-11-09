@@ -1,6 +1,8 @@
-package edu.insightr.spellmonger;
+package edu.insightr.sample;
 
 
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,11 +14,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 
 public class AlertBox {
 
-    public static void displayDebugging(String title, String message) {
+    static void displayDebugging(String title, String message,double X,double Y) {
         Stage messageBox = new Stage();
         messageBox.initStyle(StageStyle.TRANSPARENT);
 
@@ -24,16 +27,14 @@ public class AlertBox {
         messageBox.setTitle(title);
         messageBox.setMinWidth(250);
         messageBox.setMinHeight(150);
+        messageBox.setX(X);
+        messageBox.setY(Y);
 
         Label l = new Label(message);
         l.setTextFill(Color.WHITE);
 
-        Button close = new Button("Close");
-        close.setOnAction(actionEvent -> messageBox.close());
-
         VBox container = new VBox(10);
         container.getChildren().add(l);
-        container.getChildren().add(close);
         container.setAlignment(Pos.CENTER);
         container.setMinWidth(350);
         container.setMinHeight(200);
@@ -44,9 +45,22 @@ public class AlertBox {
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size);
         container.setBackground(new Background(myBI));
 
-
+        // fadeIn
+        FadeTransition fade = new FadeTransition(Duration.seconds(1), container);
+        fade.setFromValue(0.0);
+        fade.setToValue(1.0);
+        fade.play();
         Scene scene = new Scene(container);
         messageBox.setScene(scene);
+        // transparence
+        scene.setFill(null);
+        messageBox.initStyle(StageStyle.TRANSPARENT);
+
+        // close auto
+        PauseTransition delay = new PauseTransition(Duration.seconds(4));
+        delay.setOnFinished( event -> messageBox.close() );
+        delay.play();
+        // show popup
         messageBox.showAndWait();
     }
 
@@ -86,7 +100,6 @@ public class AlertBox {
 
     public static void displayError(String title, String message) {
         Stage messageBox = new Stage();
-
         messageBox.initModality(Modality.APPLICATION_MODAL);
         messageBox.setTitle(title);
         messageBox.setMinWidth(300);
@@ -110,7 +123,7 @@ public class AlertBox {
         container.setAlignment(Pos.CENTER);
 
         VBox sub_container = new VBox(15);
-        sub_container.getChildren().addAll(container,close);
+        sub_container.getChildren().addAll(container, close);
         sub_container.setAlignment(Pos.CENTER);
         sub_container.setMinWidth(150);
 

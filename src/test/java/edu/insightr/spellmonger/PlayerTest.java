@@ -2,7 +2,6 @@ package edu.insightr.spellmonger;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.List;
 
 
@@ -30,7 +29,6 @@ public class PlayerTest {
             p.increaseEnergy();
         }
         Assert.assertEquals(true, p.canPlay());
-
     }
 
     @Test

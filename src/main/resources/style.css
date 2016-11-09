@@ -11,7 +11,13 @@
 	-fx-pref-width:800;
 	-fx-orientation:vertical;
 	-fx-background-color: transparent;
+
 }
+
+.split-pane-divider {
+   -fx-background-color: transparent;
+}
+
 
 /* PLAYER 1*/
 #Player1{
@@ -44,18 +50,22 @@
 }
 #hand1{
     -fx-pref-height:140.0;
-	-fx-pref-width:280.0;
+	-fx-pref-width:230.0;
+	-fx-background: transparent;
+	-fx-background-color: transparent;
 }
 
 #hand2{
     -fx-pref-height:140.0;
-	-fx-pref-width:280.0;
+	-fx-pref-width:230.0;
+	-fx-background: transparent;
+	-fx-background-color: transparent;
 }
 
 #discard1{
     -fx-pref-height:115.0;
     -fx-pref-width:85.0;
-    -fx-background-color:green;
+    -fx-background-color:transparent;
     -fx-background-size: 98%;
     -fx-background-position: center center;
 }
@@ -68,6 +78,7 @@
 #list_creatures1{
     -fx-pref-height:140.0;
 	-fx-pref-width:740.0;
+	-fx-background: transparent;
 	-fx-background-color: transparent;
 	/*-fx-opacity:0;*/
 }
@@ -96,7 +107,7 @@
 #discard2{
     -fx-pref-height:115.0;
 	-fx-pref-width:85.0;
-    -fx-background-color:green;
+    -fx-background-color:transparent;
     -fx-background-size: 98%;
     -fx-background-position: center center;
 }
@@ -109,6 +120,7 @@
 #list_creatures2{
     -fx-pref-height:140.0;
 	-fx-pref-width:740.0;
+	-fx-background: transparent;
 	-fx-background-color: transparent;
 	/*-fx-opacity: 0;*/
 }
