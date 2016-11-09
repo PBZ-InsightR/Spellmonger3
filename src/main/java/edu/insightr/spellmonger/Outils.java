@@ -11,6 +11,7 @@ import java.util.*;
 
 public class Outils {
 
+    // TODO : utils class should be moved into another package if there's no interaction with others classes of the actual package
 
     // donner le login et true si il a gagné, false sinon et la fonction mis a jour le fichier Json des scores
     public static void updateJsonFile(String Login, boolean isWinner) {

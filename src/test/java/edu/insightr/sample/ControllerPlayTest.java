@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 public class ControllerPlayTest {
     //Natacha zone test avec cucumber
 
-
     //
     @Test
     public void draw1() throws Exception {

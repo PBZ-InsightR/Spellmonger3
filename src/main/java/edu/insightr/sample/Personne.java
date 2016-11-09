@@ -5,7 +5,9 @@ import javafx.beans.property.SimpleStringProperty;
 // Class faite spécialement pour les scores.
 // Personne est un Player
 public class Personne implements Comparable{
+    // TODO : use english words instead of other languages
 
+    // TODO : respect the naming convention : first letter of a field must be in lower case !
     private final SimpleStringProperty Login;
     private final SimpleStringProperty NbPlay;
     private final SimpleStringProperty PourcentageScore;
