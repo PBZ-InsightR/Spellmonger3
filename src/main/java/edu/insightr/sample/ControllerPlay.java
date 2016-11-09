@@ -63,9 +63,7 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     public void draw_player_1() {
-        drawCard(player1);
-        hand1.setVvalue(hand1.getVmax());
-        hand1.setHvalue(hand1.getHmax());
+        drawCard(player1,hand1);
         if (!player1.canPlay()) {
             AlertBox.displayDebugging("Energy issue", player1.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY());
             pass_player_1();
@@ -73,14 +71,14 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     public void draw_player_2() {
-        drawCard(player2);
+        drawCard(player2,hand2);
         if (!player2.canPlay()) {
             AlertBox.displayDebugging("Energy issue", player2.getName() + ",you cannot play any of your cards!", Player2.getLayoutX(), Player2.getLayoutY());
             pass_player_2();
         }
     }
 
-    private void pass(Player current, Player opponent) {
+    private void pass(Player current, Player opponent,ScrollPane hand) {
         current.attack(opponent);
         turnFinished(current);
         boolean choice = true;
@@ -89,23 +87,27 @@ public class ControllerPlay implements ControlledScreen {
         pass1.setDisable(choice);
         deck2.setDisable(!choice);
         pass2.setDisable(!choice);
+        hand.setVvalue(hand.getVmin());
+        hand.setHvalue(hand.getHmin());
         if (myController.getData("isPlayer2").equals("false") && current == player2)
             play(-1, current, opponent);
     }
 
     public void pass_player_1() {
-        pass(player1, player2);
+        pass(player1, player2,hand1);
     }
 
     public void pass_player_2() {
-        pass(player2, player1);
+        pass(player2, player1,hand2);
     }
 
-    private void drawCard(Player player) {
+    private void drawCard(Player player,ScrollPane hand) {
         if (player.canDraw()) { // Numa
             player.drawCard();
             deck1.setDisable(true);
             deck2.setDisable(true);
+            hand.setVvalue(hand.getVmax());
+            hand.setHvalue(hand.getHmax());
             update();
         } else {
             if (player.equals(player1)) {
@@ -134,10 +136,11 @@ public class ControllerPlay implements ControlledScreen {
             if (!current.canPlay() && deck.isDisabled()) {
                 if (current == player1) {
                     AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY());
+                    pass(current, oppenent,hand1);
                 } else {
                     AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player2.getLayoutX(), Player2.getLayoutY());
+                    pass(current, oppenent,hand2);
                 }
-                pass(current, oppenent);
             }
         }
     }
@@ -243,9 +246,11 @@ public class ControllerPlay implements ControlledScreen {
             mainPane.getChildren().add(newRectangle);
         });
     }
+
     private void eventExit(Rectangle rectangle,Rectangle newRectangle) {
         rectangle.setOnMouseExited(t -> mainPane.getChildren().remove(newRectangle));
     }
+
     private void eventClick(Rectangle rectangle,Player current,Player oppenent,int playerChoice) {
         rectangle.setOnMouseClicked(t -> {
             play(playerChoice, current, oppenent);

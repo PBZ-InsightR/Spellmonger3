@@ -5,10 +5,6 @@ public abstract class Card {
     int effect;
     protected int energyCost;
 
-    public Card() {
-        // TODO : why an empty construtor is necessary ?
-    }
-
     public int getEffect() {
         return effect;
     }

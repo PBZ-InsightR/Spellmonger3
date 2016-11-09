@@ -3,7 +3,7 @@ package edu.insightr.spellmonger;
 
 class Enchantment extends Card {
 
-    Enchantment() {
+    public Enchantment() {
         energyCost = 0;
     }
 

@@ -34,7 +34,7 @@ public class ControllerMenu implements Initializable, ControlledScreen {
             myController.addData("isPlayer2","true");
         }
         myController.addData("NamePlayer1",login1.getText());
-        myController.addData("NamePlayer2", login2.getText());
+        myController.addData("NamePlayer2",login2.getText());
         myController.loadScreen(Main.Play_ID,Main.Play_FILE);
         myController.setScreen(Main.Play_ID);
     }

@@ -73,7 +73,6 @@ public class SpellmongerApp {
         }
     }
 
-
     public void playCardIA(Player currentPlayer, Player opponent, ArrayList<Card> hand, Deck discard) {
 
         int lifePoint = currentPlayer.getLifePoint();
