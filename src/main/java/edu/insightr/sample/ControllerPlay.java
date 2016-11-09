@@ -83,12 +83,12 @@ public class ControllerPlay implements ControlledScreen {
     private void pass(Player current, Player opponent) {
         current.attack(opponent);
         turnFinished(current);
-        boolean choix = true;
-        if (current.equals(player2)) choix = false;
-        deck1.setDisable(choix);
-        pass1.setDisable(choix);
-        deck2.setDisable(!choix);
-        pass2.setDisable(!choix);
+        boolean choice = true;
+        if (current.equals(player2)) choice = false;
+        deck1.setDisable(choice);
+        pass1.setDisable(choice);
+        deck2.setDisable(!choice);
+        pass2.setDisable(!choice);
         if (myController.getData("isPlayer2").equals("false") && current == player2)
             play(-1, current, opponent);
     }

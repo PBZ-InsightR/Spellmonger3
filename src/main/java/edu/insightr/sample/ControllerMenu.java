@@ -11,7 +11,7 @@ public class ControllerMenu implements Initializable, ControlledScreen {
     ScreensController myController;
 
     @FXML
-    public TextField login1, Login2;
+    public TextField login1, login2;
     public CheckBox isPlayer2;
 
     @Override
@@ -24,8 +24,7 @@ public class ControllerMenu implements Initializable, ControlledScreen {
     }
 
     public void isPlayer2() {
-        System.out.println("AA");
-        Login2.setDisable(!Login2.isDisable());
+        login2.setDisable(!login2.isDisable());
     }
 
     public void goToPlay() {
@@ -35,7 +34,7 @@ public class ControllerMenu implements Initializable, ControlledScreen {
             myController.addData("isPlayer2","true");
         }
         myController.addData("NamePlayer1",login1.getText());
-        myController.addData("NamePlayer2",Login2.getText());
+        myController.addData("NamePlayer2", login2.getText());
         myController.loadScreen(Main.Play_ID,Main.Play_FILE);
         myController.setScreen(Main.Play_ID);
     }
