@@ -1,15 +1,17 @@
 package edu.insightr.sample;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.junit.Cucumber;
+import edu.insightr.spellmonger.Curse;
 import edu.insightr.spellmonger.Eagle;
+import edu.insightr.spellmonger.Player;
+import edu.insightr.spellmonger.Wolf;
 import javafx.scene.control.TextField;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
-import edu.
-
 
 @RunWith(Cucumber.class)
 public class MyStepdefs {
@@ -34,24 +36,106 @@ public class MyStepdefs {
         controllerMenu.goToPlay();
     }
 
-
-
-    @Given("^playerList is null$")
-    public void playerIsNull() throws Throwable {
-
+    @Then("^player(\\d+) is added$")
+    public void playerIsAdded(int arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 
-    @When("^SpellMongerApp is lunched$")
-    public void SpellMongerAppIsLunched() throws Throwable {
-    }
+
+    //_________________________________________EAGLE_______________________________________________
+
 
     public Eagle eagle;
 
-    @When("^I create an eagle$")
+
+    @Given("^I create an eagle$")
     public void CreateEagle() throws Throwable {
         eagle = new Eagle();
     }
+    @When("^I draw an eagle$")
+    public void iDrawAnEagle() throws Throwable {
+        System.out.println("eagle");
+    }
 
-    @Then("")
+    @Then("^The eagle has (\\d+) effect$")
+    public void theEagleHasEffect(int arg0) throws Throwable {
+        Assert.assertEquals(1,eagle.getEffect());
+    }
 
+    @Then("^The eagle capacity is \"([^\"]*)\"$")
+    public void theEagleCapacityIs(String arg0) throws Throwable {
+        Assert.assertEquals("Flying",eagle.getCapacity());
+    }
+
+    @Then("^The eagle lifePoints is effect$")
+    public void theEagleLifePointsIsEffect() throws Throwable {
+        Assert.assertEquals(1,eagle.getLifePoints());
+    }
+
+    @Then("^The eagle cost (\\d+) energy$")
+    public void theEagleCostEnergy(int arg0) throws Throwable {
+        Assert.assertEquals(1,eagle.getEnergyCost());
+    }
+
+
+//________________________WOLF___________________________________________________________
+
+    public Wolf wolf;
+
+    @Given("^I create a wolf$")
+    public void iCreateAWolf() throws Throwable {
+        wolf = new Wolf();
+    }
+
+    @Then("^The wolf has (\\d+) effect$")
+    public void theWolfHasEffect(int arg0) throws Throwable {
+        Assert.assertEquals(2,wolf.getEffect());
+    }
+
+    @Then("^the wolf lifePoints is effect$")
+    public void theWolfLifePointsIsEffect() throws Throwable {
+        Assert.assertEquals(2,wolf.getLifePoints());
+    }
+
+    @Then("^the wolf cost (\\d+) energy$")
+    public void theWolfCostEnergy(int arg0) throws Throwable {
+        Assert.assertEquals(2,wolf.getEnergyCost());
+    }
+
+    @When("^I draw a wolf$")
+    public void iDrawAWolf() throws Throwable {
+        System.out.println("wolf");
+    }
+
+    //_______________________________Curse______________________________________________________
+
+    public Curse curse;
+    Player playercurse;
+    @Given("^I create a curse$")
+    public void iCreateACurse() throws Throwable {
+        curse = new Curse();
+    }
+
+    @When("^i draw a curse$")
+    public void iDrawACurse() throws Throwable {
+        System.out.println("curse");
+    }
+
+    @Then("^The curse has (\\d+) effect$")
+    public void theCurseHasEffect(int arg0) throws Throwable {
+        Assert.assertEquals(3,curse.getEffect());
+    }
+
+    @Then("^the curse cost (\\d+) energy$")
+    public void theCurseCostEnergy(int arg0) throws Throwable {
+        Assert.assertEquals(3,curse.getEnergyCost());
+    }
+
+    @Then("^the opponent player lose (\\d+) lifepoints$")
+    public void theOpponentPlayerLoseLifepoints(int arg0) throws Throwable {
+        int playerlife = playercurse.getLifePoint();
+        Assert.assertEquals(playerlife-3,playercurse.getLifePoint());
+    }
 }
+
