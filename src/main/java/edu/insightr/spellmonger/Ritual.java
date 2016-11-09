@@ -8,6 +8,7 @@ public abstract class Ritual extends Card {
     }
 
     public void playRitual(Player current, Player opponent) {
+        // TODO : do you think it's a "good" design ? What if we have 30 differet rituals ?
         if (this instanceof Blessing) {
             current.setLifePoint(current.getLifePoint() + this.getEffect());
             current.setStackEnergy(current.getStackEnergy() - this.getEnergyCost());

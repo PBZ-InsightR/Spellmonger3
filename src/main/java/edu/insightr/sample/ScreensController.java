@@ -13,8 +13,9 @@ import javafx.util.Duration;
 import java.util.HashMap;
 
 class ScreensController {
-    StackPane stack;
+    // TODO : be careful to unuseful cast of object
 
+    StackPane stack;
     private HashMap<String, Node> screens = new HashMap<>(); // stock des Screen afin de basculer entre eux
     private HashMap<String, String> data = new HashMap<>(); // data est une HashMap pour stocker les données comme nom player ..etc
 

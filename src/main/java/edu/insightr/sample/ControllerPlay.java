@@ -186,6 +186,7 @@ public class ControllerPlay implements ControlledScreen {
             content.getChildren().add(rectangle);
             if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
                 Rectangle newRectangle = new Rectangle(250, 300);
+                // TODO : no code duplication !
                 rectangle.setOnMouseEntered(t -> {
                     newRectangle.setLayoutX(300);
                     newRectangle.setLayoutY(200);

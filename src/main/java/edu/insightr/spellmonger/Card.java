@@ -6,6 +6,7 @@ public abstract class Card {
     protected int energyCost;
 
     public Card() {
+        // TODO : why an empty construtor is necessary ?
     }
 
     public int getEffect() {
