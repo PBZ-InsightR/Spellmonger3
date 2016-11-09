@@ -42,9 +42,8 @@ class ScreensController {
         try {
             FXMLLoader myLoader = new
                     FXMLLoader(getClass().getResource(resource));
-            Parent loadScreen = (Parent) myLoader.load();
-            ControlledScreen myScreenControler =
-                    ((ControlledScreen) myLoader.getController());
+            Parent loadScreen = myLoader.load();
+            ControlledScreen myScreenControler = myLoader.getController();
             myScreenControler.setScreenParent(this);
             addScreen(name, loadScreen);
             return true;
@@ -66,7 +65,6 @@ class ScreensController {
                         new KeyFrame(Duration.ZERO,
                                 new KeyValue(opacity, 1.0)),
                         new KeyFrame(new Duration(1000),
-
                                 t -> {
                                     //remove displayed screen
                                     stack.getChildren().remove(0);

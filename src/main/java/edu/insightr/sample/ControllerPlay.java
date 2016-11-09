@@ -13,6 +13,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+
 
 public class ControllerPlay implements ControlledScreen {
 
@@ -140,7 +142,7 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
-    public void update() {
+    private void update() {
         name1.setText("\t" + player1.getName());
         life_points1.setText("Life point : " + player1.getLifePoint() + "\n Energy : " + player1.getEnergy());
         name2.setText("\t" + player2.getName());
@@ -174,7 +176,7 @@ public class ControllerPlay implements ControlledScreen {
 
     }
 
-    public void listCreatureContents(Player current, ScrollPane scroll) {
+    private void listCreatureContents(Player current, ScrollPane scroll) {
         HBox content = new HBox();
         scroll.setContent(content);
         content.setSpacing(20);
@@ -187,22 +189,17 @@ public class ControllerPlay implements ControlledScreen {
             if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
                 Rectangle newRectangle = new Rectangle(250, 300);
                 // TODO : no code duplication !
-                rectangle.setOnMouseEntered(t -> {
-                    newRectangle.setLayoutX(300);
-                    newRectangle.setLayoutY(200);
-                    newRectangle.setFill(new ImagePattern(img));
-                    mainPane.getChildren().add(newRectangle);
-                });
-                rectangle.setOnMouseExited(t -> mainPane.getChildren().remove(newRectangle));
+                eventEnter(rectangle,newRectangle,img);
+               eventExit(rectangle,newRectangle);
             }
         }
     }
 
-    public void hands(Player current, Player oppenent, ScrollPane hand) {
+    private void hands(Player current, Player oppenent, ScrollPane hand) {
         HBox content = new HBox();
         hand.setContent(content);
         content.setSpacing(20);
-        int index = 0;  // pour obtenir l'index quand il va choisir la carte a joué ( utilisé dans le hand pas la)
+        int index = 0;
         for (Card c : current.getHand()) {
             Rectangle rectangle = new Rectangle(100, 120);
             String imageOfCard = "Spellmonger_" + c.getName();
@@ -214,29 +211,17 @@ public class ControllerPlay implements ControlledScreen {
             if (myController != null) {
                 if (myController.getData("isPlayer2").equals("false") && current == player2) return;
             }
-            int index1 = index;
             if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
                 Rectangle newRectangle = new Rectangle(250, 300);
-                rectangle.setOnMouseEntered(t -> {
-                    newRectangle.setLayoutX(300);
-                    newRectangle.setLayoutY(200);
-                    newRectangle.setFill(new ImagePattern(img));
-                    mainPane.getChildren().add(newRectangle);
-                });
-
-                rectangle.setOnMouseExited(t -> mainPane.getChildren().remove(newRectangle));
-
-                rectangle.setOnMouseClicked(t -> {
-                    play(index1, current, oppenent);
-                });
-
+                eventEnter(rectangle,newRectangle,img);
+                eventExit(rectangle,newRectangle);
+                eventClick(rectangle,current,oppenent,index);
             }
             index++;
         }
-
     }
 
-    public void discards(Player current, Pane discard) {
+    private void discards(Player current, Pane discard) {
         if (current.getDiscards().size() != 0) {
             discard.setVisible(true);
             Card lastCard = current.getDiscards().get(current.getDiscards().size() - 1);
@@ -250,9 +235,21 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
-    public void InfoCard() {
-        Tooltip tooltip = new Tooltip("Salut le monde !");
-        deck1.setTooltip(tooltip);
+    private void eventEnter(Rectangle rectangle,Rectangle newRectangle,Image img) {
+        rectangle.setOnMouseEntered(t -> {
+            newRectangle.setLayoutX(300);
+            newRectangle.setLayoutY(200);
+            newRectangle.setFill(new ImagePattern(img));
+            mainPane.getChildren().add(newRectangle);
+        });
+    }
+    private void eventExit(Rectangle rectangle,Rectangle newRectangle) {
+        rectangle.setOnMouseExited(t -> mainPane.getChildren().remove(newRectangle));
+    }
+    private void eventClick(Rectangle rectangle,Player current,Player oppenent,int playerChoice) {
+        rectangle.setOnMouseClicked(t -> {
+            play(playerChoice, current, oppenent);
+        });
     }
 }
 
