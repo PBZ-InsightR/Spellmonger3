@@ -64,17 +64,31 @@ public class ControllerPlay implements ControlledScreen {
 
     public void draw_player_1() {
         drawCard(player1,hand1);
-        if (!player1.canPlay()) {
-            AlertBox.displayDebugging("Energy issue", player1.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY());
-            pass_player_1();
-        }
     }
 
     public void draw_player_2() {
         drawCard(player2,hand2);
-        if (!player2.canPlay()) {
-            AlertBox.displayDebugging("Energy issue", player2.getName() + ",you cannot play any of your cards!", Player2.getLayoutX(), Player2.getLayoutY());
-            pass_player_2();
+    }
+
+    private void drawCard(Player player,ScrollPane hand) {
+        if (player.canDraw()) { // Numa
+            player.drawCard();
+            deck1.setDisable(true);
+            deck2.setDisable(true);
+            hand.setVvalue(hand.getVmax());
+            hand.setHvalue(hand.getHmax());
+            update();
+            if (!player.canPlay()) {
+                AlertBox.displayDebugging("Energy issue", player.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY()); //position a changer
+             if(player == player1)  pass_player_1();
+             else pass_player_2();
+            }
+        } else {
+            if (player.equals(player1)) {
+                AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand", Player1.getLayoutX(), Player1.getLayoutY());
+            } else {
+                AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand", Player2.getLayoutX(), Player2.getLayoutY());
+            }
         }
     }
 
@@ -101,22 +115,6 @@ public class ControllerPlay implements ControlledScreen {
         pass(player2, player1,hand2);
     }
 
-    private void drawCard(Player player,ScrollPane hand) {
-        if (player.canDraw()) { // Numa
-            player.drawCard();
-            deck1.setDisable(true);
-            deck2.setDisable(true);
-            hand.setVvalue(hand.getVmax());
-            hand.setHvalue(hand.getHmax());
-            update();
-        } else {
-            if (player.equals(player1)) {
-                AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand", Player1.getLayoutX(), Player1.getLayoutY());
-            } else {
-                AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand", Player2.getLayoutX(), Player2.getLayoutY());
-            }
-        }
-    }
 
     private void turnFinished(Player current) {
         turnPlayer = game.nextPLayer(current);
