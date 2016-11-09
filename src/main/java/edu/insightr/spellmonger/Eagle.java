@@ -1,8 +1,8 @@
 package edu.insightr.spellmonger;
 
-class Eagle extends Creature {
+public class Eagle extends Creature {
 
-    Eagle() {
+    public Eagle() {
         effect = 1;
         capacity = "Flying";
         lifePoints = effect;
