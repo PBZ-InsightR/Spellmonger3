@@ -89,7 +89,7 @@ public class Player {
         return lifePoint;
     }
 
-    void setLifePoint(int life) {
+    public void setLifePoint(int life) {
         lifePoint = life;
     }
 

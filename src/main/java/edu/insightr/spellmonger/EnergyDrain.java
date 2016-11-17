@@ -1,13 +1,13 @@
 package edu.insightr.spellmonger;
 
-class EnergyDrain extends Ritual {
+public class EnergyDrain extends Ritual {
 
-    EnergyDrain() {
+    public EnergyDrain() {
         effect = 2;
         energyCost = 3;
     }
 
-    void effect(Player currentPlayer, Player opponent) {
+    public void effect(Player currentPlayer, Player opponent) {
         currentPlayer.setEnergyPoint(currentPlayer.getEnergy() + this.getEffect());
         opponent.setEnergyPoint(opponent.getEnergy() - this.getEffect());
     }

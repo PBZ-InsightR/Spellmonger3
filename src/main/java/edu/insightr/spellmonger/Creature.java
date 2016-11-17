@@ -18,7 +18,7 @@ abstract class Creature extends Card implements Comparable<Creature> {
         return capacity;
     }
 
-    int getLifePoints() {
+    public int getLifePoints() {
         return lifePoints;
     }
 

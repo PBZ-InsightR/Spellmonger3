@@ -4,17 +4,17 @@ import org.apache.log4j.Logger;
 
 import java.util.Random;
 
-class VaultOverclocking extends Enchantment {
+public class VaultOverclocking extends Enchantment {
 
     private boolean activeEffect;
     private static final Logger logger = Logger.getLogger(VaultOverclocking.class);
 
-    VaultOverclocking() {
+    public VaultOverclocking() {
         energyCost = 4;
         activeEffect = false;
     }
 
-    boolean getActiveEffect() {
+    public boolean getActiveEffect() {
         return activeEffect;
     }
 

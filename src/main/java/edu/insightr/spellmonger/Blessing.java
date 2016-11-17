@@ -1,6 +1,6 @@
 package edu.insightr.spellmonger;
 
-class Blessing extends Ritual {
+public class Blessing extends Ritual {
 
     public Blessing() {
         effect = 3;
