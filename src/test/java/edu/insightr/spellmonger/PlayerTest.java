@@ -29,7 +29,6 @@ public class PlayerTest {
             p.increaseEnergy();
         }
         Assert.assertEquals(true, p.canPlay());
-
     }
 
     @Test

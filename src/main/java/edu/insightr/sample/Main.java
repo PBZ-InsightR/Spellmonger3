@@ -20,7 +20,6 @@ public class Main extends Application {
 
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(Menu_ID, Menu_FILE);
-
         mainContainer.setScreen(Menu_ID);
 
         Group root = new Group();

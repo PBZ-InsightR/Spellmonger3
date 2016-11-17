@@ -1,6 +1,7 @@
 package edu.insightr.spellmonger;
 
 
+import edu.insightr.sample.AlertBox;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -71,7 +72,6 @@ public class SpellmongerApp {
             AlertBox.displayError("Energy not enough", currentPlayer.getName() + " hasn't enough energy in his stack");
         }
     }
-
 
     public void playCardIA(Player currentPlayer, Player opponent, ArrayList<Card> hand, Deck discard) {
 
