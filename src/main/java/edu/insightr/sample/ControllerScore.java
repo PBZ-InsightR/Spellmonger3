@@ -29,9 +29,9 @@ public class ControllerScore implements Initializable,ControlledScreen{
         for(String s: map.keySet()) {
             data.add(map.get(s));
         }
-        LoginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
-        NbPlayColumn.setCellValueFactory(new PropertyValueFactory<>("nbPlay"));
-        ScoreColumn.setCellValueFactory(new PropertyValueFactory<>("scorePercent"));
+        LoginColumn.setCellValueFactory(new PropertyValueFactory<>("Login"));
+        NbPlayColumn.setCellValueFactory(new PropertyValueFactory<>("NbPlay"));
+        ScoreColumn.setCellValueFactory(new PropertyValueFactory<>("PourcentageScore"));
         table.setItems(data);
     }
 

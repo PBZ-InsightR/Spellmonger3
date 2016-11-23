@@ -1,8 +1,8 @@
 package edu.insightr.spellmonger;
 
-public class Curse extends Ritual {
+class Curse extends Ritual {
 
-    public Curse() {
+    Curse() {
         effect = 3;
         energyCost = 3;
     }

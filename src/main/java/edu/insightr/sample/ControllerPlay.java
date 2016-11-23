@@ -62,6 +62,20 @@ public class ControllerPlay implements ControlledScreen {
         pass1.setDisable(false);
     }
 
+    public void initializeTest(){
+        String nameP1 = "Player1";
+        String nameP2 = "Player2";
+        game = new SpellmongerApp(new Player(nameP1), new Player(nameP2));
+        player1 = game.getPlayer(0);
+        player2 = game.getPlayer(1);
+        turnPlayer = player1;
+    }
+    public Player getPlayer1() {
+        return player1;
+    }
+    public Player getPlayer2() {
+        return player2;
+    }
     public void draw_player_1() {
         drawCard(player1,hand1);
     }
@@ -89,6 +103,19 @@ public class ControllerPlay implements ControlledScreen {
             } else {
                 AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand", Player2.getLayoutX(), Player2.getLayoutY());
             }
+        }
+    }
+    public void draw_player_1_test() {
+        drawCardTest(player1,hand1);
+    }
+
+    public void draw_player_2_test() {
+        drawCardTest(player2,hand2);
+    }
+    public void drawCardTest(Player player,ScrollPane hand){
+        if (player.canDraw()) { // Numa
+            player.drawCard();
+
         }
     }
 
