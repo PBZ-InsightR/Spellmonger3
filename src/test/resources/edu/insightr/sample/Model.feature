@@ -30,3 +30,13 @@ Feature: Hello
        When i use curse card
        Then the opponent player lose 3 lifepoints
 
+  Scenario: Blessing
+       Given I create a Blessing
+       When I draw a card Blessing
+       Then The blessing has 3 effect
+       Then The blessing cost 3 energies
+
+  Scenario: BlessingUsed
+       Given I have a Blessing in my hand
+       When I use Blessing card
+       Then The current player earn 3 lifepoints
