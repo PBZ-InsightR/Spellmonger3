@@ -13,8 +13,9 @@ import javafx.util.Duration;
 import java.util.HashMap;
 
 class ScreensController {
-    StackPane stack;
+    // TODO : be careful to unuseful cast of object
 
+    StackPane stack;
     private HashMap<String, Node> screens = new HashMap<>(); // stock des Screen afin de basculer entre eux
     private HashMap<String, String> data = new HashMap<>(); // data est une HashMap pour stocker les données comme nom player ..etc
 
@@ -41,9 +42,8 @@ class ScreensController {
         try {
             FXMLLoader myLoader = new
                     FXMLLoader(getClass().getResource(resource));
-            Parent loadScreen = (Parent) myLoader.load();
-            ControlledScreen myScreenControler =
-                    ((ControlledScreen) myLoader.getController());
+            Parent loadScreen = myLoader.load();
+            ControlledScreen myScreenControler = myLoader.getController();
             myScreenControler.setScreenParent(this);
             addScreen(name, loadScreen);
             return true;
@@ -65,7 +65,6 @@ class ScreensController {
                         new KeyFrame(Duration.ZERO,
                                 new KeyValue(opacity, 1.0)),
                         new KeyFrame(new Duration(1000),
-
                                 t -> {
                                     //remove displayed screen
                                     stack.getChildren().remove(0);

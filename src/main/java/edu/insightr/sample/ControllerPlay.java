@@ -13,6 +13,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+
 
 public class ControllerPlay implements ControlledScreen {
 
@@ -30,7 +32,7 @@ public class ControllerPlay implements ControlledScreen {
     public ScrollPane list_creatures1, list_creatures2, hand1, hand2;
     public Button deck1, deck2, pass1, pass2;
     public SplitPane split;
-    public Pane mainPane,Player1,Player2;
+    public Pane mainPane, Player1, Player2;
 
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
@@ -61,60 +63,58 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     public void draw_player_1() {
-        drawCard(player1);
-        hand1.setVvalue(hand1.getVmax());
-        hand1.setHvalue(hand1.getHmax());
-        if (!player1.canPlay()) {
-            AlertBox.displayDebugging("Energy issue", player1.getName() + ",you cannot play any of your cards!",Player1.getLayoutX(),Player1.getLayoutY());
-            pass_player_1();
-        }
+        drawCard(player1,hand1);
     }
 
     public void draw_player_2() {
-        drawCard(player2);
-        if (!player2.canPlay()) {
-            AlertBox.displayDebugging("Energy issue", player2.getName() + ",you cannot play any of your cards!",Player2.getLayoutX(),Player2.getLayoutY());
-            pass_player_2();
+        drawCard(player2,hand2);
+    }
+
+    private void drawCard(Player player,ScrollPane hand) {
+        if (player.canDraw()) { // Numa
+            player.drawCard();
+            deck1.setDisable(true);
+            deck2.setDisable(true);
+            hand.setVvalue(hand.getVmax());
+            hand.setHvalue(hand.getHmax());
+            update();
+            if (!player.canPlay()) {
+                AlertBox.displayDebugging("Energy issue", player.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY()); //position a changer
+             if(player == player1)  pass_player_1();
+             else pass_player_2();
+            }
+        } else {
+            if (player.equals(player1)) {
+                AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand", Player1.getLayoutX(), Player1.getLayoutY());
+            } else {
+                AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand", Player2.getLayoutX(), Player2.getLayoutY());
+            }
         }
     }
 
-    private void pass(Player current, Player opponent) {
+    private void pass(Player current, Player opponent,ScrollPane hand) {
         current.attack(opponent);
         turnFinished(current);
-        boolean choix = true;
-        if (current.equals(player2)) choix = false;
-        deck1.setDisable(choix);
-        pass1.setDisable(choix);
-        deck2.setDisable(!choix);
-        pass2.setDisable(!choix);
+        boolean choice = true;
+        if (current.equals(player2)) choice = false;
+        deck1.setDisable(choice);
+        pass1.setDisable(choice);
+        deck2.setDisable(!choice);
+        pass2.setDisable(!choice);
+        hand.setVvalue(hand.getVmin());
+        hand.setHvalue(hand.getHmin());
         if (myController.getData("isPlayer2").equals("false") && current == player2)
             play(-1, current, opponent);
     }
 
     public void pass_player_1() {
-        pass(player1, player2);
+        pass(player1, player2,hand1);
     }
 
     public void pass_player_2() {
-        pass(player2, player1);
+        pass(player2, player1,hand2);
     }
 
-    private void drawCard(Player player) {
-        if (player.canDraw()) { // Numa
-            player.drawCard();
-            deck1.setDisable(true);
-            deck2.setDisable(true);
-            update();
-        } else
-        {
-            if(player.equals(player1)){
-                AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand",Player1.getLayoutX(),Player1.getLayoutY());
-            }
-            else {
-                AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand",Player2.getLayoutX(),Player2.getLayoutY());
-            }
-        }
-    }
 
     private void turnFinished(Player current) {
         turnPlayer = game.nextPLayer(current);
@@ -131,19 +131,19 @@ public class ControllerPlay implements ControlledScreen {
                 game.playCard(current, oppenent, current.getHand(), index, current.getDiscards());
             update();
             if (current == player1) deck = deck1;
-            if (!current.canPlay() && deck.isDisabled()){
-                if(current==player1){
-                    AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!",Player1.getLayoutX(),Player1.getLayoutY());
-                }
-                else {
+            if (!current.canPlay() && deck.isDisabled()) {
+                if (current == player1) {
+                    AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY());
+                    pass(current, oppenent,hand1);
+                } else {
                     AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player2.getLayoutX(), Player2.getLayoutY());
+                    pass(current, oppenent,hand2);
                 }
-                pass(current, oppenent);
             }
         }
     }
 
-    public void update() {
+    private void update() {
         name1.setText("\t" + player1.getName());
         life_points1.setText("Life point : " + player1.getLifePoint() + "\n Energy : " + player1.getEnergy());
         name2.setText("\t" + player2.getName());
@@ -153,7 +153,16 @@ public class ControllerPlay implements ControlledScreen {
             deck2.setDisable(true);
             pass1.setDisable(true);
             pass2.setDisable(true);
+            if (player1.winner(player2)) {
+                Outils.updateJsonFile(myController.getData("NamePlayer1"), true);
+                Outils.updateJsonFile(myController.getData("NamePlayer2"), false);
+            } else {
+                Outils.updateJsonFile(myController.getData("NamePlayer2"), true);
+                Outils.updateJsonFile(myController.getData("NamePlayer1"), false);
+            }
+
             AlertBox.displayGame("Game over", "le jeu est fini");
+            initialize();
         }
 
         // creatures sur la piste
@@ -165,9 +174,10 @@ public class ControllerPlay implements ControlledScreen {
         // discard
         discards(player1, discard1);
         discards(player2, discard2);
+
     }
 
-    public void listCreatureContents(Player current, ScrollPane scroll) {
+    private void listCreatureContents(Player current, ScrollPane scroll) {
         HBox content = new HBox();
         scroll.setContent(content);
         content.setSpacing(20);
@@ -179,56 +189,40 @@ public class ControllerPlay implements ControlledScreen {
             content.getChildren().add(rectangle);
             if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
                 Rectangle newRectangle = new Rectangle(250, 300);
-                rectangle.setOnMouseEntered(t -> {
-                    newRectangle.setLayoutX(300);
-                    newRectangle.setLayoutY(200);
-                    newRectangle.setFill(new ImagePattern(img));
-                    mainPane.getChildren().add(newRectangle);
-                });
-                rectangle.setOnMouseExited(t -> mainPane.getChildren().remove(newRectangle));
+                // TODO : no code duplication !
+                eventEnter(rectangle,newRectangle,img);
+               eventExit(rectangle,newRectangle);
             }
         }
     }
 
-    public void hands(Player current, Player oppenent, ScrollPane hand) {
+    private void hands(Player current, Player oppenent, ScrollPane hand) {
         HBox content = new HBox();
         hand.setContent(content);
         content.setSpacing(20);
-        int index = 0;  // pour obtenir l'index quand il va choisir la carte a joué ( utilisé dans le hand pas la)
+        int index = 0;
         for (Card c : current.getHand()) {
             Rectangle rectangle = new Rectangle(100, 120);
-            String imageOfCard="Spellmonger_"+c.getName();
-            if(turnPlayer.equals(oppenent)) imageOfCard="dosCartes_ocre";
-            Image img = new Image("images/"+ imageOfCard + ".png");
+            String imageOfCard = "Spellmonger_" + c.getName();
+            if (turnPlayer.equals(oppenent)) imageOfCard = "dosCartes_ocre";
+            Image img = new Image("images/" + imageOfCard + ".png");
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
             content.getChildren().add(rectangle);
             if (myController != null) {
                 if (myController.getData("isPlayer2").equals("false") && current == player2) return;
             }
-            int index1 = index;
             if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
                 Rectangle newRectangle = new Rectangle(250, 300);
-                rectangle.setOnMouseEntered(t -> {
-                    newRectangle.setLayoutX(300);
-                    newRectangle.setLayoutY(200);
-                    newRectangle.setFill(new ImagePattern(img));
-                    mainPane.getChildren().add(newRectangle);
-                });
-
-                rectangle.setOnMouseExited(t -> mainPane.getChildren().remove(newRectangle));
-
-                rectangle.setOnMouseClicked(t -> {
-                    play(index1, current, oppenent);
-                });
-
+                eventEnter(rectangle,newRectangle,img);
+                eventExit(rectangle,newRectangle);
+                eventClick(rectangle,current,oppenent,index);
             }
             index++;
         }
-
     }
 
-    public void discards(Player current, Pane discard) {
+    private void discards(Player current, Pane discard) {
         if (current.getDiscards().size() != 0) {
             discard.setVisible(true);
             Card lastCard = current.getDiscards().get(current.getDiscards().size() - 1);
@@ -242,9 +236,23 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
-    public void InfoCard() {
-        Tooltip tooltip = new Tooltip("Salut le monde !");
-        deck1.setTooltip(tooltip);
+    private void eventEnter(Rectangle rectangle,Rectangle newRectangle,Image img) {
+        rectangle.setOnMouseEntered(t -> {
+            newRectangle.setLayoutX(300);
+            newRectangle.setLayoutY(200);
+            newRectangle.setFill(new ImagePattern(img));
+            mainPane.getChildren().add(newRectangle);
+        });
+    }
+
+    private void eventExit(Rectangle rectangle,Rectangle newRectangle) {
+        rectangle.setOnMouseExited(t -> mainPane.getChildren().remove(newRectangle));
+    }
+
+    private void eventClick(Rectangle rectangle,Player current,Player oppenent,int playerChoice) {
+        rectangle.setOnMouseClicked(t -> {
+            play(playerChoice, current, oppenent);
+        });
     }
 }
 

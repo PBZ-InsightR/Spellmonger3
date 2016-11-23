@@ -5,9 +5,6 @@ public abstract class Card {
     int effect;
     protected int energyCost;
 
-    public Card() {
-    }
-
     public int getEffect() {
         return effect;
     }

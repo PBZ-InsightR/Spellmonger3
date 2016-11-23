@@ -19,6 +19,8 @@ import javafx.util.Duration;
 
 public class AlertBox {
 
+    // TODO : prefer CSS for decoration instead of java code
+
     static void displayDebugging(String title, String message,double X,double Y) {
         Stage messageBox = new Stage();
         messageBox.initStyle(StageStyle.TRANSPARENT);

@@ -1,6 +1,7 @@
 package edu.insightr.sample;
 
 import edu.insightr.spellmonger.Outils;
+import edu.insightr.spellmonger.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,18 +20,18 @@ public class ControllerScore implements Initializable,ControlledScreen{
     @FXML
     public TableView table;
     public TableColumn LoginColumn,NbPlayColumn,ScoreColumn;
-    private final ObservableList<Personne> data = FXCollections.observableArrayList(); // liste de Personne charger du fichier Json pour les afficher dans TableColumn
+    private final ObservableList<User> data = FXCollections.observableArrayList(); // liste de User charger du fichier Json pour les afficher dans TableColumn
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Map<String, Personne> map =  Outils.readFileToMap(System.getProperty("user.dir")+"/src/main/resources/scores.json");
+        Map<String, User> map =  Outils.readFileToMap(System.getProperty("user.dir")+"/src/main/resources/scores.json");
         for(String s: map.keySet()) {
             data.add(map.get(s));
         }
-        LoginColumn.setCellValueFactory(new PropertyValueFactory<>("Login"));
-        NbPlayColumn.setCellValueFactory(new PropertyValueFactory<>("NbPlay"));
-        ScoreColumn.setCellValueFactory(new PropertyValueFactory<>("PourcentageScore"));
+        LoginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
+        NbPlayColumn.setCellValueFactory(new PropertyValueFactory<>("nbPlay"));
+        ScoreColumn.setCellValueFactory(new PropertyValueFactory<>("scorePercent"));
         table.setItems(data);
     }
 

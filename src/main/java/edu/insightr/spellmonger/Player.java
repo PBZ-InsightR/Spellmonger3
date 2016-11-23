@@ -126,15 +126,16 @@ public class Player {
         energy++;
     }
 
-    /*
-    public void winner() {
-        logger.info(this.toString() + " is the winner!!!\n");
-    }*/
+    public boolean winner(Player other) {
+      return this.lifePoint> other.lifePoint;
+    }
+
     public void drawCard(){
         if (this.size() == 0) this.reCreateCardPool();
         this.addToHand(this.getCards().get(0));
         this.getCards().remove(0);
     }
+
     public boolean canDraw(){
         return this.getHand().size() < 5;
     }
