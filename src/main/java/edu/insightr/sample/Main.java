@@ -28,9 +28,8 @@ public class Main extends Application {
         Scene scene = new Scene(root, 900, 700);
         scene.getStylesheets().add("/style.css");
         primaryStage.setScene(scene);
-        primaryStage.setResizable(true);
+        primaryStage.setResizable(false);
         primaryStage.show();
-
 
     }
 

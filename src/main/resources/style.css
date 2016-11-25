@@ -1,9 +1,10 @@
+/********PLAY********/
+
 #mainPane{
     -fx-pref-height:700;
     -fx-pref-width:900;
     -fx-background-image:url("images/fond.png");
     -fx-background-position: center center;
-
 }
 
 #split{
@@ -301,4 +302,14 @@
         linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
     -fx-text-fill: #004020;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+
+/********MENU********/
+
+#mainMenu {
+    -fx-pref-height:700;
+    -fx-pref-width:900;
+    -fx-background-image:url("images/fond.png");
+    -fx-background-position: center center;
 }
