@@ -266,6 +266,20 @@ public class ControllerPlay implements ControlledScreen {
             play(playerChoice, current, oppenent);
         });
     }
+
+    public void backToMenu(){
+        myController.loadScreen(Main.Menu_ID,Main.Menu_FILE);
+        myController.setScreen(Main.Menu_ID);
+    }
+    public void backToPlay(){
+        myController.loadScreen(Main.Play_ID,Main.Play_FILE);
+        myController.setScreen(Main.Play_ID);
+    }
+    public void backToScore(){
+        myController.loadScreen(Main.Score_ID,Main.Score_FILE);
+        myController.setScreen(Main.Score_ID);
+
+    }
 }
 
 

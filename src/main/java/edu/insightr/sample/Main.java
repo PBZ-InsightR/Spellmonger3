@@ -25,7 +25,7 @@ public class Main extends Application {
         Group root = new Group();
         root.getChildren().addAll(mainContainer.stack);
         primaryStage.setTitle("SpellMongerApp");
-        Scene scene = new Scene(root, 900, 700);
+        Scene scene = new Scene(root, 890, 690);
         scene.getStylesheets().add("/style.css");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
