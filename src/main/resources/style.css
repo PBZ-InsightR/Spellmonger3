@@ -1,4 +1,21 @@
 /********PLAY********/
+#MenuGame{
+    -fx-pref-width:70;
+    -fx-background-size: 20 20;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+    -fx-padding: 5 5 5 20;
+    -fx-background-image: url('/images/GameIcon.png'); 
+}
+
+#MenuHelp{
+    -fx-pref-width:70;
+    -fx-background-size: 20 20;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+    -fx-padding: 5 5 5 25;
+    -fx-background-image: url('/images/HelpIcon.png');
+}
 
 #mainPane{
     -fx-pref-height:700;
