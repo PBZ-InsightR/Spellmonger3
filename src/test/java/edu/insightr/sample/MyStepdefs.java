@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 
+
+
 @RunWith(Cucumber.class)
 public class MyStepdefs {
     ControllerMenu controllerMenu;
@@ -84,9 +86,6 @@ public class MyStepdefs {
     public void theFoxHasLife(int lifepoint) throws Throwable {
        Assert.assertEquals(fox.getEffect(),fox.getLifePoints());
 
-    @Given("^I create an eagle$")
-    public void CreateEagle() throws Throwable {
-        eagle = new Eagle();
     }
 
     @Then("^The fox cost (\\d+) energies$")
@@ -194,15 +193,10 @@ public class MyStepdefs {
     public void iDrawACardVaultOverclocking() throws Throwable {
         System.out.println("v = " + v.toString());
     }
-    Curse curse;
-    Player playercursed;
 
     @Then("^The VaultOverclocking card cost (\\d+) energies$")
     public void theVaultOverclockingCardCostEnergies(int energyCost) throws Throwable {
         Assert.assertEquals(v.getEnergyCost(),energyCost);
-    @Given("^I create a curse$")
-    public void iCreateACurse() throws Throwable {
-        curse = new Curse();
     }
 
     @Then("^The VaultOverclocking card is not active$")
@@ -294,69 +288,5 @@ public class MyStepdefs {
         game.draw_player_2_test();
         Assert.assertEquals(game.getPlayer1().getHand().size(),currentCardP1 + increase);
         Assert.assertEquals(game.getPlayer2().getHand().size(),currentCardP2 + increase);
-    }
-}
-
-    @Given("^i have a Curse in my hand$")
-    public void iHaveACurseInMyHand() throws Throwable {
-       System.out.println("I use a curse card");
-    }
-
-    @When("^i use curse card$")
-    public void iUseCurseCard() throws Throwable {
-        System.out.println("I use the curse card");
-    }
-
-    @Then("^the opponent player lose (\\d+) lifepoints$")
-    public void theOpponentPlayerLoseLifepoints(int arg0) throws Throwable {
-        curse = new Curse();
-        playercursed = new Player("playercursed");
-        int playerlife = playercursed.getLifePoint();
-        curse.effect(playercursed);
-        Assert.assertEquals(playerlife-arg0,playercursed.getLifePoint());
-    }
-
-    //______________________________________________Blessing_____________________________________________________
-
-    Blessing bless;
-    Player playerBlessed;
-
-    @Given("^I create a Blessing$")
-    public void iCreateABlessing() throws Throwable {
-       bless = new Blessing();
-    }
-
-    @When("^I draw a card Blessing$")
-    public void iDrawACardBlessing() throws Throwable {
-        System.out.println("bless = " + bless);
-    }
-
-    @Then("^The blessing has (\\d+) effect$")
-    public void theBlessingHasEffect(int arg0) throws Throwable {
-        Assert.assertEquals(arg0,bless.getEffect());
-    }
-
-    @Then("^The blessing cost (\\d+) energies$")
-    public void theBlessingCostEnergies(int arg0) throws Throwable {
-        Assert.assertEquals(arg0,bless.getEnergyCost());
-    }
-
-    @Given("^I have a Blessing in my hand$")
-    public void iHaveABlessingInMyHand() throws Throwable {
-        System.out.println("I have a blessing card");
-    }
-
-    @When("^I use Blessing card$")
-    public void iUseBlessingCard() throws Throwable {
-        System.out.println("I play the blessing card");
-    }
-
-    @Then("^The current player earn (\\d+) lifepoints$")
-    public void theCurrentPlayerEarnLifepoints(int arg0) throws Throwable {
-        bless = new Blessing();
-        playerBlessed = new Player("playerBlessed");
-        int currentLifePoint = playerBlessed.getLifePoint();
-        bless.effect(playerBlessed);
-        Assert.assertEquals(currentLifePoint+arg0,playerBlessed.getLifePoint());
     }
 }

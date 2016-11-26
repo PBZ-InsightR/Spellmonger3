@@ -7,7 +7,7 @@ class Curse extends Ritual {
         energyCost = 3;
     }
 
-    public void effect(Player opponent) {
+    void effect(Player opponent) {
         opponent.setLifePoint(opponent.getLifePoint() - this.getEffect());
     }
 
