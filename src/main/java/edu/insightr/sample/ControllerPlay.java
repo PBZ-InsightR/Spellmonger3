@@ -2,6 +2,7 @@ package edu.insightr.sample;
 
 
 import edu.insightr.spellmonger.*;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -11,8 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
-import javafx.scene.paint.*;
-import javafx.scene.effect.*;
+import javafx.util.Duration;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -28,6 +28,7 @@ public class ControllerPlay implements ControlledScreen {
     public Player turnPlayer;
     private Player player1;
     private Player player2;
+    private boolean isIA;
     @FXML
     public Text name1, life_points1, energy_player1, name2, life_points2, energy_player2;
     public Pane discard1, discard2;
@@ -50,8 +51,8 @@ public class ControllerPlay implements ControlledScreen {
                 nameP1 = myController.getData("NamePlayer1");
             if (!myController.getData("NamePlayer2").equals(""))
                 nameP2 = myController.getData("NamePlayer2");
+            isIA = myController.getData("isPlayer2").equals("false");
         }
-
         game = new SpellmongerApp(new Player(nameP1), new Player(nameP2));
         player1 = game.getPlayer(0);
         player2 = game.getPlayer(1);
@@ -65,14 +66,14 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     public void draw_player_1() {
-        drawCard(player1,hand1);
+        drawCard(player1, hand1);
     }
 
     public void draw_player_2() {
-        drawCard(player2,hand2);
+        drawCard(player2, hand2);
     }
 
-    private void drawCard(Player player,ScrollPane hand) {
+    private void drawCard(Player player, ScrollPane hand) {
         if (player.canDraw()) { // Numa
             player.drawCard();
             deck1.setDisable(true);
@@ -81,20 +82,26 @@ public class ControllerPlay implements ControlledScreen {
             hand.setHvalue(hand.getHmax());
             update();
             if (!player.canPlay()) {
-                AlertBox.displayDebugging("Energy issue", player.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY()); //position a changer
-             if(player == player1)  pass_player_1();
-             else pass_player_2();
+                if (player == player1) {
+                    AlertBox.displayDebugging("Energy issue", player.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY()); //position a changer
+                    pass_player_1();
+                } else {
+                    if (!isIA)
+                        AlertBox.displayDebugging("Energy issue", player.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY()); //position a changer
+                    pass_player_2();
+                }
             }
         } else {
             if (player.equals(player1)) {
                 AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand", Player1.getLayoutX(), Player1.getLayoutY());
             } else {
-                AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand", Player2.getLayoutX(), Player2.getLayoutY());
+                if (!isIA)
+                    AlertBox.displayDebugging("Error", "You cannot have more than 5 cards in your hand", Player2.getLayoutX(), Player2.getLayoutY());
             }
         }
     }
 
-    private void pass(Player current, Player opponent,ScrollPane hand) {
+    private void pass(Player current, Player opponent, ScrollPane hand) {
         current.attack(opponent);
         turnFinished(current);
         boolean choice = true;
@@ -105,18 +112,29 @@ public class ControllerPlay implements ControlledScreen {
         pass2.setDisable(!choice);
         hand.setVvalue(hand.getVmin());
         hand.setHvalue(hand.getHmin());
-        if (myController.getData("isPlayer2").equals("false") && current == player2)
-            play(-1, current, opponent);
     }
 
     public void pass_player_1() {
-        pass(player1, player2,hand1);
+        pass(player1, player2, hand1);
+        if (isIA) {
+            whenIA();
+        }
     }
 
     public void pass_player_2() {
-        pass(player2, player1,hand2);
+        pass(player2, player1, hand2);
     }
 
+    private void whenIA() {
+        logger.info("on est IA");
+        draw_player_2();
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        delay.setOnFinished(event -> {
+            update();
+            play(-1, player2, player1);
+        });
+        delay.play();
+    }
 
     private void turnFinished(Player current) {
         turnPlayer = game.nextPLayer(current);
@@ -127,7 +145,7 @@ public class ControllerPlay implements ControlledScreen {
     private void play(int index, Player current, Player oppenent) {
         Button deck = deck2;
         if (!current.isDead()) {
-            if (myController.getData("isPlayer2").equals("false") && current == player2)
+            if (isIA && current == player2)
                 game.playCardIA(current, oppenent, current.getHand(), current.getDiscards());
             else
                 game.playCard(current, oppenent, current.getHand(), index, current.getDiscards());
@@ -136,10 +154,12 @@ public class ControllerPlay implements ControlledScreen {
             if (!current.canPlay() && deck.isDisabled()) {
                 if (current == player1) {
                     AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY());
-                    pass(current, oppenent,hand1);
+                    pass(current, oppenent, hand1);
                 } else {
-                    AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player2.getLayoutX(), Player2.getLayoutY());
-                    pass(current, oppenent,hand2);
+                    if (!isIA) {
+                        AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player2.getLayoutX(), Player2.getLayoutY());
+                    }
+                    pass(current, oppenent, hand2);
                 }
             }
         }
@@ -190,13 +210,11 @@ public class ControllerPlay implements ControlledScreen {
             Image img = new Image("images/Spellmonger_" + c.getName() + ".png");
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
-            rectangle.getStyleClass().add("cartes_ombre"); //Ombre sous les cartes
             content.getChildren().add(rectangle);
-            if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
+            if (!player1.isDead() && !player2.isDead()) {
                 Rectangle newRectangle = new Rectangle(250, 300);
-                // TODO : no code duplication !
-                eventEnter(rectangle,newRectangle,img);
-               eventExit(rectangle,newRectangle);
+                eventEnter(rectangle, newRectangle, img);
+                eventExit(rectangle, newRectangle);
             }
         }
     }
@@ -213,16 +231,12 @@ public class ControllerPlay implements ControlledScreen {
             Image img = new Image("images/" + imageOfCard + ".png");
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
-            rectangle.getStyleClass().add("cartes_ombre"); //Ombre sous les cartes
             content.getChildren().add(rectangle);
-            if (myController != null) {
-                if (myController.getData("isPlayer2").equals("false") && current == player2) return;
-            }
             if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
                 Rectangle newRectangle = new Rectangle(250, 300);
-                eventEnter(rectangle,newRectangle,img);
-                eventExit(rectangle,newRectangle);
-                eventClick(rectangle,current,oppenent,index);
+                eventEnter(rectangle, newRectangle, img);
+                eventExit(rectangle, newRectangle);
+                eventClick(rectangle, current, oppenent, index);
             }
             index++;
         }
@@ -236,14 +250,13 @@ public class ControllerPlay implements ControlledScreen {
             discard.getChildren().add(rectangle);
             Image img = new Image("images/Spellmonger_" + lastCard.getName() + ".png");
             rectangle.setFill(new ImagePattern(img));
-            rectangle.getStyleClass().add("cartes_ombre"); //Ombre sous les cartes
 
         } else {
             discard.setVisible(false);
         }
     }
 
-    private void eventEnter(Rectangle rectangle,Rectangle newRectangle,Image img) {
+    private void eventEnter(Rectangle rectangle, Rectangle newRectangle, Image img) {
         rectangle.setOnMouseEntered(t -> {
             newRectangle.setLayoutX(620);
             newRectangle.setLayoutY(203);
@@ -257,11 +270,11 @@ public class ControllerPlay implements ControlledScreen {
         });
     }
 
-    private void eventExit(Rectangle rectangle,Rectangle newRectangle) {
+    private void eventExit(Rectangle rectangle, Rectangle newRectangle) {
         rectangle.setOnMouseExited(t -> mainPane.getChildren().remove(newRectangle));
     }
 
-    private void eventClick(Rectangle rectangle,Player current,Player oppenent,int playerChoice) {
+    private void eventClick(Rectangle rectangle, Player current, Player oppenent, int playerChoice) {
         rectangle.setOnMouseClicked(t -> {
             play(playerChoice, current, oppenent);
         });

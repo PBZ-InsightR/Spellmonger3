@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class ControllerScore implements Initializable,ControlledScreen{
-    private ScreensController myController;
+    ScreensController myController;
 
     @FXML
     public TableView table;

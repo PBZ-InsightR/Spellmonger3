@@ -69,29 +69,43 @@ public class SpellmongerApp {
                 discard.add(currentCard);
             }
         } else {
-            AlertBox.displayError("Energy not enough", currentPlayer.getName() + " hasn't enough energy in his stack");
+            //AlertBox.displayError("Energy not enough", currentPlayer.getName() + " hasn't enough energy in his stack");
         }
     }
 
     public void playCardIA(Player currentPlayer, Player opponent, ArrayList<Card> hand, Deck discard) {
 
-        int lifePoint = currentPlayer.getLifePoint();
-        int choix = 0;
-        System.out.println("size = " + hand.size() + "\n");
-
+        int choix = -1;
+        int diff=currentPlayer.getLifePoint()-opponent.getLifePoint();
+        int energy=0;
         for (int i = 0; i < hand.size(); i++) {
             Player c = currentPlayer.clone();
             Player o = opponent.clone();
-
             playCard(c, o, (ArrayList<Card>) hand.clone(), i, discard.clone());
-            //System.out.println(c.getLifePoint());
-            if (c.getLifePoint() > lifePoint)
+            c.attack(o);
+            if ((c.getLifePoint()-o.getLifePoint()) >diff)
+            {
                 choix = i;
+                diff=(c.getLifePoint()-o.getLifePoint());
+            }
         }
-        System.out.println(choix);
+        if(choix==-1)
+        {
+            for (int i = 0; i < hand.size(); i++) {
+                Player c = currentPlayer.clone();
+                Player o = opponent.clone();
+                playCard(c, o, (ArrayList<Card>) hand.clone(), i, discard.clone());
+                if ((c.getEnergy()) >= energy)
+                {
+                    choix = i;
+                    energy=c.getEnergy();
+                }
+
+            }
+        }
+        logger.info("le choix ici est "+choix+" c'est la carte:"+currentPlayer.getHand().get(choix));
         playCard(currentPlayer, opponent, hand, choix, discard);
     }
-
 
     public Player getPlayer(int i) {
         return playerList.get(i);
