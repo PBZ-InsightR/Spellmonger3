@@ -6,12 +6,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
 <?xml-stylesheet href="@style.css" type="text/css" ?>
+
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
 
 <Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.sample.ControllerPlay">
     <SplitPane fx:id="split" dividerPositions="0.5">
         <items>
             <AnchorPane>
+                <MenuBar fx:id="MenuBar" prefWidth="900">
+                    <menus>
+                        <Menu text="Game" fx:id="MenuGame" >
+                            <items>
+                                <MenuItem text="New Game" onAction="#backToMenu"/>
+                                <MenuItem text="Restart" onAction="#backToPlay"/>
+                                <MenuItem text="Score" onAction="#backToScore"/>
+                            </items>
+                        </Menu>
+                        <Menu text="Help" fx:id="MenuHelp" >
+                        </Menu>
+                    </menus>
+                </MenuBar>
                 <children>
                     <Pane fx:id="Player1" layoutX="14.0" layoutY="40.0">
                         <children>
@@ -32,10 +50,10 @@
                             </Pane>
                         </children>
                     </Pane>
-                    <Button fx:id="deck1" layoutX="180.0" layoutY="40.0" onAction="#draw_player_1" />
-                    <ScrollPane fx:id="hand1" layoutX="300.0" layoutY="40.0" />
-                    <Pane fx:id="discard1" layoutX="685.0" layoutY="40.0" />
-                    <Button fx:id="pass1" text="End of round" layoutX="540.0" layoutY="82.0" onAction="#pass_player_1" />
+                    <Button fx:id="deck1" layoutX="180.0" layoutY="50.0" onAction="#draw_player_1" />
+                    <ScrollPane fx:id="hand1" layoutX="300.0" layoutY="50.0" />
+                    <Pane fx:id="discard1" layoutX="685.0" layoutY="50.0" />
+                    <Button fx:id="pass1" text="End of round" layoutX="540.0" layoutY="92.0" onAction="#pass_player_1" />
                     <ScrollPane fx:id="list_creatures1" layoutX="30.0" layoutY="216.0" />
                 </children>
             </AnchorPane>
@@ -60,10 +78,10 @@
                             </Pane>
                         </children>
                     </Pane>
-                    <Button fx:id="deck2"   layoutX="180.0" layoutY="200.0" onAction="#draw_player_2" />
-                    <ScrollPane fx:id="hand2" layoutX="300.0" layoutY="200.0" />
-                    <Pane fx:id="discard2" layoutX="685.0" layoutY="200.0" />
-                    <Button fx:id="pass2" text="End of round" layoutX="540.0" layoutY="243.0" onAction="#pass_player_2" />
+                    <Button fx:id="deck2"   layoutX="180.0" layoutY="190.0" onAction="#draw_player_2" />
+                    <ScrollPane fx:id="hand2" layoutX="300.0" layoutY="190.0" />
+                    <Pane fx:id="discard2" layoutX="685.0" layoutY="190.0" />
+                    <Button fx:id="pass2" text="End of round" layoutX="540.0" layoutY="233.0" onAction="#pass_player_2" />
                     <ScrollPane fx:id="list_creatures2" layoutX="30.0" layoutY="20.0" />
                 </children>
             </AnchorPane>

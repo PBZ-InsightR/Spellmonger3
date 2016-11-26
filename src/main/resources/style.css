@@ -1,9 +1,27 @@
+/********PLAY********/
+#MenuGame{
+    -fx-pref-width:70;
+    -fx-background-size: 20 20;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+    -fx-padding: 5 5 5 20;
+    -fx-background-image: url('/images/GameIcon.png'); 
+}
+
+#MenuHelp{
+    -fx-pref-width:70;
+    -fx-background-size: 20 20;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+    -fx-padding: 5 5 5 25;
+    -fx-background-image: url('/images/HelpIcon.png');
+}
+
 #mainPane{
     -fx-pref-height:700;
     -fx-pref-width:900;
     -fx-background-image:url("images/fond.png");
     -fx-background-position: center center;
-
 }
 
 #split{
@@ -36,9 +54,6 @@
     -fx-pref-height:50.0;
 	-fx-pref-width:150.0;
 	-fx-background-color:
-            linear-gradient(#ffd65b, #e68400),
-            linear-gradient(#ffef84, #f2ba44),
-            linear-gradient(#ffea6a, #efaa22),
             linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
             linear-gradient(from 0% 0% to 45% 90%, rgba(255,255,255,0.9), rgba(255,255,255,0));
     -fx-background-insets: 0,1,4,5,6;
@@ -59,9 +74,6 @@
     -fx-pref-height:50.0;
 	-fx-pref-width:150.0;
     -fx-background-color:
-            linear-gradient(#ffd65b, #e68400),
-            linear-gradient(#ffef84, #f2ba44),
-            linear-gradient(#ffea6a, #efaa22),
             linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
             linear-gradient(from 0% 0% to 27% 60%, rgba(255,255,255,0.7), rgba(255,255,255,0));
     -fx-background-insets: 0,1,4,5,6;
@@ -82,9 +94,6 @@
     -fx-pref-height:50.0;
 	-fx-pref-width:150.0;
     -fx-background-color:
-            linear-gradient(#ffd65b, #e68400),
-            linear-gradient(#ffef84, #f2ba44),
-            linear-gradient(#ffea6a, #efaa22),
             linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
             linear-gradient(from 0% 0% to 10% 24%, rgba(255,255,255,0.5), rgba(255,255,255,0));
     -fx-background-insets: 0,1,4,5,6;
@@ -163,10 +172,11 @@
 
 
 /*PLAYER 2*/
-#Player2{
+#Player2 {
 	-fx-pref-height:150.0;
 	-fx-pref-width:150.0;
-    -fx-background: transparent;
+	/*( , couleur, flou sur les côtés, intensité, positionX, positionY)*/
+	-fx-background: transparent;
 	-fx-background-color:transparent;
 	-fx-effect: dropshadow( one-pass-box , black , 10 , 0.0 , 0 , 0 );
 }
@@ -175,9 +185,6 @@
     -fx-pref-height:50.0;
 	-fx-pref-width:150.0;
 	-fx-background-color:
-            linear-gradient(#ffd65b, #e68400),
-            linear-gradient(#ffef84, #f2ba44),
-            linear-gradient(#ffea6a, #efaa22),
             linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
             linear-gradient(from 0% 0% to 45% 90%, rgba(255,255,255,0.9), rgba(255,255,255,0));
     -fx-background-insets: 0,1,4,5,6;
@@ -198,9 +205,6 @@
     -fx-pref-height:50.0;
 	-fx-pref-width:150.0;
     -fx-background-color:
-            linear-gradient(#ffd65b, #e68400),
-            linear-gradient(#ffef84, #f2ba44),
-            linear-gradient(#ffea6a, #efaa22),
             linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
             linear-gradient(from 0% 0% to 27% 60%, rgba(255,255,255,0.7), rgba(255,255,255,0));
     -fx-background-insets: 0,1,4,5,6;
@@ -221,9 +225,6 @@
     -fx-pref-height:50.0;
 	-fx-pref-width:150.0;
     -fx-background-color:
-            linear-gradient(#ffd65b, #e68400),
-            linear-gradient(#ffef84, #f2ba44),
-            linear-gradient(#ffea6a, #efaa22),
             linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
             linear-gradient(from 0% 0% to 10% 24%, rgba(255,255,255,0.5), rgba(255,255,255,0));
     -fx-background-insets: 0,1,4,5,6;
@@ -301,4 +302,112 @@
         linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
     -fx-text-fill: #004020;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+
+/********MENU********/
+
+#mainMenu {
+    -fx-pref-height:700;
+    -fx-pref-width:900;
+    -fx-background-image:url("images/fond.png");
+    -fx-background-position: center center;
+}
+
+#Score {
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-text-fill: #654b00;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-font-family: "Sitka text";
+    -fx-padding: 5 10 5 10;
+    -fx-background-color:
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#Score:hover {
+    -fx-background-color:
+        linear-gradient(#ffd65b, #e68400),
+        linear-gradient(#ffef84, #f2ba44),
+        linear-gradient(#ffea6a, #efaa22),
+        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#Play {
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-text-fill: #654b00;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-font-family: "Sitka text";
+    -fx-padding: 5 10 5 10;
+    -fx-background-color:
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#Play:hover {
+    -fx-background-color:
+        linear-gradient(#ffd65b, #e68400),
+        linear-gradient(#ffef84, #f2ba44),
+        linear-gradient(#ffea6a, #efaa22),
+        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#login1 {
+    -fx-background-color:
+        #c3c4c4,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -fx-background-radius: 30;
+    -fx-padding: 5 10 5 10;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-text-alignment: center center;
+	-fx-font-family: "Sitka text";
+    -fx-font-size: 12;
+    -fx-fill: #004020;
+}
+
+#login2 {
+    -fx-background-color:
+        #c3c4c4,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -fx-background-radius: 30;
+    -fx-padding: 5 10 5 10;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-text-alignment: center center;
+	-fx-font-family: "Sitka text";
+    -fx-font-size: 12;
+    -fx-fill: #004020;
+}
+
+#label_login1 {
+    -fx-font-family: "Sitka text";
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+}
+
+#label_login2 {
+    -fx-font-family: "Sitka text";
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
