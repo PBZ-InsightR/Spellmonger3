@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
+import javafx.scene.paint.*;
+import javafx.scene.effect.*;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class ControllerPlay implements ControlledScreen {
     private Player player1;
     private Player player2;
     @FXML
-    public Text name1, life_points1, name2, life_points2;
+    public Text name1, life_points1, energy_player1, name2, life_points2, energy_player2;
     public Pane discard1, discard2;
     public ScrollPane list_creatures1, list_creatures2, hand1, hand2;
     public Button deck1, deck2, pass1, pass2;
@@ -172,9 +174,11 @@ public class ControllerPlay implements ControlledScreen {
 
     private void update() {
         name1.setText("\t" + player1.getName());
-        life_points1.setText("Life point : " + player1.getLifePoint() + "\n Energy : " + player1.getEnergy());
+        life_points1.setText("Life point : " + player1.getLifePoint());
+        energy_player1.setText("Energy : " + player1.getEnergy());
         name2.setText("\t" + player2.getName());
-        life_points2.setText("Life point : " + player2.getLifePoint() + "\n Energy : " + player2.getEnergy());
+        life_points2.setText("Life point : " + player2.getLifePoint());
+        energy_player2.setText("Energy : " + player2.getEnergy());
         if (player1.isDead() || player2.isDead()) {
             deck1.setDisable(true);
             deck2.setDisable(true);
@@ -213,6 +217,7 @@ public class ControllerPlay implements ControlledScreen {
             Image img = new Image("images/Spellmonger_" + c.getName() + ".png");
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
+            rectangle.getStyleClass().add("cartes_ombre"); //Ombre sous les cartes
             content.getChildren().add(rectangle);
             if (turnPlayer.equals(current) && !player1.isDead() && !player2.isDead()) {
                 Rectangle newRectangle = new Rectangle(250, 300);
@@ -235,6 +240,7 @@ public class ControllerPlay implements ControlledScreen {
             Image img = new Image("images/" + imageOfCard + ".png");
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
+            rectangle.getStyleClass().add("cartes_ombre"); //Ombre sous les cartes
             content.getChildren().add(rectangle);
             if (myController != null) {
                 if (myController.getData("isPlayer2").equals("false") && current == player2) return;
@@ -257,6 +263,7 @@ public class ControllerPlay implements ControlledScreen {
             discard.getChildren().add(rectangle);
             Image img = new Image("images/Spellmonger_" + lastCard.getName() + ".png");
             rectangle.setFill(new ImagePattern(img));
+            rectangle.getStyleClass().add("cartes_ombre"); //Ombre sous les cartes
 
         } else {
             discard.setVisible(false);
@@ -265,8 +272,13 @@ public class ControllerPlay implements ControlledScreen {
 
     private void eventEnter(Rectangle rectangle,Rectangle newRectangle,Image img) {
         rectangle.setOnMouseEntered(t -> {
-            newRectangle.setLayoutX(300);
-            newRectangle.setLayoutY(200);
+            newRectangle.setLayoutX(620);
+            newRectangle.setLayoutY(203);
+            newRectangle.setWidth(230);
+            newRectangle.setHeight(310);
+            newRectangle.setArcHeight(5);
+            newRectangle.setArcWidth(5);
+            newRectangle.getStyleClass().add("cartes_ombre"); //Ombre sous les cartes
             newRectangle.setFill(new ImagePattern(img));
             mainPane.getChildren().add(newRectangle);
         });
@@ -280,6 +292,20 @@ public class ControllerPlay implements ControlledScreen {
         rectangle.setOnMouseClicked(t -> {
             play(playerChoice, current, oppenent);
         });
+    }
+
+    public void backToMenu(){
+        myController.loadScreen(Main.Menu_ID,Main.Menu_FILE);
+        myController.setScreen(Main.Menu_ID);
+    }
+    public void backToPlay(){
+        myController.loadScreen(Main.Play_ID,Main.Play_FILE);
+        myController.setScreen(Main.Play_ID);
+    }
+    public void backToScore(){
+        myController.loadScreen(Main.Score_ID,Main.Score_FILE);
+        myController.setScreen(Main.Score_ID);
+
     }
 }
 

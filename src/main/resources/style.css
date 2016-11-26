@@ -1,14 +1,32 @@
+/********PLAY********/
+#MenuGame{
+    -fx-pref-width:70;
+    -fx-background-size: 20 20;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+    -fx-padding: 5 5 5 20;
+    -fx-background-image: url('/images/GameIcon.png'); 
+}
+
+#MenuHelp{
+    -fx-pref-width:70;
+    -fx-background-size: 20 20;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+    -fx-padding: 5 5 5 25;
+    -fx-background-image: url('/images/HelpIcon.png');
+}
+
 #mainPane{
     -fx-pref-height:700;
-    -fx-pref-width:800;
+    -fx-pref-width:900;
     -fx-background-image:url("images/fond.png");
     -fx-background-position: center center;
-    -fx-background-repeat: stretch;
 }
 
 #split{
 	-fx-pref-height:700;
-	-fx-pref-width:800;
+	-fx-pref-width:900;
 	-fx-orientation:vertical;
 	-fx-background-color: transparent;
 
@@ -18,44 +36,93 @@
    -fx-background-color: transparent;
 }
 
+.cartes_ombre {
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 2 );
+}
 
 /* PLAYER 1*/
 #Player1{
 	-fx-pref-height:150.0;
 	-fx-pref-width:150.0;
-	-fx-background-color: #ffd700;
+	/*( , couleur, flou sur les côtés, intensité, positionX, positionY)*/
+	-fx-background: transparent;
+	-fx-background-color:transparent;
+	-fx-effect: dropshadow( one-pass-box , black , 10 , 0.0 , 0 , 0 );
 }
 
-#Player1:hover{
- -fx-opacity:0.75;
+#name1_bckgrd {
+    -fx-pref-height:50.0;
+	-fx-pref-width:150.0;
+	-fx-background-color:
+            linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+            linear-gradient(from 0% 0% to 45% 90%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-background-insets: 0,1,4,5,6;
+    -fx-background-radius: 9,8,5,4,3;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
 #name1{
-	-fx-text-alignment: center;
+    -fx-text-alignment: center center;
+	-fx-font-family: "Sitka text";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.9) , 5, 0.0 , 0 , 0 );
+}
+
+#life_points1_bckgrd {
+    -fx-pref-height:50.0;
+	-fx-pref-width:150.0;
+    -fx-background-color:
+            linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+            linear-gradient(from 0% 0% to 27% 60%, rgba(255,255,255,0.7), rgba(255,255,255,0));
+    -fx-background-insets: 0,1,4,5,6;
+    -fx-background-radius: 9,8,5,4,3;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
 #life_points1{
-	-fx-text-alignment:center;
+    -fx-text-alignment: center center;
+	-fx-font-family: "Sitka text";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.9) , 5, 0.0 , 0 , 0 );
+}
+
+#energy_player1_bckgrd {
+    -fx-pref-height:50.0;
+	-fx-pref-width:150.0;
+    -fx-background-color:
+            linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+            linear-gradient(from 0% 0% to 10% 24%, rgba(255,255,255,0.5), rgba(255,255,255,0));
+    -fx-background-insets: 0,1,4,5,6;
+    -fx-background-radius: 9,8,5,4,3;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#energy_player1 {
+    -fx-text-alignment: center center;
+	-fx-font-family: "Sitka text";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.9) , 5, 0.0 , 0 , 0 );
 }
 
 #deck1{
-    -fx-pref-height:115.0;
-	-fx-pref-width:85.0;
+    -fx-pref-height:120.0;
+	-fx-pref-width:100.0;
 	-fx-background-image:url("images/dosCartes_ocre.png");
-	-fx-background-size: 98%;
+	-fx-background-size: 100 120;
     -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    /*( , couleur, flou sur les côtés, intensité, positionX, positionY)*/
+    -fx-effect: dropshadow( one-pass-box , black , 5 , 0.0 , 2 , 2 );
 }
 #deck1:hover{
- -fx-opacity:0.75;
 }
 #hand1{
-    -fx-pref-height:140.0;
-	-fx-pref-width:230.0;
-	-fx-background: transparent;
-	-fx-background-color: transparent;
-}
-
-#hand2{
     -fx-pref-height:140.0;
 	-fx-pref-width:230.0;
 	-fx-background: transparent;
@@ -70,40 +137,127 @@
     -fx-background-position: center center;
 }
 
-#button_play1{
-    -fx-pref-height:40.0;
-	-fx-pref-width:40.0;
-}
-
 #list_creatures1{
     -fx-pref-height:140.0;
-	-fx-pref-width:740.0;
+	-fx-pref-width:465.0;
 	-fx-background: transparent;
 	-fx-background-color: transparent;
 	/*-fx-opacity:0;*/
 }
 
-/*PLAYER 2*/
-#Player2{
-	-fx-pref-height:150.0;
-	-fx-pref-width:150.0;
-	-fx-background-color: #afeeee;
+#pass1{
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-font-family: "Sitka text";
+    -fx-padding: 10 20 10 20;
+    -fx-background-color:
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
-#Player2:hover{
-    -fx-opacity:0.75;
+#pass1:hover {
+    -fx-background-color:
+        linear-gradient(#ffd65b, #e68400),
+        linear-gradient(#ffef84, #f2ba44),
+        linear-gradient(#ffea6a, #efaa22),
+        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+
+/*PLAYER 2*/
+#Player2 {
+	-fx-pref-height:150.0;
+	-fx-pref-width:150.0;
+	/*( , couleur, flou sur les côtés, intensité, positionX, positionY)*/
+	-fx-background: transparent;
+	-fx-background-color:transparent;
+	-fx-effect: dropshadow( one-pass-box , black , 10 , 0.0 , 0 , 0 );
+}
+
+#name2_bckgrd {
+    -fx-pref-height:50.0;
+	-fx-pref-width:150.0;
+	-fx-background-color:
+            linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+            linear-gradient(from 0% 0% to 45% 90%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-background-insets: 0,1,4,5,6;
+    -fx-background-radius: 9,8,5,4,3;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#name2{
+    -fx-text-alignment: center center;
+	-fx-font-family: "Sitka text";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.9) , 5, 0.0 , 0 , 0 );
+}
+
+#life_points2_bckgrd {
+    -fx-pref-height:50.0;
+	-fx-pref-width:150.0;
+    -fx-background-color:
+            linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+            linear-gradient(from 0% 0% to 27% 60%, rgba(255,255,255,0.7), rgba(255,255,255,0));
+    -fx-background-insets: 0,1,4,5,6;
+    -fx-background-radius: 9,8,5,4,3;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#life_points2{
+    -fx-text-alignment: center center;
+	-fx-font-family: "Sitka text";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.9) , 5, 0.0 , 0 , 0 );
+}
+
+#energy_player2_bckgrd {
+    -fx-pref-height:50.0;
+	-fx-pref-width:150.0;
+    -fx-background-color:
+            linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+            linear-gradient(from 0% 0% to 10% 24%, rgba(255,255,255,0.5), rgba(255,255,255,0));
+    -fx-background-insets: 0,1,4,5,6;
+    -fx-background-radius: 9,8,5,4,3;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#energy_player2 {
+    -fx-text-alignment: center center;
+	-fx-font-family: "Sitka text";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.9) , 5, 0.0 , 0 , 0 );
 }
 
 #deck2{
-    -fx-pref-height:115.0;
-	-fx-pref-width:85.0;
+    -fx-pref-height:120.0;
+	-fx-pref-width:100.0;
 	-fx-background-image:url("images/dosCartes_ocre.png");
-	-fx-background-size: 98%;
+	-fx-background-size: 100 120;
     -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-effect: dropshadow( one-pass-box , black , 5 , 0.0 , 2 , 2 );
 }
-#deck2:hover{
- -fx-opacity:0.75;
+
+#hand2{
+    -fx-pref-height:140.0;
+	-fx-pref-width:230.0;
+	-fx-background: transparent;
+	-fx-background-color: transparent;
 }
+
 #discard2{
     -fx-pref-height:115.0;
 	-fx-pref-width:85.0;
@@ -119,16 +273,141 @@
 
 #list_creatures2{
     -fx-pref-height:140.0;
-	-fx-pref-width:740.0;
+	-fx-pref-width:465.0;
 	-fx-background: transparent;
 	-fx-background-color: transparent;
-	/*-fx-opacity: 0;*/
 }
 
-#name2{
-	-fx-text-alignment:center;
+#pass2{
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-text-fill: #654b00;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-font-family: "Sitka text";
+    -fx-padding: 10 20 10 20;
+    -fx-background-color:
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
-#life_points2{
-	-fx-text-alignment:center;
+#pass2:hover {
+    -fx-background-color:
+        linear-gradient(#ffd65b, #e68400),
+        linear-gradient(#ffef84, #f2ba44),
+        linear-gradient(#ffea6a, #efaa22),
+        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+
+/********MENU********/
+
+#mainMenu {
+    -fx-pref-height:700;
+    -fx-pref-width:900;
+    -fx-background-image:url("images/fond.png");
+    -fx-background-position: center center;
+}
+
+#Score {
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-text-fill: #654b00;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-font-family: "Sitka text";
+    -fx-padding: 5 10 5 10;
+    -fx-background-color:
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#Score:hover {
+    -fx-background-color:
+        linear-gradient(#ffd65b, #e68400),
+        linear-gradient(#ffef84, #f2ba44),
+        linear-gradient(#ffea6a, #efaa22),
+        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#Play {
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-text-fill: #654b00;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-font-family: "Sitka text";
+    -fx-padding: 5 10 5 10;
+    -fx-background-color:
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#Play:hover {
+    -fx-background-color:
+        linear-gradient(#ffd65b, #e68400),
+        linear-gradient(#ffef84, #f2ba44),
+        linear-gradient(#ffea6a, #efaa22),
+        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#login1 {
+    -fx-background-color:
+        #c3c4c4,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -fx-background-radius: 30;
+    -fx-padding: 5 10 5 10;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-text-alignment: center center;
+	-fx-font-family: "Sitka text";
+    -fx-font-size: 12;
+    -fx-fill: #004020;
+}
+
+#login2 {
+    -fx-background-color:
+        #c3c4c4,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -fx-background-radius: 30;
+    -fx-padding: 5 10 5 10;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-text-alignment: center center;
+	-fx-font-family: "Sitka text";
+    -fx-font-size: 12;
+    -fx-fill: #004020;
+}
+
+#label_login1 {
+    -fx-font-family: "Sitka text";
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+}
+
+#label_login2 {
+    -fx-font-family: "Sitka text";
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
