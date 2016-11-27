@@ -14,7 +14,7 @@ abstract class Creature extends Card implements Comparable<Creature> {
         return energyCost;
     }
 
-    String getCapacity() {
+    public String getCapacity() {
         return capacity;
     }
 

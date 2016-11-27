@@ -36,7 +36,7 @@ public class MyStepdefs {
         controllerMenu.goToPlay();
     }
 
-    //bear
+    //_________________________________________bear____________________________________
     private Bear bear;
 
     @Given("^I create a Bear$")
@@ -65,7 +65,7 @@ public class MyStepdefs {
         Assert.assertEquals(energy,bear.getEnergyCost());
     }
 
-    //fox
+    //________________________________________fox__________________________________
     private Fox fox;
     @Given("^I create a Fox$")
     public void iCreateAFox() throws Throwable {
@@ -84,7 +84,7 @@ public class MyStepdefs {
 
     @Then("^The fox has (\\d+) life$")
     public void theFoxHasLife(int lifepoint) throws Throwable {
-       Assert.assertEquals(fox.getEffect(),fox.getLifePoints());
+        Assert.assertEquals(fox.getEffect(),fox.getLifePoints());
 
     }
 
@@ -92,7 +92,7 @@ public class MyStepdefs {
     public void theFoxCostEnergy(int energycost) throws Throwable {
         Assert.assertEquals(energycost,fox.getEnergyCost());
     }
-    // Blessing
+    //____________________________________________________Blessing__________________________
     Blessing bless;
     Player playerBlessed;
     @Given("^I create a Blessing$")
@@ -112,7 +112,7 @@ public class MyStepdefs {
 
     @Then("^The blessing cost (\\d+) energies$")
     public void theBlessingCostEnergies(int energycost) throws Throwable {
-       Assert.assertEquals(energycost,bless.getEnergyCost());
+        Assert.assertEquals(energycost,bless.getEnergyCost());
     }
 
     @Given("^I have a Blessing in my hand$")
@@ -133,7 +133,7 @@ public class MyStepdefs {
         bless.effect(playerBlessed); // use the effect of the card
         Assert.assertEquals(currentLifePoint + HPEarned,playerBlessed.getLifePoint());
     }
-//ENERGYDRAIN
+    //______________________________ENERGYDRAIN____________________________________________________
     EnergyDrain energyDrain;
     Player current = new Player("Current");
     Player opponent = new Player("Opponent");
@@ -182,7 +182,7 @@ public class MyStepdefs {
         energyDrain.effect(current,opponent);
         Assert.assertEquals(currentEnergy + profit, current.getEnergy());
     }
-    //VAULTOVERCLOCKING
+    //___________________________________VAULTOVERCLOCKING___________________________________________
     VaultOverclocking v;
     @Given("^I create a VaultOverclocking card$")
     public void iCreateAVaultOverclockingCard() throws Throwable {
@@ -224,7 +224,7 @@ public class MyStepdefs {
         }
     }
 
-    //CONTROLLERPLAY CLASS
+    //______________________CONTROLLERPLAY CLASS_______________________
     ControllerPlay game = new ControllerPlay();
     @Given("^The game began$")
     public void theGameBegan() throws Throwable {
@@ -289,4 +289,115 @@ public class MyStepdefs {
         Assert.assertEquals(game.getPlayer1().getHand().size(),currentCardP1 + increase);
         Assert.assertEquals(game.getPlayer2().getHand().size(),currentCardP2 + increase);
     }
+
+    //_________________________________________EAGLE_______________________________________________
+
+
+    Eagle eagle;
+
+    @Given("^I create an eagle$")
+    public void CreateEagle() throws Throwable {
+        eagle = new Eagle();
+    }
+
+    @When("^I draw an eagle$")
+    public void iDrawAnEagle() throws Throwable {
+        System.out.println("eagle");
+    }
+
+    @Then("^The eagle has (\\d+) effect$")
+    public void theEagleHasEffect(int arg0) throws Throwable {
+        Assert.assertEquals(1, eagle.getEffect());
+    }
+
+    @Then("^The eagle capacity is \"([^\"]*)\"$")
+    public void theEagleCapacityIs(String arg0) throws Throwable {
+        Assert.assertEquals("Flying", eagle.getCapacity());
+    }
+
+    @Then("^The eagle lifePoints is effect$")
+    public void theEagleLifePointsIsEffect() throws Throwable {
+        Assert.assertEquals(1, eagle.getLifePoints());
+    }
+
+    @Then("^The eagle cost (\\d+) energy$")
+    public void theEagleCostEnergy(int arg0) throws Throwable {
+        Assert.assertEquals(1, eagle.getEnergyCost());
+    }
+
+
+//________________________WOLF___________________________________________________________
+
+    Wolf wolf;
+
+    @Given("^I create a wolf$")
+    public void iCreateAWolf() throws Throwable {
+        wolf = new Wolf();
+    }
+
+    @Then("^The wolf has (\\d+) effect$")
+    public void theWolfHasEffect(int arg0) throws Throwable {
+        Assert.assertEquals(2, wolf.getEffect());
+    }
+
+    @Then("^the wolf lifePoints is effect$")
+    public void theWolfLifePointsIsEffect() throws Throwable {
+        Assert.assertEquals(2, wolf.getLifePoints());
+    }
+
+    @Then("^the wolf cost (\\d+) energy$")
+    public void theWolfCostEnergy(int arg0) throws Throwable {
+        Assert.assertEquals(2, wolf.getEnergyCost());
+    }
+
+    @When("^I draw a wolf$")
+    public void iDrawAWolf() throws Throwable {
+        System.out.println("wolf");
+    }
+
+    //_______________________________Curse______________________________________________________
+
+    Curse curse;
+    Player playercursed;
+
+    @Given("^I create a curse$")
+    public void iCreateACurse() throws Throwable {
+        curse = new Curse();
+    }
+
+    @When("^i draw a card curse$")
+    public void iDrawACardCurse() throws Throwable {
+        System.out.println("curse = " + curse);
+
+    }
+
+    @Then("^The curse has (\\d+) effect$")
+    public void theCurseHasEffect(int arg0) throws Throwable {
+        Assert.assertEquals(arg0, curse.getEffect());
+    }
+
+    @Then("^the curse cost (\\d+) energy$")
+    public void theCurseCostEnergy(int arg0) throws Throwable {
+        Assert.assertEquals(arg0, curse.getEnergyCost());
+    }
+
+    @Given("^i have a Curse in my hand$")
+    public void iHaveACurseInMyHand() throws Throwable {
+        System.out.println("I use a curse card");
+    }
+
+    @When("^i use curse card$")
+    public void iUseCurseCard() throws Throwable {
+        System.out.println("I use the curse card");
+    }
+
+    @Then("^the opponent player lose (\\d+) lifepoints$")
+    public void theOpponentPlayerLoseLifepoints(int arg0) throws Throwable {
+        curse = new Curse();
+        playercursed = new Player("playercursed");
+        int playerlife = playercursed.getLifePoint();
+        curse.effect(playercursed);
+        Assert.assertEquals(playerlife-arg0,playercursed.getLifePoint());
+    }
+
 }

@@ -1,13 +1,13 @@
 package edu.insightr.spellmonger;
 
-class Curse extends Ritual {
+public class Curse extends Ritual {
 
-    Curse() {
+    public Curse() {
         effect = 3;
         energyCost = 3;
     }
 
-    void effect(Player opponent) {
+    public void effect(Player opponent) {
         opponent.setLifePoint(opponent.getLifePoint() - this.getEffect());
     }
 
