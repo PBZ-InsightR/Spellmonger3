@@ -85,14 +85,12 @@ public class ControllerPlay implements ControlledScreen {
                 if (player == player1) {
                     AlertBox.displayDebugging("Energy issue", player.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY()); //position a changer
                     pass_player_1();
-                } else{
-                    if(isIA) {
+                } else {
+                    if (isIA) {
                         PauseTransition delay = new PauseTransition(Duration.seconds(3));
                         delay.setOnFinished(event -> pass_player_2());
                         delay.play();
-                    }
-                    else
-                    {
+                    } else {
                         AlertBox.displayDebugging("Energy issue", player.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY()); //position a changer
                         pass_player_2();
                     }
@@ -153,15 +151,15 @@ public class ControllerPlay implements ControlledScreen {
         Button deck = deck2;
         if (!current.isDead()) {
             if (isIA && current == player2)
-                game.playCardIA(current, oppenent, current.getHand(), current.getDiscards());
-            else
-                game.playCard(current, oppenent, current.getHand(), index, current.getDiscards());
+                AlertBox.displayGame("IA",game.playCardIA(current, oppenent));
+            else if (!game.playCard(current, oppenent, index))
+                AlertBox.displayError("Energy not enough", current.getName() + " hasn't enough energy in his stack");
             update();
             if (current == player1) deck = deck1;
             if (!current.canPlay() && deck.isDisabled()) {
                 if (current == player1) {
                     AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY());
-                   pass_player_1();
+                    pass_player_1();
                 } else {
                     if (!isIA) {
                         AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player2.getLayoutX(), Player2.getLayoutY());
@@ -191,9 +189,7 @@ public class ControllerPlay implements ControlledScreen {
                 Outils.updateJsonFile(myController.getData("NamePlayer2"), true);
                 Outils.updateJsonFile(myController.getData("NamePlayer1"), false);
             }
-
-            AlertBox.displayGame("Game over", "le jeu est fini");
-            initialize();
+           AlertBox.displayGame("Game over", "le jeu est fini");
         }
 
         // creatures sur la piste
@@ -287,18 +283,18 @@ public class ControllerPlay implements ControlledScreen {
         });
     }
 
-    public void backToMenu(){
-        myController.loadScreen(Main.Menu_ID,Main.Menu_FILE);
+    public void backToMenu() {
+        myController.loadScreen(Main.Menu_ID, Main.Menu_FILE);
         myController.setScreen(Main.Menu_ID);
     }
 
-    public void backToPlay(){
-        myController.loadScreen(Main.Play_ID,Main.Play_FILE);
+    public void backToPlay() {
+        myController.loadScreen(Main.Play_ID, Main.Play_FILE);
         myController.setScreen(Main.Play_ID);
     }
 
-    public void backToScore(){
-        myController.loadScreen(Main.Score_ID,Main.Score_FILE);
+    public void backToScore() {
+        myController.loadScreen(Main.Score_ID, Main.Score_FILE);
         myController.setScreen(Main.Score_ID);
 
     }
