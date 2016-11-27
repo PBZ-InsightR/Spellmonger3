@@ -43,7 +43,6 @@ public class Deck {
         return cardPool.remove(index);
     }
 
-
     public void createCardPool() {
 
         for (int i = 0; i < 7; i++) {

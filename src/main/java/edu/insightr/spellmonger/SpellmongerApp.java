@@ -4,6 +4,7 @@ package edu.insightr.spellmonger;
 import edu.insightr.sample.AlertBox;
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SpellmongerApp {
@@ -20,7 +21,9 @@ public class SpellmongerApp {
         else return playerList.get(1);
     }
 
-    public void playCard(Player currentPlayer, Player opponent, ArrayList<Card> hand, int playerChoice, Deck discard) {
+    public boolean playCard(Player currentPlayer, Player opponent, int playerChoice) {
+        ArrayList<Card> hand=currentPlayer.getHand();
+        Deck discard=currentPlayer.getDiscards();
         Card currentCard = hand.get(playerChoice);
 
         logger.info(currentPlayer.toString() + " draw a " + currentCard.toString());
@@ -69,29 +72,56 @@ public class SpellmongerApp {
                 discard.add(currentCard);
             }
         } else {
-            AlertBox.displayError("Energy not enough", currentPlayer.getName() + " hasn't enough energy in his stack");
+            return false;
         }
+        return true;
     }
 
-    public void playCardIA(Player currentPlayer, Player opponent, ArrayList<Card> hand, Deck discard) {
+    public String playCardIA(Player currentPlayer, Player opponent) {
 
-        int lifePoint = currentPlayer.getLifePoint();
-        int choix = 0;
-        System.out.println("size = " + hand.size() + "\n");
-
+        String result;
+        int choix = -1;
+        int diff = currentPlayer.getLifePoint() - opponent.getLifePoint();
+        int energy = 0;
+        ArrayList<Card> hand=currentPlayer.getHand();
+        logger.info("Life Points");
         for (int i = 0; i < hand.size(); i++) {
             Player c = currentPlayer.clone();
             Player o = opponent.clone();
-
-            playCard(c, o, (ArrayList<Card>) hand.clone(), i, discard.clone());
-            //System.out.println(c.getLifePoint());
-            if (c.getLifePoint() > lifePoint)
-                choix = i;
+            if (playCard(c, o, i)) {
+                c.attack(o);
+                if ((c.getLifePoint() - o.getLifePoint()) > diff || o.getPlayerCreature().size()<opponent.getPlayerCreature().size() ) {
+                    choix = i;
+                    diff = (c.getLifePoint() - o.getLifePoint());
+                }
+            }
         }
-        System.out.println(choix);
-        playCard(currentPlayer, opponent, hand, choix, discard);
-    }
 
+        if (choix == -1) {
+            logger.info("Life Points failed, on va regarder l'energy");
+            for (int i = 0; i < hand.size(); i++) {
+                Player c = currentPlayer.clone();
+                Player o = opponent.clone();
+                if (playCard(c, o,i)) {
+                    if ((c.getEnergy()) > energy) {
+                        choix = i;
+                        energy = c.getEnergy();
+                    }
+                }
+            }
+        }
+        logger.info("on a tous fini");
+        if(choix!=-1)
+        {
+            result="Card " + choix + " c'est un:" + currentPlayer.getHand().get(choix);
+            playCard(currentPlayer, opponent, choix);
+        }
+        else
+        {
+            result= "Il a preferé ne pas joué ce round!";
+        }
+        return result;
+    }
 
     public Player getPlayer(int i) {
         return playerList.get(i);

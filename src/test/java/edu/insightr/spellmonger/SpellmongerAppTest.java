@@ -33,7 +33,7 @@ public class SpellmongerAppTest {
         current.addToHand(current.getCards().get(0)); // fonction a definir
         current.getCards().remove(0); // fonction a definir
         int indexChoisi=0; // fonction a definir
-        game.playCard (current, oppenent, current.getHand(),indexChoisi, current.getDiscards()); // juste la premiere par défaut
+        game.playCard (current, oppenent,indexChoisi); // juste la premiere par défaut
 
         Assert.assertEquals(sizeCard - 1, current.getCards().size()); // card pool decreased
         Assert.assertEquals(sizeDiscard - 1, current.getDiscards().size()); // discard pool increased

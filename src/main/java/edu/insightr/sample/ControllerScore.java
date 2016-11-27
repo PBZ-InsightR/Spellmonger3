@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class ControllerScore implements Initializable,ControlledScreen{
-    private ScreensController myController;
+    ScreensController myController;
 
     @FXML
     public TableView table;
@@ -24,7 +24,7 @@ public class ControllerScore implements Initializable,ControlledScreen{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
         Map<String, User> map =  Outils.readFileToMap(System.getProperty("user.dir")+"/src/main/resources/scores.json");
         for(String s: map.keySet()) {
             data.add(map.get(s));

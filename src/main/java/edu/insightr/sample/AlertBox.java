@@ -66,24 +66,20 @@ public class AlertBox {
         messageBox.showAndWait();
     }
 
-    public static void displayGame(String title, String message) {
+    static void displayGame(String title, String message) {
         Stage messageBox = new Stage();
         messageBox.initStyle(StageStyle.TRANSPARENT);
 
         messageBox.initModality(Modality.APPLICATION_MODAL);
         messageBox.setTitle(title);
-        messageBox.setMinWidth(250);
-        messageBox.setMinHeight(150);
+        messageBox.setMinWidth(350);
+        messageBox.setMinHeight(200);
 
         Label l = new Label(message);
         l.setTextFill(Color.WHITE);
 
-        Button close = new Button("Close");
-        close.setOnAction(actionEvent -> messageBox.close());
-
         VBox container = new VBox(10);
         container.getChildren().add(l);
-        container.getChildren().add(close);
         container.setAlignment(Pos.CENTER);
         container.setMinWidth(350);
         container.setMinHeight(200);
@@ -94,13 +90,26 @@ public class AlertBox {
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size);
         container.setBackground(new Background(myBI));
 
-
+        // fadeIn
+        FadeTransition fade = new FadeTransition(Duration.seconds(1), container);
+        fade.setFromValue(0.0);
+        fade.setToValue(1.0);
+        fade.play();
         Scene scene = new Scene(container);
         messageBox.setScene(scene);
-        messageBox.showAndWait();
+        // transparence
+        scene.setFill(null);
+        messageBox.initStyle(StageStyle.TRANSPARENT);
+
+        // close auto
+        PauseTransition delay = new PauseTransition(Duration.seconds(4));
+        delay.setOnFinished( event -> messageBox.close() );
+        delay.play();
+        // show popup
+        messageBox.show();
     }
 
-    public static void displayError(String title, String message) {
+    static void displayError(String title, String message) {
         Stage messageBox = new Stage();
         messageBox.initModality(Modality.APPLICATION_MODAL);
         messageBox.setTitle(title);
@@ -131,6 +140,6 @@ public class AlertBox {
 
         Scene scene = new Scene(sub_container);
         messageBox.setScene(scene);
-        messageBox.showAndWait();
+        messageBox.show();
     }
 }
