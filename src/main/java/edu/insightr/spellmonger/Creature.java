@@ -48,6 +48,77 @@ abstract class Creature extends Card implements Comparable<Creature> {
         Creature defCreature = null;
 
         if(this.getCapacity()=="Flying"){
+            for(int i = 0; i < opponent.getPlayerCreature().size(); i++){
+                if(opponent.getPlayerCreature().get(i).getCapacity()=="Flying" || opponent.getPlayerCreature().get(i).getCapacity()=="Catch"){
+                    defCreature = opponent.getPlayerCreature().get(i);
+                    break;
+                }
+            }
+
+
+            if(defCreature!=null){
+                if(this.getEffect()>defCreature.getEffect()){
+                    opponent.getDiscards().add(defCreature);
+                    opponent.getPlayerCreature().remove(defCreature);
+                }else if(this.getEffect()<defCreature.getEffect()){
+                    currentPlayer.getDiscards().add(this);
+                    currentPlayer.getPlayerCreature().remove(this);
+                }else{
+                    opponent.getDiscards().add(defCreature);
+                    opponent.getPlayerCreature().remove(defCreature);
+                    currentPlayer.getDiscards().add(this);
+                    currentPlayer.getPlayerCreature().remove(this);
+                }
+            }else{
+                this.attackPlayer(opponent);
+            }
+
+        }else if(this.getCapacity()=="Deathtouch"){
+
+            if(opponent.getPlayerCreature().size()!=0){
+                defCreature = opponent.getPlayerCreature().get(0);
+                opponent.getDiscards().add(defCreature);
+                opponent.getPlayerCreature().remove(defCreature);
+                currentPlayer.getDiscards().add(this);
+                currentPlayer.getPlayerCreature().remove(this);
+            }else {
+                this.attackPlayer(opponent);
+            }
+        }else{
+
+            if(opponent.getPlayerCreature().size()!=0){
+                for(int i = 0; i < opponent.getPlayerCreature().size(); i++){
+                    if(opponent.getPlayerCreature().get(i).getEffect()<=this.getEffect()){
+                        defCreature = opponent.getPlayerCreature().get(i);
+                    }
+                }
+
+                if(defCreature.getCapacity()=="Deathtouch"){
+                    if(this.getEffect()>defCreature.getEffect()){
+                        opponent.getDiscards().add(defCreature);
+                        opponent.getPlayerCreature().remove(defCreature);
+                    }else if(this.getEffect()<defCreature.getEffect()){
+                        currentPlayer.getDiscards().add(this);
+                        currentPlayer.getPlayerCreature().remove(this);
+                    }else{
+                        opponent.getDiscards().add(defCreature);
+                        opponent.getPlayerCreature().remove(defCreature);
+                        currentPlayer.getDiscards().add(this);
+                        currentPlayer.getPlayerCreature().remove(this);
+                    }
+                }else{
+                    opponent.getDiscards().add(defCreature);
+                    opponent.getPlayerCreature().remove(defCreature);
+                    currentPlayer.getDiscards().add(this);
+                    currentPlayer.getPlayerCreature().remove(this);
+                }
+            }else{
+                this.attackPlayer(opponent);
+            }
+
+        }
+
+        /*if(this.getCapacity()=="Flying"){
             if(!opponent.getPlayerCreature().isEmpty()){
                 for(int i = 0; i < opponent.getPlayerCreature().size(); i++){
                     if(opponent.getPlayerCreature().get(i).getCapacity()=="Flying" || opponent.getPlayerCreature().get(i).getCapacity()=="Catch"){
@@ -114,7 +185,7 @@ abstract class Creature extends Card implements Comparable<Creature> {
             }else{
                 this.attackPlayer(opponent);
             }
-        }
+        }*/
     }
 
     void attackPlayer(Player opponent) {

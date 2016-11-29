@@ -16,7 +16,7 @@ public abstract class Ritual extends Card{
             opponent.setLifePoint(opponent.getLifePoint()-this.getEffect());
         }else if(this instanceof EnergyDrain){
             current.setEnergyPoint(current.getEnergy()+this.getEffect());
-            opponent.setLifePoint(opponent.getEnergy()-this.getEffect());
+            opponent.setEnergyPoint(opponent.getEnergy()-this.getEffect());
         }
     }
 

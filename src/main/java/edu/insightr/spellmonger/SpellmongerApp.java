@@ -28,6 +28,7 @@ public class SpellmongerApp {
             if(currentCard instanceof Ritual){
                 ((Ritual) currentCard).setEffect(currentPlayer,opponent);
                 currentPlayer.getHand().remove(currentCard);
+                currentPlayer.getDiscards().add(currentCard);
             }else if(currentCard instanceof Creature){
                 currentPlayer.getPlayerCreature().add((Creature)currentCard);
                 currentPlayer.getHand().remove(currentCard);
