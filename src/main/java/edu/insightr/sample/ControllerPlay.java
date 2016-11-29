@@ -14,6 +14,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 import org.apache.log4j.Logger;
+import javafx.animation.TranslateTransition;
+import javafx.animation.FadeTransition;
 
 import java.util.ArrayList;
 
@@ -80,10 +82,12 @@ public class ControllerPlay implements ControlledScreen {
         return player2;
     }
     public void draw_player_1() {
+        TransitionDeck_Hand(player1,deck1, hand1);
         drawCard(player1, hand1);
     }
 
     public void draw_player_2() {
+        TransitionDeck_Hand(player2,deck2, hand2);
         drawCard(player2, hand2);
     }
 
@@ -135,6 +139,7 @@ public class ControllerPlay implements ControlledScreen {
 
     private void pass(Player current, Player opponent, ScrollPane hand) {
         current.attack(opponent);
+        //TransitionMort
         turnFinished(current);
         boolean choice = true;
         if (current.equals(player2)) choice = false;
@@ -306,6 +311,20 @@ public class ControllerPlay implements ControlledScreen {
 
     private void eventClick(Rectangle rectangle, Player current, Player oppenent, int playerChoice) {
         rectangle.setOnMouseClicked(t -> {
+            if(current == player1) {
+                Card card = current.getHand().get(playerChoice);
+                if(card.getTypeCard() == "Creature")
+                    TransitionHand_ListCreatures(player1, list_creatures1, playerChoice);
+                else
+                    TransitionHand_Discard(player1, hand1, discard1, playerChoice);
+            }
+            else {
+                Card card = current.getHand().get(playerChoice);
+                if (card.getTypeCard() == "Creature")
+                    TransitionHand_ListCreatures(player2, list_creatures2, playerChoice);
+                else
+                    TransitionHand_Discard(player2, hand2, discard2, playerChoice);
+            }
             play(playerChoice, current, oppenent);
         });
     }
@@ -320,10 +339,137 @@ public class ControllerPlay implements ControlledScreen {
         myController.setScreen(Main.Play_ID);
     }
 
-    public void backToScore() {
+  public void backToScore() {
         myController.loadScreen(Main.Score_ID, Main.Score_FILE);
         myController.setScreen(Main.Score_ID);
 
+    }
+
+    private void TransitionDeck_Hand(Player current, Button deck, ScrollPane hand){
+        Card lastCardOfHand = current.getHand().get(current.getHand().size() - 1);
+        int sizeOfHand = current.getHand().size();
+        double layoutXTransitionFrom;
+        double layoutYTransition;
+        if(sizeOfHand == 0){
+            layoutXTransitionFrom = hand.getLayoutX();
+        }
+        else {
+            layoutXTransitionFrom = hand.getLayoutX() + 120;
+        }
+        Rectangle rectangle = new Rectangle(100, 120);
+        Image img = new Image("images/Spellmonger_"+ lastCardOfHand.getName() +".png");
+        rectangle.setFill(new ImagePattern(img));
+        if(current == player1){
+            layoutYTransition = 62;
+        }
+        else{
+            layoutYTransition = 545;
+        }
+        mainPane.getChildren().add(rectangle);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(800), rectangle);
+        translateTransition.setFromX(deck.getLayoutX());
+        translateTransition.setToX(layoutXTransitionFrom);
+        translateTransition.setFromY(layoutYTransition);
+        translateTransition.setToY(layoutYTransition);
+        translateTransition.setCycleCount(1);
+        translateTransition.setAutoReverse(true);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(800), rectangle);
+        fadeTransition.setFromValue(1.0f);
+        fadeTransition.setToValue(0f);
+        fadeTransition.setCycleCount(1);
+        fadeTransition.setAutoReverse(true);
+        translateTransition.play();
+        fadeTransition.play();
+        rectangle.setDisable(true);
+        Rectangle newRectangle = new Rectangle(10, 10);
+        eventExit(rectangle, newRectangle);
+    }
+
+    private void TransitionHand_ListCreatures(Player current, ScrollPane listCreatures, int playerChoice){
+        Card cardSelected = current.getHand().get(playerChoice);
+        int sizeOfListCreatures = current.getPlayerCreature().size();
+        double layoutXTransitionFrom;
+        double layoutXTransitionTo;
+        double layoutYTransitionFrom;
+        double layoutYTransitionTo;
+        if(sizeOfListCreatures == 0){
+            layoutXTransitionTo = listCreatures.getLayoutX();
+        }
+        else if(sizeOfListCreatures == 1){
+            layoutXTransitionTo = listCreatures.getLayoutX() + 120;
+        }
+        else if(sizeOfListCreatures == 2){
+            layoutXTransitionTo = listCreatures.getLayoutX() + 240;
+        }
+        else {
+            layoutXTransitionTo = listCreatures.getLayoutX() + 360;
+        }
+
+        Rectangle rectangle = new Rectangle(100, 120);
+        Image img = new Image("images/Spellmonger_"+ cardSelected.getName() +".png");
+        rectangle.setFill(new ImagePattern(img));
+        if(current == player1){
+            layoutXTransitionFrom = hand1.getLayoutX();
+            layoutYTransitionFrom = 62;
+            layoutYTransitionTo = 217;
+        }
+        else{
+            layoutXTransitionFrom = hand2.getLayoutX();
+            layoutYTransitionFrom = 545;
+            layoutYTransitionTo = 385;
+        }
+        mainPane.getChildren().add(rectangle);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(800), rectangle);
+        translateTransition.setFromX(layoutXTransitionFrom);
+        translateTransition.setToX(layoutXTransitionTo);
+        translateTransition.setFromY(layoutYTransitionFrom);
+        translateTransition.setToY(layoutYTransitionTo);
+        translateTransition.setCycleCount(1);
+        translateTransition.setAutoReverse(true);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(800), rectangle);
+        fadeTransition.setFromValue(1.0f);
+        fadeTransition.setToValue(0f);
+        fadeTransition.setCycleCount(1);
+        fadeTransition.setAutoReverse(true);
+        translateTransition.play();
+        fadeTransition.play();
+        rectangle.setDisable(true);
+        Rectangle newRectangle = new Rectangle(10, 10);
+        eventExit(rectangle, newRectangle);
+    }
+
+    private void TransitionHand_Discard(Player current, ScrollPane hand, Pane discard, int playerChoice){
+        Card cardSelected = current.getHand().get(playerChoice);
+        double layoutXTransitionFrom = hand.getLayoutX();
+        double layoutXTransitionTo = discard.getLayoutX();
+        double layoutYTransition;
+        Rectangle rectangle = new Rectangle(100, 120);
+        Image img = new Image("images/Spellmonger_"+ cardSelected.getName() +".png");
+        rectangle.setFill(new ImagePattern(img));
+        if(current == player1){
+            layoutYTransition = 62;
+        }
+        else{
+            layoutYTransition = 545;
+        }
+        mainPane.getChildren().add(rectangle);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(800), rectangle);
+        translateTransition.setFromX(layoutXTransitionFrom);
+        translateTransition.setToX(layoutXTransitionTo);
+        translateTransition.setFromY(layoutYTransition);
+        translateTransition.setToY(layoutYTransition);
+        translateTransition.setCycleCount(1);
+        translateTransition.setAutoReverse(true);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(800), rectangle);
+        fadeTransition.setFromValue(1.0f);
+        fadeTransition.setToValue(0f);
+        fadeTransition.setCycleCount(1);
+        fadeTransition.setAutoReverse(true);
+        translateTransition.play();
+        fadeTransition.play();
+        rectangle.setDisable(true);
+        Rectangle newRectangle = new Rectangle(10, 10);
+        eventExit(rectangle, newRectangle);
     }
 }
 

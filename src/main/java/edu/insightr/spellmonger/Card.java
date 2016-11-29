@@ -13,6 +13,15 @@ public abstract class Card {
         return energyCost;
     }
 
+    public String getTypeCard(){
+        if(this instanceof Ritual)
+            return "Ritual";
+        else if(this instanceof Enchantment)
+            return "Enchantment";
+        else
+            return "Creature";
+    }
+
     @Override
     public String toString() {
         return "Effect = " + this.effect;
