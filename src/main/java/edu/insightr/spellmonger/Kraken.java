@@ -1,28 +1,29 @@
 package edu.insightr.spellmonger;
 
 
-public class Fox extends Creature {
+import java.util.ArrayList;
+import java.util.List;
 
-   public Fox() {
-        effect = 1;
+public class Kraken extends Creature{
+
+    Kraken(){
+        effect = 4;
         lifePoints = effect;
-        energyCost = 1;
-        capacity="";
+        energyCost = 4;
+        capacity="Catch";
     }
 
     @Override
     public String toString() {
-        return "Fox : life Point :" + lifePoints + " strength : " + effect;
+        return "Kraken : life Point :" + lifePoints + " strength : " + effect;
     }
 
     @Override
     public String getName() {
-        return "Fox";
+        return "Kraken";
     }
 
-
-
-    /*@Override
+   /* @Override
     public void creatureAttack(Player current, Player opponent) {
 
         Creature defCreature = null;
@@ -53,6 +54,8 @@ public class Fox extends Creature {
         }else{
             this.attackPlayer(opponent);
         }
+
     }*/
+
 
 }

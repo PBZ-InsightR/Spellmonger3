@@ -9,34 +9,28 @@ public class Player {
     // private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private String name;
     private int lifePoint;
+    private int energyPerTurn;
     private int energy;
     private Deck cardPool;
     private Deck discardPool;
     private boolean vaultOverclockingOnOff;
     private ArrayList<Creature> playerCreature;
     private ArrayList<Card> hand;
-    private int stackEnergy;
 
     public Player(String name) {
         this.playerCreature = new ArrayList<>();
-        this.cardPool = new Deck(name); // créer une cardPool avec des valeurs (voir constructeur de la classe Deck)
-        this.discardPool = new Deck(); // créer une cardPoll vide (voir constructeur de la classe Deck)
+        this.cardPool = new Deck(name);
+        this.discardPool = new Deck();
         this.name = name;
         this.lifePoint = 20;
         this.energy = 0;
-        this.stackEnergy = energy;
-        hand = new ArrayList<>(3); // les cartes que le joueur en main
+        this.energyPerTurn = 0;
+        hand = new ArrayList<>(3);
         addInitialCards();
         vaultOverclockingOnOff = false;
     }
 
-    int getStackEnergy() {
-        return stackEnergy;
-    }
 
-    void setStackEnergy(int stackEnergy) {
-        this.stackEnergy = stackEnergy;
-    }
 
     private void addInitialCards() {
         addToHand(cardPool.get(0));
@@ -49,6 +43,9 @@ public class Player {
         return vaultOverclockingOnOff;
     }
 
+    public int getEnergyPerTurn(){return this.energyPerTurn;}
+   // public void updateEnergyPerTurn(){setEnergyPerTurn(this.getEnergy());}
+    public void setEnergyPerTurn(int energyPerTurn){this.energyPerTurn = energyPerTurn;}
     /*
         public void setVaultOverclockingOnOff() {
             vaultOverclockingOnOff = true;
@@ -123,7 +120,9 @@ public class Player {
     } //utilisé dans le systeme d'attaque
 
     public void increaseEnergy() {
-        energy++;
+        if(this.energy <10){
+            energy++;
+        }
     }
 
 
@@ -142,7 +141,7 @@ public class Player {
     public boolean canPlay() {
         boolean result = false;
         for (Card c : this.getHand()) {
-            if (c.getEnergyCost() <= this.energy) {
+            if (c.getEnergyCost() <= this.getEnergyPerTurn()) {
                 result = true;
                 break;
             }
@@ -151,7 +150,51 @@ public class Player {
     }
 
     public void attack(Player opponent) {
-        ArrayList<Creature> currentBoard = this.playerCreature;
+
+        for(int i = 0; i < this.getPlayerCreature().size(); i++){
+            this.getPlayerCreature().get(i).attackCreature(this,opponent);
+        }
+        /*for(Creature creature : this.getPlayerCreature()){
+            creature.creatureAttack(this,opponent);
+        }*/
+        /*ArrayList<Creature> attackFlying = new ArrayList<>();
+        ArrayList<Creature> attack = new ArrayList<>();
+
+        ArrayList<Creature> defFlying = new ArrayList<>();
+        ArrayList<Creature> def = new ArrayList<>();
+
+        for(Creature creature : this.getPlayerCreature()){
+            if(creature.getCapacity()==""){
+                attack.add(creature);
+            }else if(creature.getCapacity()=="Flying"){
+                attackFlying.add(creature);
+            }
+        }
+
+        for(Creature creature : opponent.getPlayerCreature()){
+            if(creature.getCapacity()==""){
+                def.add(creature);
+            }else if(creature.getCapacity()=="Flying" || creature.getCapacity()=="Catch"){
+                defFlying.add(creature);
+            }
+        }
+
+        for(int i = 0; i < attackFlying.size(); i++){
+            attackFlying.get(i).creatureAttack(defFlying.get(i),this,opponent);
+        }
+
+        for(int i = 0; i < attack.size(); i++){
+            attack.get(i).creatureAttack(def.get(i),this,opponent);
+        }*/
+
+       /* for(Creature opponentCreature : opponent.getPlayerCreature()){
+            for (Creature creature:this.getPlayerCreature()){
+                creature.creatureAttack(opponentCreature,this,opponent);
+            }
+        }*/
+
+
+        /*ArrayList<Creature> currentBoard = this.playerCreature;
         ArrayList<Creature> opponentBoard = opponent.getPlayerCreature();
         int diffBoard = currentBoard.size() - opponentBoard.size();
 
@@ -171,12 +214,10 @@ public class Player {
             for (int i = 0; i < currentBoard.size(); i++) {
                 currentBoard.get(i).attackCreature(opponentBoard.get(i), this, opponent);
             }
-        }
+        }*/
 
     }
 
-    //cloner un player,c'est créer une autre instance avec les mêmes données
-    // utilisée dans la IA
     public Player clone() {
 
         Player p = new Player(this.name);

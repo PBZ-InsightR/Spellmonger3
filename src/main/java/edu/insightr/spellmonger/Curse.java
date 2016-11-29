@@ -1,6 +1,6 @@
 package edu.insightr.spellmonger;
 
-public class Curse extends Ritual {
+public class Curse extends Ritual{
 
     public Curse() {
         effect = 3;
@@ -20,4 +20,8 @@ public class Curse extends Ritual {
     public String getName() {
         return "Curse";
     }
+
+
+
+
 }

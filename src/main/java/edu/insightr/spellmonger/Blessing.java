@@ -1,6 +1,6 @@
 package edu.insightr.spellmonger;
 
-public class Blessing extends Ritual {
+public class Blessing extends Ritual{
 
     public Blessing() {
         effect = 3;
@@ -10,6 +10,7 @@ public class Blessing extends Ritual {
     public void effect(Player currentPlayer) {
         currentPlayer.setLifePoint(currentPlayer.getLifePoint() + this.getEffect());
     }
+
 
     @Override
     public String toString()
@@ -22,4 +23,8 @@ public class Blessing extends Ritual {
     public String getName() {
         return "Blessing";
     }
+
+
+
+
 }

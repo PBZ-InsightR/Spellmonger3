@@ -58,6 +58,7 @@ public class ControllerPlay implements ControlledScreen {
         player2 = game.getPlayer(1);
         turnPlayer = player1;
         player1.increaseEnergy();
+        player1.setEnergyPerTurn(player1.getEnergy());
         update();
         deck1.setDisable(false);
         deck2.setDisable(true);
@@ -171,6 +172,7 @@ public class ControllerPlay implements ControlledScreen {
     private void turnFinished(Player current) {
         turnPlayer = game.nextPLayer(current);
         turnPlayer.increaseEnergy();
+        turnPlayer.setEnergyPerTurn(turnPlayer.getEnergy());
         update();
     }
 
