@@ -1,10 +1,8 @@
 package edu.insightr.spellmonger;
 
 
-import edu.insightr.sample.AlertBox;
 import org.apache.log4j.Logger;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SpellmongerApp {
@@ -22,7 +20,28 @@ public class SpellmongerApp {
     }
 
     public boolean playCard(Player currentPlayer, Player opponent, int playerChoice) {
-        ArrayList<Card> hand=currentPlayer.getHand();
+
+        Card currentCard = currentPlayer.getHand().get(playerChoice);
+
+        if(currentCard.playCard(currentPlayer)==true){
+            currentCard.playCard(currentPlayer);
+            if(currentCard instanceof Ritual){
+                ((Ritual) currentCard).setEffect(currentPlayer,opponent);
+                currentPlayer.getHand().remove(currentCard);
+            }else if(currentCard instanceof Creature){
+                currentPlayer.getPlayerCreature().add((Creature)currentCard);
+                currentPlayer.getHand().remove(currentCard);
+                currentPlayer.sortCreatures();
+            }
+            return true;
+        }else{
+            return false;
+        }
+
+
+
+
+      /*  ArrayList<Card> hand=currentPlayer.getHand();
         Deck discard=currentPlayer.getDiscards();
         Card currentCard = hand.get(playerChoice);
 
@@ -74,7 +93,7 @@ public class SpellmongerApp {
         } else {
             return false;
         }
-        return true;
+        return true;*/
     }
 
     public String playCardIA(Player currentPlayer, Player opponent) {

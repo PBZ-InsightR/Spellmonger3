@@ -21,4 +21,8 @@ public class EnergyDrain extends Ritual {
     public String getName() {
         return "EnergyDrain";
     }
+
+
+
+
 }

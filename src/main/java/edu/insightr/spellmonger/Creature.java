@@ -22,8 +22,8 @@ abstract class Creature extends Card implements Comparable<Creature> {
         return lifePoints;
     }
 
-    void attackCreature(Creature opponentCreature, Player currentPlayer, Player opponent) {
-        if (this instanceof Eagle && opponentCreature instanceof Eagle == false) {
+    void attackCreature(Player currentPlayer, Player opponent) {
+        /*if (this instanceof Eagle && opponentCreature instanceof Eagle == false) {
             opponent.setLifePoint(opponent.getLifePoint() - this.getEffect());
         } else if (this instanceof Eagle == false && opponentCreature instanceof Eagle == false) {
             int damage = this.getEffect() - opponentCreature.getEffect();
@@ -44,6 +44,76 @@ abstract class Creature extends Card implements Comparable<Creature> {
             opponent.getDiscards().add(opponentCreature);
             currentPlayer.getPlayerCreature().remove(this);
             opponent.getPlayerCreature().remove(opponentCreature);
+        }*/
+        Creature defCreature = null;
+
+        if(this.getCapacity()=="Flying"){
+            if(!opponent.getPlayerCreature().isEmpty()){
+                for(int i = 0; i < opponent.getPlayerCreature().size(); i++){
+                    if(opponent.getPlayerCreature().get(i).getCapacity()=="Flying" || opponent.getPlayerCreature().get(i).getCapacity()=="Catch"){
+                        defCreature=opponent.getPlayerCreature().get(i);
+                        break;
+                    }
+                }
+
+                if(defCreature!=null){
+                    if(defCreature.getEffect()>this.getEffect()){
+                        currentPlayer.getPlayerCreature().remove(this);
+                        currentPlayer.getDiscards().add(this);
+                    }else if(defCreature.getEffect()==this.getEffect()){
+                        currentPlayer.getPlayerCreature().remove(this);
+                        currentPlayer.getDiscards().add(this);
+                        opponent.getPlayerCreature().remove(defCreature);
+                        opponent.getDiscards().add(defCreature);
+                    }else{
+                        opponent.getPlayerCreature().remove(defCreature);
+                        opponent.getDiscards().add(defCreature);
+                    }
+                }else{
+                    this.attackPlayer(opponent);
+                }
+            }else{
+                this.attackPlayer(opponent);
+            }
+        }else if(this.getCapacity()=="DeathTouch"){
+            if(!opponent.getPlayerCreature().isEmpty()){
+                defCreature = opponent.getPlayerCreature().get(0);
+                currentPlayer.getPlayerCreature().remove(this);
+                currentPlayer.getDiscards().add(this);
+                opponent.getPlayerCreature().remove(defCreature);
+                opponent.getDiscards().add(defCreature);
+            }else{
+                this.attackPlayer(opponent);
+            }
+        }else{
+            if(!opponent.getPlayerCreature().isEmpty()){
+                for(int i =0; i < opponent.getPlayerCreature().size(); i++){
+                    if(opponent.getPlayerCreature().get(i).getEffect()<=this.getEffect()){
+                        defCreature = opponent.getPlayerCreature().get(i);
+                        break;
+                    }
+                }
+                if(defCreature.getCapacity()=="DeathTouch"){
+                    opponent.getPlayerCreature().remove(defCreature);
+                    opponent.getDiscards().add(defCreature);
+                    currentPlayer.getPlayerCreature().remove(this);
+                    currentPlayer.getDiscards().add(this);
+                }
+                else{
+                    if(defCreature.getEffect()<this.getEffect()){
+                        opponent.getPlayerCreature().remove(defCreature);
+                        opponent.getDiscards().add(defCreature);
+                    }else if(defCreature.getEffect()==this.getEffect()){
+                        currentPlayer.getPlayerCreature().remove(this);
+                        currentPlayer.getDiscards().add(this);
+                        opponent.getPlayerCreature().remove(defCreature);
+                        opponent.getDiscards().add(defCreature);
+                    }
+                }
+
+            }else{
+                this.attackPlayer(opponent);
+            }
         }
     }
 
@@ -55,7 +125,7 @@ abstract class Creature extends Card implements Comparable<Creature> {
     public void playCreature(Player current) {
         current.getPlayerCreature().add(this);
         current.sortCreatures();
-        current.setStackEnergy(current.getStackEnergy() - this.getEnergyCost());
+        current.setEnergyPerTurn(current.getEnergyPerTurn() - this.getEnergyCost());
     }
 
     @Override
