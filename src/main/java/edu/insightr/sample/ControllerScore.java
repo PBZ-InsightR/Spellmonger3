@@ -1,6 +1,6 @@
 package edu.insightr.sample;
 
-import edu.insightr.spellmonger.Outils;
+import edu.insightr.spellmonger.JsonTools;
 import edu.insightr.spellmonger.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +25,7 @@ public class ControllerScore implements Initializable,ControlledScreen{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        Map<String, User> map =  Outils.readFileToMap(System.getProperty("user.dir")+"/src/main/resources/scores.json");
+        Map<String, User> map =  JsonTools.readFileToMap(System.getProperty("user.dir")+"/src/main/resources/scores.json");
         for(String s: map.keySet()) {
             data.add(map.get(s));
         }

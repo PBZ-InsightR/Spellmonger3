@@ -17,7 +17,6 @@ import org.apache.log4j.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.animation.FadeTransition;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -220,11 +219,11 @@ public class ControllerPlay implements ControlledScreen {
             pass1.setDisable(true);
             pass2.setDisable(true);
             if (player1.winner(player2)) {
-                Outils.updateJsonFile(myController.getData("NamePlayer1"), true);
-                Outils.updateJsonFile(myController.getData("NamePlayer2"), false);
+                JsonTools.updateJsonFile(myController.getData("NamePlayer1"), true);
+                JsonTools.updateJsonFile(myController.getData("NamePlayer2"), false);
             } else {
-                Outils.updateJsonFile(myController.getData("NamePlayer2"), true);
-                Outils.updateJsonFile(myController.getData("NamePlayer1"), false);
+                JsonTools.updateJsonFile(myController.getData("NamePlayer2"), true);
+                JsonTools.updateJsonFile(myController.getData("NamePlayer1"), false);
             }
            AlertBox.displayGame("Game over", "The game is over");
         }

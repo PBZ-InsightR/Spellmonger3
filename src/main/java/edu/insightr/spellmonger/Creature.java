@@ -60,14 +60,18 @@ abstract class Creature extends Card implements Comparable<Creature> {
                 if(this.getEffect()>defCreature.getEffect()){
                     opponent.getDiscards().add(defCreature);
                     opponent.getPlayerCreature().remove(defCreature);
+                    opponent.getPlayerCreatureDead().add(defCreature);
                 }else if(this.getEffect()<defCreature.getEffect()){
                     currentPlayer.getDiscards().add(this);
                     currentPlayer.getPlayerCreature().remove(this);
+                    currentPlayer.getPlayerCreatureDead().add(this);
                 }else{
                     opponent.getDiscards().add(defCreature);
                     opponent.getPlayerCreature().remove(defCreature);
+                    opponent.getPlayerCreatureDead().add(defCreature);
                     currentPlayer.getDiscards().add(this);
                     currentPlayer.getPlayerCreature().remove(this);
+                    opponent.getPlayerCreatureDead().add(this);
                 }
             }else{
                 this.attackPlayer(opponent);
@@ -79,8 +83,10 @@ abstract class Creature extends Card implements Comparable<Creature> {
                 defCreature = opponent.getPlayerCreature().get(0);
                 opponent.getDiscards().add(defCreature);
                 opponent.getPlayerCreature().remove(defCreature);
+                opponent.getPlayerCreatureDead().add(defCreature);
                 currentPlayer.getDiscards().add(this);
                 currentPlayer.getPlayerCreature().remove(this);
+                currentPlayer.getPlayerCreatureDead().add(this);
             }else {
                 this.attackPlayer(opponent);
             }
@@ -97,20 +103,26 @@ abstract class Creature extends Card implements Comparable<Creature> {
                     if(this.getEffect()>defCreature.getEffect()){
                         opponent.getDiscards().add(defCreature);
                         opponent.getPlayerCreature().remove(defCreature);
+                        opponent.getPlayerCreatureDead().add(defCreature);
                     }else if(this.getEffect()<defCreature.getEffect()){
                         currentPlayer.getDiscards().add(this);
                         currentPlayer.getPlayerCreature().remove(this);
+                        currentPlayer.getPlayerCreatureDead().add(this);
                     }else{
                         opponent.getDiscards().add(defCreature);
                         opponent.getPlayerCreature().remove(defCreature);
+                        opponent.getPlayerCreatureDead().add(defCreature);
                         currentPlayer.getDiscards().add(this);
                         currentPlayer.getPlayerCreature().remove(this);
+                        currentPlayer.getPlayerCreatureDead().add(this);
                     }
                 }else{
                     opponent.getDiscards().add(defCreature);
                     opponent.getPlayerCreature().remove(defCreature);
+                    opponent.getPlayerCreatureDead().add(defCreature);
                     currentPlayer.getDiscards().add(this);
                     currentPlayer.getPlayerCreature().remove(this);
+                    currentPlayer.getPlayerCreatureDead().add(this);
                 }
             }else{
                 this.attackPlayer(opponent);
@@ -193,11 +205,11 @@ abstract class Creature extends Card implements Comparable<Creature> {
         opponent.setLifePoint(opponent.getLifePoint() - damage);
     }
 
-    public void playCreature(Player current) {
+   /* public void playCreature(Player current) {
         current.getPlayerCreature().add(this);
         current.sortCreatures();
         current.setEnergyPerTurn(current.getEnergyPerTurn() - this.getEnergyCost());
-    }
+    }*/
 
     @Override
     public int compareTo(Creature other) {

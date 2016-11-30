@@ -2,6 +2,7 @@ package edu.insightr.spellmonger;
 
 //import org.apache.log4j.Logger;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -16,10 +17,12 @@ public class Player {
     private Deck discardPool;
     private boolean vaultOverclockingOnOff;
     private ArrayList<Creature> playerCreature;
+    private ArrayList<Creature> playerCreatureDead;
     private ArrayList<Card> hand;
 
     public Player(String name) {
         this.playerCreature = new ArrayList<>();
+        this.playerCreatureDead=new ArrayList<>();
         this.cardPool = new Deck(name);
         this.discardPool = new Deck();
         this.name = name;
@@ -88,6 +91,14 @@ public class Player {
         return playerCreature;
     }
 
+    public ArrayList<Creature> getPlayerCreatureDead()
+    {
+        return playerCreatureDead;
+    }
+
+    public void clearPlayerCreatureDead() {
+        playerCreatureDead.clear();
+    }
     private void setPlayerCreature(ArrayList<Creature> newOne) {
         playerCreature = newOne;
     }
@@ -135,15 +146,16 @@ public class Player {
         }
     }
 
-
     public boolean winner(Player other) {
       return this.lifePoint> other.lifePoint;
     }
+
     public void drawCard(){
         if (this.size() == 0) this.reCreateCardPool();
         this.addToHand(this.getCards().get(0));
         this.getCards().remove(0);
     }
+
     public boolean canDraw(){
         return this.getHand().size() < 5;
     }
@@ -160,6 +172,9 @@ public class Player {
     }
 
     public void attack(Player opponent) {
+
+        this.clearPlayerCreatureDead();
+        opponent.clearPlayerCreatureDead();
 
         for(int i = 0; i < this.getPlayerCreature().size(); i++){
             this.getPlayerCreature().get(i).attackCreature(this,opponent);
