@@ -84,17 +84,16 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     public void draw_player_1() {
-        TransitionDeck_Hand(player1,deck1, hand1);
-        drawCard(player1, hand1);
+        drawCard(player1, hand1,deck1);
     }
 
     public void draw_player_2() {
-        TransitionDeck_Hand(player2,deck2, hand2);
-        drawCard(player2, hand2);
+        drawCard(player2, hand2,deck2);
     }
 
-    private void drawCard(Player player, ScrollPane hand) {
-        if (player.canDraw()) { // Numa
+    private void drawCard(Player player, ScrollPane hand, Button deck) {
+        if (player.canDraw()) {
+            TransitionDeck_Hand(player,deck, hand);
             player.drawCard();
             deck1.setDisable(true);
             deck2.setDisable(true);

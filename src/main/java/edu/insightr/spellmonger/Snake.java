@@ -6,7 +6,7 @@ public class Snake extends Creature{
         effect = 1;
         lifePoints = 1;
         energyCost = 2;
-        capacity="Deathtouch";
+        capacity="DeathTouch";
     }
 
     @Override
