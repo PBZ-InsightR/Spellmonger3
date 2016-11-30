@@ -181,6 +181,7 @@ public class Player {
         Player p = new Player(this.name);
         p.setLifePoint(this.getLifePoint());
         p.setEnergyPoint(this.getEnergy());
+        p.setEnergyPerTurn(this.getEnergyPerTurn());
         p.setPlayerCreature((ArrayList<Creature>) playerCreature.clone());
         p.discardPool = this.discardPool.clone();
         p.cardPool = this.cardPool.clone();
