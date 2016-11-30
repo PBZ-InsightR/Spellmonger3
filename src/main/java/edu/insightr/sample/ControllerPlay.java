@@ -200,7 +200,7 @@ public class ControllerPlay implements ControlledScreen {
                     pass_player_1();
                 } else {
                     if (!isIA) {
-                        AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player2.getLayoutX(), Player2.getLayoutY());
+                        AlertBox.displayDebugging("Energy issue ", current.getName() + ",you cannot play any of your cards!", Player2.getLayoutX(), Player2.getLayoutY());
                     }
                     pass_player_2();
                 }
