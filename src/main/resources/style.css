@@ -5,7 +5,7 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position:left;
     -fx-padding: 5 5 5 20;
-    -fx-background-image: url('/images/GameIcon.png'); 
+    -fx-background-image: url('/images/GameIcon.png');
 }
 
 #MenuHelp{
@@ -410,4 +410,17 @@
     -fx-font-size: 14;
     -fx-font-weight: bold;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+}
+
+
+/********SCORE********/
+#ScorePane{
+    -fx-pref-height:700;
+    -fx-pref-width:900;
+    -fx-background-image:url("images/fond.png");
+}
+
+#table{
+    -fx-pref-width:800;
+    -fx-pref-height:600;
 }
