@@ -43,14 +43,14 @@ public class Player {
         cardPool.remove(1);
     }
 
-    public void vaultOverclockingActiveEffect(Player player) {
+    public void vaultOverclockingActiveEffect() {
         Random rand = new Random();
         int nbRand = rand.nextInt(99);
-        if (player.getVaultOverclockingOnOff()==true) {
+        if (this.getVaultOverclockingOnOff()) {
             if (nbRand > 34) {
-                player.setEnergyPerTurn(1);
+                this.setEnergyPerTurn(1);
             } else {
-                player.setEnergyPerTurn(player.getEnergy() + 1);
+                this.setEnergyPerTurn(this.getEnergy() + 1);
             }
         }
     }

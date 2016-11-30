@@ -178,6 +178,9 @@ public class ControllerPlay implements ControlledScreen {
 
     private void turnFinished(Player current) {
         turnPlayer = game.nextPLayer(current);
+        if(current.getVaultOverclockingOnOff()) {
+            turnPlayer.vaultOverclockingActiveEffect();
+        }
         turnPlayer.increaseEnergy();
         turnPlayer.setEnergyPerTurn(turnPlayer.getEnergy());
         update();

@@ -90,7 +90,7 @@ abstract class Creature extends Card implements Comparable<Creature> {
             }else {
                 this.attackPlayer(opponent);
             }
-        }else{
+        }else {
 
             if(opponent.getPlayerCreature().size()!=0){
                 for(int i = 0; i < opponent.getPlayerCreature().size(); i++){

@@ -36,6 +36,7 @@ public class SpellmongerApp {
                 currentPlayer.getHand().remove(currentCard);
                 currentPlayer.getDiscards().add(currentCard);
                 currentPlayer.setVaultOverclockingOnOff(true);
+
             }
             return true;
         }else{
