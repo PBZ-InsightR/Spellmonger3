@@ -317,20 +317,7 @@ public class ControllerPlay implements ControlledScreen {
 
     private void eventClick(Rectangle rectangle, Player current, Player oppenent, int playerChoice) {
         rectangle.setOnMouseClicked(t -> {
-            if(current == player1) {
-                Card card = current.getHand().get(playerChoice);
-                if(Objects.equals(card.getTypeCard(), "Creature"))
-                    TransitionHand_ListCreatures(player1, list_creatures1, playerChoice);
-                else
-                    TransitionHand_Discard(player1, hand1, discard1, playerChoice);
-            }
-            else {
-                Card card = current.getHand().get(playerChoice);
-                if (Objects.equals(card.getTypeCard(), "Creature"))
-                    TransitionHand_ListCreatures(player2, list_creatures2, playerChoice);
-                else
-                    TransitionHand_Discard(player2, hand2, discard2, playerChoice);
-            }
+            TransitionAfterAttack(current,playerChoice);
             play(playerChoice, current, oppenent);
         });
     }
@@ -450,6 +437,23 @@ public class ControllerPlay implements ControlledScreen {
                 layoutYTransition = 545;
             }
             TransitionForAll(rectangle, layoutXTransitionFrom, layoutXTransitionTo, layoutYTransition, layoutYTransition);
+        }
+    }
+
+    private void TransitionAfterAttack(Player current,int playerChoice){
+        if(current == player1) {
+            Card card = current.getHand().get(playerChoice);
+            if(Objects.equals(card.getTypeCard(), "Creature"))
+                TransitionHand_ListCreatures(player1, list_creatures1, playerChoice);
+            else
+                TransitionHand_Discard(player1, hand1, discard1, playerChoice);
+        }
+        else {
+            Card card = current.getHand().get(playerChoice);
+            if (Objects.equals(card.getTypeCard(), "Creature"))
+                TransitionHand_ListCreatures(player2, list_creatures2, playerChoice);
+            else
+                TransitionHand_Discard(player2, hand2, discard2, playerChoice);
         }
     }
 }

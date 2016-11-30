@@ -22,7 +22,7 @@ public class SpellmongerApp {
     public boolean playCard(Player currentPlayer, Player opponent, int playerChoice) {
 
         Card currentCard = currentPlayer.getHand().get(playerChoice);
-        if(currentCard.playCard(currentPlayer)){
+        if(canPlayCard(currentCard,currentPlayer)){
             if(currentCard instanceof Ritual){
                 ((Ritual) currentCard).attackRitual(currentPlayer,opponent);
                 currentPlayer.getHand().remove(currentCard);
@@ -40,6 +40,10 @@ public class SpellmongerApp {
         }else{
             return false;
         }
+    }
+
+    public boolean canPlayCard(Card card,Player player) {
+        return card.canPlayCard(player);
     }
 
     public String playCardIA(Player currentPlayer, Player opponent) {
