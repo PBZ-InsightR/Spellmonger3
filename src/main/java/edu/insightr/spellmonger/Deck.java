@@ -45,34 +45,52 @@ public class Deck {
 
     public void createCardPool() {
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 3; i++) {
             Eagle eagle = new Eagle();
-            Fox fox = new Fox();
             cardPool.add(eagle);
-            cardPool.add(fox);
+            Lizard lizard = new Lizard();
+            cardPool.add(lizard);
         }
 
-        for (int i = 0; i < 6; i++) {
+        for(int i = 0; i <4 ; i++){
+            Fox fox = new Fox();
+            cardPool.add(fox);
             Wolf wolf = new Wolf();
             cardPool.add(wolf);
-        }
-
-        for (int i = 0; i < 4; i++) {
-            Bear bear = new Bear();
-            cardPool.add(bear);
-        }
-
-        for (int i = 0; i < 5; i++) {
-            Curse curse = new Curse();
-            Blessing blessing = new Blessing();
-            EnergyDrain energyDrain = new EnergyDrain();
-            cardPool.add(curse);
-            cardPool.add(blessing);
+            EnergyDrain energyDrain= new EnergyDrain();
             cardPool.add(energyDrain);
         }
 
-        VaultOverclocking vaultOverclocking = new VaultOverclocking();
-        cardPool.add(vaultOverclocking);
+        for(int i = 0; i < 5; i++)
+        {
+            Bear bear = new Bear();
+            cardPool.add(bear);
+
+            Blessing blessing = new Blessing();
+            Curse curse = new Curse();
+            cardPool.add(blessing);
+            cardPool.add(curse);
+        }
+            Rat rat = new Rat();
+            cardPool.add(rat);
+            Leviathan leviathan=new Leviathan();
+            cardPool.add(leviathan);
+            Dragoon dragoon = new Dragoon();
+            cardPool.add(dragoon);
+            VaultOverclocking vaultOverclocking = new VaultOverclocking();
+            cardPool.add(vaultOverclocking);
+            Kraken kraken = new Kraken();
+            cardPool.add(kraken);
+
+
+
+        for(int i = 0; i <2 ; i++){
+            Snake snake = new Snake();
+            cardPool.add(snake);
+        }
+
+
+
 
         Collections.shuffle(cardPool);
 

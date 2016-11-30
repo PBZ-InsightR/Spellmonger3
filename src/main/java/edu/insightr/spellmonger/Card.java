@@ -1,8 +1,8 @@
 package edu.insightr.spellmonger;
 
-public abstract class Card {
+public abstract class Card  {
 
-    int effect;
+    protected int effect;
     protected int energyCost;
 
     public int getEffect() {
@@ -13,6 +13,15 @@ public abstract class Card {
         return energyCost;
     }
 
+    public String getTypeCard(){
+        if(this instanceof Ritual)
+            return "Ritual";
+        else if(this instanceof Enchantment)
+            return "Enchantment";
+        else
+            return "Creature";
+    }
+
     @Override
     public String toString() {
         return "Effect = " + this.effect;
@@ -20,5 +29,15 @@ public abstract class Card {
 
     public String getName() {
         return "Abstract";
+    }
+
+   public boolean playCard(Player current){
+       if(this.getEnergyCost()<=current.getEnergyPerTurn()){
+           current.setEnergyPerTurn(current.getEnergyPerTurn()-this.getEnergyCost());
+           return true;
+       }else{
+           return false;
+       }
+
     }
 }
