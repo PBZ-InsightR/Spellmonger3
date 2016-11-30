@@ -23,6 +23,7 @@ public class SpellmongerApp {
 
         Card currentCard = currentPlayer.getHand().get(playerChoice);
         if(currentCard.playCard(currentPlayer)){
+            System.out.println(" ==> ");
             if(currentCard instanceof Ritual){
                 ((Ritual) currentCard).attackRitual(currentPlayer,opponent);
                 currentPlayer.getHand().remove(currentCard);
@@ -54,24 +55,12 @@ public class SpellmongerApp {
             Player c = currentPlayer.clone();
             Player o = opponent.clone();
             if (playCard(c, o, i)) {
+                System.out.println(i);
                 c.attackCreatures(o);
+
                 if ((c.getLifePoint() - o.getLifePoint()) > diff || o.getPlayerCreature().size()<opponent.getPlayerCreature().size() ) {
                     choix = i;
                     diff = (c.getLifePoint() - o.getLifePoint());
-                }
-            }
-        }
-
-        if (choix == -1) {
-            logger.info("Life Points failed, on va regarder l'energy");
-            for (int i = 0; i < hand.size(); i++) {
-                Player c = currentPlayer.clone();
-                Player o = opponent.clone();
-                if (playCard(c, o,i)) {
-                    if ((c.getEnergy()) > energy) {
-                        choix = i;
-                        energy = c.getEnergy();
-                    }
                 }
             }
         }
