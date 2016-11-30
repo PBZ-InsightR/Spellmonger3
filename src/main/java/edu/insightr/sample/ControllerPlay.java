@@ -18,6 +18,7 @@ import javafx.animation.TranslateTransition;
 import javafx.animation.FadeTransition;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class ControllerPlay implements ControlledScreen {
@@ -314,14 +315,14 @@ public class ControllerPlay implements ControlledScreen {
         rectangle.setOnMouseClicked(t -> {
             if(current == player1) {
                 Card card = current.getHand().get(playerChoice);
-                if(card.getTypeCard() == "Creature")
+                if(Objects.equals(card.getTypeCard(), "Creature"))
                     TransitionHand_ListCreatures(player1, list_creatures1, playerChoice);
                 else
                     TransitionHand_Discard(player1, hand1, discard1, playerChoice);
             }
             else {
                 Card card = current.getHand().get(playerChoice);
-                if (card.getTypeCard() == "Creature")
+                if (Objects.equals(card.getTypeCard(), "Creature"))
                     TransitionHand_ListCreatures(player2, list_creatures2, playerChoice);
                 else
                     TransitionHand_Discard(player2, hand2, discard2, playerChoice);
@@ -347,8 +348,8 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     private void TransitionDeck_Hand(Player current, Button deck, ScrollPane hand){
-        Card lastCardOfHand = current.getHand().get(current.getHand().size() - 1);
         int sizeOfHand = current.getHand().size();
+        Card lastCardOfHand = current.getCards().get(0);
         double layoutXTransitionFrom;
         double layoutYTransition;
         if(sizeOfHand == 0){

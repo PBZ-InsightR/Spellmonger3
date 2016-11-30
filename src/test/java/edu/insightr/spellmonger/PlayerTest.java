@@ -17,7 +17,7 @@ public class PlayerTest {
         player.reCreateCardPool();
         Assert.assertEquals("reCreateCardPoolTest", 1, player.getCards().size());
     }
-
+/*
     @Test
     public final void canPlayTest() {
         Player p = new Player("Numa");
@@ -30,7 +30,7 @@ public class PlayerTest {
         }
         Assert.assertEquals(true, p.canPlay());
     }
-
+*/
     @Test
     public final void attackTest() {
 
