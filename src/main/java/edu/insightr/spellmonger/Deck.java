@@ -50,43 +50,43 @@ public class Deck {
             cardPool.add(eagle);
             Lizard lizard = new Lizard();
             cardPool.add(lizard);
-        }
-
-        for(int i = 0; i <4 ; i++){
+            Bear bear = new Bear();
+            cardPool.add(bear);
             Fox fox = new Fox();
             cardPool.add(fox);
             Wolf wolf = new Wolf();
             cardPool.add(wolf);
-            EnergyDrain energyDrain= new EnergyDrain();
-            cardPool.add(energyDrain);
         }
+
 
         for(int i = 0; i < 5; i++)
         {
-            Bear bear = new Bear();
-            cardPool.add(bear);
-
+            EnergyDrain energyDrain= new EnergyDrain();
+            cardPool.add(energyDrain);
             Blessing blessing = new Blessing();
             Curse curse = new Curse();
             cardPool.add(blessing);
             cardPool.add(curse);
         }
-            Rat rat = new Rat();
-            cardPool.add(rat);
+
             Leviathan leviathan=new Leviathan();
             cardPool.add(leviathan);
-            Dragoon dragoon = new Dragoon();
-            cardPool.add(dragoon);
+
             VaultOverclocking vaultOverclocking = new VaultOverclocking();
             cardPool.add(vaultOverclocking);
-            Kraken kraken = new Kraken();
-            cardPool.add(kraken);
+
 
 
 
         for(int i = 0; i <2 ; i++){
             Snake snake = new Snake();
             cardPool.add(snake);
+            Dragoon dragoon = new Dragoon();
+            cardPool.add(dragoon);
+            Kraken kraken = new Kraken();
+            cardPool.add(kraken);
+            Rat rat = new Rat();
+            cardPool.add(rat);
         }
 
 
