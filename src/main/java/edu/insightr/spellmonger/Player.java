@@ -34,8 +34,6 @@ public class Player {
         vaultOverclockingOnOff = false;
     }
 
-
-
     private void addInitialCards() {
         addToHand(cardPool.get(0));
         addToHand(cardPool.get(1));
@@ -54,8 +52,6 @@ public class Player {
             }
         }
     }
-
-
 
     public int getEnergyPerTurn(){return this.energyPerTurn;}
 
@@ -99,6 +95,7 @@ public class Player {
     public void clearPlayerCreatureDead() {
         playerCreatureDead.clear();
     }
+
     private void setPlayerCreature(ArrayList<Creature> newOne) {
         playerCreature = newOne;
     }
@@ -171,76 +168,12 @@ public class Player {
         return result;
     }
 
-    public void attack(Player opponent) {
-
+    public void attackCreatures(Player opponent) {
         this.clearPlayerCreatureDead();
         opponent.clearPlayerCreatureDead();
-
         for(int i = 0; i < this.getPlayerCreature().size(); i++){
             this.getPlayerCreature().get(i).attackCreature(this,opponent);
         }
-        /*for(Creature creature : this.getPlayerCreature()){
-            creature.creatureAttack(this,opponent);
-        }*/
-        /*ArrayList<Creature> attackFlying = new ArrayList<>();
-        ArrayList<Creature> attack = new ArrayList<>();
-
-        ArrayList<Creature> defFlying = new ArrayList<>();
-        ArrayList<Creature> def = new ArrayList<>();
-
-        for(Creature creature : this.getPlayerCreature()){
-            if(creature.getCapacity()==""){
-                attack.add(creature);
-            }else if(creature.getCapacity()=="Flying"){
-                attackFlying.add(creature);
-            }
-        }
-
-        for(Creature creature : opponent.getPlayerCreature()){
-            if(creature.getCapacity()==""){
-                def.add(creature);
-            }else if(creature.getCapacity()=="Flying" || creature.getCapacity()=="Catch"){
-                defFlying.add(creature);
-            }
-        }
-
-        for(int i = 0; i < attackFlying.size(); i++){
-            attackFlying.get(i).creatureAttack(defFlying.get(i),this,opponent);
-        }
-
-        for(int i = 0; i < attack.size(); i++){
-            attack.get(i).creatureAttack(def.get(i),this,opponent);
-        }*/
-
-       /* for(Creature opponentCreature : opponent.getPlayerCreature()){
-            for (Creature creature:this.getPlayerCreature()){
-                creature.creatureAttack(opponentCreature,this,opponent);
-            }
-        }*/
-
-
-        /*ArrayList<Creature> currentBoard = this.playerCreature;
-        ArrayList<Creature> opponentBoard = opponent.getPlayerCreature();
-        int diffBoard = currentBoard.size() - opponentBoard.size();
-
-        if (diffBoard > 0) {
-            for (int i = 0; i < (currentBoard.size() - diffBoard); i++) {
-                currentBoard.get(i).attackCreature(opponentBoard.get(i), this, opponent);
-            }
-
-            for (int i = (currentBoard.size() - diffBoard); i < currentBoard.size(); i++) {
-                currentBoard.get(i).attackPlayer(opponent);
-            }
-        } else if (diffBoard == 0) {
-            for (int i = 0; i < currentBoard.size(); i++) {
-                currentBoard.get(i).attackCreature(opponentBoard.get(i), this, opponent);
-            }
-        } else {
-            for (int i = 0; i < currentBoard.size(); i++) {
-                currentBoard.get(i).attackCreature(opponentBoard.get(i), this, opponent);
-            }
-        }*/
-
     }
 
     public Player clone() {

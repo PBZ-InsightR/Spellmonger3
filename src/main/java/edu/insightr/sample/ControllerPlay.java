@@ -55,7 +55,7 @@ public class ControllerPlay implements ControlledScreen {
                 nameP2 = myController.getData("NamePlayer2");
             isIA = myController.getData("isPlayer2").equals("false");
         }
-        game = new SpellmongerApp(new Player(nameP1), new Player(nameP2));
+        game = new SpellmongerApp(nameP1,nameP2);
         player1 = game.getPlayer(0);
         player2 = game.getPlayer(1);
         turnPlayer = player1;
@@ -71,7 +71,7 @@ public class ControllerPlay implements ControlledScreen {
     public void initializeTest(){
         String nameP1 = "Player1";
         String nameP2 = "Player2";
-        game = new SpellmongerApp(new Player(nameP1), new Player(nameP2));
+        game = new SpellmongerApp(nameP1,nameP2);
         player1 = game.getPlayer(0);
         player2 = game.getPlayer(1);
         turnPlayer = player1;
@@ -142,7 +142,7 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     private void pass(Player current, Player opponent, ScrollPane hand) {
-        current.attack(opponent);
+        current.attackCreatures(opponent);
         turnFinished(current);
         boolean choice = true;
         if (current.equals(player2)) choice = false;

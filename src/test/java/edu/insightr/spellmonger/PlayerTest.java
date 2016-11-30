@@ -55,7 +55,7 @@ public class PlayerTest {
         Assert.assertEquals("J'ai une carte ours chez l'opponent", 1, opponentCreatures.size());
 
 
-        player.attack(opponent);
+        player.attackCreatures(opponent);
         Assert.assertEquals("Attaque force égale avec une carte chacun", 0, playerCreatures.size());
         Assert.assertEquals("Attaque force égale avec une carte chacun", 0, opponentCreatures.size());
 
@@ -69,12 +69,12 @@ public class PlayerTest {
         Assert.assertEquals("J'ai une carte aigle chez l'adversaire", 1, opponentCreatures.size());
 
         //Test d'une attaque avec 1 cartes chacun et dont les cartes sont de forces différentes
-        player.attack(opponent);
+        player.attackCreatures(opponent);
 //        Assert.assertEquals("Attaque force différente avec 1 cartes chacun créature player plus forte", 1, playerCreatures.size());
         Assert.assertEquals("Attaque force différente avec 1 cartes chacun, créature adversaire moins forte", 0, opponentCreatures.size());
 
         //Test d'une attaque avec 1 carte chez le player et rien chez l'adversaire
-        player.attack(opponent);
+        player.attackCreatures(opponent);
 //        Assert.assertEquals("Attaque force différente avec 1 cartes player", 1, playerCreatures.size());
 //        Assert.assertEquals("Attaqque force différente avec 0 carte adversaire ", 17, opponent.getLifePoint());
 
@@ -88,7 +88,7 @@ public class PlayerTest {
 
 
         //Test d'une attaque avec 0 carte chez le player mais aucune chez l'adversaire
-        player.attack(opponent);
+        player.attackCreatures(opponent);
         //Etant donné qu'il y a un break, test si ce qu'on a au début, on l'a a la fin
         Assert.assertEquals("Attaque force différente, 0 carte chez le player", 0, playerCreatures.size());
         Assert.assertEquals("Attaque force différente avec une carte chez l'adversaire", 1, opponentCreatures.size());
@@ -98,7 +98,7 @@ public class PlayerTest {
         player.addPlayerCreature(aigle4);
         Assert.assertEquals("J'ai une carte aigle chez le player", 1, opponentCreatures.size());
 
-        player.attack(opponent);
+        player.attackCreatures(opponent);
 //        Assert.assertEquals("Attaque force différente, 1 carte chez le player moins forte", 0, playerCreatures.size());
         Assert.assertEquals("Attaque force différente, 1 carte chez l'adversaire plus forte", 1, opponentCreatures.size());
 

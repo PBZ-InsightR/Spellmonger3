@@ -7,20 +7,17 @@ public class SpellmongerAppTest {
 
     @Test
     public void testNextPlayer() {
-        Player p1 = new Player("Luc");
-        Player p2 = new Player("Naat");
-        SpellmongerApp game = new SpellmongerApp(p1, p2);
-        Player current = p1;
+        SpellmongerApp game = new SpellmongerApp("Luc", "Naat");
+        Player p1 =game.getPlayer(0);
+        Player p2 = game.getPlayer(1);
         Assert.assertEquals(game.nextPLayer(p1), p2); // next player of p1 is p2
         Assert.assertEquals(game.nextPLayer(p2), p1); // next player of p2 is p1
     }
-
+    // TODO a revoir
     public void testDrawCard() {
-        Player p1 = new Player("Luc");
-        Player p2 = new Player("Naat");
-        SpellmongerApp game = new SpellmongerApp(p1, p2);
-        Player current = p1;
-        Player oppenent = p2;
+        SpellmongerApp game = new SpellmongerApp("Luc", "Nat");;
+        Player current = game.getPlayer(0);
+        Player oppenent = game.getPlayer(1);
         int sizeCard = current.getCards().size() - 1;
         int sizeDiscard = current.getCards().size() + 1;
         int sizePlayersCreature = current.getPlayerCreature().size();
