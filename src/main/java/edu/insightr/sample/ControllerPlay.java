@@ -140,7 +140,6 @@ public class ControllerPlay implements ControlledScreen {
 
     private void pass(Player current, Player opponent, ScrollPane hand) {
         current.attack(opponent);
-        //TransitionMort
         turnFinished(current);
         boolean choice = true;
         if (current.equals(player2)) choice = false;
@@ -207,10 +206,10 @@ public class ControllerPlay implements ControlledScreen {
     private void update() {
         name1.setText("\t" + player1.getName());
         life_points1.setText("Life point : " + player1.getLifePoint());
-        energy_player1.setText("Energy : " + player1.getEnergy());
+        energy_player1.setText("Energy : " + player1.getEnergyPerTurn() + " / " + player1.getEnergy());
         name2.setText("\t" + player2.getName());
         life_points2.setText("Life point : " + player2.getLifePoint());
-        energy_player2.setText("Energy : " + player2.getEnergy());
+        energy_player2.setText("Energy : " + player2.getEnergyPerTurn() + " / " + player2.getEnergy());
         if (player1.isDead() || player2.isDead()) {
             deck1.setDisable(true);
             deck2.setDisable(true);
