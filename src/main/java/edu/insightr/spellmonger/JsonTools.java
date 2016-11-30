@@ -8,14 +8,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
 
-public class Outils {
+public class JsonTools {
 
     // TODO : utils class should be moved into another package if there's no interaction with others classes of the actual package
 
     // donner le login et true si il a gagné, false sinon et la fonction mis a jour le fichier Json des scores
     public static void updateJsonFile(String Login, boolean isWinner) {
         String filepath = System.getProperty("user.dir") + "/src/main/resources/scores.json";
-        Map<String, User> m = Outils.readFileToMap(filepath);
+        Map<String, User> m = JsonTools.readFileToMap(filepath);
         User p = m.get(Login);
         if (p != null) {
             double pourcentage;
@@ -32,7 +32,7 @@ public class Outils {
             else
                 m.put(Login, new User(Login, 1, 0));
         }
-        Outils.createFilewithMap(m, filepath);
+        JsonTools.createFilewithMap(m, filepath);
     }
 
     //créé un fichier Json en lui passant une map de données
@@ -86,7 +86,7 @@ public class Outils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Outils.sortByComparator(data, false);
+        return JsonTools.sortByComparator(data, false);
     }
 
     // Pas utile a comprendre pour le projet

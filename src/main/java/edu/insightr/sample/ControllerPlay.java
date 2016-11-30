@@ -18,6 +18,7 @@ import javafx.animation.TranslateTransition;
 import javafx.animation.FadeTransition;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class ControllerPlay implements ControlledScreen {
@@ -82,6 +83,7 @@ public class ControllerPlay implements ControlledScreen {
     public Player getPlayer2() {
         return player2;
     }
+
     public void draw_player_1() {
         TransitionDeck_Hand(player1,deck1, hand1);
         drawCard(player1, hand1);
@@ -92,7 +94,6 @@ public class ControllerPlay implements ControlledScreen {
         drawCard(player2, hand2);
     }
 
-    //Permet de piocher une carte
     private void drawCard(Player player, ScrollPane hand) {
         if (player.canDraw()) { // Numa
             player.drawCard();
@@ -125,6 +126,7 @@ public class ControllerPlay implements ControlledScreen {
             }
         }
     }
+
     public void draw_player_1_test() {
         drawCardTest(player1,hand1);
     }
@@ -140,10 +142,8 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
-    //Permet de switcher de joueur actuel
     private void pass(Player current, Player opponent, ScrollPane hand) {
         current.attack(opponent);
-        //TransitionMort
         turnFinished(current);
         boolean choice = true;
         if (current.equals(player2)) choice = false;
@@ -155,19 +155,16 @@ public class ControllerPlay implements ControlledScreen {
         hand.setHvalue(hand.getHmin());
     }
 
-    //Est executé lorsque le player1 clic sur fin
     public void pass_player_1() {
         pass(player1, player2, hand1);
         if (isIA)
             whenIA();
     }
 
-    //Est executé lorsque le player2 clic sur fin
     public void pass_player_2() {
         pass(player2, player1, hand2);
     }
 
-    //Controle de l'IA
     private void whenIA() {
         logger.info("on est IA");
         draw_player_2();
@@ -180,14 +177,12 @@ public class ControllerPlay implements ControlledScreen {
         delay.play();
     }
 
-    //Appelé à la fin d'un tour
     private void turnFinished(Player current) {
         turnPlayer = game.nextPLayer(current);
         turnPlayer.increaseEnergy();
         turnPlayer.setEnergyPerTurn(turnPlayer.getEnergy());
         update();
     }
-
 
     private void play(int index, Player current, Player oppenent) {
         Button deck = deck2;
@@ -212,14 +207,13 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
-    //Refresh les valeurs
     private void update() {
         name1.setText("\t" + player1.getName());
         life_points1.setText("Life point : " + player1.getLifePoint());
-        energy_player1.setText("Energy : " + player1.getEnergy());
+        energy_player1.setText("Energy : " + player1.getEnergyPerTurn() + " / " + player1.getEnergy());
         name2.setText("\t" + player2.getName());
         life_points2.setText("Life point : " + player2.getLifePoint());
-        energy_player2.setText("Energy : " + player2.getEnergy());
+        energy_player2.setText("Energy : " + player2.getEnergyPerTurn() + " / " + player2.getEnergy());
         if (player1.isDead() || player2.isDead()) {
             deck1.setDisable(true);
             deck2.setDisable(true);
@@ -232,7 +226,7 @@ public class ControllerPlay implements ControlledScreen {
                 Outils.updateJsonFile(myController.getData("NamePlayer2"), true);
                 Outils.updateJsonFile(myController.getData("NamePlayer1"), false);
             }
-            AlertBox.displayGame("Game over", "le jeu est fini");
+           AlertBox.displayGame("Game over", "The game is over");
         }
 
         // creatures sur la piste
@@ -247,7 +241,6 @@ public class ControllerPlay implements ControlledScreen {
 
     }
 
-    //Affichage des creatures sur le terrain
     private void listCreatureContents(Player current, ScrollPane scroll) {
         HBox content = new HBox();
         scroll.setContent(content);
@@ -266,7 +259,6 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
-    //Affichage des créatures dans la main du joueur
     private void hands(Player current, Player oppenent, ScrollPane hand) {
         HBox content = new HBox();
         hand.setContent(content);
@@ -290,7 +282,6 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
-
     private void discards(Player current, Pane discard) {
         if (current.getDiscards().size() != 0) {
             discard.setVisible(true);
@@ -305,7 +296,6 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
-    //Agrandi la carte lors du passage souris
     private void eventEnter(Rectangle rectangle, Rectangle newRectangle, Image img) {
         rectangle.setOnMouseEntered(t -> {
             newRectangle.setLayoutX(620);
@@ -320,24 +310,22 @@ public class ControllerPlay implements ControlledScreen {
         });
     }
 
-    //Supprime la carte agrandi apres passage
     private void eventExit(Rectangle rectangle, Rectangle newRectangle) {
         rectangle.setOnMouseExited(t -> mainPane.getChildren().remove(newRectangle));
     }
 
-    //Gere les evenements de clic souris
     private void eventClick(Rectangle rectangle, Player current, Player oppenent, int playerChoice) {
         rectangle.setOnMouseClicked(t -> {
             if(current == player1) {
                 Card card = current.getHand().get(playerChoice);
-                if(card.getTypeCard() == "Creature")
+                if(Objects.equals(card.getTypeCard(), "Creature"))
                     TransitionHand_ListCreatures(player1, list_creatures1, playerChoice);
                 else
                     TransitionHand_Discard(player1, hand1, discard1, playerChoice);
             }
             else {
                 Card card = current.getHand().get(playerChoice);
-                if (card.getTypeCard() == "Creature")
+                if (Objects.equals(card.getTypeCard(), "Creature"))
                     TransitionHand_ListCreatures(player2, list_creatures2, playerChoice);
                 else
                     TransitionHand_Discard(player2, hand2, discard2, playerChoice);
@@ -346,36 +334,54 @@ public class ControllerPlay implements ControlledScreen {
         });
     }
 
-    //Boutton permettant de retourner au menu
     public void backToMenu() {
         myController.loadScreen(Main.Menu_ID, Main.Menu_FILE);
         myController.setScreen(Main.Menu_ID);
     }
 
-    //Boutton permettant de redémarrer la partie
     public void backToPlay() {
         myController.loadScreen(Main.Play_ID, Main.Play_FILE);
         myController.setScreen(Main.Play_ID);
     }
 
-    //Boutton permettant d'ouvrir les scores
     public void backToScore() {
         myController.loadScreen(Main.Score_ID, Main.Score_FILE);
         myController.setScreen(Main.Score_ID);
 
     }
 
-    //Trasition carte du deck vers main
+    private void TransitionForAll(Rectangle rectangle, double layoutXFrom, double layoutXTo, double layoutYFrom, double layoutYTo){
+        mainPane.getChildren().add(rectangle);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(800), rectangle);
+        translateTransition.setFromX(layoutXFrom);
+        translateTransition.setToX(layoutXTo);
+        translateTransition.setFromY(layoutYFrom);
+        translateTransition.setToY(layoutYTo);
+        translateTransition.setCycleCount(1);
+        translateTransition.setAutoReverse(true);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(800), rectangle);
+        fadeTransition.setFromValue(1.0f);
+        fadeTransition.setToValue(0f);
+        fadeTransition.setCycleCount(1);
+        fadeTransition.setAutoReverse(true);
+        translateTransition.play();
+        fadeTransition.play();
+        rectangle.setDisable(true);
+        Rectangle newRectangle = new Rectangle(10, 10);
+        eventExit(rectangle, newRectangle);
+    }
+
     private void TransitionDeck_Hand(Player current, Button deck, ScrollPane hand){
-        Card lastCardOfHand = current.getHand().get(current.getHand().size() - 1);
         int sizeOfHand = current.getHand().size();
-        double layoutXTransitionFrom;
+        Card lastCardOfHand = current.getCards().get(0);
+        double layoutXTransitionFrom = deck.getLayoutX();
+        double layoutXTransitionTo;
         double layoutYTransition;
         if(sizeOfHand == 0){
-            layoutXTransitionFrom = hand.getLayoutX();
+            layoutXTransitionTo = hand.getLayoutX();
         }
         else {
-            layoutXTransitionFrom = hand.getLayoutX() + 120;
+            layoutXTransitionTo = hand.getLayoutX() + 120;
         }
         Rectangle rectangle = new Rectangle(100, 120);
         Image img = new Image("images/Spellmonger_"+ lastCardOfHand.getName() +".png");
@@ -386,27 +392,9 @@ public class ControllerPlay implements ControlledScreen {
         else{
             layoutYTransition = 545;
         }
-        mainPane.getChildren().add(rectangle);
-        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(800), rectangle);
-        translateTransition.setFromX(deck.getLayoutX());
-        translateTransition.setToX(layoutXTransitionFrom);
-        translateTransition.setFromY(layoutYTransition);
-        translateTransition.setToY(layoutYTransition);
-        translateTransition.setCycleCount(1);
-        translateTransition.setAutoReverse(true);
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(800), rectangle);
-        fadeTransition.setFromValue(1.0f);
-        fadeTransition.setToValue(0f);
-        fadeTransition.setCycleCount(1);
-        fadeTransition.setAutoReverse(true);
-        translateTransition.play();
-        fadeTransition.play();
-        rectangle.setDisable(true);
-        Rectangle newRectangle = new Rectangle(10, 10);
-        eventExit(rectangle, newRectangle);
+        TransitionForAll(rectangle, layoutXTransitionFrom, layoutXTransitionTo, layoutYTransition, layoutYTransition);
     }
 
-    //Transition carte de la main vers le terrain
     private void TransitionHand_ListCreatures(Player current, ScrollPane listCreatures, int playerChoice){
         Card cardSelected = current.getHand().get(playerChoice);
         int sizeOfListCreatures = current.getPlayerCreature().size();
@@ -414,85 +402,54 @@ public class ControllerPlay implements ControlledScreen {
         double layoutXTransitionTo;
         double layoutYTransitionFrom;
         double layoutYTransitionTo;
-        if(sizeOfListCreatures == 0){
-            layoutXTransitionTo = listCreatures.getLayoutX();
-        }
-        else if(sizeOfListCreatures == 1){
-            layoutXTransitionTo = listCreatures.getLayoutX() + 120;
-        }
-        else if(sizeOfListCreatures == 2){
-            layoutXTransitionTo = listCreatures.getLayoutX() + 240;
-        }
-        else {
-            layoutXTransitionTo = listCreatures.getLayoutX() + 360;
-        }
+        if(current.canPlay()){
+            if(sizeOfListCreatures == 0){
+                layoutXTransitionTo = listCreatures.getLayoutX();
+            }
+            else if(sizeOfListCreatures == 1){
+                layoutXTransitionTo = listCreatures.getLayoutX() + 120;
+            }
+            else if(sizeOfListCreatures == 2){
+                layoutXTransitionTo = listCreatures.getLayoutX() + 240;
+            }
+            else {
+                layoutXTransitionTo = listCreatures.getLayoutX() + 360;
+            }
 
-        Rectangle rectangle = new Rectangle(100, 120);
-        Image img = new Image("images/Spellmonger_"+ cardSelected.getName() +".png");
-        rectangle.setFill(new ImagePattern(img));
-        if(current == player1){
-            layoutXTransitionFrom = hand1.getLayoutX();
-            layoutYTransitionFrom = 62;
-            layoutYTransitionTo = 217;
+            Rectangle rectangle = new Rectangle(100, 120);
+            Image img = new Image("images/Spellmonger_"+ cardSelected.getName() +".png");
+            rectangle.setFill(new ImagePattern(img));
+            if(current == player1){
+                layoutXTransitionFrom = hand1.getLayoutX();
+                layoutYTransitionFrom = 62;
+                layoutYTransitionTo = 217;
+            }
+            else{
+                layoutXTransitionFrom = hand2.getLayoutX();
+                layoutYTransitionFrom = 545;
+                layoutYTransitionTo = 385;
+            }
+            TransitionForAll(rectangle, layoutXTransitionFrom, layoutXTransitionTo, layoutYTransitionFrom, layoutYTransitionTo);
         }
-        else{
-            layoutXTransitionFrom = hand2.getLayoutX();
-            layoutYTransitionFrom = 545;
-            layoutYTransitionTo = 385;
-        }
-        mainPane.getChildren().add(rectangle);
-        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(800), rectangle);
-        translateTransition.setFromX(layoutXTransitionFrom);
-        translateTransition.setToX(layoutXTransitionTo);
-        translateTransition.setFromY(layoutYTransitionFrom);
-        translateTransition.setToY(layoutYTransitionTo);
-        translateTransition.setCycleCount(1);
-        translateTransition.setAutoReverse(true);
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(800), rectangle);
-        fadeTransition.setFromValue(1.0f);
-        fadeTransition.setToValue(0f);
-        fadeTransition.setCycleCount(1);
-        fadeTransition.setAutoReverse(true);
-        translateTransition.play();
-        fadeTransition.play();
-        rectangle.setDisable(true);
-        Rectangle newRectangle = new Rectangle(10, 10);
-        eventExit(rectangle, newRectangle);
     }
 
-    //Transition carte de la main vers discard
     private void TransitionHand_Discard(Player current, ScrollPane hand, Pane discard, int playerChoice){
         Card cardSelected = current.getHand().get(playerChoice);
         double layoutXTransitionFrom = hand.getLayoutX();
         double layoutXTransitionTo = discard.getLayoutX();
         double layoutYTransition;
-        Rectangle rectangle = new Rectangle(100, 120);
-        Image img = new Image("images/Spellmonger_"+ cardSelected.getName() +".png");
-        rectangle.setFill(new ImagePattern(img));
-        if(current == player1){
-            layoutYTransition = 62;
+        if(current.canPlay()){
+            Rectangle rectangle = new Rectangle(100, 120);
+            Image img = new Image("images/Spellmonger_"+ cardSelected.getName() +".png");
+            rectangle.setFill(new ImagePattern(img));
+            if(current == player1){
+                layoutYTransition = 62;
+            }
+            else{
+                layoutYTransition = 545;
+            }
+            TransitionForAll(rectangle, layoutXTransitionFrom, layoutXTransitionTo, layoutYTransition, layoutYTransition);
         }
-        else{
-            layoutYTransition = 545;
-        }
-        mainPane.getChildren().add(rectangle);
-        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(800), rectangle);
-        translateTransition.setFromX(layoutXTransitionFrom);
-        translateTransition.setToX(layoutXTransitionTo);
-        translateTransition.setFromY(layoutYTransition);
-        translateTransition.setToY(layoutYTransition);
-        translateTransition.setCycleCount(1);
-        translateTransition.setAutoReverse(true);
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(800), rectangle);
-        fadeTransition.setFromValue(1.0f);
-        fadeTransition.setToValue(0f);
-        fadeTransition.setCycleCount(1);
-        fadeTransition.setAutoReverse(true);
-        translateTransition.play();
-        fadeTransition.play();
-        rectangle.setDisable(true);
-        Rectangle newRectangle = new Rectangle(10, 10);
-        eventExit(rectangle, newRectangle);
     }
 }
 
