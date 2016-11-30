@@ -1,40 +1,15 @@
 package edu.insightr.spellmonger;
 
-import org.apache.log4j.Logger;
-
-import java.util.Random;
-
 public class VaultOverclocking extends Enchantment {
 
-    private boolean activeEffect;
-    private static final Logger logger = Logger.getLogger(VaultOverclocking.class);
+
+
 
     public VaultOverclocking() {
         energyCost = 4;
-        activeEffect = false;
     }
 
-    public boolean getActiveEffect() {
-        return activeEffect;
-    }
 
-    void setActiveEffect(boolean active) {
-        activeEffect = active;
-    }
-
-    public void getEffect(Player player) {
-        Random rand = new Random();
-        int nbRand = rand.nextInt(99);
-        if (player.getVaultOverclockingOnOff()) {
-            if (nbRand > 34) {
-                player.setEnergyPoint(1);
-                logger.info("Vault OverClocking burn all " + player.getName() + "'s");
-            } else {
-                player.setEnergyPoint(player.getEnergy() + 1);
-                logger.info("Vault Overclocking add 1 energy to " + player.getName());
-            }
-        }
-    }
 
     @Override
     public String toString() {

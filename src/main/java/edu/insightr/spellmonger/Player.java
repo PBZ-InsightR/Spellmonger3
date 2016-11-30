@@ -4,6 +4,7 @@ package edu.insightr.spellmonger;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class Player {
     // private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -39,20 +40,29 @@ public class Player {
         cardPool.remove(1);
     }
 
-    boolean getVaultOverclockingOnOff() {
-        return vaultOverclockingOnOff;
+    public void vaultOverclockingActiveEffect(Player player) {
+        Random rand = new Random();
+        int nbRand = rand.nextInt(99);
+        if (player.getVaultOverclockingOnOff()==true) {
+            if (nbRand > 34) {
+                player.setEnergyPerTurn(1);
+            } else {
+                player.setEnergyPerTurn(player.getEnergy() + 1);
+            }
+        }
     }
 
+
+
     public int getEnergyPerTurn(){return this.energyPerTurn;}
-   // public void updateEnergyPerTurn(){setEnergyPerTurn(this.getEnergy());}
+
     public void setEnergyPerTurn(int energyPerTurn){this.energyPerTurn = energyPerTurn;}
-    /*
-        public void setVaultOverclockingOnOff() {
-            vaultOverclockingOnOff = true;
-        }*/
-    void setVaultOverclockingOnOff(boolean OnOff) {
+
+    public void setVaultOverclockingOnOff(boolean OnOff) {
         vaultOverclockingOnOff = OnOff;
     }
+
+    public boolean getVaultOverclockingOnOff(){return vaultOverclockingOnOff;}
 
     public ArrayList<Card> getHand() {
         return hand;

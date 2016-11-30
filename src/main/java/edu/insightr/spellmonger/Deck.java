@@ -69,6 +69,7 @@ public class Deck {
             cardPool.add(curse);
         }
 
+
             Leviathan leviathan=new Leviathan();
             cardPool.add(leviathan);
 

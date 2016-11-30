@@ -24,7 +24,6 @@ public class SpellmongerApp {
         Card currentCard = currentPlayer.getHand().get(playerChoice);
 
         if(currentCard.playCard(currentPlayer)){
-          // currentCard.playCard(currentPlayer);
             if(currentCard instanceof Ritual){
                 ((Ritual) currentCard).setEffect(currentPlayer,opponent);
                 currentPlayer.getHand().remove(currentCard);
@@ -33,6 +32,10 @@ public class SpellmongerApp {
                 currentPlayer.getPlayerCreature().add((Creature)currentCard);
                 currentPlayer.getHand().remove(currentCard);
                 currentPlayer.sortCreatures();
+            }else if(currentCard instanceof Enchantment){
+                currentPlayer.getHand().remove(currentCard);
+                currentPlayer.getDiscards().add(currentCard);
+                currentPlayer.setVaultOverclockingOnOff(true);
             }
             return true;
         }else{
