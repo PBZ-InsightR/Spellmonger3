@@ -83,6 +83,7 @@ public class ControllerPlay implements ControlledScreen {
     public Player getPlayer2() {
         return player2;
     }
+
     public void draw_player_1() {
         TransitionDeck_Hand(player1,deck1, hand1);
         drawCard(player1, hand1);
@@ -125,6 +126,7 @@ public class ControllerPlay implements ControlledScreen {
             }
         }
     }
+
     public void draw_player_1_test() {
         drawCardTest(player1,hand1);
     }
@@ -132,6 +134,7 @@ public class ControllerPlay implements ControlledScreen {
     public void draw_player_2_test() {
         drawCardTest(player2,hand2);
     }
+
     public void drawCardTest(Player player,ScrollPane hand){
         if (player.canDraw()) { // Numa
             player.drawCard();

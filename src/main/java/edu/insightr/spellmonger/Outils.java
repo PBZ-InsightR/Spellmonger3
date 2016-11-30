@@ -77,11 +77,10 @@ public class Outils {
             Iterator<JSONObject> iterator = scoreList.iterator();
             while (iterator.hasNext()) {
                 JSONObject it = iterator.next();
-                String Login = (String) it.get("login");
-                double NbPlay = Double.parseDouble((String) it.get("nbPlay"));
-                double p = Double.parseDouble((String) it.get("scorePercent"));
+                String Login = (String) it.get("Login");
+                double NbPlay = Double.parseDouble((String) it.get("NbPlay"));
+                double p = Double.parseDouble((String) it.get("PourcentageScore"));
                 data.put(Login, new User(Login, NbPlay, p));
-
             }
 
         } catch (Exception e) {
