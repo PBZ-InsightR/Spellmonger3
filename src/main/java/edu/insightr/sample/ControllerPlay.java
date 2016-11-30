@@ -341,7 +341,7 @@ public class ControllerPlay implements ControlledScreen {
         myController.setScreen(Main.Play_ID);
     }
 
-  public void backToScore() {
+    public void backToScore() {
         myController.loadScreen(Main.Score_ID, Main.Score_FILE);
         myController.setScreen(Main.Score_ID);
 

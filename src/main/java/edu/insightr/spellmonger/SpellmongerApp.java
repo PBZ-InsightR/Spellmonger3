@@ -23,8 +23,8 @@ public class SpellmongerApp {
 
         Card currentCard = currentPlayer.getHand().get(playerChoice);
 
-        if(currentCard.playCard(currentPlayer)==true){
-            currentCard.playCard(currentPlayer);
+        if(currentCard.playCard(currentPlayer)){
+          // currentCard.playCard(currentPlayer);
             if(currentCard instanceof Ritual){
                 ((Ritual) currentCard).setEffect(currentPlayer,opponent);
                 currentPlayer.getHand().remove(currentCard);
