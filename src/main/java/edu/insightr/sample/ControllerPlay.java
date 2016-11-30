@@ -223,7 +223,7 @@ public class ControllerPlay implements ControlledScreen {
                 Outils.updateJsonFile(myController.getData("NamePlayer2"), true);
                 Outils.updateJsonFile(myController.getData("NamePlayer1"), false);
             }
-           AlertBox.displayGame("Game over", "le jeu est fini");
+           AlertBox.displayGame("Game over", "The game is over");
         }
 
         // creatures sur la piste
