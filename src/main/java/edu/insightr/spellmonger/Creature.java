@@ -27,78 +27,84 @@ abstract class Creature extends Card implements Comparable<Creature> {
     void attackCreature(Player currentPlayer, Player opponent) {
 
         if (Objects.equals(this.getCapacity(), "Flying")) {
-            flyingAttack(currentPlayer,opponent);
+            flyingAttack(currentPlayer, opponent);
         } else if (Objects.equals(this.getCapacity(), "DeathTouch")) {
-            deathTouchAttack(currentPlayer,opponent);
+            deathTouchAttack(currentPlayer, opponent);
         } else {
-            othersAttack(currentPlayer,opponent);
+            othersAttack(currentPlayer, opponent);
         }
     }
 
-    private void flyingAttack(Player currentPlayer,Player opponent){
-        Creature defCreature=null;
-        for (int i = 0; i < opponent.getPlayerCreature().size(); i++) {
-            if (Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), "Flying") || Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), "Catch")) {
+    private void flyingAttack(Player currentPlayer, Player opponent) {
+        Creature defCreature = null;
+        for (int i = 0; i < opponent.getPlayerCreature().size(); i++) { // on cherche les flying qui sont moins fort OU les catch (fort ou pas un flying ne peut pas le prévoir)
+            if ((Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), "Flying")) || Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), "Catch")) {
                 defCreature = opponent.getPlayerCreature().get(i);
                 break;
             }
         }
 
         if (defCreature != null) {
-            if (this.getEffect() > defCreature.getEffect()) {
+            if (this.getEffect() < defCreature.getEffect()&& Objects.equals(defCreature.getCapacity(), "Catch")) {
+               // System.out.println("\n\nCreature31\n\n");
+                currentPlayer.getPlayerCreatureDead().add(this);
+            } else if (this.getEffect() > defCreature.getEffect()) {
+               // System.out.println("\n\nCreature32\n\n");
                 CreatureDead(opponent, defCreature);
-            } else if (this.getEffect() < defCreature.getEffect()) {
-                CreatureDead(currentPlayer, this);
-            } else {
+            } else if(this.getEffect() == defCreature.getEffect()) {
+                //System.out.println("\n\nCreature3\n\n");
                 CreatureDead(opponent, defCreature);
-                CreatureDead(currentPlayer, this);
+                currentPlayer.getPlayerCreatureDead().add(this);
+            }
+            else{
+                //System.out.println("\n\nCreature3RIEN\n\n");
             }
         } else {
             this.damagePlayer(opponent);
+            //System.out.println("\n\n4\n\n");
         }
     }
 
-    private  void deathTouchAttack(Player currentPlayer,Player opponent){
+    private void deathTouchAttack(Player currentPlayer, Player opponent) {
         Creature defCreature;
         if (opponent.getPlayerCreature().size() != 0) {
             defCreature = opponent.getPlayerCreature().get(0);
             CreatureDead(opponent, defCreature);
-            CreatureDead(currentPlayer, this);
+            currentPlayer.getPlayerCreatureDead().add(this);
         } else {
             this.damagePlayer(opponent);
         }
     }
 
-    private  void othersAttack(Player currentPlayer,Player opponent){
-        Creature defCreature=null;
+    private void othersAttack(Player currentPlayer, Player opponent) {
+        Creature defCreature = null;
         if (opponent.getPlayerCreature().size() != 0) {
-            boolean better=false;
+            boolean flyingWeaker = false;
             for (int i = 0; i < opponent.getPlayerCreature().size(); i++) {
                 if (opponent.getPlayerCreature().get(i).getEffect() <= this.getEffect()) {
-                    if( !Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), "Flying")) {
+                    if (Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), "Flying")) {
+                        if (!flyingWeaker) {
+                            flyingWeaker = true;
+                        }
+                    } else {
                         defCreature = opponent.getPlayerCreature().get(i);
-                    }
-                    else{
-                        better=true;
+                        break;
                     }
                 }
             }
             if (defCreature != null) {
                 if (Objects.equals(defCreature.getCapacity(), "DeathTouch")) {
-                    CreatureDead(currentPlayer,this);
-                    CreatureDead(opponent,defCreature);
-                }
-                else {
+                    currentPlayer.getPlayerCreatureDead().add(this);
+                    CreatureDead(opponent, defCreature);
+                } else {
                     if (this.getEffect() > defCreature.getEffect()) {
                         CreatureDead(opponent, defCreature);
                     } else {
                         CreatureDead(opponent, defCreature);
-                        CreatureDead(currentPlayer, this);
+                        currentPlayer.getPlayerCreatureDead().add(this);
                     }
                 }
-            }
-            else if(better)
-            {
+            } else if (flyingWeaker) {
                 this.damagePlayer(opponent);
             }
         } else {

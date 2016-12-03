@@ -2,7 +2,7 @@ package edu.insightr.spellmonger;
 
 public class Snake extends Creature{
 
-    Snake(){
+    public Snake(){
         effect = 1;
         lifePoints = 1;
         energyCost = 2;

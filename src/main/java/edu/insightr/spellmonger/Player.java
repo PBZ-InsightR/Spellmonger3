@@ -133,7 +133,7 @@ public class Player {
         playerCreature.add((Creature) creature);
     }
 
-    void sortCreatures() {
+    public void sortCreatures() {
         Collections.sort(playerCreature);
     } //utilisé dans le systeme d'attaque
 
@@ -173,6 +173,11 @@ public class Player {
         opponent.clearPlayerCreatureDead();
         for(int i = 0; i < this.getPlayerCreature().size(); i++){
             this.getPlayerCreature().get(i).attackCreature(this,opponent);
+        }
+        for(int i = 0; i < this.getPlayerCreatureDead().size(); i++){
+            if(this.getPlayerCreature().contains(this.getPlayerCreatureDead().get(i))){
+                this.getPlayerCreature().remove(this.getPlayerCreatureDead().get(i));
+            }
         }
     }
 
