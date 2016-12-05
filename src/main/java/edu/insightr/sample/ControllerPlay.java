@@ -132,9 +132,8 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     public void drawCardTest(Player player,ScrollPane hand){
-        if (player.canDraw()) { // Numa
+        if (player.canDraw()) {
             player.drawCard();
-
         }
     }
 
@@ -374,6 +373,7 @@ public class ControllerPlay implements ControlledScreen {
         eventExit(rectangle, newRectangle);
     }
 
+    //Transition de la pioche vers la main
     private void TransitionDeck_Hand(Player current, Button deck, ScrollPane hand){
         int sizeOfHand = current.getHand().size();
         Card lastCardOfHand = current.getCards().get(0);
@@ -398,6 +398,7 @@ public class ControllerPlay implements ControlledScreen {
         TransitionForAll(rectangle, layoutXTransitionFrom, layoutXTransitionTo, layoutYTransition, layoutYTransition);
     }
 
+    //Transition carte de la main vers le plateau
     private void TransitionHand_ListCreatures(Player current, ScrollPane listCreatures, int playerChoice){
         Card cardSelected = current.getHand().get(playerChoice);
         int sizeOfListCreatures = current.getPlayerCreature().size();
