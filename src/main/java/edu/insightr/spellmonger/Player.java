@@ -176,6 +176,7 @@ public class Player {
         }
         for(int i = 0; i < this.getPlayerCreatureDead().size(); i++){
             if(this.getPlayerCreature().contains(this.getPlayerCreatureDead().get(i))){
+                this.getDiscards().add(this.getPlayerCreatureDead().get(i));
                 this.getPlayerCreature().remove(this.getPlayerCreatureDead().get(i));
             }
         }

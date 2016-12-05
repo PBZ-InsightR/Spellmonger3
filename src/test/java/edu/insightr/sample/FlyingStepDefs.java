@@ -164,7 +164,7 @@ public class FlyingStepDefs {
         Assert.assertEquals(current.getPlayerCreature().size(), 2);
         Assert.assertEquals(opponent.getPlayerCreature().size(), 0);
         Assert.assertEquals(current.getLifePoint(), 20);
-        Assert.assertEquals(opponent.getLifePoint(), 16);
+        Assert.assertEquals(opponent.getLifePoint(), 19);
     }
 
     @When("^both have an eagle and dragon$")
@@ -222,5 +222,10 @@ public class FlyingStepDefs {
         Assert.assertEquals(opponent.getLifePoint(), 20);
         Assert.assertEquals(current.getPlayerCreature().get(0) instanceof Eagle, true);
         Assert.assertEquals(opponent.getPlayerCreature().get(0) instanceof Dragoon, true);
+    }
+    @When("^the first one have a rat, the second have a snake$")
+    public void theFirstOneHaveARatTheSecondHaveASnake() throws Throwable {
+        current.getPlayerCreature().add(new Eagle());
+        opponent.getPlayerCreature().add(new Dragoon());
     }
 }
