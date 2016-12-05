@@ -3,6 +3,7 @@ package edu.insightr.sample;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -24,6 +25,7 @@ public class Main extends Application {
 
         Group root = new Group();
         root.getChildren().addAll(mainContainer.stack);
+        primaryStage.getIcons().add(new Image("images/fond.png"));
         primaryStage.setTitle("SpellMongerApp");
         Scene scene = new Scene(root, 890, 690);
         scene.getStylesheets().add("/style.css");

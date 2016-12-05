@@ -19,7 +19,7 @@ import javafx.util.Duration;
 
 public class AlertBox {
 
-    // TODO : prefer CSS for decoration instead of java code
+    // TODO : a modifier pour quitter la messagebox, et un fond pour le fin du game
 
     static void displayDebugging(String title, String message,double X,double Y) {
         Stage messageBox = new Stage();
