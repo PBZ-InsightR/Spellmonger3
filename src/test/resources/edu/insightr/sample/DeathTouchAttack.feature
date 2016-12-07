@@ -9,29 +9,29 @@ Feature: DeathTouch
 
   Scenario: snake vs bear
     Given two players have no cards
-    When first one have an eagle,second have a bear
+    When first one have a snake,second have a bear
     When current attack opponent
-    Then Attack opponents lifepoints with 1, thus creatures dont change
+    Then both of them are dead
   Scenario: snake vs fox
     Given two players have no cards
-    When first one have an eagle,second have a fox
+    When first one have a snake,second have a fox
     When current attack opponent
-    Then Attack opponents lifepoints with 1, thus creatures dont change
+    Then both of them are dead
 
   Scenario: snake vs craken
     Given two players have no cards
-    When first one have an eagle,second have a craken
+    When first one have a snake,second have a craken
     When current attack opponent
-    Then Opponent Eagle died, thus lifePoints didn't changed
+    Then both of them are dead
 
   Scenario: snake vs eagle
     Given two players have no cards
-    When first one have an eagle,second have a snake
+    When first one have a snake,second have an eagle
     When current attack opponent
-    Then Attack opponents lifepoints with 1, thus creatures dont change
+    Then both of them are dead
   Scenario: snake vs dragon
     Given two players have no cards
-    When first one have an dragon,second have a snake
+    When first one have a snake,second have a dragon
     When current attack opponent
-    Then Attack opponents lifepoints with 4, thus creatures dont change
+    Then both of them are dead
 

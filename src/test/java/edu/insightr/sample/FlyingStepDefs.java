@@ -225,7 +225,37 @@ public class FlyingStepDefs {
     }
     @When("^the first one have a rat, the second have a snake$")
     public void theFirstOneHaveARatTheSecondHaveASnake() throws Throwable {
-        current.getPlayerCreature().add(new Eagle());
+        current.getPlayerCreature().add(new Rat());
+        opponent.getPlayerCreature().add(new Snake());
+    }
+
+    @When("^first one have a snake,second have a bear$")
+    public void firstOneHaveASnakeSecondHaveABear() throws Throwable {
+        current.getPlayerCreature().add(new Snake());
+        opponent.getPlayerCreature().add(new Bear());
+    }
+
+    @When("^first one have a snake,second have a fox$")
+    public void firstOneHaveASnakeSecondHaveAFox() throws Throwable {
+        current.getPlayerCreature().add(new Snake());
+        opponent.getPlayerCreature().add(new Fox());
+    }
+
+    @When("^first one have a snake,second have a craken$")
+    public void firstOneHaveASnakeSecondHaveACraken() throws Throwable {
+        current.getPlayerCreature().add(new Snake());
+        opponent.getPlayerCreature().add(new Kraken());
+    }
+
+    @When("^first one have a snake,second have an eagle$")
+    public void firstOneHaveASnakeSecondHaveAnEagle() throws Throwable {
+        current.getPlayerCreature().add(new Snake());
+        opponent.getPlayerCreature().add(new Eagle());
+    }
+
+    @When("^first one have a snake,second have a dragon$")
+    public void firstOneHaveASnakeSecondHaveADragon() throws Throwable {
+        current.getPlayerCreature().add(new Snake());
         opponent.getPlayerCreature().add(new Dragoon());
     }
 }
