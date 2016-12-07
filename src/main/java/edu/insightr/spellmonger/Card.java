@@ -14,12 +14,14 @@ public abstract class Card  {
     }
 
     public String getTypeCard(){
+        String result;
         if(this instanceof Ritual)
-            return "Ritual";
+            result = "Ritual";
         else if(this instanceof Enchantment)
-            return "Enchantment";
+            result = "Enchantment";
         else
-            return "Creature";
+            result = "Creature";
+        return result;
     }
 
     @Override

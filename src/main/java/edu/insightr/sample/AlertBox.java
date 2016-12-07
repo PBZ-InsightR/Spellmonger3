@@ -34,6 +34,7 @@ public class AlertBox {
 
         Label l = new Label(message);
         l.setTextFill(Color.WHITE);
+        l.setStyle("-fx-font: 20 'Sitka text';");
 
         VBox container = new VBox(10);
         container.getChildren().add(l);
@@ -77,6 +78,7 @@ public class AlertBox {
 
         Label l = new Label(message);
         l.setTextFill(Color.WHITE);
+        l.setStyle("-fx-font: 20 'Sitka text';");
 
         VBox container = new VBox(10);
         container.getChildren().add(l);
