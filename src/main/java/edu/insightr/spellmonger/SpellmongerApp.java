@@ -70,7 +70,7 @@ public class SpellmongerApp {
         logger.info("on a tous fini");
         if(choix!=-1)
         {
-            result="Card " + choix + " c'est un:" + currentPlayer.getHand().get(choix);
+            result="Card " + choix + "\n c'est un:" + currentPlayer.getHand().get(choix);
             playCard(currentPlayer, opponent, choix);
         }
         else

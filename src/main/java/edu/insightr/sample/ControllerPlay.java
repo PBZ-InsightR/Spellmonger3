@@ -189,9 +189,27 @@ public class ControllerPlay implements ControlledScreen {
     private void play(int index, Player current, Player oppenent) {
         Button deck = deck2;
         if (!current.isDead()) {
-            if (isIA && current == player2)
+            if (isIA && current == player2){
                 AlertBox.displayGame("IA",game.playCardIA(current, oppenent));
+                pass_player_2();
+            }
+            else if (!game.playCard(current, oppenent, index)){
+                if(current == player1)
+                    TransitionAletreEnergy(Player1, energy_player1_bckgrd);
+                else
+                    TransitionAletreEnergy(Player2, energy_player2_bckgrd);
+            }
             update();
+            if (current == player1) deck = deck1;
+            if (!current.canPlay() && deck.isDisabled()) {
+                if (current == player1) {
+                    //TransitionAletreEnergy(Player1, energy_player1_bckgrd);
+                } else {
+                    if (!isIA) {
+                        //TransitionAletreEnergy(Player2, energy_player2_bckgrd);
+                    }
+                }
+            }
         }
     }
 

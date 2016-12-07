@@ -78,7 +78,8 @@ public class AlertBox {
 
         Label l = new Label(message);
         l.setTextFill(Color.WHITE);
-        l.setStyle("-fx-font: 20 'Sitka text';");
+        l.setStyle("-fx-font: 14 'Sitka text';" +
+                "-fx-text-alignment: center;");
 
         VBox container = new VBox(10);
         container.getChildren().add(l);
