@@ -27,12 +27,12 @@ public class Main extends Application {
         root.getChildren().addAll(mainContainer.stack);
         primaryStage.getIcons().add(new Image("images/fond.png"));
         primaryStage.setTitle("SpellMongerApp");
+        primaryStage.getIcons().add(new Image("images/fond.png"));
         Scene scene = new Scene(root, 890, 690);
         scene.getStylesheets().add("/style.css");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {
