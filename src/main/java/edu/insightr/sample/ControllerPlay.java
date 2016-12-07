@@ -9,7 +9,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
-import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import javafx.util.Duration;
@@ -55,7 +55,7 @@ public class ControllerPlay implements ControlledScreen {
                 nameP2 = myController.getData("NamePlayer2");
             isIA = myController.getData("isPlayer2").equals("false");
         }
-        game = new SpellmongerApp(new Player(nameP1), new Player(nameP2));
+        game = new SpellmongerApp(nameP1,nameP2);
         player1 = game.getPlayer(0);
         player2 = game.getPlayer(1);
         turnPlayer = player1;
@@ -71,7 +71,7 @@ public class ControllerPlay implements ControlledScreen {
     public void initializeTest(){
         String nameP1 = "Player1";
         String nameP2 = "Player2";
-        game = new SpellmongerApp(new Player(nameP1), new Player(nameP2));
+        game = new SpellmongerApp(nameP1,nameP2);
         player1 = game.getPlayer(0);
         player2 = game.getPlayer(1);
         turnPlayer = player1;
@@ -82,19 +82,17 @@ public class ControllerPlay implements ControlledScreen {
     public Player getPlayer2() {
         return player2;
     }
-
     public void draw_player_1() {
-        TransitionDeck_Hand(player1,deck1, hand1);
-        drawCard(player1, hand1);
+        drawCard(player1, hand1,deck1);
     }
 
     public void draw_player_2() {
-        TransitionDeck_Hand(player2,deck2, hand2);
-        drawCard(player2, hand2);
+        drawCard(player2, hand2,deck2);
     }
 
-    private void drawCard(Player player, ScrollPane hand) {
-        if (player.canDraw()) { // Numa
+    private void drawCard(Player player, ScrollPane hand, Button deck) {
+        if (player.canDraw()) {
+            TransitionDeck_Hand(player,deck, hand);
             player.drawCard();
             deck1.setDisable(true);
             deck2.setDisable(true);
@@ -125,7 +123,6 @@ public class ControllerPlay implements ControlledScreen {
             }
         }
     }
-
     public void draw_player_1_test() {
         drawCardTest(player1,hand1);
     }
@@ -135,14 +132,14 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     public void drawCardTest(Player player,ScrollPane hand){
-        if (player.canDraw()) { // Numa
+        if (player.canDraw()) {
             player.drawCard();
-
         }
     }
 
+    //Permet de switcher de joueur actuel
     private void pass(Player current, Player opponent, ScrollPane hand) {
-        current.attack(opponent);
+        current.attackCreatures(opponent);
         turnFinished(current);
         boolean choice = true;
         if (current.equals(player2)) choice = false;
@@ -154,16 +151,19 @@ public class ControllerPlay implements ControlledScreen {
         hand.setHvalue(hand.getHmin());
     }
 
+    //Est executé lorsque le player1 clic sur fin
     public void pass_player_1() {
         pass(player1, player2, hand1);
         if (isIA)
             whenIA();
     }
 
+    //Est executé lorsque le player2 clic sur fin
     public void pass_player_2() {
         pass(player2, player1, hand2);
     }
 
+    //Controle de l'IA
     private void whenIA() {
         logger.info("on est IA");
         draw_player_2();
@@ -176,36 +176,45 @@ public class ControllerPlay implements ControlledScreen {
         delay.play();
     }
 
+    //Appelé à la fin d'un tour
     private void turnFinished(Player current) {
         turnPlayer = game.nextPLayer(current);
+        if(current.getVaultOverclockingOnOff()) {
+            turnPlayer.vaultOverclockingActiveEffect();
+        }
         turnPlayer.increaseEnergy();
         turnPlayer.setEnergyPerTurn(turnPlayer.getEnergy());
         update();
     }
+
 
     private void play(int index, Player current, Player oppenent) {
         Button deck = deck2;
         if (!current.isDead()) {
             if (isIA && current == player2)
                 AlertBox.displayGame("IA",game.playCardIA(current, oppenent));
-            else if (!game.playCard(current, oppenent, index))
-                AlertBox.displayError("Energy not enough", current.getName() + " hasn't enough energy in his stack");
+            else if (!game.playCard(current, oppenent, index)){
+                if(current == player1)
+                    TransitionAletreEnergy(Player1, energy_player1_bckgrd);
+                else
+                    TransitionAletreEnergy(Player2, energy_player2_bckgrd);
+            }
             update();
             if (current == player1) deck = deck1;
             if (!current.canPlay() && deck.isDisabled()) {
                 if (current == player1) {
-                    AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player1.getLayoutX(), Player1.getLayoutY());
-                    pass_player_1();
+                    //TransitionAletreEnergy(Player1, energy_player1_bckgrd);
                 } else {
                     if (!isIA) {
-                        AlertBox.displayDebugging("Energy issue", current.getName() + ",you cannot play any of your cards!", Player2.getLayoutX(), Player2.getLayoutY());
+                        //TransitionAletreEnergy(Player2, energy_player2_bckgrd);
                     }
-                    pass_player_2();
                 }
             }
         }
     }
 
+
+    //Refresh les valeurs
     private void update() {
         name1.setText("\t" + player1.getName());
         life_points1.setText("Life point : " + player1.getLifePoint());
@@ -225,7 +234,7 @@ public class ControllerPlay implements ControlledScreen {
                 JsonTools.updateJsonFile(myController.getData("NamePlayer2"), true);
                 JsonTools.updateJsonFile(myController.getData("NamePlayer1"), false);
             }
-           AlertBox.displayGame("Game over", "The game is over");
+            AlertBox.displayGame("Game over", "The game is over");
         }
 
         // creatures sur la piste
@@ -240,6 +249,7 @@ public class ControllerPlay implements ControlledScreen {
 
     }
 
+    //Affichage des creatures sur le terrain
     private void listCreatureContents(Player current, ScrollPane scroll) {
         HBox content = new HBox();
         scroll.setContent(content);
@@ -258,6 +268,7 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
+    //Affichage des créatures dans la main du joueur
     private void hands(Player current, Player oppenent, ScrollPane hand) {
         HBox content = new HBox();
         hand.setContent(content);
@@ -281,6 +292,7 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
+
     private void discards(Player current, Pane discard) {
         if (current.getDiscards().size() != 0) {
             discard.setVisible(true);
@@ -295,6 +307,7 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
+    //Agrandi la carte lors du passage souris
     private void eventEnter(Rectangle rectangle, Rectangle newRectangle, Image img) {
         rectangle.setOnMouseEntered(t -> {
             newRectangle.setLayoutX(620);
@@ -309,44 +322,54 @@ public class ControllerPlay implements ControlledScreen {
         });
     }
 
+    //Supprime la carte agrandi apres passage
     private void eventExit(Rectangle rectangle, Rectangle newRectangle) {
         rectangle.setOnMouseExited(t -> mainPane.getChildren().remove(newRectangle));
     }
 
+    //Gere les evenements de clic souris
     private void eventClick(Rectangle rectangle, Player current, Player oppenent, int playerChoice) {
         rectangle.setOnMouseClicked(t -> {
-            if(current == player1) {
-                Card card = current.getHand().get(playerChoice);
-                if(Objects.equals(card.getTypeCard(), "Creature"))
-                    TransitionHand_ListCreatures(player1, list_creatures1, playerChoice);
-                else
-                    TransitionHand_Discard(player1, hand1, discard1, playerChoice);
-            }
-            else {
-                Card card = current.getHand().get(playerChoice);
-                if (Objects.equals(card.getTypeCard(), "Creature"))
-                    TransitionHand_ListCreatures(player2, list_creatures2, playerChoice);
-                else
-                    TransitionHand_Discard(player2, hand2, discard2, playerChoice);
-            }
+            TransitionAfterAttack(current,playerChoice);
             play(playerChoice, current, oppenent);
         });
     }
 
+    //Boutton permettant de retourner au menu
     public void backToMenu() {
         myController.loadScreen(Main.Menu_ID, Main.Menu_FILE);
         myController.setScreen(Main.Menu_ID);
     }
 
+    //Boutton permettant de redémarrer la partie
     public void backToPlay() {
         myController.loadScreen(Main.Play_ID, Main.Play_FILE);
         myController.setScreen(Main.Play_ID);
     }
 
+    //Boutton permettant d'ouvrir les scores
     public void backToScore() {
         myController.loadScreen(Main.Score_ID, Main.Score_FILE);
         myController.setScreen(Main.Score_ID);
 
+    }
+
+    private void TransitionAletreEnergy(Pane player, Pane energy_pane){
+        Rectangle rectangle = new Rectangle(150,50);
+        Stop[] stops = new Stop[] { new Stop(0, Color.RED), new Stop(1, Color.WHITE)};
+        LinearGradient gp = new LinearGradient(0, 0, 10, 24, true, CycleMethod.NO_CYCLE, stops);
+        rectangle.setFill(gp);
+        rectangle.setArcHeight(18);
+        rectangle.setArcWidth(18);
+        rectangle.setLayoutX(energy_pane.getLayoutX());
+        rectangle.setLayoutY(energy_pane.getLayoutY());
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(600), rectangle);
+        fadeTransition.setFromValue(0f);
+        fadeTransition.setToValue(0.8f);
+        fadeTransition.setCycleCount(4);
+        fadeTransition.setAutoReverse(true);
+        player.getChildren().add(rectangle);
+        fadeTransition.play();
     }
 
     private void TransitionForAll(Rectangle rectangle, double layoutXFrom, double layoutXTo, double layoutYFrom, double layoutYTo){
@@ -370,6 +393,7 @@ public class ControllerPlay implements ControlledScreen {
         eventExit(rectangle, newRectangle);
     }
 
+    //Transition de la pioche vers la main
     private void TransitionDeck_Hand(Player current, Button deck, ScrollPane hand){
         int sizeOfHand = current.getHand().size();
         Card lastCardOfHand = current.getCards().get(0);
@@ -394,6 +418,7 @@ public class ControllerPlay implements ControlledScreen {
         TransitionForAll(rectangle, layoutXTransitionFrom, layoutXTransitionTo, layoutYTransition, layoutYTransition);
     }
 
+    //Transition carte de la main vers le plateau
     private void TransitionHand_ListCreatures(Player current, ScrollPane listCreatures, int playerChoice){
         Card cardSelected = current.getHand().get(playerChoice);
         int sizeOfListCreatures = current.getPlayerCreature().size();
@@ -432,6 +457,7 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
+    //Transition carte de la main vers discard
     private void TransitionHand_Discard(Player current, ScrollPane hand, Pane discard, int playerChoice){
         Card cardSelected = current.getHand().get(playerChoice);
         double layoutXTransitionFrom = hand.getLayoutX();
@@ -448,6 +474,23 @@ public class ControllerPlay implements ControlledScreen {
                 layoutYTransition = 545;
             }
             TransitionForAll(rectangle, layoutXTransitionFrom, layoutXTransitionTo, layoutYTransition, layoutYTransition);
+        }
+    }
+
+    private void TransitionAfterAttack(Player current,int playerChoice){
+        if(current == player1) {
+            Card card = current.getHand().get(playerChoice);
+            if(Objects.equals(card.getTypeCard(), "Creature"))
+                TransitionHand_ListCreatures(player1, list_creatures1, playerChoice);
+            else
+                TransitionHand_Discard(player1, hand1, discard1, playerChoice);
+        }
+        else {
+            Card card = current.getHand().get(playerChoice);
+            if (Objects.equals(card.getTypeCard(), "Creature"))
+                TransitionHand_ListCreatures(player2, list_creatures2, playerChoice);
+            else
+                TransitionHand_Discard(player2, hand2, discard2, playerChoice);
         }
     }
 }
