@@ -37,7 +37,7 @@ public class ControllerPlay implements ControlledScreen {
     public ScrollPane list_creatures1, list_creatures2, hand1, hand2;
     public Button deck1, deck2, pass1, pass2;
     public SplitPane split;
-    public Pane mainPane, Player1, Player2;
+    public Pane mainPane, Player1, Player2, energy_player1_bckgrd, energy_player2_bckgrd;
 
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
