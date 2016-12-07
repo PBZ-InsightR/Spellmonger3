@@ -13,7 +13,6 @@ import javafx.util.Duration;
 import java.util.HashMap;
 
 class ScreensController {
-    // TODO : be careful to unuseful cast of object
 
     StackPane stack;
     private HashMap<String, Node> screens = new HashMap<>(); // stock des Screen afin de basculer entre eux
@@ -31,7 +30,6 @@ class ScreensController {
     String getData(String key) {
         return data.get(key);
     }
-
 
     private void addScreen(String name, Node screen) {
         screens.put(name, screen);
@@ -96,14 +94,4 @@ class ScreensController {
         }
 
     }
-
-     boolean unloadScreen(String name) {
-        if (screens.remove(name) == null) {
-            System.out.println("Screen didn't exist");
-            return false;
-        } else {
-            return true;
-        }
-    }
-
 }

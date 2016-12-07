@@ -1,7 +1,7 @@
 package edu.insightr.spellmonger;
 
 public class Rat extends Creature{
-    Rat(){
+    public Rat(){
         energyCost=1;
         effect=1;
         lifePoints=effect;
