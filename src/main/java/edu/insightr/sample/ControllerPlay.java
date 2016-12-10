@@ -191,7 +191,9 @@ public class ControllerPlay implements ControlledScreen {
         if (!current.isDead()) {
             if (isIA && current == player2){
                 AlertBox.displayGame("IA",game.playCardIA(current, oppenent));
-                pass_player_2();
+                PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                delay.setOnFinished(event -> pass_player_2());
+                delay.play();
             }
             else if (!game.playCard(current, oppenent, index)){
                 if(current == player1)
@@ -278,6 +280,7 @@ public class ControllerPlay implements ControlledScreen {
             Rectangle rectangle = new Rectangle(100, 120);
             String imageOfCard = "Spellmonger_" + c.getName();
             if (turnPlayer.equals(oppenent)) imageOfCard = "dosCartes_ocre";
+            if(isIA && current == player2) imageOfCard = "dosCartes_ocre";
             Image img = new Image("images/" + imageOfCard + ".png");
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
