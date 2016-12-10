@@ -1,4 +1,4 @@
-package edu.insightr.sample;
+package edu.insightr.Controller;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     static String Menu_ID = "MENU";
-    static String Menu_FILE = "/menu.fxml";
+    static String Menu_FILE = "/Menu.fxml";
 
     static String Play_ID = "PLAY";
-    static String Play_FILE = "/sample.fxml";
+    static String Play_FILE = "/Game.fxml";
 
     static String Score_ID = "SCORE";
     static String Score_FILE = "/Scores.fxml";

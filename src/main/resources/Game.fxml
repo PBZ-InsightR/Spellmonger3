@@ -10,7 +10,7 @@
 <?xml-stylesheet href="@style.css" type="text/css" ?>
 
 
-<Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.sample.ControllerPlay">
+<Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.Controller.ControllerPlay">
     <SplitPane fx:id="split" dividerPositions="0.5">
         <items>
             <AnchorPane>

@@ -25,6 +25,7 @@ public class JsonTools {
                 pourcentage = (tmp + 1) * 100 / Double.parseDouble(p.getNbPlay());
             else
                 pourcentage = tmp * 100 / Double.parseDouble(p.getNbPlay());
+            pourcentage=(double)((int)(pourcentage*100))/100;
             p.setScorePercent(pourcentage + "");
         } else {
             if (isWinner)
@@ -103,7 +104,6 @@ public class JsonTools {
                     return o1.getValue().compareTo(o2.getValue());
                 } else {
                     return o2.getValue().compareTo(o1.getValue());
-
                 }
             }
         });

@@ -51,7 +51,6 @@ public class SpellmongerApp {
         String result;
         int choix = -1;
         int diff = currentPlayer.getLifePoint() - opponent.getLifePoint();
-        int energy = 0;
         ArrayList<Card> hand=currentPlayer.getHand();
         logger.info("Life Points");
         for (int i = 0; i < hand.size(); i++) {

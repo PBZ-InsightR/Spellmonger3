@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="ScorePane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.sample.ControllerScore">
+<GridPane fx:id="ScorePane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.Controller.ControllerScore">
     <children>
         <Pane GridPane.columnIndex="1">
             <children>
