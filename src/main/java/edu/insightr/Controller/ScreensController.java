@@ -1,4 +1,4 @@
-package edu.insightr.sample;
+package edu.insightr.Controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

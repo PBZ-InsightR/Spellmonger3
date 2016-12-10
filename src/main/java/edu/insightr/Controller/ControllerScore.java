@@ -1,4 +1,4 @@
-package edu.insightr.sample;
+package edu.insightr.Controller;
 
 import edu.insightr.spellmonger.JsonTools;
 import edu.insightr.spellmonger.User;
@@ -31,7 +31,7 @@ public class ControllerScore implements Initializable,ControlledScreen{
         }
         LoginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
         NbPlayColumn.setCellValueFactory(new PropertyValueFactory<>("nbPlay"));
-        ScoreColumn.setCellValueFactory(new PropertyValueFactory<>("percentScore"));
+        ScoreColumn.setCellValueFactory(new PropertyValueFactory<>("scorePercent"));
         table.setItems(data);
     }
 
@@ -41,7 +41,7 @@ public class ControllerScore implements Initializable,ControlledScreen{
 
     //passer a la vue de Play
     public void goToPlay(){
-        myController.loadScreen(Main.Play_ID,Main.Play_FILE); // charger le fichier sample.fxml
+        myController.loadScreen(Main.Play_ID,Main.Play_FILE); // charger le fichier Controller.fxml
         myController.setScreen(Main.Play_ID); // activer la vue Play
     }
     public void goToMenu(){

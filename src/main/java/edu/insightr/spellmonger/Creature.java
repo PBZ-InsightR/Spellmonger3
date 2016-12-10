@@ -45,18 +45,17 @@ abstract class Creature extends Card implements Comparable<Creature> {
         }
 
         if (defCreature != null) {
-            if (this.getEffect() < defCreature.getEffect()&& Objects.equals(defCreature.getCapacity(), "Catch")) {
-               // System.out.println("\n\nCreature31\n\n");
+            if (this.getEffect() < defCreature.getEffect() && Objects.equals(defCreature.getCapacity(), "Catch")) {
+                // System.out.println("\n\nCreature31\n\n");
                 currentPlayer.getPlayerCreatureDead().add(this);
             } else if (this.getEffect() > defCreature.getEffect()) {
-               // System.out.println("\n\nCreature32\n\n");
+                // System.out.println("\n\nCreature32\n\n");
                 CreatureDead(opponent, defCreature);
-            } else if(this.getEffect() == defCreature.getEffect()) {
+            } else if (this.getEffect() == defCreature.getEffect()) {
                 //System.out.println("\n\nCreature3\n\n");
                 CreatureDead(opponent, defCreature);
                 currentPlayer.getPlayerCreatureDead().add(this);
-            }
-            else{
+            } else {
                 //System.out.println("\n\nCreature3RIEN\n\n");
             }
         } else {

@@ -1,4 +1,4 @@
-package edu.insightr.sample;
+package edu.insightr.Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
