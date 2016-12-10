@@ -90,7 +90,8 @@ public class ControllerPlay implements ControlledScreen {
 
     private void drawCard(Player player, ScrollPane hand, Button deck) {
         if (player.canDraw()) {
-            TransitionDeck_Hand(player,deck, hand);
+            if(!isIA || (isIA && player == player1))
+                TransitionDeck_Hand(player,deck, hand);
             player.drawCard();
             deck1.setDisable(true);
             deck2.setDisable(true);
@@ -165,11 +166,6 @@ public class ControllerPlay implements ControlledScreen {
         int lifePoints_player1_afterAttack = player1.getLifePoint();
         if(lifePoints_player1_beforeAttack > lifePoints_player1_afterAttack)
             TransitionAlert(Player1, life_points1_bckgrd);
-
-        int lifePoints_player2_before = player2.getLifePoint();
-        int lifePoints_player2_after = player2.getLifePoint();
-        if(lifePoints_player2_before < lifePoints_player2_after)
-            TransitionGainPV(Player2, life_points2_bckgrd);
     }
 
     //Controle de l'IA
@@ -317,7 +313,6 @@ public class ControllerPlay implements ControlledScreen {
             discard.getChildren().add(rectangle);
             Image img = new Image("images/Spellmonger_" + lastCard.getName() + ".png");
             rectangle.setFill(new ImagePattern(img));
-            rectangle.getStyleClass().add("cartes_ombre");
         } else {
             discard.setVisible(false);
         }
@@ -369,9 +364,9 @@ public class ControllerPlay implements ControlledScreen {
                 TransitionHand_Discard(current, player_pane, energy_pane, hand, discard, playerChoice);
                 if(card.getName() == "Curse" && card.getEnergyCost() <= current.getEnergyPerTurn()) {
                     if (current == player1)
-                        TransitionAlert(Player2, energy_player2_bckgrd);
+                        TransitionAlert(Player2, life_points2_bckgrd);
                     else
-                        TransitionAlert(Player1, energy_player1_bckgrd);
+                        TransitionAlert(Player1, life_points1_bckgrd);
                 }
                 else if(card.getName() == "Blessing" && card.getEnergyCost() <= current.getEnergyPerTurn())
                     TransitionGainPV(player_pane, life_points);
@@ -412,10 +407,10 @@ public class ControllerPlay implements ControlledScreen {
         rectangle.setArcWidth(18);
         rectangle.setLayoutX(energy_pane.getLayoutX());
         rectangle.setLayoutY(energy_pane.getLayoutY());
-        FadeTransition fadeTransition1 = new FadeTransition(Duration.millis(600), rectangle);
+        FadeTransition fadeTransition1 = new FadeTransition(Duration.millis(500), rectangle);
         fadeTransition1.setFromValue(0f);
-        fadeTransition1.setToValue(0.8f);
-        fadeTransition1.setCycleCount(4);
+        fadeTransition1.setToValue(0.6f);
+        fadeTransition1.setCycleCount(2);
         fadeTransition1.setAutoReverse(true);
         player_pane.getChildren().add(rectangle);
         fadeTransition1.play();
@@ -431,10 +426,10 @@ public class ControllerPlay implements ControlledScreen {
         rectangle.setArcWidth(18);
         rectangle.setLayoutX(energy_pane.getLayoutX());
         rectangle.setLayoutY(energy_pane.getLayoutY());
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(600), rectangle);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), rectangle);
         fadeTransition.setFromValue(0f);
-        fadeTransition.setToValue(0.8f);
-        fadeTransition.setCycleCount(4);
+        fadeTransition.setToValue(0.6f);
+        fadeTransition.setCycleCount(2);
         fadeTransition.setAutoReverse(true);
         player_pane.getChildren().add(rectangle);
         fadeTransition.play();
