@@ -6,7 +6,6 @@ public class Bear extends Creature {
         effect = 3;
         lifePoints = effect;
         energyCost = 3;
-        capacity="";
     }
 
     @Override

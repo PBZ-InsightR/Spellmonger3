@@ -10,7 +10,7 @@ public class Kraken extends Creature{
         effect = 4;
         lifePoints = effect;
         energyCost = 4;
-        capacity="Catch";
+        capacity=Capacity.CATCH.toString();
     }
 
     @Override

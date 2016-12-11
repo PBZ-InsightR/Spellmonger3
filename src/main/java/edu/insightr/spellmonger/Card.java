@@ -16,11 +16,11 @@ public abstract class Card  {
     public String getTypeCard(){
         String result;
         if(this instanceof Ritual)
-            result = "Ritual";
+            result = TypeOfCard.RITUAL.toString();
         else if(this instanceof Enchantment)
-            result = "Enchantment";
+            result = TypeOfCard.ENCHANTMENT.toString();
         else
-            result = "Creature";
+            result = TypeOfCard.CREATURE.toString();
         return result;
     }
 

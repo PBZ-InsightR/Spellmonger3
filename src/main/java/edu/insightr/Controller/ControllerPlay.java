@@ -201,10 +201,9 @@ public class ControllerPlay implements ControlledScreen {
 
 
     private void play(int index, Player current, Player oppenent) {
-        Button deck = deck2;
         if (!current.isDead()) {
             if (isIA && current == player2){
-                AlertBox.displayGame(game.playCardIA(current, oppenent));
+                AlertBox.displayGame(game.playCardIA_LV2(current, oppenent));
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
                 delay.setOnFinished(event -> pass_player_2());
                 delay.play();
@@ -216,19 +215,8 @@ public class ControllerPlay implements ControlledScreen {
                     TransitionAlert(Player2, energy_player2_bckgrd);
             }
             update();
-            if (current == player1) deck = deck1;
-            if (!current.canPlay() && deck.isDisabled()) {
-                if (current == player1) {
-                    //TransitionAlert(Player1, energy_player1_bckgrd);
-                } else {
-                    if (!isIA) {
-                        //TransitionAlert(Player2, energy_player2_bckgrd);
-                    }
-                }
-            }
         }
     }
-
 
     //Refresh les valeurs
     private void update() {
@@ -244,18 +232,13 @@ public class ControllerPlay implements ControlledScreen {
             pass1.setDisable(true);
             pass2.setDisable(true);
 
-            if (player1.winner(player2)) {
-                if(!Objects.equals(player1.getName(), "Player1"))
-                    JsonTools.updateJsonFile(player1.getName(), true);
-                if(!Objects.equals(player1.getName(), "Player1"))
-                    JsonTools.updateJsonFile(player2.getName(), false);
-            } else {
-                if(!Objects.equals(player1.getName(), "Player1"))
-                    JsonTools.updateJsonFile(player1.getName(), true);
-                if(!Objects.equals(player1.getName(), "Player1"))
-                    JsonTools.updateJsonFile(player2.getName(), false);
-            }
-            AlertBox.displayGame( "The game is over");
+
+        if(!Objects.equals(player1.getName(), "Player1"))
+            JsonTools.updateJsonFile(player1.getName(), player1.winner(player2));
+        if(!Objects.equals(player2.getName(), "Player2"))
+            JsonTools.updateJsonFile(player2.getName(), player2.winner(player1));
+
+        AlertBox.displayGame( "The game is over");
         }
 
         // creatures sur la piste
@@ -300,7 +283,7 @@ public class ControllerPlay implements ControlledScreen {
             Rectangle rectangle = new Rectangle(100, 120);
             String imageOfCard = "Spellmonger_" + c.getName();
             if (turnPlayer.equals(oppenent)) imageOfCard = "dosCartes_ocre";
-            if(isIA && current == player2) imageOfCard = "dosCartes_ocre";
+            //if(isIA && current == player2) imageOfCard = "dosCartes_ocre";
             Image img = new Image("images/" + imageOfCard + ".png");
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
@@ -315,7 +298,6 @@ public class ControllerPlay implements ControlledScreen {
             index++;
         }
     }
-
 
     private void discards(Player current, Pane discard) {
         if (current.getDiscards().size() != 0) {
@@ -369,21 +351,21 @@ public class ControllerPlay implements ControlledScreen {
                 life_points = life_points1_bckgrd;
             }
             //TransitionAfterAttack(current,playerChoice);
-            if(Objects.equals(card.getTypeCard(), "Creature")){
+            if(Objects.equals(card.getTypeCard(), TypeOfCard.CREATURE.toString())){
                 TransitionHand_ListCreatures(current, player_pane, energy_pane, list_creatures, playerChoice);
             }
-            else if(Objects.equals(card.getTypeCard(), "Ritual")){
+            else if(Objects.equals(card.getTypeCard(), TypeOfCard.RITUAL.toString())){
                 TransitionHand_Discard(current, player_pane, energy_pane, hand, discard, playerChoice);
-                if(card.getName() == "Curse" && card.getEnergyCost() <= current.getEnergyPerTurn()) {
+                if(Objects.equals(card.getName(), "Curse") && card.getEnergyCost() <= current.getEnergyPerTurn()) {
                     if (current == player1)
                         TransitionAlert(Player2, life_points2_bckgrd);
                     else
                         TransitionAlert(Player1, life_points1_bckgrd);
                 }
-                else if(card.getName() == "Blessing" && card.getEnergyCost() <= current.getEnergyPerTurn())
+                else if(Objects.equals(card.getName(), "Blessing") && card.getEnergyCost() <= current.getEnergyPerTurn())
                     TransitionGainPV(player_pane, life_points);
             }
-            else if(Objects.equals(card.getTypeCard(), "Enchantment")) {
+            else if(Objects.equals(card.getTypeCard(), TypeOfCard.ENCHANTMENT.toString())) {
                 TransitionHand_Discard(current, player_pane, energy_pane, hand, discard, playerChoice);
             }
             play(playerChoice, current, oppenent);
@@ -499,7 +481,7 @@ public class ControllerPlay implements ControlledScreen {
         Card cardSelected = current.getHand().get(playerChoice);
         int sizeOfListCreatures = current.getPlayerCreature().size();
         double layoutXTransitionFrom;
-        double layoutXTransitionTo = listCreatures.getLayoutX();;
+        double layoutXTransitionTo = listCreatures.getLayoutX();
         double layoutYTransitionFrom;
         double layoutYTransitionTo;
         if(cardSelected.getEnergyCost() <= current.getEnergyPerTurn()){

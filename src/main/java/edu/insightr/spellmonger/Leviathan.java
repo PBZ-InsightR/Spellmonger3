@@ -6,7 +6,6 @@ public class Leviathan extends Creature {
         energyCost=4;
         effect = 5;
         lifePoints=4;
-        capacity="";
     }
 
     @Override

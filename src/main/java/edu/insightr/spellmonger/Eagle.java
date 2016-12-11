@@ -4,7 +4,7 @@ public class Eagle extends Creature{
 
     public Eagle() {
         effect = 1;
-        capacity="Flying";
+        capacity=Capacity.FLYING.toString();
         lifePoints = 1;
         energyCost = 1;
     }

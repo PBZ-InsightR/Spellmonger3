@@ -5,7 +5,7 @@ public class Rat extends Creature{
         energyCost=1;
         effect=1;
         lifePoints=effect;
-        capacity="DeathTouch";
+        capacity=Capacity.DEATHTOUCH.toString();
     }
 
     @Override

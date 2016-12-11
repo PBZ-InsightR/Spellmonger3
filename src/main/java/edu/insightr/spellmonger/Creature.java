@@ -3,11 +3,11 @@ package edu.insightr.spellmonger;
 import java.util.Objects;
 
 abstract class Creature extends Card implements Comparable<Creature> {
-    String capacity;
-    int lifePoints;
+    protected String capacity;
+    protected int lifePoints;
 
     public Creature() {
-        capacity = "";
+        capacity = Capacity.NOCAPACITY.toString();
         lifePoints = 0;
         energyCost = 0;
     }
@@ -26,11 +26,11 @@ abstract class Creature extends Card implements Comparable<Creature> {
 
     void attackCreature(Player currentPlayer, Player opponent) {
 
-        if (Objects.equals(this.getCapacity(), "Flying")) {
+        if (Objects.equals(this.getCapacity(), Capacity.FLYING.toString())) {
             flyingAttack(currentPlayer, opponent);
-        } else if (Objects.equals(this.getCapacity(), "DeathTouch")) {
+        } else if (Objects.equals(this.getCapacity(), Capacity.DEATHTOUCH.toString())) {
             deathTouchAttack(currentPlayer, opponent);
-        } else {
+        } else if (Objects.equals(this.getCapacity(), Capacity.NOCAPACITY.toString())|| Objects.equals(this.getCapacity(), Capacity.CATCH.toString())) {
             othersAttack(currentPlayer, opponent);
         }
     }
@@ -38,29 +38,23 @@ abstract class Creature extends Card implements Comparable<Creature> {
     private void flyingAttack(Player currentPlayer, Player opponent) {
         Creature defCreature = null;
         for (int i = 0; i < opponent.getPlayerCreature().size(); i++) { // on cherche les flying qui sont moins fort OU les catch (fort ou pas un flying ne peut pas le prévoir)
-            if ((Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), "Flying")) || Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), "Catch")) {
+            if ((Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), Capacity.FLYING.toString())) || Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), Capacity.CATCH.toString())) {
                 defCreature = opponent.getPlayerCreature().get(i);
                 break;
             }
         }
 
         if (defCreature != null) {
-            if (this.getEffect() < defCreature.getEffect() && Objects.equals(defCreature.getCapacity(), "Catch")) {
-                // System.out.println("\n\nCreature31\n\n");
+            if (this.getEffect() < defCreature.getLifePoints() && Objects.equals(defCreature.getCapacity(), Capacity.CATCH.toString())) {
                 currentPlayer.getPlayerCreatureDead().add(this);
-            } else if (this.getEffect() > defCreature.getEffect()) {
-                // System.out.println("\n\nCreature32\n\n");
+            } else if (this.getEffect() > defCreature.getLifePoints()) {
                 CreatureDead(opponent, defCreature);
-            } else if (this.getEffect() == defCreature.getEffect()) {
-                //System.out.println("\n\nCreature3\n\n");
+            } else if (this.getEffect() == defCreature.getLifePoints()) {
                 CreatureDead(opponent, defCreature);
                 currentPlayer.getPlayerCreatureDead().add(this);
-            } else {
-                //System.out.println("\n\nCreature3RIEN\n\n");
             }
         } else {
             this.damagePlayer(opponent);
-            //System.out.println("\n\n4\n\n");
         }
     }
 
@@ -80,8 +74,8 @@ abstract class Creature extends Card implements Comparable<Creature> {
         if (opponent.getPlayerCreature().size() != 0) {
             boolean flyingWeaker = false;
             for (int i = 0; i < opponent.getPlayerCreature().size(); i++) {
-                if (opponent.getPlayerCreature().get(i).getEffect() <= this.getEffect()) {
-                    if (Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), "Flying")) {
+                if (opponent.getPlayerCreature().get(i).getLifePoints() <= this.getEffect()) {
+                    if (Objects.equals(opponent.getPlayerCreature().get(i).getCapacity(), Capacity.FLYING.toString())) {
                         if (!flyingWeaker) {
                             flyingWeaker = true;
                         }
@@ -92,13 +86,13 @@ abstract class Creature extends Card implements Comparable<Creature> {
                 }
             }
             if (defCreature != null) {
-                if (Objects.equals(defCreature.getCapacity(), "DeathTouch")) {
+                if (Objects.equals(defCreature.getCapacity(), Capacity.DEATHTOUCH.toString())) {
                     currentPlayer.getPlayerCreatureDead().add(this);
                     CreatureDead(opponent, defCreature);
                 } else {
-                    if (this.getEffect() > defCreature.getEffect()) {
+                    if (this.getEffect() > defCreature.getLifePoints()) {
                         CreatureDead(opponent, defCreature);
-                    } else {
+                    } else if (this.getEffect() == defCreature.getLifePoints()){
                         CreatureDead(opponent, defCreature);
                         currentPlayer.getPlayerCreatureDead().add(this);
                     }

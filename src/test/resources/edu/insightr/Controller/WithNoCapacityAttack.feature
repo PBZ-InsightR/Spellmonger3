@@ -1,10 +1,16 @@
 Feature: Others
 
-  #Scenario: Bear vs Fox
-   # Given two players have no cards
-   #When the first one have a bear, the second have a fox
-    #When current attack opponent
-    #Then bear attack the fox, thus life points didnt changed
+  Scenario: Wolf vs Lizard
+    Given two players have no cards
+    When the first one have a Wolf, the second have a Lizard
+    When current attack opponent
+    Then Both  died, thus life points didnt changed
+
+  Scenario: Lizard vs Wolf
+    Given two players have no cards
+    When the first one have a Lizard, the second have a Wolf
+    When current attack opponent
+    Then The wolf died and the lizard is still alive, thus life points didnt changed
   #Scenario: Bear vs Bear
    # Given two players have no cards
    # When both have a bear

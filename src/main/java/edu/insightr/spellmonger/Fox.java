@@ -7,7 +7,7 @@ public class Fox extends Creature {
         effect = 1;
         lifePoints = effect;
         energyCost = 1;
-        capacity="";
+        capacity=Capacity.NOCAPACITY.toString();
     }
 
     @Override

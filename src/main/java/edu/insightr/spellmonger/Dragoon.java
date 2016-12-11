@@ -7,7 +7,7 @@ public class Dragoon extends Creature{
         effect = 4;
         lifePoints = effect;
         energyCost = 4;
-        capacity="Flying";
+        capacity=Capacity.FLYING.toString();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package edu.insightr.Controller;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -12,9 +13,9 @@ public class FlyingStepDefs {
     private Player opponent;
 
     @Given("^two players have no cards$")
-    public void twoPlayersHaveNoCards(){
-        current=new Player("Current");
-        opponent=new Player("Opponent");
+    public void twoPlayersHaveNoCards() {
+        current = new Player("Current");
+        opponent = new Player("Opponent");
         current.getPlayerCreature().clear();
         opponent.getPlayerCreature().clear();
     }
@@ -35,7 +36,7 @@ public class FlyingStepDefs {
         Assert.assertEquals(current.getPlayerCreature().size(), 0);
         Assert.assertEquals(opponent.getPlayerCreature().size(), 0);
         Assert.assertEquals(current.getLifePoint(), 20);
-        Assert.assertEquals(opponent.getLifePoint(),20);
+        Assert.assertEquals(opponent.getLifePoint(), 20);
     }
 
     @When("^first one have an eagle,second have a dragon$")
@@ -49,7 +50,7 @@ public class FlyingStepDefs {
         Assert.assertEquals(current.getPlayerCreature().size(), 1);
         Assert.assertEquals(opponent.getPlayerCreature().size(), 1);
         Assert.assertEquals(current.getLifePoint(), 20);
-        Assert.assertEquals(opponent.getLifePoint(),20);
+        Assert.assertEquals(opponent.getLifePoint(), 20);
     }
 
     @When("^first one have an dragon,second have a eagle$")
@@ -63,7 +64,7 @@ public class FlyingStepDefs {
         Assert.assertEquals(current.getPlayerCreature().size(), 1);
         Assert.assertEquals(opponent.getPlayerCreature().size(), 0);
         Assert.assertEquals(current.getLifePoint(), 20);
-        Assert.assertEquals(opponent.getLifePoint(),20);
+        Assert.assertEquals(opponent.getLifePoint(), 20);
     }
 
     @When("^first one have an eagle,second have a bear$")
@@ -77,7 +78,7 @@ public class FlyingStepDefs {
         Assert.assertEquals(current.getPlayerCreature().size(), 1);
         Assert.assertEquals(opponent.getPlayerCreature().size(), 1);
         Assert.assertEquals(current.getLifePoint(), 20);
-        Assert.assertEquals(opponent.getLifePoint(),20-cost);
+        Assert.assertEquals(opponent.getLifePoint(), 20 - cost);
     }
 
     @When("^first one have an eagle,second have a fox$")
@@ -103,7 +104,7 @@ public class FlyingStepDefs {
         Assert.assertEquals(current.getPlayerCreature().size(), 0);
         Assert.assertEquals(opponent.getPlayerCreature().size(), 1);
         Assert.assertEquals(current.getLifePoint(), 20);
-        Assert.assertEquals(opponent.getLifePoint(),20);
+        Assert.assertEquals(opponent.getLifePoint(), 20);
     }
 
     @Then("^Both died, thus lifePoints didn't changed$")
@@ -111,7 +112,7 @@ public class FlyingStepDefs {
         Assert.assertEquals(current.getPlayerCreature().size(), 0);
         Assert.assertEquals(opponent.getPlayerCreature().size(), 0);
         Assert.assertEquals(current.getLifePoint(), 20);
-        Assert.assertEquals(opponent.getLifePoint(),20);
+        Assert.assertEquals(opponent.getLifePoint(), 20);
     }
 
     @When("^first one have an dragon,second have a craken$")
@@ -222,6 +223,7 @@ public class FlyingStepDefs {
         Assert.assertEquals(current.getPlayerCreature().get(0) instanceof Eagle, true);
         Assert.assertEquals(opponent.getPlayerCreature().get(0) instanceof Dragoon, true);
     }
+
     @When("^the first one have a rat, the second have a snake$")
     public void theFirstOneHaveARatTheSecondHaveASnake() throws Throwable {
         current.getPlayerCreature().add(new Rat());
@@ -257,4 +259,34 @@ public class FlyingStepDefs {
         current.getPlayerCreature().add(new Snake());
         opponent.getPlayerCreature().add(new Dragoon());
     }
+
+    @When("^the first one have a Wolf, the second have a Lizard$")
+    public void theFirstOneHaveAWolfTheSecondHaveALizard() throws Throwable {
+        current.getPlayerCreature().add(new Wolf());
+        opponent.getPlayerCreature().add(new Lizard());
+    }
+
+    @Then("^Both  died, thus life points didnt changed$")
+    public void bothDiedThusLifePointsDidntChanged() throws Throwable {
+        Assert.assertEquals(current.getPlayerCreature().size(), 0);
+        Assert.assertEquals(opponent.getPlayerCreature().size(), 0);
+        Assert.assertEquals(current.getLifePoint(), 20);
+        Assert.assertEquals(opponent.getLifePoint(), 20);
+    }
+
+    @When("^the first one have a Lizard, the second have a Wolf$")
+    public void theFirstOneHaveALizardTheSecondHaveAWolf() throws Throwable {
+        current.getPlayerCreature().add(new Lizard());
+        opponent.getPlayerCreature().add(new Wolf());
+    }
+
+    @Then("^The wolf died and the lizard is still alive, thus life points didnt changed$")
+    public void theWolfDiedAndTheLizardIsStillAliveThusLifePointsDidntChanged() throws Throwable {
+        Assert.assertEquals(current.getPlayerCreature().size(), 1);
+        Assert.assertEquals(opponent.getPlayerCreature().size(), 0);
+        Assert.assertEquals(current.getLifePoint(), 20);
+        Assert.assertEquals(opponent.getLifePoint(), 20);
+        Assert.assertEquals(current.getPlayerCreature().get(0) instanceof Lizard, true);
+    }
 }
+

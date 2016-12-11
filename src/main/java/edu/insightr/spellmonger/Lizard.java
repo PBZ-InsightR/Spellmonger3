@@ -2,11 +2,10 @@ package edu.insightr.spellmonger;
 
 public class Lizard extends Creature{
 
-    Lizard(){
+    public Lizard(){
         effect = 3;
         lifePoints = 2;
         energyCost = 3;
-        capacity="";
     }
 
     @Override

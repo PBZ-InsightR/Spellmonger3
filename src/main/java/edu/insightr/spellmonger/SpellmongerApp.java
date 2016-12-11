@@ -3,7 +3,10 @@ package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
 
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -42,42 +45,102 @@ public class SpellmongerApp {
         }
     }
 
-    public boolean canPlayCard(Card card,Player player) {
+    private boolean canPlayCard(Card card,Player player) {
         return card.canPlayCard(player);
     }
 
-    public String playCardIA(Player currentPlayer, Player opponent) {
+    public String playCardIA_LV2(Player currentPlayer, Player opponentPlayer) {
 
         String result;
         int choix = -1;
-        int diff = currentPlayer.getLifePoint() - opponent.getLifePoint();
+        int diff = currentPlayer.getLifePoint() - opponentPlayer.getLifePoint();
         ArrayList<Card> hand=currentPlayer.getHand();
-        logger.info("Life Points");
         for (int i = 0; i < hand.size(); i++) {
-            Player c = currentPlayer.clone();
-            Player o = opponent.clone();
-            if (playCard(c, o, i)) {
+            Player current = currentPlayer.clone();
+            Player opponent = opponentPlayer.clone();
+            if (playCard(current, opponent, i)) {
                 System.out.println(i);
-                c.attackCreatures(o);
-
-                if ((c.getLifePoint() - o.getLifePoint()) > diff || o.getPlayerCreature().size()<opponent.getPlayerCreature().size() ) {
+                current.attackCreatures(opponent);
+                if ((current.getLifePoint() - opponent.getLifePoint()) > diff || opponent.getPlayerCreature().size()<opponentPlayer.getPlayerCreature().size() ) {
                     choix = i;
-                    diff = (c.getLifePoint() - o.getLifePoint());
+                    diff = (current.getLifePoint() - opponent.getLifePoint());
                 }
             }
         }
-        logger.info("on a tous fini");
         if(choix!=-1)
         {
             result="Card " + choix + "\n c'est un:" + currentPlayer.getHand().get(choix);
-            playCard(currentPlayer, opponent, choix);
+            playCard(currentPlayer, opponentPlayer, choix);
         }
         else
         {
             result= "Il a preferé ne pas joué ce round!";
         }
         return result;
-    }
+    } // level 2
+
+    public String playCardIA_LV3(Player currentPlayer, Player opponentPlayer) {
+
+        String result;
+        int choix = -1;
+        int diff = currentPlayer.getLifePoint() - opponentPlayer.getLifePoint();
+        ArrayList<Card> hand=currentPlayer.getHand();
+        ArrayList<Integer> difference=new ArrayList<>();
+        ArrayList<Integer> differenceTemp=new ArrayList<>();
+        HashMap<Integer,ArrayList<Integer>> eachCard=new HashMap<>();
+        for (int i = 0; i < hand.size(); i++) {
+            Player current = currentPlayer.clone();
+            Player opponent = opponentPlayer.clone();
+            if (playCard(current, opponent, i)) {
+                System.out.println(i);
+                current.attackCreatures(opponent);
+                differenceTemp.add(current.getLifePoint() - opponent.getLifePoint());
+                opponent.attackCreatures(current);
+                difference.add(current.getLifePoint() - opponent.getLifePoint());
+            }
+        }
+
+        // introduire l'energie aussi
+
+
+
+
+
+
+
+
+
+
+        if(choix!=-1)
+        {
+            result="Card " + choix + "\n c'est un:" + currentPlayer.getHand().get(choix);
+            playCard(currentPlayer, opponentPlayer, choix);
+        }
+        else
+        {
+            result= "Il a preferé ne pas joué ce round!";
+        }
+        return result;
+    } // level 3
+
+    public String playCardIA_LV1(Player currentPlayer, Player opponentPlayer) {
+        String result;
+        int choix = -1;
+        while (!playCard(currentPlayer, opponentPlayer, choix+1) && choix+1<currentPlayer.getHand().size()) {
+            choix++;
+        }
+
+        if(choix!=-1)
+        {
+            result="Card " + choix + "\n c'est un:" + currentPlayer.getHand().get(choix);
+            playCard(currentPlayer, opponentPlayer, choix);
+        }
+        else
+        {
+            result= "Il a preferé ne pas joué ce round!";
+        }
+        return result;
+    } // level 1
 
     public Player getPlayer(int i) {
         return playerList.get(i);
