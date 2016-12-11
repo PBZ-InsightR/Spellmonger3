@@ -108,13 +108,7 @@ public class ControllerPlay implements ControlledScreen {
                 if (player == player1) {
                     TransitionAlert(Player1, energy_player1_bckgrd);
                 } else {
-                    if (isIA) {
-                        PauseTransition delay = new PauseTransition(Duration.seconds(3));
-                        delay.setOnFinished(event -> pass_player_2());
-                        delay.play();
-                    } else {
-                        TransitionAlert(Player2, energy_player2_bckgrd);
-                    }
+                    TransitionAlert(Player2, energy_player2_bckgrd);
                 }
             }
         } else {
