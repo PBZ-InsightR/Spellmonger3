@@ -16,6 +16,7 @@ import javafx.util.Duration;
 import org.apache.log4j.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.animation.FadeTransition;
+
 import java.util.Objects;
 
 
@@ -36,7 +37,7 @@ public class ControllerPlay implements ControlledScreen {
     public ScrollPane list_creatures1, list_creatures2, hand1, hand2;
     public Button deck1, deck2, pass1, pass2;
     public SplitPane split;
-    public Pane mainPane, Player1, Player2, life_points1_bckgrd, life_points2_bckgrd,  energy_player1_bckgrd, energy_player2_bckgrd;
+    public Pane mainPane, Player1, Player2, life_points1_bckgrd, life_points2_bckgrd, energy_player1_bckgrd, energy_player2_bckgrd;
 
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
@@ -54,7 +55,7 @@ public class ControllerPlay implements ControlledScreen {
                 nameP2 = myController.getData("NamePlayer2");
             isIA = myController.getData("isPlayer2").equals("false");
         }
-        game = new SpellmongerApp(nameP1,nameP2);
+        game = new SpellmongerApp(nameP1, nameP2);
         player1 = game.getPlayer(0);
         player2 = game.getPlayer(1);
         turnPlayer = player1;
@@ -67,10 +68,10 @@ public class ControllerPlay implements ControlledScreen {
         pass1.setDisable(false);
     }
 
-    public void initializeTest(){
+    public void initializeTest() {
         String nameP1 = "Player1";
         String nameP2 = "Player2";
-        game = new SpellmongerApp(nameP1,nameP2);
+        game = new SpellmongerApp(nameP1, nameP2);
         player1 = game.getPlayer(0);
         player2 = game.getPlayer(1);
         turnPlayer = player1;
@@ -86,17 +87,17 @@ public class ControllerPlay implements ControlledScreen {
     } // DELETE IT
 
     public void draw_player_1() {
-        drawCard(player1, hand1,deck1);
+        drawCard(player1, hand1, deck1);
     }
 
     public void draw_player_2() {
-        drawCard(player2, hand2,deck2);
+        drawCard(player2, hand2, deck2);
     }
 
     private void drawCard(Player player, ScrollPane hand, Button deck) {
         if (player.canDraw()) {
-            if(!isIA || (isIA && player == player1))
-                TransitionDeck_Hand(player,deck, hand);
+            if (!isIA || (isIA && player == player1))
+                TransitionDeck_Hand(player, deck, hand);
             player.drawCard();
             deck1.setDisable(true);
             deck2.setDisable(true);
@@ -128,14 +129,14 @@ public class ControllerPlay implements ControlledScreen {
 
 
     public void draw_player_1_test() {
-        drawCardTest(player1,hand1);
+        drawCardTest(player1, hand1);
     } // DELETE IT
 
     public void draw_player_2_test() {
-        drawCardTest(player2,hand2);
+        drawCardTest(player2, hand2);
     } // DELETE IT
 
-    public void drawCardTest(Player player,ScrollPane hand){
+    public void drawCardTest(Player player, ScrollPane hand) {
         if (player.canDraw()) {
             player.drawCard();
         }
@@ -160,7 +161,7 @@ public class ControllerPlay implements ControlledScreen {
         int lifePoints_player2_beforeAttack = player2.getLifePoint();
         pass(player1, player2, hand1);
         int lifePoints_player2_afterAttack = player2.getLifePoint();
-        if(lifePoints_player2_beforeAttack != lifePoints_player2_afterAttack)
+        if (lifePoints_player2_beforeAttack != lifePoints_player2_afterAttack)
             TransitionAlert(Player2, life_points2_bckgrd);
         if (isIA)
             whenIA();
@@ -171,7 +172,7 @@ public class ControllerPlay implements ControlledScreen {
         int lifePoints_player1_beforeAttack = player1.getLifePoint();
         pass(player2, player1, hand2);
         int lifePoints_player1_afterAttack = player1.getLifePoint();
-        if(lifePoints_player1_beforeAttack > lifePoints_player1_afterAttack)
+        if (lifePoints_player1_beforeAttack > lifePoints_player1_afterAttack)
             TransitionAlert(Player1, life_points1_bckgrd);
     }
 
@@ -191,7 +192,7 @@ public class ControllerPlay implements ControlledScreen {
     //Appelé à la fin d'un tour
     private void turnFinished(Player current) {
         turnPlayer = game.nextPLayer(current);
-        if(current.getVaultOverclockingOnOff()) {
+        if (current.getVaultOverclockingOnOff()) {
             turnPlayer.vaultOverclockingActiveEffect();
         }
         turnPlayer.increaseEnergy();
@@ -202,14 +203,13 @@ public class ControllerPlay implements ControlledScreen {
 
     private void play(int index, Player current, Player oppenent) {
         if (!current.isDead()) {
-            if (isIA && current == player2){
-                AlertBox.displayGame(game.playCardIA_LV2(current, oppenent));
+            if (isIA && current == player2) {
+                game.playCardIA_LV2(current, oppenent);
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
                 delay.setOnFinished(event -> pass_player_2());
                 delay.play();
-            }
-            else if (!game.playCard(current, oppenent, index)){
-                if(current == player1)
+            } else if (!game.playCard(current, oppenent, index)) {
+                if (current == player1)
                     TransitionAlert(Player1, energy_player1_bckgrd);
                 else
                     TransitionAlert(Player2, energy_player2_bckgrd);
@@ -233,12 +233,12 @@ public class ControllerPlay implements ControlledScreen {
             pass2.setDisable(true);
 
 
-        if(!Objects.equals(player1.getName(), "Player1"))
-            JsonTools.updateJsonFile(player1.getName(), player1.winner(player2));
-        if(!Objects.equals(player2.getName(), "Player2"))
-            JsonTools.updateJsonFile(player2.getName(), player2.winner(player1));
+            if (!Objects.equals(player1.getName(), "Player1"))
+                JsonTools.updateJsonFile(player1.getName(), player1.winner(player2));
+            if (!Objects.equals(player2.getName(), "Player2"))
+                JsonTools.updateJsonFile(player2.getName(), player2.winner(player1));
 
-        AlertBox.displayGame( "The game is over");
+            AlertBox.displayGame("The game is over");
         }
 
         // creatures sur la piste
@@ -342,7 +342,7 @@ public class ControllerPlay implements ControlledScreen {
             Pane player_pane = Player2;
             Pane energy_pane = energy_player2_bckgrd;
             Pane life_points = life_points2_bckgrd;
-            if(current == player1){
+            if (current == player1) {
                 list_creatures = list_creatures1;
                 discard = discard1;
                 hand = hand1;
@@ -351,21 +351,18 @@ public class ControllerPlay implements ControlledScreen {
                 life_points = life_points1_bckgrd;
             }
             //TransitionAfterAttack(current,playerChoice);
-            if(Objects.equals(card.getTypeCard(), TypeOfCard.CREATURE.toString())){
+            if (Objects.equals(card.getTypeCard(), TypeOfCard.CREATURE.toString())) {
                 TransitionHand_ListCreatures(current, player_pane, energy_pane, list_creatures, playerChoice);
-            }
-            else if(Objects.equals(card.getTypeCard(), TypeOfCard.RITUAL.toString())){
+            } else if (Objects.equals(card.getTypeCard(), TypeOfCard.RITUAL.toString())) {
                 TransitionHand_Discard(current, player_pane, energy_pane, hand, discard, playerChoice);
-                if(Objects.equals(card.getName(), "Curse") && card.getEnergyCost() <= current.getEnergyPerTurn()) {
+                if (Objects.equals(card.getName(), "Curse") && card.getEnergyCost() <= current.getEnergyPerTurn()) {
                     if (current == player1)
                         TransitionAlert(Player2, life_points2_bckgrd);
                     else
                         TransitionAlert(Player1, life_points1_bckgrd);
-                }
-                else if(Objects.equals(card.getName(), "Blessing") && card.getEnergyCost() <= current.getEnergyPerTurn())
+                } else if (Objects.equals(card.getName(), "Blessing") && card.getEnergyCost() <= current.getEnergyPerTurn())
                     TransitionGainPV(player_pane, life_points);
-            }
-            else if(Objects.equals(card.getTypeCard(), TypeOfCard.ENCHANTMENT.toString())) {
+            } else if (Objects.equals(card.getTypeCard(), TypeOfCard.ENCHANTMENT.toString())) {
                 TransitionHand_Discard(current, player_pane, energy_pane, hand, discard, playerChoice);
             }
             play(playerChoice, current, oppenent);
@@ -392,9 +389,9 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     //Clignotement d'un Pane en rouge
-    private void TransitionAlert(Pane player_pane, Pane energy_pane){
-        Rectangle rectangle = new Rectangle(150,50);
-        Stop[] stops = new Stop[] { new Stop(0, Color.RED), new Stop(1, Color.WHITE)};
+    private void TransitionAlert(Pane player_pane, Pane energy_pane) {
+        Rectangle rectangle = new Rectangle(150, 50);
+        Stop[] stops = new Stop[]{new Stop(0, Color.RED), new Stop(1, Color.WHITE)};
         LinearGradient gp = new LinearGradient(0, 0, 10, 24, true, CycleMethod.NO_CYCLE, stops);
         rectangle.setFill(gp);
         rectangle.setArcHeight(18);
@@ -411,9 +408,9 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     //Clignotement d'un Pane en vert
-    private void TransitionGainPV(Pane player_pane, Pane energy_pane){
-        Rectangle rectangle = new Rectangle(150,50);
-        Stop[] stops = new Stop[] { new Stop(0, Color.GREEN), new Stop(1, Color.WHITE)};
+    private void TransitionGainPV(Pane player_pane, Pane energy_pane) {
+        Rectangle rectangle = new Rectangle(150, 50);
+        Stop[] stops = new Stop[]{new Stop(0, Color.GREEN), new Stop(1, Color.WHITE)};
         LinearGradient gp = new LinearGradient(0, 0, 10, 24, true, CycleMethod.NO_CYCLE, stops);
         rectangle.setFill(gp);
         rectangle.setArcHeight(18);
@@ -430,7 +427,7 @@ public class ControllerPlay implements ControlledScreen {
     }
 
 
-    private void TransitionForAll(Rectangle rectangle, double layoutXFrom, double layoutXTo, double layoutYFrom, double layoutYTo){
+    private void TransitionForAll(Rectangle rectangle, double layoutXFrom, double layoutXTo, double layoutYFrom, double layoutYTo) {
         mainPane.getChildren().add(rectangle);
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(800), rectangle);
         translateTransition.setFromX(layoutXFrom);
@@ -452,86 +449,80 @@ public class ControllerPlay implements ControlledScreen {
     }
 
     //Transition de la pioche vers la main
-    private void TransitionDeck_Hand(Player current, Button deck, ScrollPane hand){
+    private void TransitionDeck_Hand(Player current, Button deck, ScrollPane hand) {
         int sizeOfHand = current.getHand().size();
         Card lastCardOfHand = current.getCards().get(0);
         double layoutXTransitionFrom = deck.getLayoutX();
         double layoutXTransitionTo;
         double layoutYTransition;
-        if(sizeOfHand == 0){
+        if (sizeOfHand == 0) {
             layoutXTransitionTo = hand.getLayoutX();
-        }
-        else {
+        } else {
             layoutXTransitionTo = hand.getLayoutX() + 120;
         }
         Rectangle rectangle = new Rectangle(100, 120);
-        Image img = new Image("images/Spellmonger_"+ lastCardOfHand.getName() +".png");
+        Image img = new Image("images/Spellmonger_" + lastCardOfHand.getName() + ".png");
         rectangle.setFill(new ImagePattern(img));
-        if(current == player1){
+        if (current == player1) {
             layoutYTransition = 62;
-        }
-        else{
+        } else {
             layoutYTransition = 545;
         }
         TransitionForAll(rectangle, layoutXTransitionFrom, layoutXTransitionTo, layoutYTransition, layoutYTransition);
     }
 
     //Transition carte de la main vers le plateau
-    private void TransitionHand_ListCreatures(Player current, Pane player_pane, Pane energy_pane, ScrollPane listCreatures, int playerChoice){
+    private void TransitionHand_ListCreatures(Player current, Pane player_pane, Pane energy_pane, ScrollPane listCreatures, int playerChoice) {
         Card cardSelected = current.getHand().get(playerChoice);
         int sizeOfListCreatures = current.getPlayerCreature().size();
         double layoutXTransitionFrom;
         double layoutXTransitionTo = listCreatures.getLayoutX();
         double layoutYTransitionFrom;
         double layoutYTransitionTo;
-        if(cardSelected.getEnergyCost() <= current.getEnergyPerTurn()){
-            if(sizeOfListCreatures == 0)
+        if (cardSelected.getEnergyCost() <= current.getEnergyPerTurn()) {
+            if (sizeOfListCreatures == 0)
                 layoutXTransitionTo = listCreatures.getLayoutX();
-            else if(sizeOfListCreatures == 1)
+            else if (sizeOfListCreatures == 1)
                 layoutXTransitionTo = listCreatures.getLayoutX() + 120;
-            else if(sizeOfListCreatures == 2)
+            else if (sizeOfListCreatures == 2)
                 layoutXTransitionTo = listCreatures.getLayoutX() + 240;
             else
                 layoutXTransitionTo = listCreatures.getLayoutX() + 360;
 
             Rectangle rectangle = new Rectangle(100, 120);
-            Image img = new Image("images/Spellmonger_"+ cardSelected.getName() +".png");
+            Image img = new Image("images/Spellmonger_" + cardSelected.getName() + ".png");
             rectangle.setFill(new ImagePattern(img));
-            if(current == player1){
+            if (current == player1) {
                 layoutXTransitionFrom = hand1.getLayoutX();
                 layoutYTransitionFrom = 62;
                 layoutYTransitionTo = 217;
-            }
-            else{
+            } else {
                 layoutXTransitionFrom = hand2.getLayoutX();
                 layoutYTransitionFrom = 545;
                 layoutYTransitionTo = 385;
             }
             TransitionForAll(rectangle, layoutXTransitionFrom, layoutXTransitionTo, layoutYTransitionFrom, layoutYTransitionTo);
-        }
-        else
+        } else
             TransitionAlert(player_pane, energy_pane);
     }
 
     //Transition carte de la main vers discard
-    private void TransitionHand_Discard(Player current, Pane player_pane, Pane energy_pane, ScrollPane hand, Pane discard, int playerChoice){
+    private void TransitionHand_Discard(Player current, Pane player_pane, Pane energy_pane, ScrollPane hand, Pane discard, int playerChoice) {
         Card cardSelected = current.getHand().get(playerChoice);
         double layoutXTransitionFrom = hand.getLayoutX();
         double layoutXTransitionTo = discard.getLayoutX();
         double layoutYTransition;
-        if(cardSelected.getEnergyCost() <= current.getEnergyPerTurn()){
+        if (cardSelected.getEnergyCost() <= current.getEnergyPerTurn()) {
             Rectangle rectangle = new Rectangle(100, 120);
-            Image img = new Image("images/Spellmonger_"+ cardSelected.getName() +".png");
+            Image img = new Image("images/Spellmonger_" + cardSelected.getName() + ".png");
             rectangle.setFill(new ImagePattern(img));
-            if(current == player1){
+            if (current == player1) {
                 layoutYTransition = 62;
-            }
-            else{
+            } else {
                 layoutYTransition = 545;
             }
             TransitionForAll(rectangle, layoutXTransitionFrom, layoutXTransitionTo, layoutYTransition, layoutYTransition);
-        }
-        else
+        } else
             TransitionAlert(player_pane, energy_pane);
     }
 }

@@ -4,9 +4,7 @@ package edu.insightr.spellmonger;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
+import java.util.*;
 
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -25,69 +23,86 @@ public class SpellmongerApp {
     public boolean playCard(Player currentPlayer, Player opponent, int playerChoice) {
 
         Card currentCard = currentPlayer.getHand().get(playerChoice);
-        if(canPlayCard(currentCard,currentPlayer)){
-            if(currentCard instanceof Ritual){
-                ((Ritual) currentCard).attackRitual(currentPlayer,opponent);
+        if (canPlayCard(currentCard, currentPlayer)) {
+            if (currentCard instanceof Ritual) {
+                ((Ritual) currentCard).attackRitual(currentPlayer, opponent);
                 currentPlayer.getHand().remove(currentCard);
                 currentPlayer.getDiscards().add(currentCard);
-            }else if(currentCard instanceof Creature){
-                currentPlayer.getPlayerCreature().add((Creature)currentCard);
+            } else if (currentCard instanceof Creature) {
+                currentPlayer.getPlayerCreature().add((Creature) currentCard);
                 currentPlayer.getHand().remove(currentCard);
                 currentPlayer.sortCreatures();
-            }else if(currentCard instanceof Enchantment){
+            } else if (currentCard instanceof Enchantment) {
                 currentPlayer.getHand().remove(currentCard);
                 currentPlayer.getDiscards().add(currentCard);
                 currentPlayer.setVaultOverclockingOnOff(true);
             }
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    private boolean canPlayCard(Card card,Player player) {
+    private boolean canPlayCard(Card card, Player player) {
         return card.canPlayCard(player);
     }
 
-    public String playCardIA_LV2(Player currentPlayer, Player opponentPlayer) {
-
-        String result;
-        int choix = -1;
-        int diff = currentPlayer.getLifePoint() - opponentPlayer.getLifePoint();
-        ArrayList<Card> hand=currentPlayer.getHand();
-        for (int i = 0; i < hand.size(); i++) {
-            Player current = currentPlayer.clone();
-            Player opponent = opponentPlayer.clone();
-            if (playCard(current, opponent, i)) {
-                System.out.println(i);
-                current.attackCreatures(opponent);
-                if ((current.getLifePoint() - opponent.getLifePoint()) > diff || opponent.getPlayerCreature().size()<opponentPlayer.getPlayerCreature().size() ) {
-                    choix = i;
-                    diff = (current.getLifePoint() - opponent.getLifePoint());
-                }
+    public void playCardIA_LV1(Player currentPlayer, Player opponentPlayer) {
+        int index = 0;
+        while (currentPlayer.canPlay()) {
+            while (index < currentPlayer.getHand().size() && !playCard(currentPlayer, opponentPlayer, index)) {
+                index++;
             }
         }
-        if(choix!=-1)
-        {
-            result="Card " + choix + "\n c'est un:" + currentPlayer.getHand().get(choix);
+    } // level 1
+
+    public void playCardIA_LV2(Player currentPlayer, Player opponentPlayer) {
+        while (currentPlayer.canPlay()) {
+            int choix = -1;
+            int diff = currentPlayer.getLifePoint() - opponentPlayer.getLifePoint();
+            ArrayList<Card> hand = currentPlayer.getHand();
+            for (int i = 0; i < hand.size(); i++) {
+                Player current = currentPlayer.clone();
+                Player opponent = opponentPlayer.clone();
+                if (playCard(current, opponent, i)) {
+                    System.out.println(i);
+                    current.attackCreatures(opponent);
+                    if ((current.getLifePoint() - opponent.getLifePoint()) > diff || opponent.getPlayerCreature().size() < opponentPlayer.getPlayerCreature().size()) {
+                        choix = i;
+                        diff = (current.getLifePoint() - opponent.getLifePoint());
+                    }
+                }
+            }
+            if (choix == -1) {
+                HashMap<Integer, Integer> energies = new HashMap<>();
+                for (int i = 0; i < hand.size(); i++) {
+                    Player current = currentPlayer.clone();
+                    Player opponent = opponentPlayer.clone();
+                    if (playCard(current, opponent, i)) {
+                        System.out.println(i);
+                        current.attackCreatures(opponent);
+                        energies.put(i, current.getEnergy());
+                    }
+                }
+                int maxValueInMap = (Collections.max(energies.values()));
+                for (Map.Entry<Integer, Integer> entry : energies.entrySet()) {
+                    if (entry.getValue() == maxValueInMap) {
+                        choix = entry.getKey();
+                    }
+                }
+            }
             playCard(currentPlayer, opponentPlayer, choix);
         }
-        else
-        {
-            result= "Il a preferé ne pas joué ce round!";
-        }
-        return result;
     } // level 2
 
-    public String playCardIA_LV3(Player currentPlayer, Player opponentPlayer) {
+    public void playCardIA_LV3(Player currentPlayer, Player opponentPlayer) {
 
-        String result;
         int choix = -1;
         int diff = currentPlayer.getLifePoint() - opponentPlayer.getLifePoint();
-        ArrayList<Card> hand=currentPlayer.getHand();
-        ArrayList<Integer> difference=new ArrayList<>();
-        ArrayList<Integer> differenceTemp=new ArrayList<>();
-        HashMap<Integer,ArrayList<Integer>> eachCard=new HashMap<>();
+        ArrayList<Card> hand = currentPlayer.getHand();
+        ArrayList<Integer> difference = new ArrayList<>();
+        ArrayList<Integer> differenceTemp = new ArrayList<>();
+        HashMap<Integer, ArrayList<Integer>> eachCard = new HashMap<>();
         for (int i = 0; i < hand.size(); i++) {
             Player current = currentPlayer.clone();
             Player opponent = opponentPlayer.clone();
@@ -103,44 +118,11 @@ public class SpellmongerApp {
         // introduire l'energie aussi
 
 
-
-
-
-
-
-
-
-
-        if(choix!=-1)
-        {
-            result="Card " + choix + "\n c'est un:" + currentPlayer.getHand().get(choix);
+        if (choix != -1) {
             playCard(currentPlayer, opponentPlayer, choix);
         }
-        else
-        {
-            result= "Il a preferé ne pas joué ce round!";
-        }
-        return result;
+
     } // level 3
-
-    public String playCardIA_LV1(Player currentPlayer, Player opponentPlayer) {
-        String result;
-        int choix = -1;
-        while (!playCard(currentPlayer, opponentPlayer, choix+1) && choix+1<currentPlayer.getHand().size()) {
-            choix++;
-        }
-
-        if(choix!=-1)
-        {
-            result="Card " + choix + "\n c'est un:" + currentPlayer.getHand().get(choix);
-            playCard(currentPlayer, opponentPlayer, choix);
-        }
-        else
-        {
-            result= "Il a preferé ne pas joué ce round!";
-        }
-        return result;
-    } // level 1
 
     public Player getPlayer(int i) {
         return playerList.get(i);
