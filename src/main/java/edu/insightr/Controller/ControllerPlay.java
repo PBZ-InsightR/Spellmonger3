@@ -172,14 +172,13 @@ public class ControllerPlay implements ControlledScreen {
 
     //Controle de l'IA
     private void whenIA() {
-        logger.info("on est IA");
+        pass2.setDisable(true);
+        //hand2.setDisable(true);
+        // TODO a remettre
         draw_player_2();
         update();
         PauseTransition delay = new PauseTransition(Duration.seconds(3));
-        delay.setOnFinished(event -> {
-            play(-1, player2, player1);
-            update();
-        });
+        delay.setOnFinished(event -> play(-1, player2, player1));
         delay.play();
     }
 
@@ -198,7 +197,7 @@ public class ControllerPlay implements ControlledScreen {
     private void play(int index, Player current, Player oppenent) {
         if (!current.isDead()) {
             if (isIA && current == player2) {
-                game.playCardIA_LV2(current, oppenent);
+                game.playCardIA_LV1(current, oppenent);
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
                 delay.setOnFinished(event -> pass_player_2());
                 delay.play();
@@ -278,6 +277,7 @@ public class ControllerPlay implements ControlledScreen {
             String imageOfCard = "Spellmonger_" + c.getName();
             if (turnPlayer.equals(oppenent)) imageOfCard = "dosCartes_ocre";
             //if(isIA && current == player2) imageOfCard = "dosCartes_ocre";
+            // TODO a remettre
             Image img = new Image("images/" + imageOfCard + ".png");
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
@@ -349,12 +349,12 @@ public class ControllerPlay implements ControlledScreen {
                 TransitionHand_ListCreatures(current, player_pane, energy_pane, list_creatures, playerChoice);
             } else if (Objects.equals(card.getTypeCard(), TypeOfCard.RITUAL.toString())) {
                 TransitionHand_Discard(current, player_pane, energy_pane, hand, discard, playerChoice);
-                if (Objects.equals(card.getName(), "Curse") && card.getEnergyCost() <= current.getEnergyPerTurn()) {
+                if (Objects.equals(card.getName(), "Curse") && current.canPlayCard(card)) {
                     if (current == player1)
                         TransitionAlert(Player2, life_points2_bckgrd);
                     else
                         TransitionAlert(Player1, life_points1_bckgrd);
-                } else if (Objects.equals(card.getName(), "Blessing") && card.getEnergyCost() <= current.getEnergyPerTurn())
+                } else if (Objects.equals(card.getName(), "Blessing") &&  current.canPlayCard(card))
                     TransitionGainPV(player_pane, life_points);
             } else if (Objects.equals(card.getTypeCard(), TypeOfCard.ENCHANTMENT.toString())) {
                 TransitionHand_Discard(current, player_pane, energy_pane, hand, discard, playerChoice);

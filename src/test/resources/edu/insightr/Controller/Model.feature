@@ -66,7 +66,7 @@ Feature: model
     Given I create an eagle
     When I draw an eagle
     Then The eagle has 1 effect
-    Then The eagle capacity is "Flying"
+    Then The eagle capacity is "FLYING"
     Then The eagle lifePoints is effect
     Then The eagle cost 1 energy
 

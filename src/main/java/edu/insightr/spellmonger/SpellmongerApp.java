@@ -3,7 +3,6 @@ package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class SpellmongerApp {
@@ -23,7 +22,8 @@ public class SpellmongerApp {
     public boolean playCard(Player currentPlayer, Player opponent, int playerChoice) {
 
         Card currentCard = currentPlayer.getHand().get(playerChoice);
-        if (canPlayCard(currentCard, currentPlayer)) {
+        if (currentPlayer.canPlayCard(currentCard)) {
+            currentPlayer.decreaseEnergy(currentCard);
             if (currentCard instanceof Ritual) {
                 ((Ritual) currentCard).attackRitual(currentPlayer, opponent);
                 currentPlayer.getHand().remove(currentCard);
@@ -41,10 +41,6 @@ public class SpellmongerApp {
         } else {
             return false;
         }
-    }
-
-    private boolean canPlayCard(Card card, Player player) {
-        return card.canPlayCard(player);
     }
 
     public void playCardIA_LV1(Player currentPlayer, Player opponentPlayer) {
@@ -67,7 +63,8 @@ public class SpellmongerApp {
                 if (playCard(current, opponent, i)) {
                     System.out.println(i);
                     current.attackCreatures(opponent);
-                    if ((current.getLifePoint() - opponent.getLifePoint()) > diff || opponent.getPlayerCreature().size() < opponentPlayer.getPlayerCreature().size()) {
+                    opponent.attackCreatures(current);
+                    if ((current.getLifePoint() - opponent.getLifePoint()) >= diff) {
                         choix = i;
                         diff = (current.getLifePoint() - opponent.getLifePoint());
                     }
@@ -81,7 +78,8 @@ public class SpellmongerApp {
                     if (playCard(current, opponent, i)) {
                         System.out.println(i);
                         current.attackCreatures(opponent);
-                        energies.put(i, current.getEnergy());
+                        opponent.attackCreatures(current);
+                        energies.put(i, current.getEnergy()-opponent.getEnergy());
                     }
                 }
                 int maxValueInMap = (Collections.max(energies.values()));
@@ -94,35 +92,6 @@ public class SpellmongerApp {
             playCard(currentPlayer, opponentPlayer, choix);
         }
     } // level 2
-
-    public void playCardIA_LV3(Player currentPlayer, Player opponentPlayer) {
-
-        int choix = -1;
-        int diff = currentPlayer.getLifePoint() - opponentPlayer.getLifePoint();
-        ArrayList<Card> hand = currentPlayer.getHand();
-        ArrayList<Integer> difference = new ArrayList<>();
-        ArrayList<Integer> differenceTemp = new ArrayList<>();
-        HashMap<Integer, ArrayList<Integer>> eachCard = new HashMap<>();
-        for (int i = 0; i < hand.size(); i++) {
-            Player current = currentPlayer.clone();
-            Player opponent = opponentPlayer.clone();
-            if (playCard(current, opponent, i)) {
-                System.out.println(i);
-                current.attackCreatures(opponent);
-                differenceTemp.add(current.getLifePoint() - opponent.getLifePoint());
-                opponent.attackCreatures(current);
-                difference.add(current.getLifePoint() - opponent.getLifePoint());
-            }
-        }
-
-        // introduire l'energie aussi
-
-
-        if (choix != -1) {
-            playCard(currentPlayer, opponentPlayer, choix);
-        }
-
-    } // level 3
 
     public Player getPlayer(int i) {
         return playerList.get(i);

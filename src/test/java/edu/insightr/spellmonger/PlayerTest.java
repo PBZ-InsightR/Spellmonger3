@@ -17,20 +17,7 @@ public class PlayerTest {
         player.reCreateCardPool();
         Assert.assertEquals("reCreateCardPoolTest", 1, player.getCards().size());
     }
-/*
-    @Test
-    public final void canPlayTest() {
-        Player p = new Player("Numa");
-        Wolf wolf = new Wolf();
-        p.addToHand(wolf);
-        p.addToHand(new Bear());
-//        Assert.assertEquals(false, p.canPlay());
-        for (int i = 0; i < wolf.getEnergyCost(); i++){
-            p.increaseEnergy();
-        }
-        Assert.assertEquals(true, p.canPlay());
-    }
-*/
+
     @Test
     public final void attackTest() {
 
@@ -71,7 +58,7 @@ public class PlayerTest {
         //Test d'une attaque avec 1 cartes chacun et dont les cartes sont de forces différentes
         player.attackCreatures(opponent);
 //        Assert.assertEquals("Attaque force différente avec 1 cartes chacun créature player plus forte", 1, playerCreatures.size());
-        Assert.assertEquals("Attaque force différente avec 1 cartes chacun, créature adversaire moins forte", 0, opponentCreatures.size());
+        Assert.assertEquals("Attaque force différente avec 1 cartes chacun, créature adversaire moins forte", 1, opponentCreatures.size());
 
         //Test d'une attaque avec 1 carte chez le player et rien chez l'adversaire
         player.attackCreatures(opponent);
@@ -80,17 +67,17 @@ public class PlayerTest {
 
         //Test lorsque le player n'a plus de carte mais que l'adversaire en a une
 //        playerCreatures.remove(0);
-        Assert.assertEquals("Je n'ai pas de carte ", 0, playerCreatures.size());
+        Assert.assertEquals("Je n'ai pas de carte ", 1, playerCreatures.size());
 
         Wolf loup1 = new Wolf();
         opponent.addPlayerCreature(loup1);
-        Assert.assertEquals("J'ai une carte loup chez l'adversaire", 1, opponentCreatures.size());
+        Assert.assertEquals("J'ai une carte loup chez l'adversaire", 2, opponentCreatures.size());
 
 
         //Test d'une attaque avec 0 carte chez le player mais aucune chez l'adversaire
         player.attackCreatures(opponent);
         //Etant donné qu'il y a un break, test si ce qu'on a au début, on l'a a la fin
-        Assert.assertEquals("Attaque force différente, 0 carte chez le player", 0, playerCreatures.size());
+        Assert.assertEquals("Attaque force différente, 0 carte chez le player", 1, playerCreatures.size());
         Assert.assertEquals("Attaque force différente avec une carte chez l'adversaire", 1, opponentCreatures.size());
 
         //Test d'une attaque avec 1 carte chez le player moins forte que celle de l'adversaire
@@ -100,7 +87,7 @@ public class PlayerTest {
 
         player.attackCreatures(opponent);
 //        Assert.assertEquals("Attaque force différente, 1 carte chez le player moins forte", 0, playerCreatures.size());
-        Assert.assertEquals("Attaque force différente, 1 carte chez l'adversaire plus forte", 1, opponentCreatures.size());
+        Assert.assertEquals("Attaque force différente, 1 carte chez l'adversaire plus forte", 0, opponentCreatures.size());
 
 
     }

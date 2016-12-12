@@ -310,7 +310,7 @@ public class MyStepdefs {
 
     @Then("^The eagle capacity is \"([^\"]*)\"$")
     public void theEagleCapacityIs(String arg0) throws Throwable {
-        Assert.assertEquals("Flying", eagle.getCapacity());
+        Assert.assertEquals(arg0, eagle.getCapacity());
     }
 
     @Then("^The eagle lifePoints is effect$")

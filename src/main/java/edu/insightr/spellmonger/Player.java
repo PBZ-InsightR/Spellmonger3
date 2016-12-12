@@ -157,15 +157,24 @@ public class Player {
         return this.getHand().size() < 5;
     }
 
+    public boolean canPlayCard(Card card){
+        return card.getEnergyCost() <= this.getEnergyPerTurn();
+    }
+
     public boolean canPlay() {
         boolean result = false;
-        for (Card c : this.getHand()) {
-            if (c.getEnergyCost() <= this.getEnergyPerTurn()) {
+        for (Card card : this.getHand()) {
+            if (canPlayCard(card)) {
                 result = true;
                 break;
             }
         }
         return result;
+    }
+
+    void decreaseEnergy(Card current){
+        if(this.canPlayCard(current))
+            this.setEnergyPerTurn(this.getEnergyPerTurn()-current.getEnergyCost());
     }
 
     public void attackCreatures(Player opponent) {

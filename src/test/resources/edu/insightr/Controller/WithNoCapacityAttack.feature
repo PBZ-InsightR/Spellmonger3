@@ -11,11 +11,14 @@ Feature: Others
     When the first one have a Lizard, the second have a Wolf
     When current attack opponent
     Then The wolf died and the lizard is still alive, thus life points didnt changed
-  #Scenario: Bear vs Bear
-   # Given two players have no cards
-   # When both have a bear
-   # When current attack opponent
-   # Then both of them are dead,thus life points didnt changed
+
+
+
+  Scenario: Fox vs Bear
+   Given two players have no cards
+   When first have a fox, second have a bear
+   When current attack opponent
+   Then nothings happens
   #Scenario: Bear vs Lizard
    # Given two players have no cards
    # When the first one have a bear, the second have a lizard

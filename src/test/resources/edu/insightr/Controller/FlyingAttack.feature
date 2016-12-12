@@ -65,7 +65,6 @@ Feature: flying
     When first one have an eagle and dragon,second have an eagle
     When current attack opponent
     Then Eagle attacks the eagle, and the dragon attack the person
-    # TODO c'est ce qu'il faut qu'on ait
   Scenario: Eagle,dragon vs Eagle,dragon
     Given two players have no cards
     When both have an eagle and dragon

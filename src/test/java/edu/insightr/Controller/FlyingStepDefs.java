@@ -288,5 +288,21 @@ public class FlyingStepDefs {
         Assert.assertEquals(opponent.getLifePoint(), 20);
         Assert.assertEquals(current.getPlayerCreature().get(0) instanceof Lizard, true);
     }
+
+    @When("^first have a fox, second have a bear$")
+    public void firstHaveAFoxSecondHaveABear() throws Throwable {
+        current.getPlayerCreature().add(new Fox());
+        opponent.getPlayerCreature().add(new Bear());
+    }
+
+    @Then("^nothings happens$")
+    public void nothingsHappens() throws Throwable {
+        Assert.assertEquals(current.getPlayerCreature().size(), 1);
+        Assert.assertEquals(opponent.getPlayerCreature().size(), 1);
+        Assert.assertEquals(current.getLifePoint(), 20);
+        Assert.assertEquals(opponent.getLifePoint(), 20);
+        Assert.assertEquals(current.getPlayerCreature().get(0) instanceof Fox, true);
+        Assert.assertEquals(opponent.getPlayerCreature().get(0) instanceof Bear, true);
+    }
 }
 

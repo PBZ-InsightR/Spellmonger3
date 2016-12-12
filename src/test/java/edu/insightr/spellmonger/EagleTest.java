@@ -20,6 +20,6 @@ public class EagleTest {
     @Test
     public void testCapacity() {
         Eagle eagle = new Eagle();
-        Assert.assertEquals("Flying", eagle.getCapacity());
+        Assert.assertEquals("FLYING", eagle.getCapacity());
     }
 }

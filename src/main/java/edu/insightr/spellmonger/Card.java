@@ -33,13 +33,4 @@ public abstract class Card  {
         return "Abstract";
     }
 
-   public boolean canPlayCard(Player current){
-       if(this.getEnergyCost()<=current.getEnergyPerTurn()){
-           current.setEnergyPerTurn(current.getEnergyPerTurn()-this.getEnergyCost());
-           return true;
-       }else{
-           return false;
-       }
-
-    }
 }
