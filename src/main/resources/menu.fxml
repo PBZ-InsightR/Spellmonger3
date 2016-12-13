@@ -15,7 +15,8 @@
                 <TextField fx:id="login1" layoutX="425.0" layoutY="270.0" prefHeight="5.0" prefWidth="100.0" />
                 <TextField fx:id="login2" layoutX="425.0" layoutY="320.0" prefHeight="5.0" prefWidth="100.0" />
                 <Label fx:id="label_login2" layoutX="365.0" layoutY="321.0" prefHeight="20.0" prefWidth="60.0" text="Login 2" textAlignment="CENTER" />
-                <CheckBox fx:id="isPlayer2" layoutX="550.0" layoutY="323.0" mnemonicParsing="false" onAction="#isPlayer2" />
+                <CheckBox fx:id="IA_LV1" layoutX="550.0" layoutY="323.0" mnemonicParsing="false" onAction="#isIA_LV1" />
+                <CheckBox fx:id="IA_LV2" layoutX="580.0" layoutY="323.0" mnemonicParsing="false" onAction="#isIA_LV2" />
             </children>
         </Pane>
     </children>

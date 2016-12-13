@@ -4,7 +4,6 @@ package edu.insightr.Controller;
 import edu.insightr.spellmonger.*;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -18,12 +17,10 @@ import org.apache.log4j.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.animation.FadeTransition;
 
-import java.net.URL;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 
-public class ControllerPlay implements ControlledScreen,Initializable {
+public class ControllerPlay implements ControlledScreen {
 
     ScreensController myController;
 
@@ -33,7 +30,7 @@ public class ControllerPlay implements ControlledScreen,Initializable {
     public Player turnPlayer;
     private Player player1;
     private Player player2;
-    private boolean isIA;
+    private boolean isIA_1,isIA_2,isIA;
     @FXML
     public Text name1, life_points1, energy_player1, name2, life_points2, energy_player2;
     public Pane discard1, discard2;
@@ -42,8 +39,12 @@ public class ControllerPlay implements ControlledScreen,Initializable {
     public SplitPane split;
     public Pane mainPane, Player1, Player2, life_points1_bckgrd, life_points2_bckgrd, energy_player1_bckgrd, energy_player2_bckgrd;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void setScreenParent(ScreensController screenParent) {
+        myController = screenParent;
+        initialize();
+    }
+
+    private void initialize() {
         String nameP1 = "Player1";
         String nameP2 = "Player2";
         if (myController != null) {
@@ -51,7 +52,9 @@ public class ControllerPlay implements ControlledScreen,Initializable {
                 nameP1 = myController.getData("NamePlayer1");
             if (!myController.getData("NamePlayer2").equals(""))
                 nameP2 = myController.getData("NamePlayer2");
-            isIA = myController.getData("isPlayer2").equals("false");
+            isIA_1 = myController.getData("IA_LV1").equals("true");
+            isIA_2 = myController.getData("IA_LV2").equals("true");
+            isIA=isIA_1 || isIA_2;
         }
         game = new SpellmongerApp(nameP1, nameP2);
         player1 = game.getPlayer(0);
@@ -64,10 +67,6 @@ public class ControllerPlay implements ControlledScreen,Initializable {
         deck2.setDisable(true);
         pass2.setDisable(true);
         pass1.setDisable(false);
-    }
-
-    public void setScreenParent(ScreensController screenParent) {
-        myController = screenParent;
     }
 
     public void initializeTest() {
@@ -123,7 +122,6 @@ public class ControllerPlay implements ControlledScreen,Initializable {
         }
     }
 
-
     public void draw_player_1_test() {
         drawCardTest(player1, hand1);
     } // DELETE IT
@@ -175,8 +173,7 @@ public class ControllerPlay implements ControlledScreen,Initializable {
     //Controle de l'IA
     private void whenIA() {
         pass2.setDisable(true);
-        //hand2.setDisable(true);
-        // TODO a remettre
+        hand2.setDisable(true);
         draw_player_2();
         update();
         PauseTransition delay = new PauseTransition(Duration.seconds(3));
@@ -194,12 +191,18 @@ public class ControllerPlay implements ControlledScreen,Initializable {
 
     private void play(int index, Player current, Player oppenent) {
         if (!current.isDead()) {
-            if (isIA && current == player2) {
+            if (isIA_1 && current == player2) {
                 game.playCardIA_LV1(current, oppenent);
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
                 delay.setOnFinished(event -> pass_player_2());
                 delay.play();
-            } else if (!game.playCard(current, oppenent, index)) {
+            }else if (isIA_2 && current == player2) {
+                game.playCardIA_LV2(current, oppenent);
+                PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                delay.setOnFinished(event -> pass_player_2());
+                delay.play();
+            }
+            else if (!game.playCard(current, oppenent, index)) {
                 if (current == player1)
                     TransitionAlert(Player1, energy_player1_bckgrd);
                 else
@@ -277,8 +280,7 @@ public class ControllerPlay implements ControlledScreen,Initializable {
             Rectangle rectangle = new Rectangle(100, 120);
             String imageOfCard = "Spellmonger_" + c.getName();
             if (turnPlayer.equals(oppenent)) imageOfCard = "dosCartes_ocre";
-            //if(isIA && current == player2) imageOfCard = "dosCartes_ocre";
-            // TODO a remettre
+            if(isIA && current == player2) imageOfCard = "dosCartes_ocre";
             Image img = new Image("images/" + imageOfCard + ".png");
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
