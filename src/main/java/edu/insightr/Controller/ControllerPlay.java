@@ -173,8 +173,7 @@ public class ControllerPlay implements ControlledScreen {
     //Controle de l'IA
     private void whenIA() {
         pass2.setDisable(true);
-        //hand2.setDisable(true);
-        // TODO a remettre
+        hand2.setDisable(true);
         draw_player_2();
         update();
         PauseTransition delay = new PauseTransition(Duration.seconds(3));
@@ -278,8 +277,7 @@ public class ControllerPlay implements ControlledScreen {
             Rectangle rectangle = new Rectangle(100, 120);
             String imageOfCard = "Spellmonger_" + c.getName();
             if (turnPlayer.equals(oppenent)) imageOfCard = "dosCartes_ocre";
-            //if(isIA && current == player2) imageOfCard = "dosCartes_ocre";
-            // TODO a remettre
+            if(isIA && current == player2) imageOfCard = "dosCartes_ocre";
             Image img = new Image("images/" + imageOfCard + ".png");
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
