@@ -223,13 +223,16 @@ public class ControllerPlay implements ControlledScreen,Initializable {
             pass1.setDisable(true);
             pass2.setDisable(true);
 
-
             if (!Objects.equals(player1.getName(), "Player1"))
                 JsonTools.updateJsonFile(player1.getName(), player1.winner(player2));
             if (!Objects.equals(player2.getName(), "Player2"))
                 JsonTools.updateJsonFile(player2.getName(), player2.winner(player1));
 
             AlertBox.displayGame("The game is over");
+
+            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            delay.setOnFinished(event -> backToScore());
+            delay.play();
         }
 
         // creatures sur la piste
