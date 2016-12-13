@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(Cucumber.class)
-public class MyStepdefs {
+public class ModelStepdefs {
     ControllerMenu controllerMenu;
 
     @Given("^first player name is \"([^\"]*)\"$")

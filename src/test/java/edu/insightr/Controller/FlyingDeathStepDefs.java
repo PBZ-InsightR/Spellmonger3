@@ -7,7 +7,7 @@ import cucumber.api.java.en.When;
 import edu.insightr.spellmonger.*;
 import org.junit.Assert;
 
-public class FlyingStepDefs {
+public class FlyingDeathStepDefs {
 
     private Player current;
     private Player opponent;

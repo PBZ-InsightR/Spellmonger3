@@ -4,7 +4,7 @@ package edu.insightr.spellmonger;
 public enum TypeOfCard {
     RITUAL("RITUAL"),
     CREATURE("CREATURE"),
-    ENCHANTMENT("ENCHANTMENT");
+    VAULTOVERCLOCKING("VAULTOVERCLOCKING");
 
     private String type = "";
 

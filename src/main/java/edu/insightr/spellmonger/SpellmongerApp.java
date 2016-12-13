@@ -32,7 +32,7 @@ public class SpellmongerApp {
                 currentPlayer.getPlayerCreature().add((Creature) currentCard);
                 currentPlayer.getHand().remove(currentCard);
                 currentPlayer.sortCreatures();
-            } else if (currentCard instanceof Enchantment) {
+            } else if (currentCard instanceof VaultOverclocking) {
                 currentPlayer.getHand().remove(currentCard);
                 currentPlayer.getDiscards().add(currentCard);
                 currentPlayer.setVaultOverclockingOnOff(true);

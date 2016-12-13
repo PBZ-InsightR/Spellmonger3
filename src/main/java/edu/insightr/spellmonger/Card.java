@@ -17,8 +17,8 @@ public abstract class Card  {
         String result;
         if(this instanceof Ritual)
             result = TypeOfCard.RITUAL.toString();
-        else if(this instanceof Enchantment)
-            result = TypeOfCard.ENCHANTMENT.toString();
+        else if(this instanceof VaultOverclocking)
+            result = TypeOfCard.VAULTOVERCLOCKING.toString();
         else
             result = TypeOfCard.CREATURE.toString();
         return result;

@@ -19,6 +19,8 @@ Feature: Others
    When first have a fox, second have a bear
    When current attack opponent
    Then nothings happens
+
+
   #Scenario: Bear vs Lizard
    # Given two players have no cards
    # When the first one have a bear, the second have a lizard

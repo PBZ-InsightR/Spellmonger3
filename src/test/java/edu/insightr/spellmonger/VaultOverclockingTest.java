@@ -10,11 +10,5 @@ public class VaultOverclockingTest {
         Assert.assertEquals(4, VaultOverclock.getEnergyCost());
 
     }
-    @Test
-    public void testVaultActivated() throws Exception {
-       /* VaultOverclocking VaultOverclock = new VaultOverclocking();
-        VaultOverclock.setActiveEffect(true);
-        Assert.assertEquals(true, VaultOverclock.getActiveEffect());*/
-    }
 
 }

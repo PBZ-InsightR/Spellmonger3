@@ -17,14 +17,6 @@ Feature: IA
     When component have a dragon in his creatures, and IA have a eagle and bear in his hand
     Then IA plays the eagle
 
-
-  Scenario: Energy drain vs bear
-    Given a player VS IA
-    When IA have 3 energy
-    When component have a bear in his creatures, and IA have energy drain in his hand
-    Then IA plays the energy drain
-
-
   Scenario: Energy drain vs bear
     Given a player VS IA
     When IA have 3 energy
@@ -37,3 +29,16 @@ Feature: IA
     When IA have 3 energy
     When component have a bear in his creatures, and IA have fox and bear in his hand
     Then IA plays the fox
+
+  Scenario: Fox vs Dragon LV1
+    Given a player VS IA
+    When IA have 3 energy
+    When component have a Dragon in his creatures, and IA have fox and bear in his hand
+    Then IA plays the fox
+
+
+  Scenario: Energy drain vs Dragon LV1
+    Given a player VS IA
+    When IA have 3 energy
+    When component have a Dragon in his creatures, and IA have energy drain and dragon in his hand
+    Then IA plays the card energy drain

@@ -1,6 +1,7 @@
 package edu.insightr.spellmonger;
 
 import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -34,7 +35,6 @@ public class Deck {
         return cardPool.get(index);
     }
 
-
     public void add(Card c) {
         cardPool.add(c);
     }
@@ -43,58 +43,32 @@ public class Deck {
         return cardPool.remove(index);
     }
 
-    public void createCardPool() {
+    private void createCardPool() {
 
         for (int i = 0; i < 3; i++) {
-            Eagle eagle = new Eagle();
-            cardPool.add(eagle);
-            Lizard lizard = new Lizard();
-            cardPool.add(lizard);
-            Bear bear = new Bear();
-            cardPool.add(bear);
-            Fox fox = new Fox();
-            cardPool.add(fox);
-            Wolf wolf = new Wolf();
-            cardPool.add(wolf);
+            cardPool.add(new Eagle());
+            cardPool.add(new Lizard());
+            cardPool.add(new Bear());
+            cardPool.add(new Fox());
+            cardPool.add(new Wolf());
+        }
+        for (int i = 0; i < 2; i++) {
+            cardPool.add(new Snake());
+            cardPool.add(new Dragoon());
+            cardPool.add(new Kraken());
+            cardPool.add(new Rat());
+        }
+        cardPool.add(new Leviathan());
+
+
+        for (int i = 0; i < 5; i++) {
+            cardPool.add(new EnergyDrain());
+            cardPool.add(new Blessing());
+            cardPool.add(new Curse());
         }
 
-
-        for(int i = 0; i < 5; i++)
-        {
-            EnergyDrain energyDrain= new EnergyDrain();
-            cardPool.add(energyDrain);
-            Blessing blessing = new Blessing();
-            Curse curse = new Curse();
-            cardPool.add(blessing);
-            cardPool.add(curse);
-        }
-
-
-            Leviathan leviathan=new Leviathan();
-            cardPool.add(leviathan);
-
-            VaultOverclocking vaultOverclocking = new VaultOverclocking();
-            cardPool.add(vaultOverclocking);
-
-
-
-
-        for(int i = 0; i <2 ; i++){
-            Snake snake = new Snake();
-            cardPool.add(snake);
-            Dragoon dragoon = new Dragoon();
-            cardPool.add(dragoon);
-            Kraken kraken = new Kraken();
-            cardPool.add(kraken);
-            Rat rat = new Rat();
-            cardPool.add(rat);
-        }
-
-
-
-
+        cardPool.add(new VaultOverclocking());
         Collections.shuffle(cardPool);
-
     }
 
     public void clearCards() {

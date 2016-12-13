@@ -89,4 +89,25 @@ public class IAStepDefs {
         game.playCardIA_LV1(IA,opponent);
     }
 
+    @When("^component have a Dragon in his creatures, and IA have fox and bear in his hand$")
+    public void componentHaveADragonInHisCreaturesAndIAHaveFoxAndBearInHisHand() throws Throwable {
+        opponent.getPlayerCreature().add(new Dragoon());
+        IA.addToHand(new Fox());
+        IA.addToHand(new Bear());
+        game.playCardIA_LV1(IA,opponent);
+    }
+
+    @When("^component have a Dragon in his creatures, and IA have energy drain and dragon in his hand$")
+    public void componentHaveADragonInHisCreaturesAndIAHaveEnergyDrainAndDragonInHisHand() throws Throwable {
+        opponent.getPlayerCreature().add(new Dragoon());
+        IA.addToHand(new EnergyDrain());
+        IA.addToHand(new Dragoon());
+        game.playCardIA_LV1(IA,opponent);
+    }
+
+    @Then("^IA plays the card energy drain$")
+    public void iaPlaysTheCardEnergyDrain() throws Throwable {
+        Assert.assertEquals(IA.getHand().size(),1);
+        Assert.assertEquals(IA.getHand().get(0) instanceof Dragoon,true);
+    }
 }

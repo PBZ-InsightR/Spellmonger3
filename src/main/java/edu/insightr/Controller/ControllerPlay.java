@@ -4,6 +4,7 @@ package edu.insightr.Controller;
 import edu.insightr.spellmonger.*;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -17,10 +18,12 @@ import org.apache.log4j.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.animation.FadeTransition;
 
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 
-public class ControllerPlay implements ControlledScreen {
+public class ControllerPlay implements ControlledScreen,Initializable {
 
     ScreensController myController;
 
@@ -39,13 +42,8 @@ public class ControllerPlay implements ControlledScreen {
     public SplitPane split;
     public Pane mainPane, Player1, Player2, life_points1_bckgrd, life_points2_bckgrd, energy_player1_bckgrd, energy_player2_bckgrd;
 
-    public void setScreenParent(ScreensController screenParent) {
-        myController = screenParent;
-        initialize();
-    }
-
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         String nameP1 = "Player1";
         String nameP2 = "Player2";
         if (myController != null) {
@@ -66,6 +64,10 @@ public class ControllerPlay implements ControlledScreen {
         deck2.setDisable(true);
         pass2.setDisable(true);
         pass1.setDisable(false);
+    }
+
+    public void setScreenParent(ScreensController screenParent) {
+        myController = screenParent;
     }
 
     public void initializeTest() {
@@ -185,11 +187,7 @@ public class ControllerPlay implements ControlledScreen {
     //Appelé à la fin d'un tour
     private void turnFinished(Player current) {
         turnPlayer = game.nextPLayer(current);
-        if (current.getVaultOverclockingOnOff()) {
-            turnPlayer.vaultOverclockingActiveEffect();
-        }
-        turnPlayer.increaseEnergy();
-        turnPlayer.setEnergyPerTurn(turnPlayer.getEnergy());
+        turnPlayer.newEnergyIntilization();
         update();
     }
 
@@ -356,7 +354,7 @@ public class ControllerPlay implements ControlledScreen {
                         TransitionAlert(Player1, life_points1_bckgrd);
                 } else if (Objects.equals(card.getName(), "Blessing") &&  current.canPlayCard(card))
                     TransitionGainPV(player_pane, life_points);
-            } else if (Objects.equals(card.getTypeCard(), TypeOfCard.ENCHANTMENT.toString())) {
+            } else if (Objects.equals(card.getTypeCard(), TypeOfCard.VAULTOVERCLOCKING.toString())) {
                 TransitionHand_Discard(current, player_pane, energy_pane, hand, discard, playerChoice);
             }
             play(playerChoice, current, oppenent);

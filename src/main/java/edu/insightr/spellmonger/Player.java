@@ -5,6 +5,7 @@ package edu.insightr.spellmonger;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Random;
 
 public class Player {
@@ -22,7 +23,7 @@ public class Player {
 
     public Player(String name) {
         this.playerCreature = new ArrayList<>();
-        this.playerCreatureDead=new ArrayList<>();
+        this.playerCreatureDead = new ArrayList<>();
         this.cardPool = new Deck(name);
         this.discardPool = new Deck();
         this.name = name;
@@ -48,20 +49,36 @@ public class Player {
             if (nbRand > 34) {
                 this.setEnergyPerTurn(1);
             } else {
-                this.setEnergyPerTurn(this.getEnergy() + 1);
+                this.setEnergyPerTurn(this.getEnergy() + 2);
             }
         }
     }
 
-    public int getEnergyPerTurn(){return this.energyPerTurn;}
+    public void newEnergyIntilization() // the new energy in each turn
+    {
+        this.increaseEnergy();
+        if (this.getVaultOverclockingOnOff()) {
+            this.vaultOverclockingActiveEffect();
+        } else {
+            this.setEnergyPerTurn(this.getEnergy());
+        }
+    }
 
-    public void setEnergyPerTurn(int energyPerTurn){this.energyPerTurn = energyPerTurn;}
+    public int getEnergyPerTurn() {
+        return this.energyPerTurn;
+    }
+
+    public void setEnergyPerTurn(int energyPerTurn) {
+        this.energyPerTurn = energyPerTurn;
+    }
 
     public void setVaultOverclockingOnOff(boolean OnOff) {
         vaultOverclockingOnOff = OnOff;
     }
 
-    public boolean getVaultOverclockingOnOff(){return vaultOverclockingOnOff;}
+    public boolean getVaultOverclockingOnOff() {
+        return vaultOverclockingOnOff;
+    }
 
     public ArrayList<Card> getHand() {
         return hand;
@@ -87,8 +104,7 @@ public class Player {
         return playerCreature;
     }
 
-    public ArrayList<Creature> getPlayerCreatureDead()
-    {
+    public ArrayList<Creature> getPlayerCreatureDead() {
         return playerCreatureDead;
     }
 
@@ -138,26 +154,26 @@ public class Player {
     } //utilisé dans le systeme d'attaque
 
     public void increaseEnergy() {
-        if(this.energy <10){
+        if (this.energy < 10) {
             energy++;
         }
     }
 
     public boolean winner(Player other) {
-      return this.lifePoint> other.lifePoint;
+        return this.lifePoint > other.lifePoint;
     }
 
-    public void drawCard(){
+    public void drawCard() {
         if (this.size() == 0) this.reCreateCardPool();
         this.addToHand(this.getCards().get(0));
         this.getCards().remove(0);
     }
 
-    public boolean canDraw(){
+    public boolean canDraw() {
         return this.getHand().size() < 5;
     }
 
-    public boolean canPlayCard(Card card){
+    public boolean canPlayCard(Card card) {
         return card.getEnergyCost() <= this.getEnergyPerTurn();
     }
 
@@ -172,19 +188,19 @@ public class Player {
         return result;
     }
 
-    void decreaseEnergy(Card current){
-        if(this.canPlayCard(current))
-            this.setEnergyPerTurn(this.getEnergyPerTurn()-current.getEnergyCost());
+    void decreaseEnergy(Card current) {
+        if (this.canPlayCard(current))
+            this.setEnergyPerTurn(this.getEnergyPerTurn() - current.getEnergyCost());
     }
 
     public void attackCreatures(Player opponent) {
         this.clearPlayerCreatureDead();
         opponent.clearPlayerCreatureDead();
-        for(int i = 0; i < this.getPlayerCreature().size(); i++){
-            this.getPlayerCreature().get(i).attackCreature(this,opponent);
+        for (int i = 0; i < this.getPlayerCreature().size(); i++) {
+            this.getPlayerCreature().get(i).attackCreature(this, opponent);
         }
-        for(int i = 0; i < this.getPlayerCreatureDead().size(); i++){
-            if(this.getPlayerCreature().contains(this.getPlayerCreatureDead().get(i))){
+        for (int i = 0; i < this.getPlayerCreatureDead().size(); i++) {
+            if (this.getPlayerCreature().contains(this.getPlayerCreatureDead().get(i))) {
                 this.getDiscards().add(this.getPlayerCreatureDead().get(i));
                 this.getPlayerCreature().remove(this.getPlayerCreatureDead().get(i));
             }
