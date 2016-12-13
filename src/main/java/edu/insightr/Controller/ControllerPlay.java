@@ -190,7 +190,6 @@ public class ControllerPlay implements ControlledScreen {
         update();
     }
 
-
     private void play(int index, Player current, Player oppenent) {
         if (!current.isDead()) {
             if (isIA_1 && current == player2) {
