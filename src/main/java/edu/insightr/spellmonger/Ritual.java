@@ -3,13 +3,11 @@ package edu.insightr.spellmonger;
 
 public abstract class Ritual extends Card{
 
-    public Ritual() {
+     Ritual() {
         energyCost = 0;
     }
 
-
-
-    public void attackRitual(Player current, Player opponent){
+     void attackRitual(Player current, Player opponent){
         if(this instanceof Blessing){
             current.setLifePoint(current.getLifePoint()+this.getEffect());
         }else if(this instanceof Curse){

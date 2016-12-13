@@ -11,19 +11,19 @@ public class Deck {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private ArrayList<Card> cardPool = new ArrayList<>();
 
-    public Deck() {
+    Deck() {
     }
 
-    public Deck(String name) {
+    Deck(String name) {
         createCardPool();
         logger.info(name + "'s cardpool created");
     }
 
-    public Deck(ArrayList<Card> other) {
+    Deck(ArrayList<Card> other) {
         cardPool = new ArrayList<>(other);
     }
 
-    public ArrayList<Card> getCardPool() {
+    ArrayList<Card> getCardPool() {
         return cardPool;
     }
 
@@ -71,7 +71,7 @@ public class Deck {
         Collections.shuffle(cardPool);
     }
 
-    public void clearCards() {
+    void clearCards() {
         cardPool.clear();
     }
 

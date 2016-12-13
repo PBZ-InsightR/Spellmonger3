@@ -1,7 +1,7 @@
 package edu.insightr.Controller;
 
-import edu.insightr.spellmonger.JsonTools;
-import edu.insightr.spellmonger.User;
+import edu.insightr.Json.JsonTools;
+import edu.insightr.Json.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,11 +15,13 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class ControllerScore implements Initializable,ControlledScreen{
-    ScreensController myController;
+    private ScreensController myController;
 
     @FXML
-    public TableView table;
-    public TableColumn LoginColumn,NbPlayColumn,ScoreColumn;
+    public TableView<User> table;
+    public TableColumn<Object, Object> LoginColumn;
+    public TableColumn<Object, Object> NbPlayColumn;
+    public TableColumn<Object, Object> ScoreColumn;
     private final ObservableList<User> data = FXCollections.observableArrayList(); // liste de User charger du fichier Json pour les afficher dans TableColumn
 
     @Override
@@ -44,6 +46,7 @@ public class ControllerScore implements Initializable,ControlledScreen{
         myController.loadScreen(Main.Play_ID,Main.Play_FILE); // charger le fichier Controller.fxml
         myController.setScreen(Main.Play_ID); // activer la vue Play
     }
+
     public void goToMenu(){
         myController.setScreen(Main.Menu_ID);// activer la vue Menu sans load vu qu'il es déja dans la Map screens
     }

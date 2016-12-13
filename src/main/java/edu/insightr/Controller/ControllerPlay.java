@@ -1,6 +1,7 @@
 package edu.insightr.Controller;
 
 
+import edu.insightr.Json.JsonTools;
 import edu.insightr.spellmonger.*;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -30,7 +31,7 @@ public class ControllerPlay implements ControlledScreen {
     public Player turnPlayer;
     private Player player1;
     private Player player2;
-    private boolean isIA_1,isIA_2,isIA;
+    private boolean isIA_1, isIA_2, isIA;
     @FXML
     public Text name1, life_points1, energy_player1, name2, life_points2, energy_player2;
     public Pane discard1, discard2;
@@ -54,7 +55,7 @@ public class ControllerPlay implements ControlledScreen {
                 nameP2 = myController.getData("NamePlayer2");
             isIA_1 = myController.getData("IA_LV1").equals("true");
             isIA_2 = myController.getData("IA_LV2").equals("true");
-            isIA=isIA_1 || isIA_2;
+            isIA = isIA_1 || isIA_2;
         }
         game = new SpellmongerApp(nameP1, nameP2);
         player1 = game.getPlayer(0);
@@ -77,7 +78,6 @@ public class ControllerPlay implements ControlledScreen {
         player2 = game.getPlayer(1);
         turnPlayer = player1;
     } // DELETE IT
-
 
     public Player getPlayer1() {
         return player1;
@@ -157,7 +157,7 @@ public class ControllerPlay implements ControlledScreen {
         int lifePoints_player2_afterAttack = player2.getLifePoint();
         if (lifePoints_player2_beforeAttack != lifePoints_player2_afterAttack)
             TransitionAlert(Player2, life_points2_bckgrd);
-        if (isIA)
+        if (isIA && !player1.isDead())
             whenIA();
     }
 
@@ -172,13 +172,15 @@ public class ControllerPlay implements ControlledScreen {
 
     //Controle de l'IA
     private void whenIA() {
-        pass2.setDisable(true);
-        hand2.setDisable(true);
-        draw_player_2();
-        update();
-        PauseTransition delay = new PauseTransition(Duration.seconds(3));
-        delay.setOnFinished(event -> play(-1, player2, player1));
-        delay.play();
+        if(!player2.isDead()) {
+            pass2.setDisable(true);
+            hand2.setDisable(true);
+            draw_player_2();
+            update();
+            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            delay.setOnFinished(event -> play(-1, player2, player1));
+            delay.play();
+        }
     }
 
     //Appelé à la fin d'un tour
@@ -196,13 +198,12 @@ public class ControllerPlay implements ControlledScreen {
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
                 delay.setOnFinished(event -> pass_player_2());
                 delay.play();
-            }else if (isIA_2 && current == player2) {
+            } else if (isIA_2 && current == player2) {
                 game.playCardIA_LV2(current, oppenent);
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
                 delay.setOnFinished(event -> pass_player_2());
                 delay.play();
-            }
-            else if (!game.playCard(current, oppenent, index)) {
+            } else if (!game.playCard(current, oppenent, index)) {
                 if (current == player1)
                     TransitionAlert(Player1, energy_player1_bckgrd);
                 else
@@ -226,11 +227,11 @@ public class ControllerPlay implements ControlledScreen {
             pass1.setDisable(true);
             pass2.setDisable(true);
 
+
             if (!Objects.equals(player1.getName(), "Player1"))
                 JsonTools.updateJsonFile(player1.getName(), player1.winner(player2));
-            if (!Objects.equals(player2.getName(), "Player2"))
+            if (!Objects.equals(player2.getName(), "Player2") && !isIA)
                 JsonTools.updateJsonFile(player2.getName(), player2.winner(player1));
-
             AlertBox.displayGame("The game is over");
 
             PauseTransition delay = new PauseTransition(Duration.seconds(3));
@@ -280,7 +281,7 @@ public class ControllerPlay implements ControlledScreen {
             Rectangle rectangle = new Rectangle(100, 120);
             String imageOfCard = "Spellmonger_" + c.getName();
             if (turnPlayer.equals(oppenent)) imageOfCard = "dosCartes_ocre";
-            if(isIA && current == player2) imageOfCard = "dosCartes_ocre";
+            if (isIA && current == player2) imageOfCard = "dosCartes_ocre";
             Image img = new Image("images/" + imageOfCard + ".png");
             rectangle.setFill(new ImagePattern(img));
             rectangle.setLayoutY(10);
@@ -357,7 +358,7 @@ public class ControllerPlay implements ControlledScreen {
                         TransitionAlert(Player2, life_points2_bckgrd);
                     else
                         TransitionAlert(Player1, life_points1_bckgrd);
-                } else if (Objects.equals(card.getName(), "Blessing") &&  current.canPlayCard(card))
+                } else if (Objects.equals(card.getName(), "Blessing") && current.canPlayCard(card))
                     TransitionGainPV(player_pane, life_points);
             } else if (Objects.equals(card.getTypeCard(), TypeOfCard.VAULTOVERCLOCKING.toString())) {
                 TransitionHand_Discard(current, player_pane, energy_pane, hand, discard, playerChoice);

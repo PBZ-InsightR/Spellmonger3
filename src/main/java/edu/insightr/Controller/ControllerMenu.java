@@ -33,7 +33,7 @@ public class ControllerMenu implements Initializable, ControlledScreen {
         IA_LV1.setSelected(false);
     }
 
-    public void disabledName(){
+    private void disabledName(){
         if(IA_LV1.isSelected() || IA_LV2.isSelected())
             login2.setDisable(true);
         else

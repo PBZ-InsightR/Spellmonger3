@@ -1,12 +1,8 @@
 package edu.insightr.spellmonger;
 
-
-import org.apache.log4j.Logger;
-
 import java.util.*;
 
 public class SpellmongerApp {
-    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private ArrayList<Player> playerList = new ArrayList<>(2);
 
     public SpellmongerApp(String player1, String player2) {

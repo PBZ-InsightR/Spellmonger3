@@ -1,15 +1,11 @@
 package edu.insightr.spellmonger;
 
-//import org.apache.log4j.Logger;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 import java.util.Random;
 
 public class Player {
-    // private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
     private String name;
     private int lifePoint;
     private int energyPerTurn;

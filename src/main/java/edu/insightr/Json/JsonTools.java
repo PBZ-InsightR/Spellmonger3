@@ -1,4 +1,4 @@
-package edu.insightr.spellmonger;
+package edu.insightr.Json;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -9,8 +9,6 @@ import java.io.FileWriter;
 import java.util.*;
 
 public class JsonTools {
-
-    // TODO : utils class should be moved into another package if there's no interaction with others classes of the actual package
 
     // donner le login et true si il a gagné, false sinon et la fonction mis a jour le fichier Json des scores
     public static void updateJsonFile(String Login, boolean isWinner) {
@@ -37,7 +35,7 @@ public class JsonTools {
     }
 
     //créé un fichier Json en lui passant une map de données
-    public static void createFilewithMap(Map<String, User> data, String filepath) {
+    private static void createFilewithMap(Map<String, User> data, String filepath) {
 
         JSONParser parser = new JSONParser();
         try {

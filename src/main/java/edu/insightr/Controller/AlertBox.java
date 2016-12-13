@@ -17,7 +17,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 
-public class AlertBox {
+class AlertBox {
 
 
     static void displayDebugging(String title, String message,double X,double Y) {

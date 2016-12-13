@@ -1,9 +1,6 @@
 package edu.insightr.spellmonger;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Kraken extends Creature{
 
     public Kraken(){

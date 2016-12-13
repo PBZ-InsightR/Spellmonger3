@@ -1,4 +1,4 @@
-package edu.insightr.spellmonger;
+package edu.insightr.Json;
 
 import javafx.beans.property.SimpleStringProperty;
 
@@ -19,8 +19,8 @@ public class User implements Comparable {
     public int compareTo(Object other) {
         if (other instanceof User) {
             User otherParsed = (User) other;
-            if (Double.parseDouble(this.getNbPlay()) > Double.parseDouble(otherParsed.getNbPlay())) return 1;
-            else if (Double.parseDouble(this.getNbPlay()) < Double.parseDouble(otherParsed.getNbPlay())) return -1;
+            if (Double.parseDouble(this.getScorePercent()) > Double.parseDouble(otherParsed.getScorePercent())) return 1;
+            else if (Double.parseDouble(this.getScorePercent()) < Double.parseDouble(otherParsed.getScorePercent())) return -1;
             else return 0;
         }
         return -2;
