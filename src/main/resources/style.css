@@ -420,6 +420,12 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
 
+#label_IA {
+     -fx-font-family: "Sitka text";
+     -fx-font-size: 12;
+     -fx-font-weight: bold;
+     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+ }
 
 /********SCORE********/
 #ScorePane{
