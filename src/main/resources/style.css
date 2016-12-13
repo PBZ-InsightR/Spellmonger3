@@ -426,9 +426,42 @@
      -fx-font-weight: bold;
      -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
  }
+#Rules {
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-text-fill: #654b00;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-font-family: "Sitka text";
+    -fx-padding: 5 10 5 10;
+    -fx-background-color:
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+
+}
+
+#Rules:hover {
+    -fx-background-color:
+        linear-gradient(#ffd65b, #e68400),
+        linear-gradient(#ffef84, #f2ba44),
+        linear-gradient(#ffea6a, #efaa22),
+        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: #004020;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
 
 /********SCORE********/
 #ScorePane{
+    -fx-pref-height:700;
+    -fx-pref-width:900;
+    -fx-background-image:url("images/fond.png");
+}
+
+/********RULES********/
+#RulesPane{
     -fx-pref-height:700;
     -fx-pref-width:900;
     -fx-background-image:url("images/fond.png");

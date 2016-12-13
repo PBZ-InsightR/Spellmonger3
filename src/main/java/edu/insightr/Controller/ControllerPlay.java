@@ -29,7 +29,7 @@ public class ControllerPlay implements ControlledScreen {
     private static final Logger logger = Logger.getLogger(ControllerPlay.class);
     public SpellmongerApp game;
     public Player turnPlayer;
-    private Player player1;
+     private Player player1;
     private Player player2;
     private boolean isIA_1, isIA_2, isIA;
     @FXML
@@ -385,6 +385,11 @@ public class ControllerPlay implements ControlledScreen {
 
     }
 
+    //Boutton permettant d'ouvrir les règles
+    public void backToRules() {
+        myController.loadScreen(Main.Rules_ID, Main.Rules_FILE);
+        myController.setScreen(Main.Rules_ID);
+    }
     //Clignotement d'un Pane en rouge
     private void TransitionAlert(Pane player_pane, Pane energy_pane) {
         Rectangle rectangle = new Rectangle(150, 50);

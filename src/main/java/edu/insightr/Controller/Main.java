@@ -16,6 +16,9 @@ public class Main extends Application {
     static String Score_ID = "SCORE";
     static String Score_FILE = "/Scores.fxml";
 
+    static String Rules_ID = "RULES";
+    static String Rules_FILE = "/Rules.fxml";
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
