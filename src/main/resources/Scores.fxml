@@ -8,12 +8,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="ScorePane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.Controller.ControllerScore">
+<GridPane id="ScorePane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.Controller.ControllerScore">
     <children>
         <Pane GridPane.columnIndex="1">
             <children>
-                <Button fx:id="Score" layoutX="495.0" layoutY="621.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="25.0" prefWidth="66.0" text="Menu" />
-                <Button fx:id="Play" layoutX="220.0" layoutY="621.0" mnemonicParsing="false" onAction="#goToPlay" prefHeight="25.0" prefWidth="66.0" text="Play" />
+                <Button id="Score" layoutX="495.0" layoutY="621.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="25.0" prefWidth="66.0" text="Menu" />
+                <Button id="Play" layoutX="220.0" layoutY="621.0" mnemonicParsing="false" onAction="#goToPlay" prefHeight="25.0" prefWidth="66.0" text="Play" />
             <TableView fx:id="table">
               <columns>
                 <TableColumn fx:id="LoginColumn" prefWidth="400" text="Player" />

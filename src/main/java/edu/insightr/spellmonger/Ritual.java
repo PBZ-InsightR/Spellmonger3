@@ -7,7 +7,7 @@ public abstract class Ritual extends Card{
         energyCost = 0;
     }
 
-     void attackRitual(Player current, Player opponent){
+     public void attackRitual(Player current, Player opponent){
         if(this instanceof Blessing){
             current.setLifePoint(current.getLifePoint()+this.getEffect());
         }else if(this instanceof Curse){

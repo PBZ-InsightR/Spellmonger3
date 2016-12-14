@@ -5,26 +5,26 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.control.Button?>
-
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<GridPane fx:id="RulesPane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.Controller.ControllerRules">
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<GridPane id="RulesPane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.101"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.Controller.ControllerRules">
     <children>
-    <HBox >
-        <children>
-            <ImageView>
-                <Image  url="images/Rules.png">
-                </Image>
-            </ImageView>
-        </children>
-    </HBox>
+        <HBox spacing="20">
+            <TextArea fx:id="theRules" wrapText="true"  />
+            <Rectangle fx:id="theImage" width="300" height="400"/>
+        </HBox>
     </children>
     <children>
         <Pane>
             <children>
-                <Button fx:id="Rules" layoutX="495.0" layoutY="621.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="25.0" prefWidth="66.0" text="Menu" />
-                <Button fx:id="Play" layoutX="220.0" layoutY="621.0" mnemonicParsing="false" onAction="#goToPlay" prefHeight="25.0" prefWidth="66.0" text="Play" />
+                <Button id="Rules" layoutX="520.0" layoutY="500" mnemonicParsing="false" onAction="#goToMenu"
+                        prefHeight="25.0" prefWidth="66.0" text="Menu"/>
+                <Button id="Play" layoutX="250.0" layoutY="500" mnemonicParsing="false" onAction="#goToPlay"
+                        prefHeight="25.0" prefWidth="66.0" text="Play"/>
             </children>
         </Pane>
     </children>

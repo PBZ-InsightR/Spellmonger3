@@ -304,5 +304,85 @@ public class FlyingDeathStepDefs {
         Assert.assertEquals(current.getPlayerCreature().get(0) instanceof Fox, true);
         Assert.assertEquals(opponent.getPlayerCreature().get(0) instanceof Bear, true);
     }
+
+    @When("^the first one have a bear, the second have a lizard$")
+    public void theFirstOneHaveABearTheSecondHaveALizard() throws Throwable {
+        current.getPlayerCreature().add(new Bear());
+        opponent.getPlayerCreature().add(new Lizard());
+    }
+
+    @Then("^the bear kills the lizard,thus life points didnt changed$")
+    public void theBearKillsTheLizardThusLifePointsDidntChanged() throws Throwable {
+        Assert.assertEquals(current.getPlayerCreature().size(), 1);
+        Assert.assertEquals(opponent.getPlayerCreature().size(), 0);
+        Assert.assertEquals(current.getLifePoint(), 20);
+        Assert.assertEquals(opponent.getLifePoint(), 20);
+        Assert.assertEquals(current.getPlayerCreature().get(0) instanceof Bear, true);
+    }
+
+    @When("^the first one have a fox, the second have a bear$")
+    public void theFirstOneHaveAFoxTheSecondHaveABear() throws Throwable {
+        current.getPlayerCreature().add(new Fox());
+        opponent.getPlayerCreature().add(new Bear());
+    }
+
+    @When("^first one have an bear,second have a kraken$")
+    public void firstOneHaveAnBearSecondHaveAKraken() throws Throwable {
+        current.getPlayerCreature().add(new Bear());
+        opponent.getPlayerCreature().add(new Kraken());
+    }
+
+    @When("^first one have a bear,second have an eagle$")
+    public void firstOneHaveABearSecondHaveAnEagle() throws Throwable {
+        current.getPlayerCreature().add(new Bear());
+        opponent.getPlayerCreature().add(new Eagle());
+    }
+
+    @When("^first one have a fox,second have an eagle$")
+    public void firstOneHaveAFoxSecondHaveAnEagle() throws Throwable {
+        current.getPlayerCreature().add(new Fox());
+        opponent.getPlayerCreature().add(new Eagle());
+    }
+
+    @When("^first one have a fox,second have an eagle and a bear$")
+    public void firstOneHaveAFoxSecondHaveAnEagleAndABear() throws Throwable {
+        current.getPlayerCreature().add(new Fox());
+        opponent.getPlayerCreature().add(new Eagle());
+        opponent.getPlayerCreature().add(new Bear());
+    }
+
+    @Then("^Attack opponents lifepoints with (\\d+),thus creatures dont change$")
+    public void attackLifepointsTThusCreaturesDontChange(int cost) throws Throwable {
+        Assert.assertEquals(current.getPlayerCreature().size(), 1);
+        Assert.assertEquals(opponent.getPlayerCreature().size(), 2);
+        Assert.assertEquals(current.getLifePoint(), 20);
+        Assert.assertEquals(opponent.getLifePoint(), 20 - cost);
+    }
+
+    @When("^first one have a Bear,second have an eagle and a Eagle$")
+    public void firstOneHaveABearSecondHaveAnEagleAndAEagle() throws Throwable {
+        current.getPlayerCreature().add(new Bear());
+        opponent.getPlayerCreature().add(new Eagle());
+    }
+
+    @When("^the first one have a bear, the second have a rat$")
+    public void theFirstOneHaveABearTheSecondHaveARat() throws Throwable {
+        current.getPlayerCreature().add(new Bear());
+        opponent.getPlayerCreature().add(new Rat());
+    }
+
+    @Then("^both of them are dead,thus life points didnt changed$")
+    public void bothOfThemAreDeadThusLifePointsDidntChanged() throws Throwable {
+        Assert.assertEquals(current.getPlayerCreature().size(), 0);
+        Assert.assertEquals(opponent.getPlayerCreature().size(), 0);
+        Assert.assertEquals(current.getLifePoint(), 20);
+        Assert.assertEquals(opponent.getLifePoint(), 20);
+    }
+
+    @When("^the first one have a fox, the second have a rat$")
+    public void theFirstOneHaveAFoxTheSecondHaveARat() throws Throwable {
+        current.getPlayerCreature().add(new Fox());
+        opponent.getPlayerCreature().add(new Rat());
+    }
 }
 

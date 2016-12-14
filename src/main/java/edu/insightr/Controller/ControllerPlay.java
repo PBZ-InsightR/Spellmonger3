@@ -70,23 +70,6 @@ public class ControllerPlay implements ControlledScreen {
         pass1.setDisable(false);
     }
 
-    public void initializeTest() {
-        String nameP1 = "Player1";
-        String nameP2 = "Player2";
-        game = new SpellmongerApp(nameP1, nameP2);
-        player1 = game.getPlayer(0);
-        player2 = game.getPlayer(1);
-        turnPlayer = player1;
-    } // DELETE IT
-
-    public Player getPlayer1() {
-        return player1;
-    }// DELETE IT
-
-    public Player getPlayer2() {
-        return player2;
-    } // DELETE IT
-
     public void draw_player_1() {
         drawCard(player1, hand1, deck1);
     }
@@ -122,19 +105,6 @@ public class ControllerPlay implements ControlledScreen {
         }
     }
 
-    public void draw_player_1_test() {
-        drawCardTest(player1, hand1);
-    } // DELETE IT
-
-    public void draw_player_2_test() {
-        drawCardTest(player2, hand2);
-    } // DELETE IT
-
-    public void drawCardTest(Player player, ScrollPane hand) {
-        if (player.canDraw()) {
-            player.drawCard();
-        }
-    }// DELETE IT
 
     //Permet de switcher de joueur actuel
     private void pass(Player current, Player opponent, ScrollPane hand) {

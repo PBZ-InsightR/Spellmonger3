@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
@@ -11,9 +14,9 @@
     <SplitPane fx:id="split" dividerPositions="0.5">
         <items>
             <AnchorPane>
-                <MenuBar fx:id="MenuBar" prefWidth="900">
+                <MenuBar id="MenuBar" prefWidth="900">
                     <menus>
-                        <Menu text="Game" fx:id="MenuGame" >
+                        <Menu text="Game" id="MenuGame" >
                             <items>
                                 <MenuItem text="New Game" onAction="#backToMenu"/>
                                 <MenuItem text="Restart" onAction="#backToPlay"/>
@@ -30,7 +33,7 @@
                 <children>
                     <Pane fx:id="Player1" layoutX="14.0" layoutY="40.0">
                         <children>
-                            <Pane fx:id="name1_bckgrd">
+                            <Pane id="name1_bckgrd">
                                 <children>
                                     <Text fx:id="name1" layoutY="30.5" wrappingWidth="120"/>
                                 </children>
@@ -58,7 +61,7 @@
                 <children>
                     <Pane fx:id="Player2" layoutX="14.0" layoutY="160.0">
                         <children>
-                            <Pane fx:id="name2_bckgrd">
+                            <Pane id="name2_bckgrd">
                                 <children>
                                     <Text fx:id="name2" layoutY="30.5" wrappingWidth="120"/>
                                 </children>
